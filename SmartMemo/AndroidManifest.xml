@@ -15,7 +15,7 @@
         android:theme="@android:style/Theme.Holo.NoActionBar" >
 
         <activity
-            android:name="com.telc.ui.SlidingActivity"
+            android:name="com.telc.ui.main.SlidingActivity"
             android:label="@string/title_activity_sliding" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
