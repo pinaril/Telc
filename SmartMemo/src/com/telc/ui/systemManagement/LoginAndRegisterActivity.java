@@ -4,7 +4,7 @@ package com.telc.ui.systemManagement;
 import com.telc.domain.TempData.IDataService;
 import com.telc.domain.TempData.User;
 import com.telc.smartmemo.R;
-import com.telc.ui.SlidingActivity;
+import com.telc.ui.main.SlidingActivity;
 
 import android.app.Activity;
 import android.content.Intent;

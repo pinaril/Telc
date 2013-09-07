@@ -1,6 +1,6 @@
-package com.telc.ui;
+package com.telc.ui.main;
 
-import com.telc.domain.SlidingView;
+import com.telc.domain.slidingMenu.SlidingView;
 import com.telc.smartmemo.R;
 import com.telc.smartmemo.R.layout;
 import com.telc.smartmemo.R.menu;
