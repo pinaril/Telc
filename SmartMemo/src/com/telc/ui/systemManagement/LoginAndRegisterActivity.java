@@ -45,6 +45,7 @@ public class LoginAndRegisterActivity extends Activity {
 								LoginAndRegisterActivity.this,
 								SlidingActivity.class);
 						startActivity(intent);
+						
 					}
 				}
 
