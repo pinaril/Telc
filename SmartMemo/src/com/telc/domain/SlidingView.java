@@ -6,11 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
-public class SlidingView extends ViewGroup {
 
+//自定义ViewGroup类
+public class SlidingView extends ViewGroup {
 	private int distance;				// 完全显示菜单需要移动的距离
-	private View menu;
-	private View main;
+	private View menu;				//菜单视图（抽屉）
+	private View main;//主视图
 	private Scroller scroller;
 	private boolean menuVisible = false;
 
@@ -36,14 +37,13 @@ public class SlidingView extends ViewGroup {
 
 		main = getChildAt(1);// 获得主页面视图
 		main.setVisibility(VISIBLE);
-		// 相当于fill_parent
 		main.measure(
 				MeasureSpec.makeMeasureSpec(getWidth(), MeasureSpec.EXACTLY),
 				MeasureSpec.makeMeasureSpec(getHeight(), MeasureSpec.EXACTLY));
 		main.layout(0, 0, getWidth(), getHeight());
 
 	}
-
+//显示抽屉
 	public void showMenu() {
 		if (!menuVisible) {
 			scroller.startScroll(getScrollX(), 0, -distance, 0, 300);
@@ -52,7 +52,7 @@ public class SlidingView extends ViewGroup {
 		}
 
 	}
-
+//隐藏抽屉
 	public void hideMenu() {
 		if (menuVisible) {
 			scroller.startScroll(getScrollX(), 0, distance, 0, 300);

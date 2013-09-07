@@ -3,6 +3,7 @@
     android:layout_width="200.0dip"
     android:layout_height="fill_parent"
     android:orientation="vertical" 
+    android:background="@color/dark_blue"
     >
     
     <Button 
