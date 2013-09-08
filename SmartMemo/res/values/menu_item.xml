@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <list_item name="menuItem">
+        <item><!-- 这里列出菜单Item --></item>
+        <item><!-- 这里列出菜单Item --></item>
+        <item><!-- 这里列出菜单Item --></item>
+		<item><!-- 这里列出菜单Item --></item>
+		<item><!-- 这里列出菜单Item --></item>
+		<item><!-- 这里列出菜单Item --></item>
+		<item><!-- 这里列出菜单Item --></item>
+		<item><!-- 这里列出菜单Item --></item>
+		<item><!-- 这里列出菜单Item --></item>
+		<item><!-- 这里列出菜单Item --></item>
+		<item><!-- 这里列出菜单Item --></item>
+		<item><!-- 这里列出菜单Item --></item>        
+    </list_item>
+
+</resources>
