@@ -29,6 +29,11 @@
             android:label="@string/app_name" >
             
         </activity>
+        <activity
+            android:name="com.telc.ui.RealtimeMemo.RealtimeMemoActivity"
+            android:label="@string/app_name" >
+            
+        </activity>
           
     </application>
 
