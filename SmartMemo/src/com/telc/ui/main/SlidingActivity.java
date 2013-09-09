@@ -1,123 +1,89 @@
 package com.telc.ui.main;
 
-import com.telc.domain.slidingMenu.SlidingView;
+
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.telc.smartmemo.R;
-import com.telc.smartmemo.R.layout;
-import com.telc.smartmemo.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Context;
-import android.view.GestureDetector;
-import android.view.LayoutInflater;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.GestureDetector.OnGestureListener;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 public class SlidingActivity extends Activity {
 
-	private SlidingView slidingView;
-	private GestureDetector detector;//不知道有什么用
-	private Button open,close;
-	private Button [] button;
-
-	@SuppressWarnings("deprecation")
+	public String[] listItem ;
+	public ListView slidingList;
+	public ArrayAdapter<String> adapter=null;
+	public ArrayList<Map<String, Object>> datalist;
+	public SimpleAdapter madapter;
+	private DrawerLayout mDrawerLayout;
+	private ActionBarDrawerToggle mDrawerToggle;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sliding);
+		datalist=new ArrayList<Map<String,Object>>();
 		
-		button=new Button[10];
-		button[0]=(Button) findViewById(R.id.button1);
-		button[1]=(Button) findViewById(R.id.button2);
-		button[2]=(Button) findViewById(R.id.button3);
-		button[3]=(Button) findViewById(R.id.button4);
-		button[4]=(Button) findViewById(R.id.button5);
-		button[5]=(Button) findViewById(R.id.button6);
-		button[6]=(Button) findViewById(R.id.button7);
-		button[7]=(Button) findViewById(R.id.button8);
-		button[8]=(Button) findViewById(R.id.button9);
-		button[9]=(Button) findViewById(R.id.button10);
+		slidingList=(ListView) findViewById(R.id.list);
+		mDrawerLayout=(DrawerLayout) findViewById(R.id.sliding_layout);
 
-
+		//设置列表内容
+ 		//listItem=new String[]{"菜单1","菜单2","菜单3","菜单4","菜单5","菜单6","菜单7","菜单8","菜单9","菜单10","菜单11","菜单12"};//字符串数组
+		listItem=getResources().getStringArray(R.array.list_item);//从资源文件获取
 		
-		slidingView=(SlidingView)findViewById(R.id.slidingView);
-		//两个函数不知道是做什么的
-		//
-		View menu=LayoutInflater.from(this).inflate(R.layout.activity_menu, null);
-		View content = LayoutInflater.from(this).inflate(R.layout.activity_main, null);
-		//
-		slidingView.addView(menu);
-		slidingView.addView(content);
+		//获取数据
+		int lenth=listItem.length;
+		for(int i=0;i<lenth;i++){
+			Map<String, Object> item=new HashMap<String,Object>();
+			item.put("img",R.drawable.ic_launcher);
+			item.put("item", listItem[i]);
+			datalist.add(item);
+		}
+			//通过adapter设置列表内容
+//   		adapter=new ArrayAdapter<String>(this,R.layout.list_item,listItem);
+//	    	slidingList.setAdapter(adapter);
+	    	//通过SimpleAdapter设置选项内容
 		
-		open=(Button) findViewById(R.id.open);
-		close=(Button) findViewById(R.id.close);
-		
-		open.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				slidingView.showMenu();
-			}
-		});
-		
-		close.setOnClickListener(new  OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				slidingView.hideMenu();
-			}
-		});
-		detector = new GestureDetector(new OnGestureListener() {
+	    	madapter=new SimpleAdapter(this, datalist, R.layout.list_item, new String []{"img","item"}, new int []{R.id.img,R.id.item});
+	    	slidingList.setAdapter(madapter);
+	    	
+			//这个函数需要研究一下
+	    	mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.drawable.ic_launcher, R.string.app_name, R.string.hello_world) {
+	    			/** Called when a drawer has settled in a completely closed state. */
+	    			public void onDrawerClosed(View view) {
+	    				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+	    			}
+	    			/** Called when a drawer has settled in a completely open state. */
+	    			public void onDrawerOpened(View view) {
+	    				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+	    			}
+	    		};
+	    		mDrawerLayout.setDrawerListener(mDrawerToggle);
+	    		
+			slidingList.setOnItemClickListener(new OnItemClickListener() {
 
-			public boolean onSingleTapUp(MotionEvent e) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			public void onShowPress(MotionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			public boolean onScroll(MotionEvent e1, MotionEvent e2,
-					float distanceX, float distanceY) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-
-			public void onLongPress(MotionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-			//滑动监听
-			public boolean onFling(MotionEvent e1, MotionEvent e2,
-					float velocityX, float velocityY) {
-				// TODO Auto-generated method stubֵ
-				if (Math.abs(velocityX) > ViewConfiguration.get(SlidingActivity.this).getScaledMinimumFlingVelocity()) {//好长的参数。。。
-					if (velocityX > 0 ) {
-						slidingView.showMenu();
-					} else if (velocityX < 0) {
-						slidingView.hideMenu();
-					}
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					// TODO Auto-generated method stub
+					Toast.makeText(SlidingActivity.this, listItem[arg2],Toast.LENGTH_SHORT).show();
 				}
-				return true;
-			}
-
-			public boolean onDown(MotionEvent e) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-		});
+			});
 	
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -125,13 +91,4 @@ public class SlidingActivity extends Activity {
 		return true;
 	}
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		// TODO Auto-generated method stub
-		detector.onTouchEvent(event);
-		return true;
-	}
-	
 }
-
-
