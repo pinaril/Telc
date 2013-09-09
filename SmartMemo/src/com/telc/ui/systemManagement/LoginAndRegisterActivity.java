@@ -59,7 +59,7 @@ public class LoginAndRegisterActivity extends Activity {
 				User user = new User();
 				user.setUsername(username);
 				user.setPassword(password);
-				if (service.addUser(user)) {
+				if (true) {//调试修改，完成后应把true换成service.addUser(user)
 					Intent intent = new Intent(LoginAndRegisterActivity.this,
 							SlidingActivity.class);
 					startActivity(intent);
