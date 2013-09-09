@@ -1,6 +1,6 @@
-package com.telc.ui;
+package com.telc.ui.main;
 
-import com.telc.domain.SlidingView;
+import com.telc.domain.slidingMenu.SlidingView;
 import com.telc.smartmemo.R;
 import com.telc.smartmemo.R.layout;
 import com.telc.smartmemo.R.menu;
@@ -23,12 +23,27 @@ public class SlidingActivity extends Activity {
 	private SlidingView slidingView;
 	private GestureDetector detector;//不知道有什么用
 	private Button open,close;
+	private Button [] button;
 
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sliding);
+		
+		button=new Button[10];
+		button[0]=(Button) findViewById(R.id.button1);
+		button[1]=(Button) findViewById(R.id.button2);
+		button[2]=(Button) findViewById(R.id.button3);
+		button[3]=(Button) findViewById(R.id.button4);
+		button[4]=(Button) findViewById(R.id.button5);
+		button[5]=(Button) findViewById(R.id.button6);
+		button[6]=(Button) findViewById(R.id.button7);
+		button[7]=(Button) findViewById(R.id.button8);
+		button[8]=(Button) findViewById(R.id.button9);
+		button[9]=(Button) findViewById(R.id.button10);
+
+
 		
 		slidingView=(SlidingView)findViewById(R.id.slidingView);
 		//两个函数不知道是做什么的

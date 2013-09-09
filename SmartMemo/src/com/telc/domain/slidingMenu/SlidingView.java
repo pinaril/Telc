@@ -1,4 +1,4 @@
-package com.telc.domain;
+package com.telc.domain.slidingMenu;
 
 import android.content.Context;
 import android.util.AttributeSet;
