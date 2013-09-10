@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class RealtimeMemoActivity extends Activity{
-public TextView textImportant,locationInput,testAging;
-public EditText etLocation,etContent;
-public ImageView ivMaps;
+//public TextView textImportant,locationInput,testAging;
+//public EditText etLocation,etContent;
+//public ImageView ivMaps;
 
 
 	@Override
@@ -21,12 +21,12 @@ public ImageView ivMaps;
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_realtime_memo);
 		
-		textImportant=(TextView) findViewById(R.id.textImportant);
-		locationInput=(TextView) findViewById(R.id.et_location);
-		testAging=(TextView) findViewById(R.id.textAging);
-		etLocation=(EditText) findViewById(R.id.et_location);
-		etContent=(EditText) findViewById(R.id.et_content);
-		ivMaps=(ImageView) findViewById(R.id.iv_maps);
+//		textImportant=(TextView) findViewById(R.id.textImportant);
+//		locationInput=(TextView) findViewById(R.id.textLocation);
+//		testAging=(TextView) findViewById(R.id.textAging);
+//		etLocation=(EditText) findViewById(R.id.et_location);
+//		etContent=(EditText) findViewById(R.id.et_content);
+//		ivMaps=(ImageView) findViewById(R.id.iv_maps);
 		
 		
 		
