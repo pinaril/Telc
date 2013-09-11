@@ -26,7 +26,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant{
 	private EditText et_password;
 	private ImageView iv_login;
 	private ImageView iv_register;
-	private UserService service;
+	private IUserService service;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,18 +75,25 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant{
 				User user = new User();
 				user.setUsername(username);
 				user.setPassword(password);
-				SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
-						MODE_PRIVATE, null);
-				service=new UserService(db);
-				if (service.addUser(user)) {
-					Intent intent = new Intent(LoginAndRegisterActivity.this,
-							SlidingActivity.class);
-					startActivity(intent);
-				}else{
+				if(username.equals("") || password.equals("")){
 					Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
-							"注册失败,用戶名已存在", Toast.LENGTH_SHORT);
+							"用户名密码请填完整", Toast.LENGTH_SHORT);
 					toast.show();
+				}else{
+					SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
+							MODE_PRIVATE, null);
+					service=new UserService(db);
+					if (service.addUser(user)) {
+						Intent intent = new Intent(LoginAndRegisterActivity.this,
+								SlidingActivity.class);
+						startActivity(intent);
+					}else{
+						Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
+								"注册失败,用戶名已存在", Toast.LENGTH_SHORT);
+						toast.show();
+					}
 				}
+				
 
 			}
 		});
@@ -98,22 +105,6 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant{
 		iv_login = (ImageView) findViewById(R.id.image_login);
 		iv_register = (ImageView) findViewById(R.id.image_register);
 		
-		//===臨時位置===================================CZW
-		File file = getDatabasePath(DBConstant.DB_FILENAME);
-		// 文件存不存在
-		if (!file.exists()) {
-			// SQLiteOpenHelper的使用
-			Log.v("MainActivity", "数据库不存在! 创建中!");
-			MyDBHelp sd = new MyDBHelp(this, DB_FILENAME, null, VERSION);
-			//获取数据库连接
-			SQLiteDatabase db = sd.getWritableDatabase();
-			Log.v("MainActivity", "数据库创建完成!");
-			sd.close();
-			db.close();
-			Log.v("MainActivity", "数据库关闭!");
-		} else {
-			Log.v("MainActivity", "数据库存在!");
-		}
 	}
 
 }
