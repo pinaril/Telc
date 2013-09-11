@@ -1,6 +1,5 @@
 package com.telc.ui.systemManagement;
 
-
 import java.io.File;
 
 import com.telc.data.dbDriver.DBConstant;
@@ -21,7 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class LoginAndRegisterActivity extends Activity implements DBConstant{
+public class LoginAndRegisterActivity extends Activity implements DBConstant {
 	private EditText et_nickname;
 	private EditText et_password;
 	private ImageView iv_login;
@@ -39,29 +38,35 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant{
 			public void onClick(View v) {
 				String username = et_nickname.getText().toString();
 				String password = et_password.getText().toString();
-				
-				SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
-						MODE_PRIVATE, null);
-				service=new UserService(db);
-				User user = service.getUserByUsername(username);
-				if (user == null) {
+				if (username.equals("") || password.equals("")) {
 					Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
-							"用户名不存在,请注册后使用", Toast.LENGTH_SHORT);
+							"用户名密码请填完整", Toast.LENGTH_SHORT);
 					toast.show();
-
 				} else {
-					if (password.equals(user.getPassword())) {
-						// 登陆成功跳转
-						Intent intent = new Intent(
-								LoginAndRegisterActivity.this,
-								SlidingActivity.class);
-						startActivity(intent);
-						
-					}else
-					{
-						Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
-								"密碼不正確", Toast.LENGTH_SHORT);
+					SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
+							MODE_PRIVATE, null);
+					service = new UserService(db);
+					User user = service.getUserByUsername(username);
+					if (user == null) {
+						Toast toast = Toast.makeText(
+								LoginAndRegisterActivity.this, "用户名不存在,请注册后使用",
+								Toast.LENGTH_SHORT);
 						toast.show();
+
+					} else {
+						if (password.equals(user.getPassword())) {
+							// 登陆成功跳转
+							Intent intent = new Intent(
+									LoginAndRegisterActivity.this,
+									SlidingActivity.class);
+							startActivity(intent);
+
+						} else {
+							Toast toast = Toast.makeText(
+									LoginAndRegisterActivity.this, "密碼不正確",
+									Toast.LENGTH_SHORT);
+							toast.show();
+						}
 					}
 				}
 
@@ -75,25 +80,26 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant{
 				User user = new User();
 				user.setUsername(username);
 				user.setPassword(password);
-				if(username.equals("") || password.equals("")){
+				if (username.equals("") || password.equals("")) {
 					Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
 							"用户名密码请填完整", Toast.LENGTH_SHORT);
 					toast.show();
-				}else{
+				} else {
 					SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
 							MODE_PRIVATE, null);
-					service=new UserService(db);
+					service = new UserService(db);
 					if (service.addUser(user)) {
-						Intent intent = new Intent(LoginAndRegisterActivity.this,
+						Intent intent = new Intent(
+								LoginAndRegisterActivity.this,
 								SlidingActivity.class);
 						startActivity(intent);
-					}else{
-						Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
-								"注册失败,用戶名已存在", Toast.LENGTH_SHORT);
+					} else {
+						Toast toast = Toast.makeText(
+								LoginAndRegisterActivity.this, "注册失败,用戶名已存在",
+								Toast.LENGTH_SHORT);
 						toast.show();
 					}
 				}
-				
 
 			}
 		});
@@ -104,7 +110,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant{
 		et_password = (EditText) findViewById(R.id.et_password);
 		iv_login = (ImageView) findViewById(R.id.image_login);
 		iv_register = (ImageView) findViewById(R.id.image_register);
-		
+
 	}
 
 }
