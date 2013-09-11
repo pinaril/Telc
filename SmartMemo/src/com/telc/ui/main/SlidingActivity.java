@@ -17,8 +17,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class SlidingActivity extends Activity {
@@ -30,6 +33,12 @@ public class SlidingActivity extends Activity {
 	public SimpleAdapter madapter;
 	private DrawerLayout mDrawerLayout;
 	private ActionBarDrawerToggle mDrawerToggle;
+	
+	
+	public TextView textImportant,locationInput,testAging;
+	public EditText etLocation,etContent;
+	public ImageView ivMaps;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,6 +91,16 @@ public class SlidingActivity extends Activity {
 				}
 			});
 	
+			
+			
+			
+			textImportant=(TextView) findViewById(R.id.textImportant);
+			locationInput=(TextView) findViewById(R.id.textLocation);
+			testAging=(TextView) findViewById(R.id.textAging);
+			etLocation=(EditText) findViewById(R.id.et_location);
+			etContent=(EditText) findViewById(R.id.et_content);
+			ivMaps=(ImageView) findViewById(R.id.iv_maps);
+			
 	}
 	
 	@Override

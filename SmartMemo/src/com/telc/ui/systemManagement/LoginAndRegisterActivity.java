@@ -1,25 +1,32 @@
 package com.telc.ui.systemManagement;
 
 
-import com.telc.domain.TempData.IDataService;
-import com.telc.domain.TempData.User;
+import java.io.File;
+
+import com.telc.data.dbDriver.DBConstant;
+import com.telc.data.dbDriver.MyDBHelp;
+import com.telc.data.dbManager.UserService;
+import com.telc.domain.Emtity.User;
+import com.telc.domain.dataService.IUserService;
 import com.telc.smartmemo.R;
 import com.telc.ui.main.SlidingActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class LoginAndRegisterActivity extends Activity {
+public class LoginAndRegisterActivity extends Activity implements DBConstant{
 	private EditText et_nickname;
 	private EditText et_password;
 	private ImageView iv_login;
 	private ImageView iv_register;
-	private IDataService service;
+	private UserService service;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,10 @@ public class LoginAndRegisterActivity extends Activity {
 			public void onClick(View v) {
 				String username = et_nickname.getText().toString();
 				String password = et_password.getText().toString();
+				
+				SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
+						MODE_PRIVATE, null);
+				service=new UserService(db);
 				User user = service.getUserByUsername(username);
 				if (user == null) {
 					Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
@@ -46,6 +57,11 @@ public class LoginAndRegisterActivity extends Activity {
 								SlidingActivity.class);
 						startActivity(intent);
 						
+					}else
+					{
+						Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
+								"密碼不正確", Toast.LENGTH_SHORT);
+						toast.show();
 					}
 				}
 
@@ -59,13 +75,16 @@ public class LoginAndRegisterActivity extends Activity {
 				User user = new User();
 				user.setUsername(username);
 				user.setPassword(password);
-				if (true) {//调试修改，完成后应把true换成service.addUser(user)
+				SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
+						MODE_PRIVATE, null);
+				service=new UserService(db);
+				if (service.addUser(user)) {
 					Intent intent = new Intent(LoginAndRegisterActivity.this,
 							SlidingActivity.class);
 					startActivity(intent);
 				}else{
 					Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
-							"注册失败", Toast.LENGTH_SHORT);
+							"注册失败,用戶名已存在", Toast.LENGTH_SHORT);
 					toast.show();
 				}
 
@@ -78,6 +97,23 @@ public class LoginAndRegisterActivity extends Activity {
 		et_password = (EditText) findViewById(R.id.et_password);
 		iv_login = (ImageView) findViewById(R.id.image_login);
 		iv_register = (ImageView) findViewById(R.id.image_register);
+		
+		//===臨時位置===================================CZW
+		File file = getDatabasePath(DBConstant.DB_FILENAME);
+		// 文件存不存在
+		if (!file.exists()) {
+			// SQLiteOpenHelper的使用
+			Log.v("MainActivity", "数据库不存在! 创建中!");
+			MyDBHelp sd = new MyDBHelp(this, DB_FILENAME, null, VERSION);
+			//获取数据库连接
+			SQLiteDatabase db = sd.getWritableDatabase();
+			Log.v("MainActivity", "数据库创建完成!");
+			sd.close();
+			db.close();
+			Log.v("MainActivity", "数据库关闭!");
+		} else {
+			Log.v("MainActivity", "数据库存在!");
+		}
 	}
 
 }

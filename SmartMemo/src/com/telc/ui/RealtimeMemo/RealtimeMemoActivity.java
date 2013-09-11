@@ -12,6 +12,7 @@ import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+
 public class RealtimeMemoActivity extends Activity {
 	private EditText et_Location, et_Content;
 
@@ -38,6 +39,7 @@ public class RealtimeMemoActivity extends Activity {
 		sp_Time = (Spinner) findViewById(R.id.spinner_time);
 		rb_Priority = (RatingBar) findViewById(R.id.rb_priority);
 		
+
 	}
 	class RatingBarListener implements RatingBar.OnRatingBarChangeListener{
 

@@ -1,6 +1,8 @@
-package com.telc.domain.TempData;
+package com.telc.domain.dataService;
 
 import org.w3c.dom.UserDataHandler;
+
+import com.telc.domain.Emtity.User;
 
 /**
  * 
@@ -8,7 +10,7 @@ import org.w3c.dom.UserDataHandler;
  * 可删除
  * @author SZP
  */
-public interface IDataService {
+public interface IUserService {
 	public User getUserByUsername(String username);
 	public boolean addUser(User user);
 }
