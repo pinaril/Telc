@@ -3,9 +3,9 @@ package com.telc.ui.systemManagement;
 
 import java.io.File;
 
-import com.tel.data.dbManager.UserService;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.data.dbDriver.MyDBHelp;
+import com.telc.data.dbManager.UserService;
 import com.telc.domain.Emtity.User;
 import com.telc.domain.dataService.IUserService;
 import com.telc.smartmemo.R;

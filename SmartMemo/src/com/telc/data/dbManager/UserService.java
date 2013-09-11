@@ -1,4 +1,4 @@
-package com.tel.data.dbManager;
+package com.telc.data.dbManager;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
