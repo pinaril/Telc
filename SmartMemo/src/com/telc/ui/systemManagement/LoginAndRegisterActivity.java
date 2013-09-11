@@ -5,9 +5,9 @@ import java.io.File;
 
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.data.dbDriver.MyDBHelp;
-import com.telc.data.dbManager.UserService;
 import com.telc.domain.Emtity.User;
-import com.telc.domain.dataService.IUserService;
+import com.telc.domain.IService.IUserService;
+import com.telc.domain.Service.UserService;
 import com.telc.smartmemo.R;
 import com.telc.ui.main.SlidingActivity;
 

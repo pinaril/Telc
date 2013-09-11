@@ -1,10 +1,10 @@
-package com.telc.data.dbManager;
+package com.telc.domain.Service;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.telc.domain.Emtity.User;
-import com.telc.domain.dataService.IUserService;
+import com.telc.domain.IService.IUserService;
 
 /**
  * 數據庫操作
