@@ -21,7 +21,7 @@ public class RealtimeMemoActivity extends Activity {
 	private Spinner sp_Time;
 	
 	private RatingBar rb_Priority;
-	private int priority;
+	private float priority;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class RealtimeMemoActivity extends Activity {
 		setContentView(R.layout.activity_realtime_memo);
 		initControlsAndRegEvent();	
 		rb_Priority.setRating(3);
+		rb_Priority.setStepSize(1.0f);
 		rb_Priority.setOnRatingBarChangeListener(new RatingBarListener());
 	}
 	private void initControlsAndRegEvent() {
@@ -46,7 +47,7 @@ public class RealtimeMemoActivity extends Activity {
 		@Override
 		public void onRatingChanged(RatingBar ratingBar, float rating,
 				boolean fromUser) {
-			priority = ratingBar.getNumStars();
+			priority = rating;
 			System.out.println("==========="+priority+"==============");
 			
 		}
