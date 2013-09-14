@@ -3,10 +3,9 @@
     android:id="@+id/Priority"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/whitesmoke" >
+    android:background="@color/whitesmoke"
+    android:orientation="vertical" >
 
-    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
@@ -22,6 +21,7 @@
             android:textSize="25dp" />
 
         <RatingBar
+            android:id="@+id/rb_priority"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -103,10 +103,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textMultiLine" >
-
-            <requestFocus />
         </EditText>
-
     </LinearLayout>
 
 </LinearLayout>

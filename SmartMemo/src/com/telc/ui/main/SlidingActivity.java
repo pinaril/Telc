@@ -7,9 +7,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.telc.smartmemo.R;
+import com.telc.ui.RealtimeMemo.RealtimeMemoActivity;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
@@ -88,6 +90,14 @@ public class SlidingActivity extends Activity {
 						int arg2, long arg3) {
 					// TODO Auto-generated method stub
 					Toast.makeText(SlidingActivity.this, listItem[arg2],Toast.LENGTH_SHORT).show();
+					switch (arg2) {
+					case 1:
+						Intent intent = new Intent(SlidingActivity.this,RealtimeMemoActivity.class);
+						startActivity(intent);
+						break;
+					default:
+						break;
+					}
 				}
 			});
 	
