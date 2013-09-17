@@ -1,123 +1,58 @@
 package com.telc.ui.main;
 
 
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.telc.smartmemo.R;
-import com.telc.ui.RealtimeMemo.RealtimeMemoActivity;
+import com.telc.ui.main.viewModel.ContentFragment;
+import com.telc.ui.main.viewModel.MenuFragment;
 
+import android.app.FragmentTransaction;
+import android.app.ListFragment;
 import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.*;
 import android.view.Menu;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.MenuItem;
 
-public class SlidingActivity extends Activity {
 
-	public String[] listItem ;
-	public ListView slidingList;
-	public ArrayAdapter<String> adapter=null;
-	public ArrayList<Map<String, Object>> datalist;
-	public SimpleAdapter madapter;
-	private DrawerLayout mDrawerLayout;
-	private ActionBarDrawerToggle mDrawerToggle;
-	
-	
-	public TextView textImportant,locationInput,testAging;
-	public EditText etLocation,etContent;
-	public ImageView ivMaps;
-	
+public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity {
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_sliding);
-		datalist=new ArrayList<Map<String,Object>>();
+		setTitle("智慧备忘录");
+		setContentView(R.layout.activity_content);
 		
-		slidingList=(ListView) findViewById(R.id.list);
-		mDrawerLayout=(DrawerLayout) findViewById(R.id.sliding_layout);
-
-		//设置列表内容
- 		//listItem=new String[]{"菜单1","菜单2","菜单3","菜单4","菜单5","菜单6","菜单7","菜单8","菜单9","菜单10","菜单11","菜单12"};//字符串数组
-		listItem=getResources().getStringArray(R.array.list_item);//从资源文件获取
+        setBehindContentView(R.layout.activity_menu);
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        MenuFragment menuFragment = new MenuFragment();
+        fragmentTransaction.replace(R.id.menu, menuFragment);
+        fragmentTransaction.replace(R.id.content, new ContentFragment("Welcome"));
+        fragmentTransaction.commit();
+        
+		SlidingMenu sm= getSlidingMenu();
+		sm.setShadowWidth(5);
+		sm.setShadowDrawable(R.drawable.img_menu_ine);
+		sm.setBehindOffset(90);
+		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		
-		//获取数据
-		int lenth=listItem.length;
-		for(int i=0;i<lenth;i++){
-			Map<String, Object> item=new HashMap<String,Object>();
-			item.put("img",R.drawable.ic_launcher);
-			item.put("item", listItem[i]);
-			datalist.add(item);
-		}
-			//通过adapter设置列表内容
-//   		adapter=new ArrayAdapter<String>(this,R.layout.list_item,listItem);
-//	    	slidingList.setAdapter(adapter);
-	    	//通过SimpleAdapter设置选项内容
-		
-	    	madapter=new SimpleAdapter(this, datalist, R.layout.list_item, new String []{"img","item"}, new int []{R.id.img,R.id.item});
-	    	slidingList.setAdapter(madapter);
-	    	
-			//这个函数需要研究一下
-	    	mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.drawable.ic_launcher, R.string.app_name, R.string.hello_world) {
-	    			/** Called when a drawer has settled in a completely closed state. */
-	    			public void onDrawerClosed(View view) {
-	    				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-	    			}
-	    			/** Called when a drawer has settled in a completely open state. */
-	    			public void onDrawerOpened(View view) {
-	    				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-	    			}
-	    		};
-	    		mDrawerLayout.setDrawerListener(mDrawerToggle);
-	    		
-			slidingList.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					// TODO Auto-generated method stub
-					Toast.makeText(SlidingActivity.this, listItem[arg2],Toast.LENGTH_SHORT).show();
-					switch (arg2) {
-					case 1:
-						Intent intent = new Intent(SlidingActivity.this,RealtimeMemoActivity.class);
-						startActivity(intent);
-						break;
-					default:
-						break;
-					}
-				}
-			});
-	
-			
-			
-			
-			textImportant=(TextView) findViewById(R.id.textImportant);
-			locationInput=(TextView) findViewById(R.id.textLocation);
-			testAging=(TextView) findViewById(R.id.textAging);
-			etLocation=(EditText) findViewById(R.id.et_location);
-			etContent=(EditText) findViewById(R.id.et_content);
-			ivMaps=(ImageView) findViewById(R.id.iv_maps);
-			
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+        case android.R.id.home:
+            //toggle就是程序自动判断是打开还是关闭
+            toggle();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
