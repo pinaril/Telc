@@ -2,15 +2,12 @@ package com.telc.ui.RealtimeMemo;
 
 import com.telc.smartmemo.R;
 
-import android.R.integer;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.RatingBar.OnRatingBarChangeListener;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 
 public class RealtimeMemoActivity extends Activity {
@@ -38,7 +35,7 @@ public class RealtimeMemoActivity extends Activity {
 		et_Content = (EditText) findViewById(R.id.et_content);
 		iv_Maps = (ImageView) findViewById(R.id.iv_maps);
 		sp_Time = (Spinner) findViewById(R.id.spinner_time);
-		rb_Priority = (RatingBar) findViewById(R.id.rb_priority);
+//		rb_Priority = (RatingBar) findViewById(R.id);
 		
 
 	}

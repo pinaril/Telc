@@ -5,6 +5,7 @@ package com.telc.domain.Emtity;
  *
  */
 public class User {
+	//应当包含该用户的备忘录列表
 	private String userID;
 	private String userName;
 	private String userPwd;

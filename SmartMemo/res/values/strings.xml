@@ -5,5 +5,15 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_sliding">SlidingActivity</string>
+    <string name="btn_timing_zhao">定时提醒设置</string>
+    <string name="btn_location_zhao">地点语音提醒设置</string>
+    <string name="impDegree_zhao">重要程度：</string>
+    <string name="timing_zhao">时效：</string>
+    <string name="btn_timingaler_zhao">定时确定</string>
+    <string name="btn_timingSync_zhao">同步到网络</string>
+    <string name="btn_timing_share_zhao">分享</string>
+    <string name="alertContent_zhao">设置提醒内容</string>
+    <string name="effect_day_zhao">天</string>
+    <string name="effect_hour_zhao">小时</string>
 
 </resources>
