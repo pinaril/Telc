@@ -20,13 +20,6 @@
             <requestFocus />
         </EditText>
 
-        <ListView
-            android:id="@+id/llistContent"
-            android:layout_width="match_parent"
-            android:layout_height="321dp"
-            android:layout_weight="0.72" >
-
-        </ListView>
     </LinearLayout>
 
 </FrameLayout>

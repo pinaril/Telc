@@ -33,9 +33,6 @@ public class ContentFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.activity_content, null);
         EditText edit=(EditText) view.findViewById(R.id.edit);
-        ListView list =(ListView)view.findViewById(R.id.llistContent);
-        ArrayAdapter<String> mAdapter=new ArrayAdapter<String>(this.getActivity().getApplicationContext() , R.array.list_item);
-        list.setAdapter(mAdapter);
         edit.setText(text);
         return view;
 	}
