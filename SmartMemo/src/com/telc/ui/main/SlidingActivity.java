@@ -66,7 +66,7 @@ public class SlidingActivity extends Activity {
 //   		adapter=new ArrayAdapter<String>(this,R.layout.list_item,listItem);
 //	    	slidingList.setAdapter(adapter);
 	    	//通过SimpleAdapter设置选项内容
-		
+			ArrayAdapter a=new ArrayAdapter<T>(context, resource, textViewResourceId)
 	    	madapter=new SimpleAdapter(this, datalist, R.layout.list_item, new String []{"img","item"}, new int []{R.id.img,R.id.item});
 	    	slidingList.setAdapter(madapter);
 	    	
