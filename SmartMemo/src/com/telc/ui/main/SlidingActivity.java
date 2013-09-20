@@ -33,7 +33,7 @@ public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
         
 		SlidingMenu sm= getSlidingMenu();
 		sm.setShadowWidth(5);
-		sm.setShadowDrawable(R.drawable.shadow);
+		sm.setShadowDrawable(R.drawable.sliding_shadow);
 		sm.setBehindOffset(90);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		
