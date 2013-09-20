@@ -1,5 +1,7 @@
 package com.telc.ui.RealtimeMemo;
 
+
+
 import com.telc.smartmemo.R;
 
 import android.R.integer;
