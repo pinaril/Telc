@@ -3,6 +3,7 @@ package com.telc.ui.main;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.telc.smartmemo.R;
+import com.telc.ui.RealtimeMemo.viewModel.RealtimeMemoFragment;
 import com.telc.ui.main.viewModel.ContentFragment;
 import com.telc.ui.main.viewModel.MenuFragment;
 

@@ -1,21 +1,12 @@
 package com.telc.ui.main.viewModel;
 
 import com.telc.smartmemo.R;
-import com.telc.ui.main.SlidingActivity;
-import android.annotation.SuppressLint;
 import android.app.Fragment;
-import android.database.DataSetObserver;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 
 public class ContentFragment extends Fragment {

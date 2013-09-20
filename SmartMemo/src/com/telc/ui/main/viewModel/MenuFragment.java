@@ -1,6 +1,7 @@
 package com.telc.ui.main.viewModel;
 
 import com.telc.smartmemo.R;
+import com.telc.ui.RealtimeMemo.viewModel.RealtimeMemoFragment;
 import com.telc.ui.main.SlidingActivity;
 
 import android.app.Fragment;
@@ -27,11 +28,13 @@ public class MenuFragment extends Fragment {
 	TextView textExplain;
 	
 	ContentFragment contentFragment;
+	RealtimeMemoFragment realtimeFragment;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-       
+        
 	}
 	@Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){	
@@ -52,13 +55,13 @@ public class MenuFragment extends Fragment {
 					 ((SlidingActivity)getActivity()).getSlidingMenu().toggle();
 				index=1;
 				FragmentManager fm = ((SlidingActivity)getActivity()).getFragmentManager();
-				fm.beginTransaction().replace(R.id.content, contentFragment == null ?new ContentFragment("index"+index):contentFragment )
+				fm.beginTransaction().replace(R.id.content, contentFragment == null ?new ContentFragment("个人信息"):contentFragment )
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().toggle();
 			}
 		});
         
-        textMemo.setOnClickListener(new OnClickListener() {
+        textFinished.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -67,7 +70,7 @@ public class MenuFragment extends Fragment {
 					 ((SlidingActivity)getActivity()).getSlidingMenu().toggle();
 				index=2;
 				FragmentManager fm = ((SlidingActivity)getActivity()).getFragmentManager();
-				fm.beginTransaction().replace(R.id.content, contentFragment == null ?new ContentFragment("index"+index):contentFragment )
+				fm.beginTransaction().replace(R.id.realtime, realtimeFragment == null ?new RealtimeMemoFragment():realtimeFragment)
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().toggle();
 			}
