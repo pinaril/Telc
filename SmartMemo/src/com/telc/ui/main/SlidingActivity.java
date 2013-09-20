@@ -26,13 +26,14 @@ public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
         setBehindContentView(R.layout.activity_menu);
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         MenuFragment menuFragment = new MenuFragment();
+        ContentFragment contentFragment=new ContentFragment("Welcome");
         fragmentTransaction.replace(R.id.menu, menuFragment);
-        fragmentTransaction.replace(R.id.content, new ContentFragment("Welcome"));
+        fragmentTransaction.replace(R.id.content, contentFragment);
         fragmentTransaction.commit();
         
 		SlidingMenu sm= getSlidingMenu();
 		sm.setShadowWidth(5);
-		sm.setShadowDrawable(R.drawable.img_menu_ine);
+		sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindOffset(90);
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		
