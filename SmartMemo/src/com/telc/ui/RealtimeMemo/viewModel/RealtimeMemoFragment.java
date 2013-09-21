@@ -15,14 +15,14 @@ import android.widget.TextView;
 
 public class RealtimeMemoFragment extends Fragment {
 	
-	TextView textImportant;
-	RatingBar rb_priority;
-	TextView textLocation;
-	EditText et_location;
-	ImageView iv_maps;
-	TextView textAging;
-	Spinner spinner_time;
-	EditText et_content;
+//	TextView textImportant;
+//	RatingBar rb_priority;
+//	TextView textLocation;
+//	EditText et_location;
+//	ImageView iv_maps;
+//	TextView textAging;
+//	Spinner spinner_time;
+//	EditText et_content;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,15 +33,15 @@ public class RealtimeMemoFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.activity_realtime_memo, null);
-        textImportant=(TextView) view.findViewById(R.id.textImportant);
-        rb_priority=(RatingBar) view.findViewById(R.id.rb_priority);
-        textLocation=(TextView) view.findViewById(R.id.textLocation);
-        et_location=(EditText) view.findViewById(R.id.et_location);
-        iv_maps=(ImageView) view.findViewById(R.id.iv_maps);
-        textAging=(TextView) view.findViewById(R.id.textAging);
-        spinner_time=(Spinner) view.findViewById(R.id.spinner_time);
-        et_content=(EditText) view.findViewById(R.id.et_content);
+        TextView textImportant=(TextView) view.findViewById(R.id.textImportant);
+        RatingBar rb_priority=(RatingBar) view.findViewById(R.id.rb_priority);
+    	TextView textLocation=(TextView) view.findViewById(R.id.textLocation);
+    	EditText et_location=(EditText) view.findViewById(R.id.et_location);
+    	ImageView iv_maps=(ImageView) view.findViewById(R.id.iv_maps);
+    	TextView textAging=(TextView) view.findViewById(R.id.textAging);
+    	Spinner spinner_time=(Spinner) view.findViewById(R.id.spinner_time);
+    	EditText et_content=(EditText) view.findViewById(R.id.et_content);
 
-        return view;
+       return view; 
 	}
 }

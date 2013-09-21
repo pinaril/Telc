@@ -14,32 +14,41 @@ import android.support.v4.*;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
+/**
+ * @author WWB
+ *
+ */
 public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setTitle("智慧备忘录");
+		setTitle("智慧备忘录");//设置备忘录标题
 		setContentView(R.layout.activity_content);
 			
 			
-        setBehindContentView(R.layout.activity_menu);
+        setBehindContentView(R.layout.activity_menu);//设置侧边的布局文件
+        //Fragment事件开始
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        //创建两个fragment
         MenuFragment menuFragment = new MenuFragment();
         ContentFragment contentFragment=new ContentFragment("Welcome");
+        //设置对应的framelayout的ID
         fragmentTransaction.replace(R.id.menu, menuFragment);
         fragmentTransaction.replace(R.id.content, contentFragment);
+//        提交事务
         fragmentTransaction.commit();
         
+//        设置滑动菜单的属性
 		SlidingMenu sm= getSlidingMenu();
 		sm.setShadowWidth(5);
 		sm.setShadowDrawable(R.drawable.sliding_shadow);
-		sm.setBehindOffset(90);
+		sm.setBehindOffset(90);//侧边剩余距离
+//		设置抽屉弹出模式
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);//让actionbar为可点击
 
 	}
     @Override
@@ -51,7 +60,7 @@ public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.home:
+        case android.R.id.toggle:
             //toggle就是程序自动判断是打开还是关闭
             toggle();
             return true;

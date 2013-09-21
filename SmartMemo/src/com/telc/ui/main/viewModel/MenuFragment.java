@@ -71,6 +71,7 @@ public class MenuFragment extends Fragment {
 				index=2;
 				FragmentManager fm = ((SlidingActivity)getActivity()).getFragmentManager();
 				fm.beginTransaction().replace(R.id.realtime, realtimeFragment == null ?new RealtimeMemoFragment():realtimeFragment)
+//				fm.beginTransaction().replace(R.id.content, contentFragment == null ?new ContentFragment("123"):contentFragment)
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().toggle();
 			}
