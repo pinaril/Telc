@@ -21,6 +21,12 @@ import android.view.MenuItem;
 public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity {
 
 	@Override
+	public void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+	}
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
@@ -33,7 +39,7 @@ public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         //创建两个fragment
         MenuFragment menuFragment = new MenuFragment();
-        ContentFragment contentFragment=new ContentFragment("Welcome");
+        ContentFragment contentFragment=new ContentFragment();
         //设置对应的framelayout的ID
         fragmentTransaction.replace(R.id.menu, menuFragment);
         fragmentTransaction.replace(R.id.content, contentFragment);
@@ -51,16 +57,19 @@ public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 		getActionBar().setDisplayHomeAsUpEnabled(true);//让actionbar为可点击
 
 	}
+	
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case android.R.id.toggle:
+        case android.R.id.home:
             //toggle就是程序自动判断是打开还是关闭
             toggle();
             return true;

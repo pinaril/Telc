@@ -26,7 +26,7 @@ public class MenuFragment extends Fragment {
 	TextView textUnfinish;
 	TextView textAbout;
 	TextView textExplain;
-	
+	TextView textExit;
 	ContentFragment contentFragment;
 	RealtimeMemoFragment realtimeFragment;
 	
@@ -36,7 +36,8 @@ public class MenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
         
 	}
-	@Override
+	
+		@Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){	
 		View view=inflater.inflate(R.layout.activity_menu, null);
         textUserInfo=(TextView)view.findViewById(R.id.textUserInfo);
@@ -45,6 +46,7 @@ public class MenuFragment extends Fragment {
         textUnfinish=(TextView) view.findViewById(R.id.textUnfinish);
         textAbout=(TextView) view.findViewById(R.id.textAbout);
         textExplain=(TextView) view.findViewById(R.id.textExplain);
+        textExit=(TextView) view.findViewById(R.id.textExit);
         
         textUserInfo.setOnClickListener(new OnClickListener() {
 			
@@ -55,7 +57,10 @@ public class MenuFragment extends Fragment {
 					 ((SlidingActivity)getActivity()).getSlidingMenu().toggle();
 				index=1;
 				FragmentManager fm = ((SlidingActivity)getActivity()).getFragmentManager();
-				fm.beginTransaction().replace(R.id.content, contentFragment == null ?new ContentFragment("个人信息"):contentFragment )
+				/**
+				 * @parma  replace（被替换的layout，新的fragment）
+				 */
+				fm.beginTransaction().replace(R.id.content, contentFragment == null ?new ContentFragment():contentFragment )
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().toggle();
 			}
@@ -70,10 +75,22 @@ public class MenuFragment extends Fragment {
 					 ((SlidingActivity)getActivity()).getSlidingMenu().toggle();
 				index=2;
 				FragmentManager fm = ((SlidingActivity)getActivity()).getFragmentManager();
-				fm.beginTransaction().replace(R.id.realtime, realtimeFragment == null ?new RealtimeMemoFragment():realtimeFragment)
-//				fm.beginTransaction().replace(R.id.content, contentFragment == null ?new ContentFragment("123"):contentFragment)
+				fm.beginTransaction().replace(R.id.content, realtimeFragment == null ?new RealtimeMemoFragment():realtimeFragment)
+				.addToBackStack(null)
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().toggle();
+			}
+		});
+        
+        
+        textExit.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//
+				//退出。。。。。。。
+				//
 			}
 		});
         

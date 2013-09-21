@@ -3,7 +3,7 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightblue" 
+    android:background="#F2F2F2" 
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -11,15 +11,32 @@
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/edit"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.07"
-            android:ems="10" >
+            android:layout_height="48dp" 
+            android:background="#6495ED">
 
-            <requestFocus />
-        </EditText>
+            <Button
+                android:id="@+id/btnRealtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="65dp"
+                android:text="实时提醒" />
+
+            <Button
+                android:id="@+id/btnTiming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="定时提醒" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
 
     </LinearLayout>
 
