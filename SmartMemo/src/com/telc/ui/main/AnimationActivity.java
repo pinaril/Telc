@@ -1,5 +1,7 @@
 package com.telc.ui.main;
 
+
+
 import com.telc.smartmemo.R;
 
 import android.app.Activity;
