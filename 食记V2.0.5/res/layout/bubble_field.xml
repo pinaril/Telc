@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@id/top_layout" android:background="@drawable/edit_text_holo_light" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res/com.evernote.food">
+    <LinearLayout android:id="@id/focus_stealer" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="0.0px" android:layout_height="0.0px" />
+    <com.evernote.ui.bubblefield.StretchScrollView android:id="@id/scroll_view" android:fadingEdge="none" android:layout_width="fill_parent" android:layout_height="wrap_content" android:maxHeight="66.0dip" android:fillViewport="true" android:overScrollMode="never">
+        <com.evernote.ui.bubblefield.WrapLayout android:id="@id/wrap_layout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:layout_marginBottom="-4.0dip" app:horizontalSpacing="4.0dip" app:verticalSpacing="4.0dip">
+            <AutoCompleteTextView android:textSize="16.0dip" android:id="@id/edit_text" android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="30.0dip" android:hint="@string/add_tags" android:maxLength="100" android:inputType="text" android:dropDownAnchor="@id/top_layout" android:imeOptions="actionNext" />
+        </com.evernote.ui.bubblefield.WrapLayout>
+    </com.evernote.ui.bubblefield.StretchScrollView>
+</LinearLayout>

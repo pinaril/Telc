@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:icon="@drawable/icon_edit" android:id="@id/edit" android:title="@string/edit" android:showAsAction="always" />
+    <item android:id="@id/share_recipe" android:title="@string/share" android:showAsAction="never" />
+    <item android:id="@id/hide" android:visible="false" android:title="@string/hide" android:showAsAction="never" />
+    <item android:id="@id/delete" android:title="@string/delete" android:showAsAction="never" />
+    <item android:id="@id/glass" android:visible="false" android:title="@string/send_to_glass" android:showAsAction="never" />
+    <item android:id="@id/desktop" android:visible="false" android:title="@string/desktop_view" android:showAsAction="never" />
+</menu>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBox android:id="@id/amsc_checkBoxRotate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" android:text="@string/amsc_rotate" />
+    <CheckBox android:id="@id/amsc_checkBoxSquare" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" android:text="@string/amsc_square" />
+    <CheckBox android:id="@id/amsc_checkBoxShowDock" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" android:text="@string/amsc_show_dock" />
+    <CheckBox android:id="@id/amsc_checkBoxDockTransparent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" android:text="@string/amsc_dock_transparent" />
+    <EditText android:id="@id/amsc_editTextTransparency" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/amsc_default_transparency" android:ems="10" android:inputType="number" />
+    <Button android:id="@id/amsc_buttonTakePicture" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/amsc_take_pictures" />
+    <GridView android:id="@id/amsc_gridViewThumbnails" android:layout_width="fill_parent" android:layout_height="fill_parent" android:numColumns="2" />
+</LinearLayout>

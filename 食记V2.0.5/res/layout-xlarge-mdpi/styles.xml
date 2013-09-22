@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="FueTopText.Small">
+        <item name="android:textSize">32dip</item>
+    </style>
+    <style name="FueTopText.Medium">
+        <item name="android:textSize">34dip</item>
+    </style>
+    <style name="FueBottomText.Small">
+        <item name="android:textSize">22dip</item>
+    </style>
+    <style name="FueBottomText.Medium">
+        <item name="android:textSize">24dip</item>
+    </style>
+</resources>

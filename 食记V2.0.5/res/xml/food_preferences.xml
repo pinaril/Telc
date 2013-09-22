@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen android:title="@string/category_account_info" android:key="accountInfo" android:summary="@string/category_account_info_summary">
+        <Preference android:enabled="false" android:title="@string/pref_account_title" android:key="Account" />
+        <Preference android:enabled="false" android:title="@string/pref_status_title" android:key="AccountStatus" />
+        <Preference android:enabled="false" android:title="@string/pref_usage_title" android:key="Usage" />
+        <Preference android:enabled="false" android:title="@string/pref_days_left_title" android:key="DaysLeft" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/category_sync" android:key="syncScreen" android:summary="@string/category_sync_summary">
+        <ListPreference android:persistent="true" android:entries="@array/notebook_loading_entry" android:title="@string/food_notebook" android:key="FoodNotebook" android:dialogTitle="@string/choose_notebook" android:entryValues="@array/notebook_loading_value" />
+        <PreferenceScreen android:title="@string/category_recipe_sync" android:key="recipeSyncScreen" android:summary="@string/category_recipe_sync_summary">
+            <com.evernote.ui.widget.MultiSelectListPreference android:persistent="true" android:entries="@array/notebook_loading_entry" android:title="@string/recipe_notebooks" android:key="RecipeNotebooks" android:summary="@string/recipe_notebooks_summary" android:dialogTitle="@string/choose_notebooks" android:entryValues="@array/notebook_loading_value" />
+            <com.evernote.ui.widget.MultiSelectListPreference android:persistent="true" android:entries="@array/notebook_loading_entry" android:title="@string/recipe_tags" android:key="RecipeTags" android:summary="@string/recipe_tags_summary" android:dialogTitle="@string/choose_tags" android:entryValues="@array/notebook_loading_value" />
+        </PreferenceScreen>
+        <CheckBoxPreference android:title="@string/wifi_sync_title" android:key="WifiSyncOnly" android:summary="@string/wifi_sync_summary" android:defaultValue="false" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/other_options" android:key="otherOptionsScreen" android:summary="@string/other_options_summary">
+        <PreferenceCategory android:title="@string/category_location" android:key="location_category">
+            <CheckBoxPreference android:title="@string/use_gps_title" android:key="GpsUseEnabled" android:summary="@string/use_gps_summary" android:defaultValue="true" />
+            <CheckBoxPreference android:title="@string/use_network_title" android:key="NetworkUseEnabled" android:defaultValue="true" />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="@string/language" android:key="language_category">
+            <ListPreference android:persistent="true" android:enabled="true" android:entries="@array/recipe_language_choices_dont_translate" android:title="@string/recipe_language" android:key="RecipeLanguage" android:summary="%1$s" android:dialogTitle="@string/pref_choose_recipe_language" android:entryValues="@array/recipe_language_values_dont_translate" />
+        </PreferenceCategory>
+        <PreferenceCategory android:title="@string/category_other" android:key="other_category">
+            <CheckBoxPreference android:title="@string/disable_splash_screen" android:key="DisableSplashScreen" android:defaultValue="false" />
+        </PreferenceCategory>
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/image_options_category" android:key="ImageOptions" android:summary="@string/image_options_summary">
+        <CheckBoxPreference android:persistent="true" android:title="@string/add_images_to_gallery" android:key="AddImagesToGallery" android:defaultValue="true" />
+        <ListPreference android:persistent="true" android:enabled="true" android:entries="@array/image_size_choices" android:title="@string/image_size" android:key="ImageSize" android:summary="%1$s" android:defaultValue="1536" android:dialogTitle="@string/choose_image_size" android:entryValues="@array/image_size_values" />
+        <ListPreference android:persistent="true" android:enabled="true" android:entries="@array/attach_image_choices" android:title="@string/attach_image_using" android:key="AttachImages" android:summary="%1$s" android:defaultValue="food" android:dialogTitle="@string/attach_image_using" android:entryValues="@array/attach_image_values" />
+        <CheckBoxPreference android:persistent="true" android:enabled="true" android:title="@string/use_device_camera_app" android:key="TakePhotosWith" android:defaultValue="false" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/support" android:key="support" android:summary="@string/support_summary">
+        <Preference android:title="@string/customer_support_title" android:key="CustomerSupport" android:summary="@string/customer_support_summary" />
+        <Preference android:title="@string/send_log_title" android:key="SendLog" android:summary="@string/send_log_summary" />
+        <Preference android:title="@string/version" android:key="BuildVersion" />
+        <Preference android:title="@string/update_check" android:key="CHECK_FOR_UPDATES" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/legal" android:key="legal" android:summary="@string/legal_summary">
+        <Preference android:title="@string/terms_of_service" android:key="TERMS_OF_SERVICE" />
+        <Preference android:title="@string/privacy_policy" android:key="PrivacyPolicy" />
+        <Preference android:title="@string/notice" android:key="NOTICE" />
+    </PreferenceScreen>
+</PreferenceScreen>

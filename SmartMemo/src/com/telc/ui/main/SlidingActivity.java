@@ -48,9 +48,9 @@ public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
         
 //        设置滑动菜单的属性
 		SlidingMenu sm= getSlidingMenu();
-		sm.setShadowWidth(5);
+		sm.setShadowWidth(15);
 		sm.setShadowDrawable(R.drawable.sliding_shadow);
-		sm.setBehindOffset(90);//侧边剩余距离
+		sm.setBehindOffset(120);//侧边剩余距离
 //		设置抽屉弹出模式
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		

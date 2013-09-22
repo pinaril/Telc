@@ -1,0 +1,13 @@
+version: 1.5.2
+apkFileName: Ê³¼ÇV2.0.5.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+sdkInfo:
+  minSdkVersion: '8'
+  targetSdkVersion: '15'
+packageInfo:
+  cur_package: com.evernote.food
+  orig_package: com.evernote.food
+compressionType: false

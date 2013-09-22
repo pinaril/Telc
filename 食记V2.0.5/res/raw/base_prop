@@ -1,0 +1,50 @@
+#/////////////////////////////////////////////////////////////////////////
+# This is a property file that defines all the properties for directly
+# downloading and updating the apps.  This can be used as a last resort
+# or fallback mechanism if the release properties don't define the values
+# and Google Play is not installed.
+#/////////////////////////////////////////////////////////////////////////
+
+type=public
+
+evernote.referralCode=android
+evernote.autoUpdateURL=http://update.evernote.com/public/ENAndroid/update-direct.xml
+evernote.rateURI=
+evernote.productURI=
+evernote.directDownloadLookupUrl=http://update.evernote.com/public/ENAndroid/update-direct.xml
+
+evernoteWorld.referralCode=android-world
+evernoteWorld.autoUpdateURL=http://update.evernote.com/public/ENAndroid/update-china.xml
+evernoteWorld.rateURI=
+evernoteWorld.productURI=
+evernoteWorld.directDownloadLookupUrl=http://update.evernote.com/public/ENAndroid/update-china.xml
+
+evernoteWidget.referralCode=android-widget
+evernoteWidget.autoUpdateURL=http://update.evernote.com/public/ENAndroidWidget/update.xml
+evernoteWidget.rateURI=
+evernoteWidget.productURI=
+evernoteWidget.directDownloadLookupUrl=http://update.evernote.com/public/ENAndroidWidget/update.xml
+
+food.referralCode=food-android
+food.autoUpdateURL=HockeyApp
+food.rateURI=
+food.productURI=
+food.directDownloadLookupUrl=http://update.evernote.com/public/FoodAndroid/update.xml
+
+hello.referralCode=hello-android
+hello.autoUpdateURL=HockeyApp
+hello.rateURI=
+hello.productURI=
+hello.directDownloadLookupUrl=http://update.evernote.com/public/HelloAndroid/update.xml
+
+skitch.referralCode=skitch-android
+skitch.autoUpdateURL=http://update.evernote.com/public/SkitchAndroid/update.xml
+skitch.rateURI=
+skitch.productURI=
+skitch.directDownloadLookupUrl=http://update.evernote.com/public/SkitchAndroid/update.xml
+
+skitch.referralCode=office-suite
+skitch.autoUpdateURL=none
+skitch.rateURI=
+skitch.productURI=
+skitch.directDownloadLookupUrl=none

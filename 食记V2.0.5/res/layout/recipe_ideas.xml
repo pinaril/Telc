@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:clickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListView android:id="@id/list_view" android:descendantFocusability="blocksDescendants" android:layout_width="fill_parent" android:layout_height="fill_parent" android:cacheColorHint="#00000000" android:divider="@null" android:layout_alignParentTop="true" />
+    <ViewStub android:id="@id/empty_view" android:visibility="gone" android:layout="@layout/explore_recipes_no_search_results" android:inflatedId="@id/empty_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:id="@id/progress_container" android:visibility="gone" android:layout_width="84.0dip" android:layout_height="84.0dip" android:layout_marginTop="120.0dip" android:minHeight="84.0dip" android:layout_centerHorizontal="true">
+        <ImageView android:layout_gravity="center" android:id="@id/progress_spinner" android:layout_width="72.0dip" android:layout_height="72.0dip" android:src="@drawable/spinner_white_76" />
+    </FrameLayout>
+</RelativeLayout>

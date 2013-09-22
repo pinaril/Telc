@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:clickable="true" android:longClickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res/com.evernote.food">
+    <com.evernote.ui.widget.MaxWidthScrollView android:id="@id/details_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_above="@id/menu_bar" android:layout_alignParentTop="true" android:layout_centerHorizontal="true" app:maxScrollLayoutWidth="@dimen/meal_fragment_max_width" app:scrollLandscapeOnly="true">
+        <LinearLayout android:orientation="vertical" android:paddingLeft="@dimen/meal_margin" android:paddingTop="14.0dip" android:paddingRight="@dimen/meal_margin" android:paddingBottom="14.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <TextView android:textSize="24.0dip" android:textColor="#ff6b95a0" android:id="@id/name" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginRight="@dimen/meal_margin" android:shadowColor="#ffffffff" android:shadowDy="1.0" android:shadowRadius="1.0" />
+            <RelativeLayout android:paddingLeft="2.0dip" android:layout_width="fill_parent" android:layout_height="52.0dip" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginRight="@dimen/meal_margin">
+                <TextView android:textSize="28.0dip" android:gravity="center_vertical" android:id="@id/cuisine_icon" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_alignParentLeft="true" />
+                <TextView android:gravity="center_vertical" android:id="@id/cuisine_name" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginLeft="14.0dip" android:layout_toLeftOf="@id/rating" android:layout_toRightOf="@id/cuisine_icon" style="@style/textsmall.Black" />
+                <TextView android:gravity="center_vertical" android:id="@id/rating" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginRight="14.0dip" android:layout_alignParentRight="true" style="@style/textsmall.Black" />
+            </RelativeLayout>
+            <FrameLayout android:background="@drawable/image_4px_border" android:layout_width="fill_parent" android:layout_height="@dimen/meal_map_height" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginRight="@dimen/meal_margin">
+                <com.evernote.ui.widget.StaticMapView android:id="@id/map_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+            </FrameLayout>
+            <TextView android:id="@id/address" android:clickable="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginTop="14.0dip" android:layout_marginRight="@dimen/meal_margin" android:layout_marginBottom="4.0dip" android:singleLine="false" android:inputType="textMultiLine|textNoSuggestions" style="@style/textxsmall.Black" />
+            <TextView android:textColor="@color/food_light_grey" android:ellipsize="none" android:id="@id/address_divider" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginRight="@dimen/meal_margin" android:singleLine="true" style="@style/textxsmall" />
+            <LinearLayout android:orientation="horizontal" android:id="@id/reservation_section" android:background="@drawable/selector_bg" android:layout_width="fill_parent" android:layout_height="48.0dip" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginRight="@dimen/meal_margin">
+                <TextView android:textStyle="bold" android:gravity="center_vertical" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="@string/open_table_reservation" android:layout_weight="1.0" style="@style/textxsmall.Black" />
+                <ImageView android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginRight="@dimen/meal_margin" android:src="@drawable/arrow_gray" android:scaleType="centerInside" />
+            </LinearLayout>
+            <TextView android:textColor="@color/food_light_grey" android:ellipsize="none" android:id="@id/reservation_divider" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginTop="-8.0dip" android:layout_marginRight="@dimen/meal_margin" android:singleLine="true" style="@style/textxsmall.Black" />
+            <LinearLayout android:orientation="horizontal" android:id="@id/phone_section" android:layout_width="fill_parent" android:layout_height="48.0dip" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginRight="@dimen/meal_margin">
+                <TextView android:textStyle="bold" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/call" style="@style/textxsmall.Black" />
+                <TextView android:gravity="center_vertical" android:linksClickable="true" android:id="@id/phone_number" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginLeft="14.0dip" android:singleLine="true" android:inputType="phone" style="@style/textxsmall.Black" />
+            </LinearLayout>
+            <TextView android:textColor="@color/food_light_grey" android:ellipsize="none" android:id="@id/phone_divider" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginTop="-8.0dip" android:layout_marginRight="@dimen/meal_margin" android:singleLine="true" style="@style/textxsmall.Black" />
+            <LinearLayout android:orientation="horizontal" android:id="@id/web_section" android:layout_width="fill_parent" android:layout_height="48.0dip" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginRight="@dimen/meal_margin">
+                <TextView android:textStyle="bold" android:gravity="center_vertical" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/web" style="@style/textxsmall.Black" />
+                <TextView android:gravity="center_vertical" android:linksClickable="true" android:id="@id/website" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginLeft="14.0dip" android:singleLine="true" style="@style/textxsmall.Black" />
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:id="@id/photos" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginTop="-8.0dip" android:layout_marginRight="@dimen/meal_margin">
+                <TextView android:textColor="@color/food_light_grey" android:ellipsize="none" android:id="@id/photo_divider" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" style="@style/textxsmall.Black" />
+                <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="18.0dip">
+                    <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                    <FrameLayout android:id="@id/photo_frame_1" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                        <ImageView android:layout_gravity="center" android:id="@id/photo1" android:layout_width="82.0dip" android:layout_height="82.0dip" />
+                        <View android:background="@drawable/image_4px_border" android:layout_width="90.0dip" android:layout_height="90.0dip" />
+                    </FrameLayout>
+                    <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="2.0" />
+                    <FrameLayout android:id="@id/photo_frame_2" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                        <ImageView android:layout_gravity="center" android:id="@id/photo2" android:layout_width="82.0dip" android:layout_height="82.0dip" />
+                        <View android:background="@drawable/image_4px_border" android:layout_width="90.0dip" android:layout_height="90.0dip" />
+                    </FrameLayout>
+                    <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="2.0" />
+                    <FrameLayout android:id="@id/photo_frame_3" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content">
+                        <ImageView android:layout_gravity="center" android:id="@id/photo3" android:layout_width="82.0dip" android:layout_height="82.0dip" />
+                        <View android:background="@drawable/image_4px_border" android:layout_width="90.0dip" android:layout_height="90.0dip" />
+                    </FrameLayout>
+                    <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="vertical" android:id="@id/related_meals_layout" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <View android:id="@id/divider" android:background="@drawable/card_header_shadow" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginTop="2.0dip" android:layout_marginRight="@dimen/meal_margin" android:layout_marginBottom="22.0dip" />
+                <TextView android:textSize="18.0dip" android:textColor="#ff6b95a0" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginRight="@dimen/meal_margin" android:layout_marginBottom="6.0dip" android:text="@string/my_meals" android:shadowColor="#ffffffff" android:shadowDy="1.0" android:shadowRadius="1.0" /> />
+</LinearLayout>
+            <TextView android:textSize="12.0dip" android:textColor="@color/food_light_grey" android:id="@id/bottom_attribution" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/meal_margin" android:layout_marginTop="40.0dip" android:text="@string/powered_by_foursquare" android:layout_alignParentLeft="true" />
+        </LinearLayout>
+    </com.evernote.ui.widget.MaxWidthScrollView>
+    <com.evernote.ui.widget.MaxWidthRelativeLayout android:id="@id/menu_bar" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="52.0dip" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" app:maxRelativeLayoutWidth="@dimen/meal_fragment_max_width" app:relativeLandscapeOnly="true">
+        <View android:background="@drawable/bottombar_shadow" android:layout_width="fill_parent" android:layout_height="4.0dip" />
+        <TextView android:textSize="18.0dip" android:textColor="#ffffffff" android:id="@id/menu_button" android:background="@drawable/blue_ribbon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/menu" android:shadowColor="#ff000000" android:shadowDy="-1.0" android:shadowRadius="1.0" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+        <TextView android:textSize="12.0dip" android:textColor="@color/food_light_grey" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="14.0dip" android:layout_marginTop="4.0dip" android:text="@string/powered_by_foursquare" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+    </com.evernote.ui.widget.MaxWidthRelativeLayout>
+    <FrameLayout android:id="@id/progress_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <ImageView android:layout_gravity="center" android:id="@id/progress_spinner" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/spinner_white_76" />
+    </FrameLayout>
+    <com.evernote.ui.widget.MaxWidthFrameLayout android:id="@id/menu_container" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_centerHorizontal="true" app:maxFrameLayoutWidth="@dimen/meal_fragment_max_width" app:frameLandscapeOnly="true" />
+    <com.evernote.ui.widget.MaxWidthFrameLayout android:id="@id/login_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_centerHorizontal="true" app:maxFrameLayoutWidth="@dimen/meal_fragment_max_width" app:frameLandscapeOnly="true" />
+    <View android:background="#ffd9d7cf" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_toLeftOf="@id/details_container" />
+    <View android:id="@id/left_base_shadow" android:background="#4c000000" android:layout_width="1.0px" android:layout_height="fill_parent" android:layout_toLeftOf="@id/details_container" />
+    <View android:background="#ffd9d7cf" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_toRightOf="@id/details_container" />
+    <View android:id="@id/right_base_shadow" android:background="#4c000000" android:layout_width="1.0px" android:layout_height="fill_parent" android:layout_toRightOf="@id/details_container" />
+</RelativeLayout>

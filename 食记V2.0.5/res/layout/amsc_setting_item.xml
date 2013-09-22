@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout style="@style/amsc_SettingRow"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:id="@id/amsc_text" style="@style/amsc_SettingItemTitle" />
+    <ImageView android:id="@id/amsc_image" android:layout_width="@dimen/amsc_setting_item_icon_width" android:layout_height="@dimen/amsc_setting_item_icon_width" android:layout_marginLeft="@dimen/amsc_setting_item_list_margin" android:layout_marginRight="@dimen/amsc_setting_item_list_margin" android:scaleType="fitCenter" android:adjustViewBounds="true" />
+</LinearLayout>

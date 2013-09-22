@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_marginTop="40.0dip" android:src="@drawable/recently_viewed_empty" style="@style/empty_section_image" />
+    <TextView android:textSize="16.0dip" android:textColor="@color/food_grey" android:gravity="center_horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="40.0dip" android:layout_marginTop="40.0dip" android:layout_marginRight="40.0dip" android:text="@string/recent_empty_message" />
+</LinearLayout>

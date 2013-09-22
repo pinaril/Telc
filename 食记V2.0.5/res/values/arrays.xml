@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="amsc_pref_camera_picturesize_entries">
+        <item>@string/amsc_pref_camera_picturesize_entry_3264x2448</item>
+        <item>@string/amsc_pref_camera_picturesize_entry_3264x2448</item>
+        <item>@string/amsc_pref_camera_picturesize_entry_2592x1936</item>
+        <item>@string/amsc_pref_camera_picturesize_entry_2592x1936</item>
+        <item>@string/amsc_pref_camera_picturesize_entry_2592x1936</item>
+        <item>@string/amsc_pref_camera_picturesize_entry_2048x1536</item>
+        <item>@string/amsc_pref_camera_picturesize_entry_1600x1200</item>
+        <item>@string/amsc_pref_camera_picturesize_entry_1280x960</item>
+        <item>@string/amsc_pref_camera_picturesize_entry_1024x768</item>
+        <item>@string/amsc_pref_camera_picturesize_entry_640x480</item>
+        <item>@string/amsc_pref_camera_picturesize_entry_320x240</item>
+    </string-array>
+    <string-array name="amsc_pref_camera_picturesize_entryvalues">
+        <item>3264x2448</item>
+        <item>3200x2400</item>
+        <item>2592x1944</item>
+        <item>2592x1936</item>
+        <item>2560x1920</item>
+        <item>2048x1536</item>
+        <item>1600x1200</item>
+        <item>1280x960</item>
+        <item>1024x768</item>
+        <item>640x480</item>
+        <item>320x240</item>
+    </string-array>
+    <string-array name="amsc_pref_camera_flashmode_entries">
+        <item>@string/amsc_pref_camera_flashmode_entry_auto</item>
+        <item>@string/amsc_pref_camera_flashmode_entry_on</item>
+        <item>@string/amsc_pref_camera_flashmode_entry_off</item>
+    </string-array>
+    <string-array name="amsc_pref_camera_flashmode_entryvalues">
+        <item>auto</item>
+        <item>on</item>
+        <item>off</item>
+    </string-array>
+    <array name="amsc_camera_flashmode_icons">
+        <item>@drawable/amsc_ic_flash_auto_holo_light</item>
+        <item>@drawable/amsc_ic_flash_on_holo_light</item>
+        <item>@drawable/amsc_ic_flash_off_holo_light</item>
+    </array>
+    <array name="amsc_camera_flashmode_largeicons">
+        <item>@drawable/amsc_ic_flash_auto_holo_light</item>
+        <item>@drawable/amsc_ic_flash_on_holo_light</item>
+        <item>@drawable/amsc_ic_flash_off_holo_light</item>
+    </array>
+    <string-array name="amsc_pref_camera_video_flashmode_entries">
+        <item>@string/amsc_pref_camera_flashmode_entry_on</item>
+        <item>@string/amsc_pref_camera_flashmode_entry_off</item>
+    </string-array>
+    <string-array name="amsc_pref_camera_video_flashmode_entryvalues">
+        <item>torch</item>
+        <item>off</item>
+    </string-array>
+    <string-array name="amsc_pref_camera_recordlocation_entryvalues">
+        <item>off</item>
+        <item>on</item>
+    </string-array>
+    <string-array name="amsc_pref_camera_recordlocation_entries">
+        <item>@string/amsc_pref_camera_recordlocation_entry_off</item>
+        <item>@string/amsc_pref_camera_recordlocation_entry_on</item>
+    </string-array>
+    <array name="amsc_camera_recordlocation_icons">
+        <item>@drawable/amsc_ic_menuselect_gps_off</item>
+        <item>@drawable/amsc_ic_menuselect_gps_on</item>
+    </array>
+    <array name="amsc_camera_recordlocation_largeicons">
+        <item>@drawable/amsc_ic_viewfinder_gps_off</item>
+        <item>@drawable/amsc_ic_viewfinder_gps_on</item>
+    </array>
+    <string-array name="amsc_pref_camera_scenemode_entries">
+        <item>@string/amsc_pref_camera_scenemode_entry_auto</item>
+        <item>@string/amsc_pref_camera_scenemode_entry_action</item>
+        <item>@string/amsc_pref_camera_scenemode_entry_night</item>
+        <item>@string/amsc_pref_camera_scenemode_entry_sunset</item>
+        <item>@string/amsc_pref_camera_scenemode_entry_party</item>
+    </string-array>
+    <string-array name="amsc_pref_camera_scenemode_entryvalues">
+        <item>auto</item>
+        <item>action</item>
+        <item>night</item>
+        <item>sunset</item>
+        <item>party</item>
+    </string-array>
+    <string-array name="meal_photo_element_actions">
+        <item>Save to Gallery</item>
+        <item>Delete</item>
+    </string-array>
+    <string-array name="image_size_choices">
+        <item>Large (1536 x 1536)</item>
+        <item>Medium (1024 x 1024)</item>
+        <item>Small (640 x 640)</item>
+    </string-array>
+    <string-array name="image_size_values">
+        <item>1536</item>
+        <item>1024</item>
+        <item>640</item>
+    </string-array>
+    <string-array name="recipe_language_choices_dont_translate">
+        <item>English</item>
+        <item>日本語</item>
+        <item>中文 (简体)</item>
+        <item>中文 (繁體)</item>
+        <item>한국어</item>
+        <item>Pусский</item>
+    </string-array>
+    <string-array name="recipe_language_values_dont_translate">
+        <item>en_US</item>
+        <item>ja_JP</item>
+        <item>zh_CN</item>
+        <item>zh_TW</item>
+        <item>ko_KR</item>
+        <item>ru_RU</item>
+    </string-array>
+    <string-array name="attach_image_choices">
+        <item>@string/device_gallery</item>
+        <item>@string/custom_image_picker</item>
+    </string-array>
+    <string-array name="attach_image_values">
+        <item>device</item>
+        <item>food</item>
+    </string-array>
+    <string-array name="notebook_loading_entry">
+        <item>Loading...</item>
+    </string-array>
+    <string-array name="notebook_loading_value">
+        <item>loading</item>
+    </string-array>
+</resources>

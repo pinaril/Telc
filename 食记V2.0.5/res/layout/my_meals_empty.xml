@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res/com.evernote.food">
+    <com.evernote.ui.widget.MaxWidthRelativeLayout android:layout_gravity="center_horizontal" android:id="@id/base_layout" android:layout_width="fill_parent" android:layout_height="wrap_content" app:maxRelativeLayoutWidth="400.0dip">
+        <com.evernote.ui.widget.EvernoteTextView android:text="@string/remember_meals_text1" app:fontType="caecilia" style="@style/empty_section_text1" />
+        <ImageView android:id="@id/my_meals_empty_section_image" android:src="@drawable/my_meals_empty_state" style="@style/empty_section_image" />
+        <TextView android:id="@id/text2" android:text="@string/remember_meals_text2" android:layout_below="@id/my_meals_empty_section_image" style="@style/empty_section_text2" />
+        <fragment android:name="com.evernote.ui.LoginButtonsFragment2" android:id="@id/my_meals_login_buttons" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/my_meals_empty_section_image" />
+    </com.evernote.ui.widget.MaxWidthRelativeLayout>
+</ScrollView>
