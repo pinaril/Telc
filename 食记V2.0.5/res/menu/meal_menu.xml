@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:icon="@drawable/icon_camera" android:id="@id/take_photo" android:title="@string/photo" android:showAsAction="always" />
-    <item android:icon="@drawable/paperclip" android:id="@id/attach_photo" android:title="@string/attach_image" />
-    <item android:icon="@drawable/ic_menu_share" android:id="@id/share" android:title="@string/share" android:showAsAction="never" />
-    <item android:id="@id/email" android:title="@string/email_a_copy" android:showAsAction="never" />
-    <item android:id="@id/delete" android:title="@string/delete" android:showAsAction="never" />
-</menu>
