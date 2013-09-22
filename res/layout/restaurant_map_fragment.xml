@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res/com.evernote.food">
+    <FrameLayout android:id="@id/mf__hosted_view_frame" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:id="@id/map_click_catcher" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.evernote.ui.widget.MaxWidthRelativeLayout android:paddingBottom="16.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" app:maxRelativeLayoutWidth="360.0dip">
+        <Button android:id="@id/refresh_map_search" android:background="@drawable/blue_dark_button_bg" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dip" android:layout_marginRight="16.0dip" android:text="@string/redo_search" style="@style/foodButtonLinear" />
+    </com.evernote.ui.widget.MaxWidthRelativeLayout>
+</RelativeLayout>

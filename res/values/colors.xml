@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="abs__background_holo_dark">#ff000000</color>
+    <color name="abs__background_holo_light">#fff3f3f3</color>
+    <item type="color" name="abs__bright_foreground_holo_dark">@color/abs__background_holo_light</item>
+    <item type="color" name="abs__bright_foreground_holo_light">@color/abs__background_holo_dark</item>
+    <color name="abs__bright_foreground_disabled_holo_dark">#ff4c4c4c</color>
+    <color name="abs__bright_foreground_disabled_holo_light">#ffb2b2b2</color>
+    <item type="color" name="abs__bright_foreground_inverse_holo_dark">@color/abs__bright_foreground_holo_light</item>
+    <item type="color" name="abs__bright_foreground_inverse_holo_light">@color/abs__bright_foreground_holo_dark</item>
+    <color name="abs__holo_blue_light">#ff33b5e5</color>
+    <color name="amsc_camera_frame">#ff00ff00</color>
+    <color name="amsc_solid_white">#ffffffff</color>
+    <color name="amsc_indicator_background">#40000000</color>
+    <color name="amsc_popup_title_color">#ff33b5e5</color>
+    <color name="amsc_popup_background">#ff282828</color>
+    <color name="amsc_review_control_pressed_color">#ff33b5e5</color>
+    <color name="translucent_black">#80000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="green">#ffff0000</color>
+    <color name="white">#ffffffff</color>
+    <color name="map_pin_caption_background">#ffffffff</color>
+    <color name="grey">#ff808080</color>
+    <color name="list_selected">#ffededed</color>
+    <color name="food_orange">#ffde4f37</color>
+    <color name="food_grey">#ff777777</color>
+    <color name="meal_title">#ff444444</color>
+    <color name="grey_line">#ffd5d4d0</color>
+    <color name="food_meal_list_date_header_background">#ff41474a</color>
+    <color name="food_black">#ff444444</color>
+    <color name="food_light_grey">#ffaaaaaa</color>
+    <color name="group_header_bg">#ffebebeb</color>
+    <color name="light_blue">#ff0080ce</color>
+    <color name="place_current_location_hint_color">#ff0080ce</color>
+    <color name="thumbnail_bg_gray">#ffd7d6d2</color>
+    <color name="meal_no_image_bg">#ffa4bcc7</color>
+    <color name="meal_image_coming_bg">#ff89ba47</color>
+    <color name="switch_service_bg">#1a000000</color>
+    <color name="thumbnail_bg_loading">#ffdfdfd9</color>
+    <color name="switch_service_text">#cdffffff</color>
+    <color name="switch_service_text_pressed">#80ffffff</color>
+    <color name="tag_bubble_color">#ff3a7cb8</color>
+    <color name="selection">#88509ec2</color>
+    <color name="hint_text_grey">#ffa5a5a5</color>
+    <color name="tab_indicator">#ff7fa0af</color>
+    <color name="place_or_source_text">#ff6492a0</color>
+    <color name="home_statusbar_background">#ec383938</color>
+    <color name="home_statusbar_text_color">#ff848484</color>
+    <color name="restaurant_tab_select_bar">#ff3cb6e3</color>
+    <color name="restaurant_tab_font_color">#ffd7d7d7</color>
+    <color name="restaurant_rating_color">#ff5a7ba0</color>
+    <color name="meal_gallery_background_blue">#ffd3dcdf</color>
+    <color name="meal_font_embed_color">#ff7198a2</color>
+</resources>

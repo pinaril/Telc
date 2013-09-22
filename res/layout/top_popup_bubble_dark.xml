@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res/com.evernote.food">
+    <com.evernote.ui.widget.MaxWidthRelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="30.0dip" android:layout_alignParentRight="true" app:maxRelativeLayoutWidth="360.0dip">
+        <TextView android:textSize="16.0dip" android:textColor="#ffffffff" android:id="@id/popover_message" android:background="@drawable/camera_pop_message_black_no_pointer" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="1.0dip" android:layout_marginRight="1.0dip" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+        <ImageView android:id="@id/pointer_right" android:layout_width="@dimen/actionbar_button_width" android:layout_height="wrap_content" android:layout_marginTop="2.0dip" android:src="@drawable/camera_pop_message_black_pointer" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+        <ImageView android:id="@id/pointer_left" android:layout_width="@dimen/actionbar_button_width" android:layout_height="wrap_content" android:layout_marginTop="2.0dip" android:src="@drawable/camera_pop_message_black_pointer" android:layout_toLeftOf="@id/pointer_right" android:layout_alignParentTop="true" />
+    </com.evernote.ui.widget.MaxWidthRelativeLayout>
+</RelativeLayout>

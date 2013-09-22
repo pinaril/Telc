@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="drawable" name="amsc_transparent">#00ffffff</item>
+    <item type="drawable" name="black">#ff000000</item>
+    <item type="drawable" name="white">#ffffffff</item>
+    <item type="drawable" name="transparent">#00000000</item>
+    <item type="drawable" name="selection">#88509ec2</item>
+    <item type="drawable" name="pager_tab_strip_bg">#ff2a3739</item>
+</resources>

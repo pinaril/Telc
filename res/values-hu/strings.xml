@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cmn_checking_for_updates">Frissítések keresése</string>
+    <string name="cmn_new_update_started">Elérhető egy újabb verzió. A letöltés elindult</string>
+    <string name="cmn_new_update">%s - Új verzió elérhető.</string>
+    <string name="cmn_new_update_without_app_name">Új verzió elérhető.</string>
+    <string name="cmn_no_updates">Nincs újabb verzió</string>
+    <string name="cmn_start_download">Letöltés megkezdéséhez válasszon ki egy elemet.</string>
+    <string name="cmn_failed_to_install_app">Az alkalmazás telepítése nem sikerült.</string>
+</resources>

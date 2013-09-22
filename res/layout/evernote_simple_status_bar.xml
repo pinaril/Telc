@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/status_bar" android:background="@color/home_statusbar_background" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res/com.evernote.food">
+    <RelativeLayout android:id="@id/sync_icon_frame" android:background="@drawable/ics_home_fragment_button_bg" android:layout_width="@dimen/home_status_bar_button_width" android:layout_height="fill_parent" android:layout_alignParentLeft="true">
+        <com.evernote.ui.widget.RotatingImageView android:enabled="false" android:id="@id/sync_progress_icon" android:focusable="false" android:visibility="gone" android:clickable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ics_rotating_refresh" android:scaleType="centerInside" android:layout_centerInParent="true" app:frameDuration="120" app:framesCount="12" app:pivotX="50.0%" app:pivotY="50.0%" />
+        <ImageView android:id="@id/sync_icon" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/ic_home_sb_sync" android:scaleType="centerInside" android:contentDescription="@string/sync" />
+    </RelativeLayout>
+    <TextView android:textSize="12.0sp" android:textColor="@color/home_statusbar_text_color" android:ellipsize="end" android:gravity="center_vertical" android:id="@id/sync_text" android:paddingLeft="6.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent" android:maxLines="2" android:layout_toLeftOf="@id/bottom_statusbar_spacer" android:layout_toRightOf="@id/sync_icon_frame" android:layout_alignWithParentIfMissing="true" />
+    <View android:id="@id/bottom_statusbar_spacer" android:layout_width="@dimen/slidingmenu_offset" android:layout_height="fill_parent" android:layout_marginLeft="8.0dip" android:layout_alignParentRight="true" />
+</RelativeLayout>
