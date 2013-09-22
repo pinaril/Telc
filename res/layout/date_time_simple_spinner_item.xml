@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView android:textColor="@color/food_grey" android:ellipsize="marquee" android:gravity="center_vertical" android:id="@id/date_time_spinner_iten" android:layout_width="fill_parent" android:layout_height="40.0dip" android:singleLine="true" style="?android:attr/spinnerItemStyle"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

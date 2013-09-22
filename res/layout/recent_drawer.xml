@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.evernote.ui.widget.MaxWidthLinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" app:maxLinearLayoutWidth="@dimen/recent_drawer_max_width"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res/com.evernote.food">
-    <View android:id="@id/top_shadow" android:layout_width="fill_parent" android:layout_height="8.0dip" />
-    <ListView android:id="@id/list_view" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginTop="6.0dip" android:divider="@drawable/recently_viewed_divider" />
-    <ViewStub android:id="@id/empty_view" android:visibility="gone" android:layout="@layout/recent_empty" android:inflatedId="@id/empty_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
-</com.evernote.ui.widget.MaxWidthLinearLayout>

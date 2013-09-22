@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.evernote.ui.widget.MaxWidthRelativeLayout android:orientation="vertical" android:id="@id/screen_root" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginLeft="8.0dip" android:layout_marginRight="8.0dip" app:maxRelativeLayoutWidth="@dimen/meal_fragment_max_width" style="@style/FoodPopupLayout"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res/com.evernote.food">
-    <com.evernote.ui.widget.PopUpActionBar android:id="@id/popup_action_bar" android:layout_width="fill_parent" android:layout_height="41.0dip" />
-    <GridView android:id="@id/select_photos_grid" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginLeft="5.0dip" android:horizontalSpacing="10.0dip" android:verticalSpacing="8.0dip" android:numColumns="4" android:layout_above="@id/go_to_device_gallery" android:layout_below="@id/popup_action_bar" />
-    <View android:id="@id/divider" android:background="@color/food_light_grey" android:layout_width="fill_parent" android:layout_height="1.0px" android:layout_alignTop="@id/go_to_device_gallery" />
-    <TextView android:textColor="@color/food_black" android:gravity="center_vertical" android:id="@id/go_to_device_gallery" android:background="@drawable/selector_bg" android:paddingLeft="20.0dip" android:paddingTop="14.0dip" android:paddingRight="16.0dip" android:paddingBottom="14.0dip" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/go_to_device_gallery" android:drawableRight="@drawable/fb_arrow_next" android:drawablePadding="6.0dip" android:layout_alignParentBottom="true" />
-</com.evernote.ui.widget.MaxWidthRelativeLayout>

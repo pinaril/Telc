@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:icon="@drawable/icon_clip" android:id="@id/clip" android:visible="false" android:title="@string/clip" android:showAsAction="always" />
-    <item android:icon="@drawable/icon_trashcan" android:id="@id/trashcan" android:visible="false" android:title="@string/delete" android:showAsAction="always" />
-</menu>

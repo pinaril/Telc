@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TextView android:textColor="@color/place_current_location_hint_color" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/meal_margin" android:text="@string/current_location"
-  xmlns:android="http://schemas.android.com/apk/res/android" />

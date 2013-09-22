@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<com.evernote.ui.widget.MaxWidthLinearLayout android:orientation="vertical" android:id="@id/screen_root" android:layout_width="fill_parent" android:layout_height="fill_parent" app:maxLinearLayoutWidth="@dimen/meal_fragment_max_width" style="@style/FoodPopupLayout"
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res/com.evernote.food">
-    <com.evernote.ui.widget.PopUpActionBar android:id="@id/popup_action_bar" android:layout_width="fill_parent" android:layout_height="41.0dip" />
-    <RelativeLayout android:id="@id/content_root" android:layout_width="fill_parent" android:layout_height="fill_parent">
-        <ListView android:id="@id/list" android:layout_width="fill_parent" android:layout_height="wrap_content" android:divider="#ffe4e4e4" android:dividerHeight="1.0px" android:layout_alignParentTop="true" />
-    </RelativeLayout>
-</com.evernote.ui.widget.MaxWidthLinearLayout>
