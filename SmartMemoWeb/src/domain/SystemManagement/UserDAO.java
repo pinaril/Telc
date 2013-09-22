@@ -12,7 +12,7 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  			* Transaction control of the save(), update() and delete() operations 
 		can directly support Spring container-managed transactions or they can be augmented	to handle user-managed Spring transactions. 
 		Each of these methods provides additional information for how to configure it for the desired type of transaction control. 	
-	 * @see domain.systemManagement.User
+	 * @see domain.SystemManagement.User
   * @author MyEclipse Persistence Tools 
  */
 public class UserDAO extends HibernateDaoSupport  {
@@ -56,7 +56,7 @@ public class UserDAO extends HibernateDaoSupport  {
         log.debug("getting User instance with id: " + id);
         try {
             User instance = (User) getHibernateTemplate()
-                    .get("domain.systemManagement.User", id);
+                    .get("domain.SystemManagement.User", id);
             return instance;
         } catch (RuntimeException re) {
             log.error("get failed", re);
@@ -141,6 +141,16 @@ public class UserDAO extends HibernateDaoSupport  {
             return result;
         } catch (RuntimeException re) {
             log.error("merge failed", re);
+            throw re;
+        }
+    }
+    public void update(User user){
+    	log.debug("update User instance");
+    	try {
+            getHibernateTemplate().update(user);
+            log.debug("update successful");
+        } catch (RuntimeException re) {
+            log.error("update failed", re);
             throw re;
         }
     }

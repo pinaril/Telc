@@ -14,10 +14,9 @@
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="com.mysql.jdbc.Driver">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver">
 		</property>
-		<property name="url" value="jdbc:mysql://localhost:31208/memo"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/memo"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="root"></property>
 	</bean>
@@ -35,22 +34,49 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-				<value>domain/SystemManagement/User.hbm.xml</value></list>
-		</property></bean>
-		
-		<!-- SystemManagerment -->
+				<value>domain/SystemManagement/User.hbm.xml</value>
+				<value>domain/Memo/Realtime.hbm.xml</value>
+				<value>domain/Memo/Timing.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- SystemManagerment -->
 	<bean id="SystemManagement" class="domain.Service.SystemManagement.SystemManagement">
 	</bean>
-	<jaxws:server id="management" serviceClass="domain.Service.SystemManagement.ISystemManagement"
+	<jaxws:server id="management"
+		serviceClass="domain.Service.SystemManagement.ISystemManagement"
 		address="/SystemManagement">
 		<jaxws:serviceBean>
 			<ref bean="SystemManagement" /> <!-- 要暴露的 bean 的引用 -->
 		</jaxws:serviceBean>
 	</jaxws:server>
 	<bean id="UserDAO" class="domain.SystemManagement.UserDAO">
-	<property name="sessionFactory">
-	     <ref bean="sessionFactory" />
-		</property></bean>
-	
-	
-	</beans>
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+
+	<!-- Memo -->
+	<bean id="Memo" class="domain.Service.Memo.MemoService">
+	</bean>
+	<jaxws:server id="memo"
+		serviceClass="domain.Service.Memo.IMemoService"
+		address="/Memo">
+		<jaxws:serviceBean>
+			<ref bean="memo" /> <!-- 要暴露的 bean 的引用 -->
+		</jaxws:serviceBean>
+	</jaxws:server>
+	<bean id="RealtimeDAO" class="domain.Memo.RealtimeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="TimingDAO" class="domain.Memo.TimingDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+</beans>

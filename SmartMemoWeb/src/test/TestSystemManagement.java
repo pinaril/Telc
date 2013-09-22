@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import domain.Helper.UserHelper;
@@ -13,16 +14,31 @@ public class TestSystemManagement extends SystemManagement {
 	@Before
 	public void init(){
 		userHelper = new UserHelper();
-		userHelper.setUserId("123");
-		userHelper.setTel("12333333");
+		userHelper.setUserId("2");
+		userHelper.setTel("123333332");
 		userHelper.setSex("M");
 		userHelper.setPwd("123");
 		userHelper.setNickname("shumi");
-		userHelper.setAge("17");
+		userHelper.setAge("19");
 	}
-	@Test
+	@Ignore
 	public void testSaveUser() {
 		saveUser(userHelper);
+	}
+	@Ignore
+	public void testUpdate(){
+		userHelper.setNickname("shumifans");
+		updateUser(userHelper);
+	}
+	@Test
+	public void testgetUserById(){
+		UserHelper userHelper = getUserById("112");
+		System.out.println();
+	}
+	@Test 
+	public void testgetUserByTel(){
+		UserHelper userHelper = getUserByTel("123");
+		System.out.println();
 	}
 
 }
