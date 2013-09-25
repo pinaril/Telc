@@ -4,10 +4,10 @@ import com.telc.domain.Emtity.User;
 
 /**
  * 
- * 
+ * 注UserID=UserPhone
  * @author SZP
  */
 public interface IUserService {
-	public User getUserByUsername(String username);
+	public User getUserByUserPhone(String phoneNum);
 	public boolean addUser(User user);
 }

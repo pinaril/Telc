@@ -7,7 +7,7 @@ import com.telc.domain.Emtity.User;
 import com.telc.domain.IService.IUserService;
 
 /**
- * 數據庫操作
+ * 用户信息數據庫操作
  * @author CZW
  *
  */
@@ -22,11 +22,11 @@ public class UserService implements IUserService{
 
 	
 	@Override
-	public User getUserByUsername(String userName) {
+	public User getUserByUserPhone(String phoneNum) {
 		// TODO Auto-generated method stub
 		
-		String sql = "select a.[rowid] as _id,* from USER_MA as a where userName='"
-				+ userName + "'";
+		String sql = "select a.[rowid] as _id,* from USER_MA as a where tel='"
+				+ phoneNum + "'";
 		cursor = db.rawQuery(sql, null);
 		if (cursor.moveToFirst() == false) {
 			return null;
@@ -37,9 +37,6 @@ public class UserService implements IUserService{
 				int userIDColumn = cursor.getColumnIndex("userID");
 				String rt_userID = cursor.getString(userIDColumn);
 				user_Result.setUserID(rt_userID);
-				int userNameColumn=cursor.getColumnIndex("userName");
-				String rt_userName = cursor.getString(userNameColumn);
-				user_Result.setUserName(rt_userName);
 				int userPwdCloumn=cursor.getColumnIndex("userPwd");
 				String rt_userPwd = cursor.getString(userPwdCloumn);
 				user_Result.setUserPwd(rt_userPwd);
@@ -51,23 +48,15 @@ public class UserService implements IUserService{
 	@Override
 	public boolean addUser(User user) {
 		// TODO Auto-generated method stub
-		String userID=user.getUserID();
-		String userName=user.getUsername();
 		String userPwd=user.getPassword();
 		String userPhone=user.getPhoneNum();
-		int userAge=user.getAge();
-		String userSex=user.getSex();
-		String userHob=user.getHob();
-		String userProf=user.getProf();
-		String userImage=user.getImage();
-		
-		
+
 		//判斷用戶是否已註冊
-		String sql0 = "select a.[rowid] as _id,* from USER_MA as a where userName='"
-				+ userName + "'";
+		String sql0 = "select a.[rowid] as _id,* from USER_MA as a where tel='"
+				+ userPhone + "'";
 		cursor = db.rawQuery(sql0, null);
 		if (cursor.moveToFirst() == false) {
-			String sql="insert into USER_MA values ('null','"+userName+"','null','"+userPwd+"','0','null','null','null','null')";
+			String sql="insert into USER_MA values ('"+userPhone+"','"+userPhone+"','null','"+userPwd+"','0','null')";
 			db.execSQL(sql);
 			return true;
 		} 

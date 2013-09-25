@@ -11,9 +11,7 @@ public class User {
 	private String phoneNum;
 	private int age;
 	private String sex;
-	private String hob;
-	private String prof;
-	private String image;
+
 	public String getUsername() {
 		return userName;
 	}
@@ -62,24 +60,7 @@ public class User {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	public String getHob() {
-		return hob;
-	}
-	public void setHob(String hob) {
-		this.hob = hob;
-	}
-	public String getProf() {
-		return prof;
-	}
-	public void setProf(String prof) {
-		this.prof = prof;
-	}
-	public String getImage() {
-		return image;
-	}
-	public void setImage(String image) {
-		this.image = image;
-	}
+
 	
 
 }

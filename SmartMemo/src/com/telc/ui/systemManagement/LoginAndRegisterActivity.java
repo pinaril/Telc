@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 public class LoginAndRegisterActivity extends Activity implements DBConstant {
-	private EditText et_nickname;
+	private EditText et_phoneNum;
 	private EditText et_password;
 	private ImageView iv_login;
 	private ImageView iv_register;
@@ -46,9 +46,9 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 		iv_login.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String username = et_nickname.getText().toString();
+				String userphone = et_phoneNum.getText().toString();
 				String password = et_password.getText().toString();
-				if (username.equals("") || password.equals("")) {
+				if (userphone.equals("") || password.equals("")) {
 					Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
 							"用户名密码请填完整", Toast.LENGTH_SHORT);
 					toast.show();
@@ -56,7 +56,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 					SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
 							MODE_PRIVATE, null);
 					service = new UserService(db);
-					User user = service.getUserByUsername(username);
+					User user = service.getUserByUserPhone(userphone);
 					if (user == null) {
 						Toast toast = Toast.makeText(
 								LoginAndRegisterActivity.this, "用户名不存在,请注册后使用",
@@ -68,7 +68,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 							//将登录状态改为已登录，并保存当前登录的用户用户名
 							Editor editor = sp.edit();
 							editor.putBoolean("login_in", true);
-							editor.putString("user", username);
+							editor.putString("user", userphone);
 							editor.commit();
 							// 登陆成功跳转
 							Intent intent = new Intent(
@@ -91,12 +91,13 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 		iv_register.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String username = et_nickname.getText().toString();
+				String userphone = et_phoneNum.getText().toString();
 				String password = et_password.getText().toString();
 				User user = new User();
-				user.setUsername(username);
+				user.setUserID(userphone);
+				user.setPhoneNum(userphone);
 				user.setPassword(password);
-				if (username.equals("") || password.equals("")) {
+				if (userphone.equals("") || password.equals("")) {
 					Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
 							"用户名密码请填完整", Toast.LENGTH_SHORT);
 					toast.show();
@@ -108,7 +109,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 						//将登录状态改为已登录，并保存当前登录的用户用户名
 						Editor editor = sp.edit();
 						editor.putBoolean("login_in", true);
-						editor.putString("user", username);
+						editor.putString("user", userphone);
 						editor.commit();
 						Intent intent = new Intent(
 								LoginAndRegisterActivity.this,
@@ -128,7 +129,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 	}
 
 	private void initControlsAndRegEvent() {
-		et_nickname = (EditText) findViewById(R.id.et_nickname);
+		et_phoneNum = (EditText) findViewById(R.id.et_phoneNum);
 		et_password = (EditText) findViewById(R.id.et_password);
 		iv_login = (ImageView) findViewById(R.id.image_login);
 		iv_register = (ImageView) findViewById(R.id.image_register);
