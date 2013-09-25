@@ -3,14 +3,11 @@ package com.telc.ui.main;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.telc.smartmemo.R;
-import com.telc.ui.RealtimeMemo.viewModel.RealtimeMemoFragment;
 import com.telc.ui.main.viewModel.ContentFragment;
 import com.telc.ui.main.viewModel.MenuFragment;
 
 import android.app.FragmentTransaction;
-import android.app.ListFragment;
 import android.os.Bundle;
-import android.support.v4.*;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -76,5 +73,6 @@ public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 }
