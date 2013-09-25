@@ -171,6 +171,7 @@ public class baiduMapActivity extends Activity {
 					intent.setClass(baiduMapActivity.this, RealtimeMemoFragment.class);
 					startActivity(intent);
 					
+					
 					baiduMapActivity.this.finish();
 				}
 			};

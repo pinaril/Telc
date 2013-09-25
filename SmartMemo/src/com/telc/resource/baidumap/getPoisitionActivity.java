@@ -233,6 +233,8 @@ public class getPoisitionActivity extends Activity {
 
 				LocationInfoTran.selectFlag = 1 ;
 				
+//				RealtimeMemoFragment realtimeMemoFragment = (RealtimeMemoFragment)getA
+				
 				Intent intent = new Intent();
 				intent.setClass(getPoisitionActivity.this, RealtimeMemoFragment.class);
 				startActivity(intent);

@@ -35,12 +35,8 @@ public class RealtimeMemoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         
-        
-        
-    
-        
     }
-    
+
     
     
     
