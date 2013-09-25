@@ -11,6 +11,7 @@ public class RTMemoHelper {
 	private String location;
 	private String aging;
 	private String content;
+	private String priority;
 	public String getId() {
 		return id;
 	}
@@ -46,5 +47,11 @@ public class RTMemoHelper {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public String getPriority() {
+		return priority;
+	}
+	public void setPriority(String priority) {
+		this.priority = priority;
 	}
 }
