@@ -84,9 +84,7 @@ public class MenuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//
-				//退出。。。。。。。
-				//
+				getActivity().finish();
 			}
 		});
         
