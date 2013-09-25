@@ -129,7 +129,7 @@
             android:layout_height="48dp" >
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/text_pro"
                 android:layout_width="16dp"
                 android:layout_height="wrap_content"
                 android:text="" />
