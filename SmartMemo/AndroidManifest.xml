@@ -12,16 +12,13 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.NoActionBar" >
+		
+        android:theme="@android:style/Theme.Holo.Light"
+        android:name="com.telc.ui.main.MemoApplication" >
 
         <activity
             android:name="com.telc.ui.main.SlidingActivity"
             android:label="@string/title_activity_sliding" >
-
-        </activity>
-         <activity
-            android:name="com.telc.ui.systemManagement.LoginAndRegisterActivity"
-            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,12 +26,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.telc.ui.RealtimeMemo.RealtimeMemoActivity"
+            android:name="com.telc.ui.main.AnimationActivity"
+            android:label="@string/title_activity_sliding" >
+
+        </activity>
+        <activity
+            android:name="com.telc.ui.systemManagement.LoginAndRegisterActivity"
             android:label="@string/app_name" >
-            
         </activity>
 
-          
     </application>
 
 </manifest>
