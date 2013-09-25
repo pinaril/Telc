@@ -1,9 +1,7 @@
 package com.telc.ui.systemManagement;
 
-import java.io.File;
 
 import com.telc.data.dbDriver.DBConstant;
-import com.telc.data.dbDriver.MyDBHelp;
 import com.telc.domain.Emtity.User;
 import com.telc.domain.IService.IUserService;
 import com.telc.domain.Service.UserService;
@@ -16,7 +14,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
