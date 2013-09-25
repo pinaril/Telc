@@ -59,32 +59,31 @@
         android:targetSdkVersion="17" />
 
     <application
+        android:name="com.telc.ui.main.MemoApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-		
-        android:theme="@android:style/Theme.Holo.Light"
-        android:name="com.telc.ui.main.MemoApplication" >
-
+        android:theme="@android:style/Theme.Holo.Light" >
         <activity
             android:name="com.telc.ui.main.SlidingActivity"
             android:label="@string/title_activity_sliding" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.telc.ui.main.AnimationActivity"
             android:label="@string/title_activity_sliding" >
-
+        </activity>
+        <activity
+            android:name="com.telc.ui.other.UpdateUserActivity"
+            android:label="@string/title_activity_sliding" >
         </activity>
         <activity
             android:name="com.telc.ui.systemManagement.LoginAndRegisterActivity"
             android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
           <activity
             android:name="com.telc.resource.baidumap.baiduMapActivity"
             android:label="@string/app_name" >
@@ -102,6 +101,7 @@
         </service> 
         
         
+   
     </application>
 
 </manifest>
