@@ -13,5 +13,9 @@ bin/
 gen/
 
 # generated files
+<<<<<<< HEAD
+=======
+
+>>>>>>> fe0ae86f934d7d9c34009fece4bbd758d1112429
 # Local configuration file (sdk path, etc)
 local.properties
