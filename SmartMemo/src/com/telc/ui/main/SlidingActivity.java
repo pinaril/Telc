@@ -14,7 +14,9 @@ import com.telc.ui.main.viewModel.MenuFragment;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 
@@ -24,11 +26,23 @@ import android.widget.Toast;
  */
 public class SlidingActivity extends SlidingFragmentActivity {
 	private String temp;
+	private static boolean toggleFlag=false;
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
+
+	
+	
+	@Override
+	public void toggle() {
+		// TODO Auto-generated method stub
+		super.toggle();
+		toggleFlag=!toggleFlag;
+	}
+
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +77,17 @@ public class SlidingActivity extends SlidingFragmentActivity {
 	}
 	
 	
+	
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(keyCode==KeyEvent.KEYCODE_BACK  && toggleFlag==false){
+			toggle();
+		}
+		return super.onKeyUp(keyCode, event);
+	}
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
     	SubMenu plusMenu=menu.addSubMenu("新建备忘录");//添加按钮名称
