@@ -15,6 +15,7 @@ public class User {
 	
 	private int age;
 	private String sex;
+
 	private String prof;
 	private String hob;
 	private String phoneNum;
@@ -107,5 +108,6 @@ public class User {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
 
 }

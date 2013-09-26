@@ -16,12 +16,12 @@
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/et_nickname"
+            android:id="@+id/et_phoneNum"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
             android:ems="10"
-            android:hint="请输入昵称"
+            android:hint="请输入手机号码"
             android:textColor="@color/black"
             android:textColorLink="@color/black" />
 
