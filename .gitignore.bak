@@ -13,6 +13,6 @@ bin/
 gen/
 lib/
 # generated files
-.properties
+*.properties
 # Local configuration file (sdk path, etc)
 local.properties
