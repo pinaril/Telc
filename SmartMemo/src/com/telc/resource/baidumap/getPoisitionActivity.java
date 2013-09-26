@@ -18,7 +18,7 @@ import com.baidu.mapapi.search.MKSuggestionResult;
 import com.baidu.mapapi.search.MKTransitRouteResult;
 import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.telc.smartmemo.R;
-import com.telc.ui.RealtimeMemo.viewModel.RealtimeMemoFragment;
+import com.telc.ui.Memos.RealtimeMemoActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -141,7 +141,7 @@ public class getPoisitionActivity extends Activity {
 	// 返回上个Activity
 	public void bt_back_onclick(View v) {
 		 Intent intent = new Intent();
-		 intent.setClass(this, RealtimeMemoFragment.class);
+		 intent.setClass(this, RealtimeMemoActivity.class);
 		// setResult(2);
 		this.finish();
 	}
@@ -163,7 +163,7 @@ public class getPoisitionActivity extends Activity {
 		LocationInfoTran.locationData = locData;
 
 		Intent intent = new Intent();
-		intent.setClass(this, RealtimeMemoFragment.class);
+		intent.setClass(this, RealtimeMemoActivity.class);
 		startActivity(intent);
 
 		getPoisitionActivity.this.finish();
@@ -236,7 +236,7 @@ public class getPoisitionActivity extends Activity {
 //				RealtimeMemoFragment realtimeMemoFragment = (RealtimeMemoFragment)getA
 				
 				Intent intent = new Intent();
-				intent.setClass(getPoisitionActivity.this, RealtimeMemoFragment.class);
+				intent.setClass(getPoisitionActivity.this, RealtimeMemoActivity.class);
 				startActivity(intent);
 				getPoisitionActivity.this.finish();
 				

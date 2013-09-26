@@ -25,7 +25,7 @@ import com.baidu.mapapi.map.PopupClickListener;
 import com.baidu.mapapi.map.PopupOverlay;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.telc.smartmemo.R;
-import com.telc.ui.RealtimeMemo.viewModel.RealtimeMemoFragment;
+import com.telc.ui.Memos.RealtimeMemoActivity;
 
 public class baiduMapActivity extends Activity {
 
@@ -168,7 +168,7 @@ public class baiduMapActivity extends Activity {
 					LocationInfoTran.locationData = selectData;
 					
 					Intent intent = new Intent();
-					intent.setClass(baiduMapActivity.this, RealtimeMemoFragment.class);
+					intent.setClass(baiduMapActivity.this, RealtimeMemoActivity.class);
 					startActivity(intent);
 					
 					
