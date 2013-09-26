@@ -5,6 +5,10 @@
     android:layout_height="match_parent" 
     android:background="#424242">
 
+   <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -45,7 +49,7 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:text="个人信息"
                 android:textColor="@color/honeydew"
-                android:textSize="40sp" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -108,7 +112,7 @@
                 android:gravity="left|center"
                 android:text="       备忘录"
                 android:textColor="@color/honeydew"
-                android:textSize="35sp" />
+                android:textSize="25sp" />
 
         </LinearLayout>
 
@@ -129,7 +133,7 @@
             android:layout_height="48dp" >
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/text_pro"
                 android:layout_width="16dp"
                 android:layout_height="wrap_content"
                 android:text="" />
@@ -147,7 +151,7 @@
                 android:gravity="center"
                 android:text="未完成"
                 android:textColor="@color/honeydew"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -187,7 +191,7 @@
                 android:gravity="center"
                 android:text="已完成"
                 android:textColor="@color/honeydew"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -246,9 +250,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="使用说明"
+                android:text="设置"
                 android:textColor="@color/honeydew"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -287,7 +291,7 @@
                 android:gravity="center"
                 android:text="关于"
                 android:textColor="@color/honeydew"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -326,9 +330,13 @@
                 android:gravity="center_vertical|center_horizontal|center"
                 android:text="退出"
                 android:textColor="@color/honeydew"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
     </LinearLayout>
+
+
+
+    </ScrollView>
 
 </FrameLayout>

@@ -1,30 +1,48 @@
 package com.telc.ui.main;
 
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.smartmemo.R;
-import com.telc.ui.RealtimeMemo.viewModel.RealtimeMemoFragment;
+import com.telc.ui.Memos.PeriodicActivity;
+import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.main.viewModel.ContentFragment;
 import com.telc.ui.main.viewModel.MenuFragment;
 
 import android.app.FragmentTransaction;
-import android.app.ListFragment;
+import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.support.v4.*;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.KeyEvent;
+import android.widget.Toast;
+
 
 /**
  * @author WWB
  *
  */
-public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity {
-
+public class SlidingActivity extends SlidingFragmentActivity {
+	private String temp;
+	private static boolean toggleFlag=false;
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
+
+	
+	
+	@Override
+	public void toggle() {
+		// TODO Auto-generated method stub
+		super.toggle();
+		toggleFlag=!toggleFlag;
+	}
+
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,22 +77,55 @@ public class SlidingActivity extends com.jeremyfeinstein.slidingmenu.lib.app.Sli
 	}
 	
 	
-    @Override
+	
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		if(keyCode==KeyEvent.KEYCODE_BACK  && toggleFlag==false){
+			toggle();
+		}
+		return super.onKeyUp(keyCode, event);
+	}
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+    	SubMenu plusMenu=menu.addSubMenu("新建备忘录");//添加按钮名称
+        plusMenu.add(0,1,0,"新建实时提醒");//添加下拉Item
+        plusMenu.add(0,2,0,"新建定时提醒");
+        plusMenu.add(0,3,0,"新建周期性提醒");
+        //实例化按钮
+        MenuItem menuItem=plusMenu.getItem();
+        menuItem.setIcon(android.R.drawable.ic_input_add);
+        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         return true;
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            //toggle就是程序自动判断是打开还是关闭
-            toggle();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    	Intent intent;
+            if (item.getItemId() == android.R.id.home) {
+                //toggle就是程序自动判断是打开还是关闭
+                toggle();
+                return false;
+            }else {
+            	switch (item.getItemId()) {
+            	case 1:
+		           intent=new Intent(SlidingActivity.this,RealtimeMemoActivity.class);
+		           startActivity(intent);
+		           Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
+	            	return true;
+            	case 2:
+            		Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
+	            	return true;
+            	case 3:
+            		intent=new Intent(SlidingActivity.this,PeriodicActivity.class);
+ 		           	startActivity(intent);
+ 		           	Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
+	            	return true;
+	            default:
+	            		return false;
+            }
+            }
     }
-
 }
