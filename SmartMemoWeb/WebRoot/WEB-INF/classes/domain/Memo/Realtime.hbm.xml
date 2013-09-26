@@ -10,7 +10,7 @@
             <column name="id" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="user" class="domain.SystemManagement.User" fetch="select">
+        <many-to-one name="user"  lazy="false" class="domain.SystemManagement.User" fetch="select">
             <column name="userId" />
         </many-to-one>
         <property name="startTime" type="java.lang.String">
@@ -24,6 +24,9 @@
         </property>
         <property name="content" type="java.lang.String">
             <column name="content" length="200" />
+        </property>
+        <property name="priority" type="java.lang.Integer">
+            <column name="priority" />
         </property>
     </class>
 </hibernate-mapping>

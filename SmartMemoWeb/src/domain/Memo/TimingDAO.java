@@ -121,6 +121,16 @@ public class TimingDAO extends HibernateDaoSupport {
 			throw re;
 		}
 	}
+	public List findByTel(String tel){
+		log.debug("finding Timing by tel");
+		try {
+			String queryString = "from Timing where user = '" + tel + "'";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("finding failed", re);
+			throw re;
+		}
+	}
 
 	public Timing merge(Timing detachedInstance) {
 		log.debug("merging Timing instance");
