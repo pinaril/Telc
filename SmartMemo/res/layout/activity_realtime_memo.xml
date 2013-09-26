@@ -69,7 +69,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignTop="@+id/et_location"
                 android:layout_marginLeft="140dp"
-                android:src="@drawable/maps" />
+                android:src="@drawable/ic_location" />
         </RelativeLayout>
     </LinearLayout>
 
