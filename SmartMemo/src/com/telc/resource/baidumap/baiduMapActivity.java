@@ -167,11 +167,11 @@ public class baiduMapActivity extends Activity {
 //					LocationInfoTran.geoPoint = gPoint;
 					LocationInfoTran.locationData = selectData;
 					
-					Intent intent = new Intent();
-					intent.setClass(baiduMapActivity.this, RealtimeMemoActivity.class);
-					startActivity(intent);
+//					Intent intent = new Intent();
+//					intent.setClass(baiduMapActivity.this, RealtimeMemoActivity.class);
+//					startActivity(intent);
 					
-					
+					setResult(1);
 					baiduMapActivity.this.finish();
 				}
 			};

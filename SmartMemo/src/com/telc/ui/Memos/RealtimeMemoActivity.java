@@ -59,18 +59,29 @@ public class RealtimeMemoActivity extends Activity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
 				intent.setClass(RealtimeMemoActivity.this, getPoisitionActivity.class);
-				startActivity(intent);
-				RealtimeMemoActivity.this.finish();
+				startActivityForResult(intent, 0);
+//				startActivity(intent);
 			}
 		});
    	
-   	init();
+   
    }
 
    
  
 	
 	
+@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		init();
+	}
+
+
+
+
+
 public void init() {
 		
 		LocationInfoTran.startToUse = false;
