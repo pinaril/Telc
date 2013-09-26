@@ -18,7 +18,7 @@ import com.baidu.mapapi.search.MKSuggestionResult;
 import com.baidu.mapapi.search.MKTransitRouteResult;
 import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.telc.smartmemo.R;
-import com.telc.ui.RealtimeMemo.viewModel.RealtimeMemoFragment;
+import com.telc.ui.Memos.RealtimeMemoActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -140,10 +140,10 @@ public class getPoisitionActivity extends Activity {
 
 	// 返回上个Activity
 	public void bt_back_onclick(View v) {
-		 Intent intent = new Intent();
-		 intent.setClass(this, RealtimeMemoFragment.class);
-		// setResult(2);
-		this.finish();
+//		 Intent intent = new Intent();
+//		 intent.setClass(this, RealtimeMemoActivity.class);
+//		 setResult(0);
+		 getPoisitionActivity.this.finish();
 	}
 
 	// 地图取点
@@ -151,7 +151,8 @@ public class getPoisitionActivity extends Activity {
 
 		Intent intent = new Intent();
 		intent.setClass(this, baiduMapActivity.class);
-		startActivity(intent);
+//		startActivity(intent);
+		startActivityForResult(intent, 1);
 		getPoisitionActivity.this.finish();
 	}
 
@@ -162,9 +163,10 @@ public class getPoisitionActivity extends Activity {
 		// LocationInfoTran.geoPoint = gPoint;
 		LocationInfoTran.locationData = locData;
 
-		Intent intent = new Intent();
-		intent.setClass(this, RealtimeMemoFragment.class);
-		startActivity(intent);
+//		Intent intent = new Intent();
+//		intent.setClass(this, RealtimeMemoActivity.class);
+//		startActivity(intent);
+		setResult(0);
 
 		getPoisitionActivity.this.finish();
 
@@ -233,9 +235,12 @@ public class getPoisitionActivity extends Activity {
 
 				LocationInfoTran.selectFlag = 1 ;
 				
-				Intent intent = new Intent();
-				intent.setClass(getPoisitionActivity.this, RealtimeMemoFragment.class);
-				startActivity(intent);
+//				RealtimeMemoFragment realtimeMemoFragment = (RealtimeMemoFragment)getA
+				
+//				Intent intent = new Intent();
+//				intent.setClass(getPoisitionActivity.this, RealtimeMemoActivity.class);
+//				startActivity(intent);
+				setResult(0);
 				getPoisitionActivity.this.finish();
 				
 //				for (MKPoiInfo info : res.getAllPoi()) {

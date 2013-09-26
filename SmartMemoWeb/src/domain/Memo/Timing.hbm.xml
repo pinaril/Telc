@@ -10,7 +10,7 @@
             <column name="timingId" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="user" class="domain.SystemManagement.User" fetch="select">
+        <many-to-one name="user" lazy="false" class="domain.SystemManagement.User" fetch="select">
             <column name="userId" />
         </many-to-one>
         <property name="startTime" type="java.lang.String">
