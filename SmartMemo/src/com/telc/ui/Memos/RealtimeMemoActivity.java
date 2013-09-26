@@ -36,79 +36,67 @@ public class RealtimeMemoActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_realtime_memo);
         
-        
-        
-    
-        
-    }
-    
-    
-    
-    
-//	@Override
-//	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-//        View view = inflater.inflate(R.layout.activity_realtime_memo, null);
-//        TextView textImportant=(TextView) view.findViewById(R.id.textImportant);
-//        RatingBar rb_priority=(RatingBar) view.findViewById(R.id.rb_priority);
-//    	TextView textLocation=(TextView) view.findViewById(R.id.textLocation);
-//    	EditText et_location=(EditText) view.findViewById(R.id.et_location);
-//
-//    	
-//    	ImageView iv_maps=(ImageView) view.findViewById(R.id.iv_maps);
-//    	TextView textAging=(TextView) view.findViewById(R.id.textAging);
-//    	Spinner spinner_time=(Spinner) view.findViewById(R.id.spinner_time);
-//    	EditText et_content=(EditText) view.findViewById(R.id.et_content);
-//    	
-//    	 // 失去焦点
-//    	et_location.clearFocus();
-//     		// 始终不弹出软键盘
-//    	et_location.setInputType(InputType.TYPE_NULL);
-//        
-//    	et_location.setOnClickListener(new View.OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				// TODO Auto-generated method stub
-//				Intent intent = new Intent();
-//				intent.setClass(getActivity(), getPoisitionActivity.class);
-//				startActivity(intent);
-//				getActivity().finish();
-//			}
-//		});
-//
-//       return view; 
-//	}
-//	
-//	
-//	public void init() {
-//		
-//		LocationInfoTran.startToUse = false;
-//		
-//		if (LocationInfoTran.StateFlag) {
-//			if (LocationInfoTran.selectFlag == 3) {
-//				if (LocationInfoTran.locationData.latitude == 0.0
-//						|| LocationInfoTran.locationData.longitude == 0.0) {
-//					Toast.makeText(getActivity(), "��ַ��ȡʧ�ܣ�",
-//							Toast.LENGTH_SHORT).show();
-//					return;
-//				}
-//				et_location.setText("�ҵ�λ��");
-//			}
-//			if (LocationInfoTran.selectFlag == 2) {
-//				et_location.setText("��ͼ�ϵĵ�");
-//			}
-//			if (LocationInfoTran.selectFlag == 1) {
-//				et_location.setText(LocationInfoTran.positionNameString);
-//			}
-//			Toast.makeText(
-//					getActivity(),
-//					"���㣺" + LocationInfoTran.locationData.latitude + "\n"
-//							+ LocationInfoTran.locationData.longitude,
-//					Toast.LENGTH_SHORT).show();
-//	
-//		}
-//	}
-//	
+        textImportant=(TextView)findViewById(R.id.textImportant);
+        rb_priority=(RatingBar)findViewById(R.id.rb_priority);
+   	 textLocation=(TextView)findViewById(R.id.textLocation);
+   	 et_location=(EditText)findViewById(R.id.et_location);
+
+   	
+   	 iv_maps=(ImageView) findViewById(R.id.iv_maps);
+   	 textAging=(TextView) findViewById(R.id.textAging);
+   	 spinner_time=(Spinner) findViewById(R.id.spinner_time);
+   	 et_content=(EditText) findViewById(R.id.et_content);
+   	
+   	 // 失去焦点
+   	et_location.clearFocus();
+    		// 始终不弹出软键盘
+   	et_location.setInputType(InputType.TYPE_NULL);
+       
+   	et_location.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				intent.setClass(RealtimeMemoActivity.this, getPoisitionActivity.class);
+				startActivity(intent);
+				RealtimeMemoActivity.this.finish();
+			}
+		});
+   	
+   	init();
+   }
+
+   
+ 
 	
+	
+public void init() {
+		
+		LocationInfoTran.startToUse = false;
+		
+		if (LocationInfoTran.StateFlag) {
+			if (LocationInfoTran.selectFlag == 3) {
+				if (LocationInfoTran.locationData.latitude == 0.0
+						|| LocationInfoTran.locationData.longitude == 0.0) {
+					Toast.makeText(getApplicationContext(), "地址获取失败！",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
+				et_location.setText("我的位置");
+			}
+			if (LocationInfoTran.selectFlag == 2) {
+				et_location.setText("地图上的点");
+			}
+			if (LocationInfoTran.selectFlag == 1) {
+				et_location.setText(LocationInfoTran.positionNameString);
+			}
+			Toast.makeText(
+					getApplicationContext(),
+					"坐标点：" + LocationInfoTran.locationData.latitude + "\n"
+							+ LocationInfoTran.locationData.longitude,
+					Toast.LENGTH_SHORT).show();
+		}
+	}
 	
 }
