@@ -26,20 +26,11 @@ import android.widget.Toast;
  */
 public class SlidingActivity extends SlidingFragmentActivity {
 	private String temp;
-	private static boolean toggleFlag=false;
+//	private static boolean toggleFlag=false;
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-	}
-
-	
-	
-	@Override
-	public void toggle() {
-		// TODO Auto-generated method stub
-		super.toggle();
-		toggleFlag=!toggleFlag;
 	}
 
 
@@ -78,14 +69,14 @@ public class SlidingActivity extends SlidingFragmentActivity {
 	
 	
 	
-	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		// TODO Auto-generated method stub
-		if(keyCode==KeyEvent.KEYCODE_BACK  && toggleFlag==false){
-			toggle();
-		}
-		return super.onKeyUp(keyCode, event);
-	}
+//	@Override
+//	public boolean onKeyUp(int keyCode, KeyEvent event) {
+//		// TODO Auto-generated method stub
+//		if(keyCode==KeyEvent.KEYCODE_BACK  && toggleFlag==false){
+//			toggle();
+//		}
+//		return super.onKeyUp(keyCode, event);
+//	}
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
