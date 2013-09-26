@@ -21,9 +21,9 @@ public class Realtime extends AbstractRealtime implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Realtime(Integer id, User user, String startTime,
-			String location, Integer aging, String content) {
-		super(id, user, startTime, location, aging, content);
+	public Realtime(Integer id, User user, String startTime, String location,
+			Integer aging, String content,Integer priority) {
+		super(id, user, startTime, location, aging, content,priority);
 	}
 
 }

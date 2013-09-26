@@ -26,6 +26,7 @@ public class RealtimeDAO extends HibernateDaoSupport {
 	public static final String LOCATION = "location";
 	public static final String AGING = "aging";
 	public static final String CONTENT = "content";
+	public static final String PRIORITY = "priority";
 
 	protected void initDao() {
 		// do nothing
@@ -105,6 +106,21 @@ public class RealtimeDAO extends HibernateDaoSupport {
 
 	public List findByContent(Object content) {
 		return findByProperty(CONTENT, content);
+	}
+
+	public List findByPriority(Object priority) {
+		return findByProperty(PRIORITY, priority);
+	}
+
+	public List findByTel(String tel) {
+		log.debug("finding Realtime by tel");
+		try {
+			String queryString = "from Realtime where user = '" + tel + "'";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("finding failed", re);
+			throw re;
+		}
 	}
 
 	public List findAll() {

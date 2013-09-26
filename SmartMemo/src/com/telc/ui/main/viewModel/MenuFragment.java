@@ -17,12 +17,12 @@ public class MenuFragment extends Fragment {
 	int index=-1;
 	
 	TextView textUserInfo;
-	TextView textMemo;
 	TextView textFinished;
 	TextView textUnfinish;
 	TextView textAbout;
-	TextView textExplain;
+	TextView textSetting;
 	TextView textExit;
+	TextView textReturn;
 	ContentFragment contentFragment;
 	RealtimeMemoActivity realtimeFragment;
 	
@@ -36,14 +36,13 @@ public class MenuFragment extends Fragment {
 		@Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){	
 		View view=inflater.inflate(R.layout.activity_menu, null);
-        textUserInfo=(TextView)view.findViewById(R.id.textUserInfo);
-        textMemo=(TextView) view.findViewById(R.id.textMemo);
-        textFinished=(TextView) view.findViewById(R.id.textFinished);
-        textUnfinish=(TextView) view.findViewById(R.id.textUnfinish);
-        textAbout=(TextView) view.findViewById(R.id.textAbout);
-        textExplain=(TextView) view.findViewById(R.id.textExplain);
-        textExit=(TextView) view.findViewById(R.id.textExit);
-        
+        textUserInfo=(TextView)view.findViewById(R.id.txt_userinfo);
+        textFinished=(TextView) view.findViewById(R.id.txt_completed);
+        textUnfinish=(TextView) view.findViewById(R.id.txt_uncomplete);
+        textAbout=(TextView) view.findViewById(R.id.txt_about);
+        textSetting=(TextView) view.findViewById(R.id.txt_setting);
+        textExit=(TextView) view.findViewById(R.id.txt_exit);
+        textReturn=(TextView) view.findViewById(R.id.txt_return);
         textUserInfo.setOnClickListener(new OnClickListener() {
 			
 			@Override
