@@ -7,15 +7,11 @@ import com.telc.ui.main.SlidingActivity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 public class MenuFragment extends Fragment {
 	int index=-1;
@@ -62,7 +58,7 @@ public class MenuFragment extends Fragment {
 				 */
 				fm.beginTransaction().replace(R.id.content, contentFragment == null ?new ContentFragment():contentFragment )
 				.commit();
-				((SlidingActivity)getActivity()).getSlidingMenu().toggle();
+				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
 		});
         
@@ -78,7 +74,7 @@ public class MenuFragment extends Fragment {
 				fm.beginTransaction().replace(R.id.content, realtimeFragment == null ?new RealtimeMemoFragment():realtimeFragment)
 				.addToBackStack(null)
 				.commit();
-				((SlidingActivity)getActivity()).getSlidingMenu().toggle();
+				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
 		});
         
@@ -88,9 +84,7 @@ public class MenuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				//
-				//退出。。。。。。。
-				//
+				getActivity().finish();
 			}
 		});
         
