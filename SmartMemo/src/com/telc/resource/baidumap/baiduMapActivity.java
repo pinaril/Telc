@@ -101,6 +101,7 @@ public class baiduMapActivity extends Activity {
 					selectData.longitude= (double)(getPt.getLongitudeE6()*1.0)/1e6;
 					
 					Bitmap[] bitMaps = { BMapUtil.getBitmapFromView(popupInfo) };
+					
 
 					pop.showPopup(bitMaps, getPt, 32);
 				}
@@ -147,6 +148,8 @@ public class baiduMapActivity extends Activity {
 			myLocationOverlay.enableCompass();
 			// 修改定位数据后刷新图层生效
 			mMapView.refresh();
+			
+			createPaopao();
 
 		}
 
@@ -215,6 +218,8 @@ public class baiduMapActivity extends Activity {
 							(int) (locData.longitude * 1e6)));
 					isRequest = false;
 				}
+				
+				
 				// 首次定位完成
 				isFirstLoc = false;
 			}
@@ -235,6 +240,7 @@ public class baiduMapActivity extends Activity {
 
 		@Override
 		protected void onDestroy() {
+			
 			mMapView.destroy();
 			if (mBMapMan != null) {
 				mBMapMan.destroy();
@@ -259,7 +265,7 @@ public class baiduMapActivity extends Activity {
 		@Override
 		protected void onResume() {
 			// 创建 弹出泡泡图层
-			createPaopao();
+//			createPaopao();
 			mMapView.onResume();
 			if (mBMapMan != null) {
 				mBMapMan.start();
