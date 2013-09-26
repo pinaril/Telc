@@ -29,7 +29,7 @@ import com.telc.ui.Memos.RealtimeMemoActivity;
 
 public class baiduMapActivity extends Activity {
 
-	// 地图显示
+		// 地图显示
 		BMapManager mBMapMan = null;
 		MapView mMapView = null;
 		MapView aaMapView = null;// 地图view
@@ -167,11 +167,11 @@ public class baiduMapActivity extends Activity {
 //					LocationInfoTran.geoPoint = gPoint;
 					LocationInfoTran.locationData = selectData;
 					
-					Intent intent = new Intent();
-					intent.setClass(baiduMapActivity.this, RealtimeMemoActivity.class);
-					startActivity(intent);
+//					Intent intent = new Intent();
+//					intent.setClass(baiduMapActivity.this, RealtimeMemoActivity.class);
+//					startActivity(intent);
 					
-					
+					setResult(1);
 					baiduMapActivity.this.finish();
 				}
 			};

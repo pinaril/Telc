@@ -140,10 +140,10 @@ public class getPoisitionActivity extends Activity {
 
 	// 返回上个Activity
 	public void bt_back_onclick(View v) {
-		 Intent intent = new Intent();
-		 intent.setClass(this, RealtimeMemoActivity.class);
-		// setResult(2);
-		this.finish();
+//		 Intent intent = new Intent();
+//		 intent.setClass(this, RealtimeMemoActivity.class);
+//		 setResult(0);
+		 getPoisitionActivity.this.finish();
 	}
 
 	// 地图取点
@@ -151,7 +151,8 @@ public class getPoisitionActivity extends Activity {
 
 		Intent intent = new Intent();
 		intent.setClass(this, baiduMapActivity.class);
-		startActivity(intent);
+//		startActivity(intent);
+		startActivityForResult(intent, 1);
 		getPoisitionActivity.this.finish();
 	}
 
@@ -162,9 +163,10 @@ public class getPoisitionActivity extends Activity {
 		// LocationInfoTran.geoPoint = gPoint;
 		LocationInfoTran.locationData = locData;
 
-		Intent intent = new Intent();
-		intent.setClass(this, RealtimeMemoActivity.class);
-		startActivity(intent);
+//		Intent intent = new Intent();
+//		intent.setClass(this, RealtimeMemoActivity.class);
+//		startActivity(intent);
+		setResult(0);
 
 		getPoisitionActivity.this.finish();
 
@@ -235,9 +237,10 @@ public class getPoisitionActivity extends Activity {
 				
 //				RealtimeMemoFragment realtimeMemoFragment = (RealtimeMemoFragment)getA
 				
-				Intent intent = new Intent();
-				intent.setClass(getPoisitionActivity.this, RealtimeMemoActivity.class);
-				startActivity(intent);
+//				Intent intent = new Intent();
+//				intent.setClass(getPoisitionActivity.this, RealtimeMemoActivity.class);
+//				startActivity(intent);
+				setResult(0);
 				getPoisitionActivity.this.finish();
 				
 //				for (MKPoiInfo info : res.getAllPoi()) {
