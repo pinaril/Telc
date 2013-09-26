@@ -29,7 +29,7 @@ import com.telc.ui.Memos.RealtimeMemoActivity;
 
 public class baiduMapActivity extends Activity {
 
-	// 地图显示
+		// 地图显示
 		BMapManager mBMapMan = null;
 		MapView mMapView = null;
 		MapView aaMapView = null;// 地图view

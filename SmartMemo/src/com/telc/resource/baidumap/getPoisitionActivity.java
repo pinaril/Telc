@@ -240,8 +240,8 @@ public class getPoisitionActivity extends Activity {
 //				Intent intent = new Intent();
 //				intent.setClass(getPoisitionActivity.this, RealtimeMemoActivity.class);
 //				startActivity(intent);
-//				setResult(0);
-//				getPoisitionActivity.this.finish();
+				setResult(0);
+				getPoisitionActivity.this.finish();
 				
 //				for (MKPoiInfo info : res.getAllPoi()) {
 //					if (info.pt != null) {
