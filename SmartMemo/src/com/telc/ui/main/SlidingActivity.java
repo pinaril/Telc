@@ -91,6 +91,9 @@ public class SlidingActivity extends SlidingFragmentActivity {
 		           Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;
             	case 2:
+            		Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
+	            	return true;
+            	case 3:
             		intent=new Intent(SlidingActivity.this,PeriodicActivity.class);
  		           	startActivity(intent);
  		           	Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();

@@ -1,18 +1,18 @@
 package com.telc.ui.Memos;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
 import com.telc.resource.baidumap.LocationInfoTran;
 import com.telc.resource.baidumap.getPoisitionActivity;
 import com.telc.smartmemo.R;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -20,7 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RealtimeMemoActivity extends Activity {
+public class RealtimeMemoActivity extends SherlockFragmentActivity {
 	
 	TextView textImportant;
 	RatingBar rb_priority;
@@ -64,11 +64,40 @@ public class RealtimeMemoActivity extends Activity {
 			}
 		});
    	
+   	getActionBar().setDisplayHomeAsUpEnabled(true);
    	init();
    }
 
-   
+    
+    
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		SubMenu menuCheck;
+		MenuItem check;
+		menuCheck=menu.addSubMenu("保存");
+		check=menuCheck.getItem();
+		check.setIcon(R.drawable.ic_right);
+		check.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId()==android.R.id.home){
+			finish();
+			return true;
+		}else if(item.getItemId()==0){
+			//执行保存////////////////////////////////////
+			///////////////////////////////////
+			///////////////////////////////////
+			return true;
+		}else
+			return false;
+	}
  
+	
 	
 	
 public void init() {
