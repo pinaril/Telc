@@ -17,7 +17,7 @@
             android:textSize="15sp" />
 
         <RatingBar
-            android:id="@+id/ratingBarPeriodic"
+            android:id="@+id/ratingBarPeriodicPriority"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -38,7 +38,7 @@
             android:id="@+id/spinnerPeriodic"
             android:layout_width="174dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.46" />
+            android:layout_weight="0.54" />
     </LinearLayout>
 
     <LinearLayout
@@ -46,28 +46,18 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
+            android:id="@+id/textPeriodicDetail"
+            android:layout_width="89dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="地点："
-            android:textSize="15sp" />
+            android:text="详细：" />
 
-        <EditText
-            android:id="@+id/editPeriodicLocation"
+        <Spinner
+            android:id="@+id/spinnerPeriodicDetail"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ems="10" >
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
-            <requestFocus />
-        </EditText>
-
-        <ImageView
-            android:id="@+id/imagePeriodicLocation"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_location" />
     </LinearLayout>
 
     <LinearLayout

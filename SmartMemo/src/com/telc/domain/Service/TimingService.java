@@ -28,6 +28,7 @@ public class TimingService implements ITimingService {
 	@Override
 	public List<Timing> getTimingByUserID(String user_id) {
 		// TODO Auto-generated method stub
+		
 		List<Timing> timing_list=new ArrayList<Timing>();
 		String sql = "select a.[rowid] as _id,* from TIMING as a where user_id='"
 				+ user_id + "'";
