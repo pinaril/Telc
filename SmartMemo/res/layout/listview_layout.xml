@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.08"
         android:gravity="top"
-        android:text="textListContent" />
+        android:text="textListContent"
+        android:textSize="25sp" />
 
 </LinearLayout>

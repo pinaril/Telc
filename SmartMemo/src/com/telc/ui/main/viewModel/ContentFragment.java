@@ -29,16 +29,19 @@ import android.widget.SimpleAdapter.ViewBinder;
 
 
 public class ContentFragment extends Fragment {
-	
+	//数据库
 	private SQLiteDatabase db;
 	private TimingService timingService;
 	private RealTimeService realTimeService;
-	private SharedPreferences sp;
+	private SharedPreferences sp;//用来获取xml保存的useiId
 	ListView memoList;
-	
+//	保存list中的item的列表
 	List<Map <String, Object>> mList=new ArrayList<Map<String,Object>>();
-	SimpleAdapter mAdapter;
+//	listView适配器
+	SimpleAdapter mAdapter=null;
+//	适配器中的key
 	String[] from={"textListCategory","ratingBarListItem","textListContent"};
+//	value
 	int[] to={R.id.textListCategory,R.id.ratingBarListItem,R.id.textListContent};
 	
     @Override
@@ -54,8 +57,8 @@ public class ContentFragment extends Fragment {
 		sp=getActivity().getSharedPreferences("Login", getActivity().MODE_PRIVATE);
 		//实例化Adapter
 		initAdapert();
-		memoList.setAdapter(mAdapter);
-
+		if(mAdapter!=null)
+			memoList.setAdapter(mAdapter);
         return view;
 	}
 	
@@ -68,16 +71,27 @@ public class ContentFragment extends Fragment {
 		//实例化数据库服务
 		timingService=new TimingService(db);
 		realTimeService=new RealTimeService(db);
+//		获取userId
 		String userId=sp.getString("user", null);
+//		数据库中获取的List<Timing>
 		List<Timing> list = timingService.getTimingByUserID(userId);
-		Timing timing;
+		if(list==null)
+			return;
+		else{
+		Timing tempTiming;
 		Iterator it = list.iterator();
 		while(it.hasNext()){
-			timing = (Timing) it.next();
+			tempTiming = (Timing) it.next();
 			Map <String, Object> mListItem=new HashMap<String, Object>();
+			String temp;
 			mListItem.put("textListCategory", "定时提醒");
-			mListItem.put("ratingBarListItem", (float)timing.getPriority());
-			mListItem.put("textListContent",timing.getContent());
+			mListItem.put("ratingBarListItem", (float)tempTiming.getPriority());
+			if(tempTiming.getContent().length()<=10){
+				temp=tempTiming.getContent();
+			}else{
+				temp=tempTiming.getContent().substring(0, 10)+"……";
+			}
+			mListItem.put("textListContent",temp);
 			mList.add(mListItem);
 		}
 		
@@ -85,7 +99,6 @@ public class ContentFragment extends Fragment {
 				from, to);
 		//重写Adapter支持RatingBar
 		mAdapter.setViewBinder(new ViewBinder() {
-			
 			@Override
 			public boolean setViewValue(View view, Object data,
 					String textRepresentation) {
@@ -100,5 +113,6 @@ public class ContentFragment extends Fragment {
 				return false;
 			}
 		});
+		}
 	}
 }
