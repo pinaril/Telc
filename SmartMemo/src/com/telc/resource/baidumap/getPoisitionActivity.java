@@ -8,7 +8,9 @@ import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.map.LocationData;
 import com.baidu.mapapi.search.MKAddrInfo;
 import com.baidu.mapapi.search.MKBusLineResult;
+import com.baidu.mapapi.search.MKCityListInfo;
 import com.baidu.mapapi.search.MKDrivingRouteResult;
+import com.baidu.mapapi.search.MKGeocoderAddressComponent;
 import com.baidu.mapapi.search.MKPoiResult;
 import com.baidu.mapapi.search.MKSearch;
 import com.baidu.mapapi.search.MKSearchListener;
@@ -17,6 +19,7 @@ import com.baidu.mapapi.search.MKSuggestionInfo;
 import com.baidu.mapapi.search.MKSuggestionResult;
 import com.baidu.mapapi.search.MKTransitRouteResult;
 import com.baidu.mapapi.search.MKWalkingRouteResult;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 
@@ -30,9 +33,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
-
-
 
 public class getPoisitionActivity extends Activity {
 
@@ -42,6 +44,9 @@ public class getPoisitionActivity extends Activity {
 	LocationData locData = null;
 
 	private MKSearch mSearch = null;
+
+	String city = "";
+	boolean cityFlag = true;
 
 	BMapManager mBMapMan = null;
 
@@ -106,11 +111,16 @@ public class getPoisitionActivity extends Activity {
 				if (cs.length() <= 0) {
 					return;
 				}
-				String city = "福州";// ((EditText)findViewById(R.id.city)).getText().toString();
-				/**
-				 * 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
-				 */
-				mSearch.suggestionSearch(cs.toString(), city);
+
+				if (!city.equals("")) {
+
+					// System.out.print(city);
+					/**
+					 * 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
+					 */
+					mSearch.suggestionSearch(cs.toString(), city);
+				}
+
 			}
 		});
 
@@ -140,10 +150,10 @@ public class getPoisitionActivity extends Activity {
 
 	// 返回上个Activity
 	public void bt_back_onclick(View v) {
-//		 Intent intent = new Intent();
-//		 intent.setClass(this, RealtimeMemoActivity.class);
-//		 setResult(0);
-		 getPoisitionActivity.this.finish();
+		// Intent intent = new Intent();
+		// intent.setClass(this, RealtimeMemoActivity.class);
+		// setResult(0);
+		getPoisitionActivity.this.finish();
 	}
 
 	// 地图取点
@@ -151,7 +161,7 @@ public class getPoisitionActivity extends Activity {
 
 		Intent intent = new Intent();
 		intent.setClass(this, baiduMapActivity.class);
-//		startActivity(intent);
+		// startActivity(intent);
 		startActivityForResult(intent, 1);
 		getPoisitionActivity.this.finish();
 	}
@@ -163,9 +173,9 @@ public class getPoisitionActivity extends Activity {
 		// LocationInfoTran.geoPoint = gPoint;
 		LocationInfoTran.locationData = locData;
 
-//		Intent intent = new Intent();
-//		intent.setClass(this, RealtimeMemoActivity.class);
-//		startActivity(intent);
+		// Intent intent = new Intent();
+		// intent.setClass(this, RealtimeMemoActivity.class);
+		// startActivity(intent);
 		setResult(0);
 
 		getPoisitionActivity.this.finish();
@@ -186,11 +196,20 @@ public class getPoisitionActivity extends Activity {
 			if (location == null)
 				return;
 
-			Toast.makeText(getApplicationContext(), "1111", Toast.LENGTH_SHORT).show();
-//			if(location.getLatitude() == 0.0 || location.getLongitude() == 0.0)
-//				return;
+			Toast.makeText(getApplicationContext(), "1111", Toast.LENGTH_SHORT)
+					.show();
+			// if(location.getLatitude() == 0.0 || location.getLongitude() ==
+			// 0.0)
+			// return;
 			locData.latitude = location.getLatitude();
 			locData.longitude = location.getLongitude();
+
+			if (cityFlag) {
+				mSearch.reverseGeocode(new GeoPoint((int) (location
+						.getLatitude() * 1e6),
+						(int) (location.getLongitude() * 1e6)));
+				cityFlag = false;
+			}
 		}
 
 		public void onReceivePoi(BDLocation poiLocation) {
@@ -204,6 +223,9 @@ public class getPoisitionActivity extends Activity {
 		@Override
 		public void onGetAddrResult(MKAddrInfo result, int iError) {
 			// 返回地址信息搜索结果
+			MKGeocoderAddressComponent kk = result.addressComponents;
+			city = kk.city;
+			Toast.makeText(getApplicationContext(), "city"+ city, Toast.LENGTH_SHORT).show();
 		}
 
 		@Override
@@ -222,33 +244,34 @@ public class getPoisitionActivity extends Activity {
 			}
 			// 将地图移动到第一个POI中心点
 			if (res.getCurrentNumPois() > 0) {
-				
+
 				LocationData newLocationData = new LocationData();
-				newLocationData.latitude = (res.getPoi(0).pt.getLatitudeE6()*1.0)/1000000;
-				newLocationData.longitude = (res.getPoi(0).pt.getLongitudeE6()*1.0)/1000000;
-				
-				
+				newLocationData.latitude = (res.getPoi(0).pt.getLatitudeE6() * 1.0) / 1000000;
+				newLocationData.longitude = (res.getPoi(0).pt.getLongitudeE6() * 1.0) / 1000000;
+
 				LocationInfoTran.StateFlag = true;
 				LocationInfoTran.locationData = newLocationData;
-//				LocationInfoTran.positionNameString = res.getPoi(0).address;
+				// LocationInfoTran.positionNameString = res.getPoi(0).address;
 				LocationInfoTran.positionNameString = res.getPoi(0).name;
 
-				LocationInfoTran.selectFlag = 1 ;
-				
-//				RealtimeMemoFragment realtimeMemoFragment = (RealtimeMemoFragment)getA
-				
-//				Intent intent = new Intent();
-//				intent.setClass(getPoisitionActivity.this, RealtimeMemoActivity.class);
-//				startActivity(intent);
+				LocationInfoTran.selectFlag = 1;
+
+				// RealtimeMemoFragment realtimeMemoFragment =
+				// (RealtimeMemoFragment)getA
+
+				// Intent intent = new Intent();
+				// intent.setClass(getPoisitionActivity.this,
+				// RealtimeMemoActivity.class);
+				// startActivity(intent);
 				setResult(0);
 				getPoisitionActivity.this.finish();
-				
-//				for (MKPoiInfo info : res.getAllPoi()) {
-//					if (info.pt != null) {
-//						mMapView.getController().animateTo(info.pt);
-//						break;
-//					}
-//				}
+
+				// for (MKPoiInfo info : res.getAllPoi()) {
+				// if (info.pt != null) {
+				// mMapView.getController().animateTo(info.pt);
+				// break;
+				// }
+				// }
 			} else if (res.getCityListNum() > 0) {
 				// 当输入关键字在本市没有找到，但在其他城市找到时，返回包含该关键字信息的城市列表
 				String strInfo = "在";
@@ -260,7 +283,7 @@ public class getPoisitionActivity extends Activity {
 				Toast.makeText(getPoisitionActivity.this, strInfo,
 						Toast.LENGTH_LONG).show();
 			}
-			
+
 		}
 
 		@Override
@@ -313,7 +336,5 @@ public class getPoisitionActivity extends Activity {
 			mLocClient.stop();
 		super.onDestroy();
 	}
-	
-	
-	
+
 }

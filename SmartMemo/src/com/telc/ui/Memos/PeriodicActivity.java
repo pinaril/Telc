@@ -87,12 +87,6 @@ public class PeriodicActivity extends SherlockFragmentActivity {
 		mPeriodic.setPriority(getRatingBarPeriodicPriority());
 //		periodicHelper.addPeriodic(mPeriodic);
 		return false;
-	};
-	///////////////////////////////////////////////////
-	
-//	private boolean showPeriodicMemo(){
-//		
-////		mPeriodic=periodicHelper.getPeriodicByUserID(User.userID).get();
-//	}
-	
+	}
+
 }

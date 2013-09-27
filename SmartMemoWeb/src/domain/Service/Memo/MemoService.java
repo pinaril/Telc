@@ -18,9 +18,10 @@ import domain.SystemManagement.UserDAO;
 
 public class MemoService implements IMemoService {
 	private UserDAO userDao;
-	private RealtimeDAO  realtimeDao;
+	private RealtimeDAO realtimeDao;
 	private TimingDAO timingDao;
 	private ApplicationContext ctx;
+
 	@Override
 	public boolean saveRealTimeMemo(RTMemoHelper rtHelper) {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -28,7 +29,6 @@ public class MemoService implements IMemoService {
 		realtimeDao = RealtimeDAO.getFromApplicationContext(ctx);
 		Realtime realtime = new Realtime();
 		User user = userDao.findById(Integer.parseInt(rtHelper.getUserId()));
-		realtime.setId(Integer.parseInt(rtHelper.getId()));
 		realtime.setStartTime(rtHelper.getStartTime());
 		realtime.setLocation(rtHelper.getLocation());
 		realtime.setAging(Integer.parseInt(rtHelper.getAging()));
@@ -42,8 +42,9 @@ public class MemoService implements IMemoService {
 		} catch (Exception e) {
 			return false;
 		}
-		
+
 	}
+
 	@Override
 	public boolean saveTimingMemo(TMMemoHelper tmHelper) {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -56,7 +57,6 @@ public class MemoService implements IMemoService {
 		timing.setLocation(tmHelper.getLocation());
 		timing.setPriority(Integer.parseInt(tmHelper.getPriority()));
 		timing.setStartTime(tmHelper.getStartTime());
-		timing.setTimingId(Integer.parseInt(tmHelper.getTimingId()));
 		timing.setUser(user);
 		try {
 			timingDao.save(timing);
@@ -65,6 +65,7 @@ public class MemoService implements IMemoService {
 			return false;
 		}
 	}
+
 	@Override
 	public List<RTMemoHelper> getRealTimeMemoByTel(String tel) {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -72,9 +73,9 @@ public class MemoService implements IMemoService {
 		List<Realtime> list_r = realtimeDao.findByTel(tel);
 		List<RTMemoHelper> list_helper = new ArrayList<RTMemoHelper>();
 		Iterator it = list_r.iterator();
-		while(it.hasNext()){
+		while (it.hasNext()) {
 			RTMemoHelper rt = new RTMemoHelper();
-			Realtime realtime =(Realtime) it.next();
+			Realtime realtime = (Realtime) it.next();
 			rt.setAging(realtime.getAging().toString());
 			rt.setContent(realtime.getContent());
 			rt.setId(realtime.getId().toString());
@@ -86,14 +87,15 @@ public class MemoService implements IMemoService {
 		}
 		return list_helper;
 	}
+
 	@Override
 	public List<TMMemoHelper> getTimingMemoByTel(String tel) {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		timingDao = timingDao.getFromApplicationContext(ctx);
 		List<Timing> list_t = timingDao.findByTel(tel);
 		List<TMMemoHelper> list_helper = new ArrayList<TMMemoHelper>();
-		Iterator it =list_t.iterator();
-		while(it.hasNext()){
+		Iterator it = list_t.iterator();
+		while (it.hasNext()) {
 			Timing timing = (Timing) it.next();
 			TMMemoHelper tm = new TMMemoHelper();
 			tm.setContent(timing.getContent());
@@ -106,6 +108,86 @@ public class MemoService implements IMemoService {
 			list_helper.add(tm);
 		}
 		return list_helper;
+	}
+
+	@Override
+	public boolean saveAllRealTimeMemo(List<RTMemoHelper> list_rt, String tel) {
+		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		realtimeDao = RealtimeDAO.getFromApplicationContext(ctx);
+		userDao = UserDAO.getFromApplicationContext(ctx);
+		// User user = (User) userDao.findByTel(tel).get(0);
+		User user = userDao.findById(Integer.parseInt(tel));
+		Iterator it_rt = list_rt.iterator();
+		try {
+			while (it_rt.hasNext()) {
+				RTMemoHelper rtHelper = new RTMemoHelper();
+				Realtime real = new Realtime();
+				rtHelper = (RTMemoHelper) it_rt.next();
+				real.setAging(Integer.parseInt(rtHelper.getAging()));
+				real.setContent(rtHelper.getContent());
+				real.setId(Integer.parseInt(rtHelper.getId()));
+				real.setLocation(rtHelper.getLocation());
+				real.setPriority(Integer.parseInt(rtHelper.getPriority()));
+				real.setStartTime(rtHelper.getStartTime());
+				real.setUser(user);
+				realtimeDao.save(real);
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+
+	}
+
+	@Override
+	public boolean saveAllTimingMemo(List<TMMemoHelper> list_tm, String tel) {
+//		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		timingDao = TimingDAO.getFromApplicationContext(ctx);
+//		userDao = UserDAO.getFromApplicationContext(ctx);
+//		User user = userDao.findById(Integer.parseInt(tel));
+//		Iterator it = list_tm.iterator();
+//		try {
+//			while (it.hasNext()) {
+//				TMMemoHelper tmHelper = (TMMemoHelper) it.next();
+//				Timing tm = new Timing();
+//				tm.setContent(tmHelper.getContent());
+//				tm.setEndTime(tmHelper.getEndTime());
+//				tm.setLocation(tmHelper.getLocation());
+//				tm.setPriority(Integer.parseInt(tmHelper.getPriority()));
+//				tm.setStartTime(tmHelper.getStartTime());
+//				tm.setTimingId(Integer.getInteger(tmHelper.getTimingId()));
+//				tm.setUser(user);
+//				timingDao.save(tm);
+//			}
+//			return true;
+//		} catch (Exception e) {
+//			return false;
+//		}
+		return false;
+
+	}
+
+	@Override
+	public boolean updateRealTimeMemo(RTMemoHelper rtHelper) {
+		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		realtimeDao = RealtimeDAO.getFromApplicationContext(ctx);
+		userDao = UserDAO.getFromApplicationContext(ctx);
+		User user = userDao.findById(Integer.parseInt(rtHelper.getUserId()));
+		Realtime real = new Realtime();
+		real.setAging(Integer.parseInt(rtHelper.getAging()));
+		real.setContent(rtHelper.getContent());
+		real.setId(Integer.parseInt(rtHelper.getId()));
+		real.setLocation(rtHelper.getLocation());
+		real.setPriority(Integer.parseInt(rtHelper.getPriority()));
+		real.setStartTime(rtHelper.getStartTime());
+		real.setUser(user);
+		try {
+			realtimeDao.merge(real);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+
 	}
 
 }

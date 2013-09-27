@@ -23,12 +23,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="18dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -40,13 +40,20 @@
                 <TextView
                     android:id="@+id/txt_userinfo"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="38dp"
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/userinfo"
                     android:drawableRight="@drawable/goto_view"
                     android:text="个人信息"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="18dp"
+                android:orientation="vertical" >
+
             </LinearLayout>
 
             <LinearLayout
@@ -60,29 +67,11 @@
                     android:orientation="vertical" >
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="10sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="备忘录"
-                    android:textColor="@color/white"
-                    android:textSize="26sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                        android:text="备忘录"
+                        android:textColor="@color/white"
+                        android:textSize="26sp" />
 
                     <TextView
                         android:id="@+id/textView4"
@@ -111,7 +100,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="12dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -194,7 +183,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="12dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -222,7 +211,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="12dp"
                     android:orientation="vertical" >
 
                     <TextView
@@ -248,7 +237,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="28dp"
                     android:orientation="vertical" >
 
                     <TextView

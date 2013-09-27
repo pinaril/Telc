@@ -178,7 +178,6 @@ public class baiduMapActivity extends Activity {
 				pop.hidePop();
 			}
 		};
-		// PopupClickListener popListener= new myPopListener();
 
 		pop = new PopupOverlay(mMapView, popListener);
 	}
