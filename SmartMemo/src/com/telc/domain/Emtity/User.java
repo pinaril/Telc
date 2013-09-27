@@ -8,7 +8,7 @@ package com.telc.domain.Emtity;
  */
 public class User {
 	private String image;
-	private String userID;
+	public static String userID;
 	
 	private String userName;
 	private String userPwd;
