@@ -14,10 +14,8 @@ import android.widget.Spinner;
 
 public class PeriodicActivity extends SherlockFragmentActivity {
 
-	RatingBar ratingBarPeriodic;
-	Spinner spinnerPeriodic;
-	EditText editPeriodicLocation;
-	ImageView imagePeriodicLocation;
+	RatingBar ratingBarPeriodicPriority;
+	Spinner spinnerPeriodic,spinnerPeriodicDetail;
 	EditText editPeriodicContent;
 	
 	
@@ -27,10 +25,9 @@ public class PeriodicActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_periodic);
 		
-		ratingBarPeriodic=(RatingBar) findViewById(R.id.ratingBarPeriodic);
+		ratingBarPeriodicPriority=(RatingBar) findViewById(R.id.ratingBarPeriodicPriority);
 		spinnerPeriodic=(Spinner) findViewById(R.id.spinnerPeriodic);
-		editPeriodicLocation=(EditText) findViewById(R.id.editPeriodicLocation);
-		imagePeriodicLocation=(ImageView) findViewById(R.id.imagePeriodicLocation);
+		spinnerPeriodicDetail=(Spinner) findViewById(R.id.spinnerPeriodicDetail);
 		editPeriodicContent=(EditText) findViewById(R.id.editPeriodicContent);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -66,12 +63,16 @@ public class PeriodicActivity extends SherlockFragmentActivity {
 	private String getPeriodicContent(){
 		return editPeriodicContent.getText().toString();
 	}
-	private int getRatingBarPeriodic(){
-		return (int)ratingBarPeriodic.getRating();
+	private String getSpinnerPeriodic(int position){
+		return (String) spinnerPeriodic.getItemAtPosition(position);
 	}
-	private String getPeriodicLocation(){
-		return editPeriodicLocation.getText().toString();
+	private String getSpinnerPeriodicDetail(int position){
+		return (String) spinnerPeriodicDetail.getItemAtPosition(position);
 	}
+	private int getRatingBarPeriodicPriority(){
+		return (int)ratingBarPeriodicPriority.getRating();
+	}
+
 	
 	///////////////////////////////////////////////////
 	private boolean savePeriodicMemo(){
