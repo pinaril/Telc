@@ -17,7 +17,7 @@ import android.widget.Spinner;
 
 public class PeriodicActivity extends SherlockFragmentActivity {
 
-	private IPeriodicService periodicHelper=new PeroidcService();
+//	private IPeriodicService periodicHelper=new PeroidcService();
 	RatingBar ratingBarPeriodicPriority;
 	Spinner spinnerPeriodic,spinnerPeriodicDetail;
 	EditText editPeriodicContent;
@@ -85,14 +85,15 @@ public class PeriodicActivity extends SherlockFragmentActivity {
 		mPeriodic.setPeriod(getSpinnerPeriodic(periodicPosition));
 		mPeriodic.setPeriod_detail(getSpinnerPeriodicDetail(peridicDetailPosition));
 		mPeriodic.setPriority(getRatingBarPeriodicPriority());
-		periodicHelper.addPeriodic(mPeriodic);
+//		periodicHelper.addPeriodic(mPeriodic);
 		return false;
 	};
 	///////////////////////////////////////////////////
 	
-	private boolean showPeriodicMemo(){
+//	private boolean showPeriodicMemo(){
 		
-		mPeriodic=periodicHelper.getPeriodicByUserID(User.userID).get();
-	}
+//		mPeriodic=periodicHelper.getPeriodicByUserID(User.userID).get();
+		
+//	}
 	
 }
