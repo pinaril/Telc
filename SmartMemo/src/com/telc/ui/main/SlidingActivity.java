@@ -2,8 +2,13 @@ package com.telc.ui.main;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
+import java.util.zip.Inflater;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -12,6 +17,8 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.Timing;
+import com.telc.domain.Emtity.User;
+import com.telc.domain.Service.RealTimeService;
 import com.telc.domain.Service.TimingService;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicActivity;
@@ -21,12 +28,19 @@ import com.telc.ui.main.viewModel.MenuFragment;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.SimpleAdapter;
+import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Toast;
 
 
@@ -35,6 +49,8 @@ import android.widget.Toast;
  *
  */
 public class SlidingActivity extends SlidingFragmentActivity implements DBConstant {
+	
+
 	
 	@Override
 	public void onDestroy() {
@@ -50,6 +66,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		setTitle("智慧备忘录");//设置备忘录标题
 		setContentView(R.layout.activity_content);
 
+
+		
         setBehindContentView(R.layout.activity_menu);//设置侧边的布局文件
         //Fragment事件开始
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -62,6 +80,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 //        提交事务
         fragmentTransaction.commit();
         
+
 //        设置滑动菜单的属性
 		SlidingMenu sm= getSlidingMenu();
 		sm.setShadowWidth(15);
@@ -115,4 +134,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
             }
             }
     }
+    
+	
 }
