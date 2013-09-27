@@ -34,6 +34,7 @@ public class ViewPagerActivity extends Activity {
 		pageViews.add(inflater.inflate(R.layout.welcome0,null));
 		pageViews.add(inflater.inflate(R.layout.welcome1,null));
 		pageViews.add(inflater.inflate(R.layout.welcome2,null));
+		pageViews.add(inflater.inflate(R.layout.welcome3, null));
 		
 		ViewPager vp =(ViewPager) findViewById(R.id.pager);
 		
@@ -65,7 +66,7 @@ public class ViewPagerActivity extends Activity {
 			 container.addView(mListViews.get(position));//添加页卡
 			 //判断是否为最后一页，实例化“开始体验”Button。
 			 switch (position){
-			 case 2:
+			 case 3:
 			 btn_enter=(Button) mListViews.get(position).findViewById(R.id.btn_enter);
 			 btn_enter.setOnClickListener(new OnClickListener() {
 				@Override
