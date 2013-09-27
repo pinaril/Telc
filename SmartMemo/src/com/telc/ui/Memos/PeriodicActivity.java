@@ -4,6 +4,9 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
+import com.telc.domain.Emtity.Periodic;
+import com.telc.domain.Emtity.User;
+import com.telc.domain.IService.IPeriodicService;
 import com.telc.smartmemo.R;
 
 import android.os.Bundle;
@@ -14,10 +17,12 @@ import android.widget.Spinner;
 
 public class PeriodicActivity extends SherlockFragmentActivity {
 
+	private IPeriodicService periodicHelper=new PeroidcService();
 	RatingBar ratingBarPeriodicPriority;
 	Spinner spinnerPeriodic,spinnerPeriodicDetail;
 	EditText editPeriodicContent;
-	
+	private Periodic mPeriodic;
+	private int periodicPosition,peridicDetailPosition;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -76,10 +81,18 @@ public class PeriodicActivity extends SherlockFragmentActivity {
 	
 	///////////////////////////////////////////////////
 	private boolean savePeriodicMemo(){
-		//
-		//
+		mPeriodic.setContent(getPeriodicContent());
+		mPeriodic.setPeriod(getSpinnerPeriodic(periodicPosition));
+		mPeriodic.setPeriod_detail(getSpinnerPeriodicDetail(peridicDetailPosition));
+		mPeriodic.setPriority(getRatingBarPeriodicPriority());
+		periodicHelper.addPeriodic(mPeriodic);
 		return false;
 	};
 	///////////////////////////////////////////////////
+	
+	private boolean showPeriodicMemo(){
+		
+		mPeriodic=periodicHelper.getPeriodicByUserID(User.userID).get();
+	}
 	
 }
