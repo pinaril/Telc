@@ -19,6 +19,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -26,8 +27,8 @@ import android.widget.Toast;
 public class LoginAndRegisterActivity extends Activity implements DBConstant {
 	private EditText et_phoneNum;
 	private EditText et_password;
-	private ImageView iv_login;
-	private ImageView iv_register;
+	private Button btn_login;
+	private Button btn_regist;
 	private IUserService service;
 	private SharedPreferences sp;//xml保持登录信息
 
@@ -44,7 +45,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 			startActivity(intent);
 			LoginAndRegisterActivity.this.finish();
 		}
-		iv_login.setOnClickListener(new View.OnClickListener() {
+		btn_login.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				String userphone = et_phoneNum.getText().toString();
@@ -89,7 +90,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 
 			}
 		});
-		iv_register.setOnClickListener(new View.OnClickListener() {
+		btn_regist.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				String userphone = et_phoneNum.getText().toString();
@@ -130,10 +131,10 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 	}
 
 	private void initControlsAndRegEvent() {
-		et_phoneNum = (EditText) findViewById(R.id.et_phoneNum);
-		et_password = (EditText) findViewById(R.id.et_password);
-		iv_login = (ImageView) findViewById(R.id.image_login);
-		iv_register = (ImageView) findViewById(R.id.image_register);
+		btn_login=(Button) findViewById(R.id.btn_login);
+		btn_regist=(Button) findViewById(R.id.btn_regist);
+		et_phoneNum=(EditText) findViewById(R.id.et_userphone);
+		et_password=(EditText) findViewById(R.id.login_password);
 		sp = getSharedPreferences("Login", MODE_PRIVATE);
 	}
 

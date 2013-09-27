@@ -3,9 +3,11 @@ package com.telc.ui.main.viewModel;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.main.SlidingActivity;
+import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,6 +79,18 @@ public class MenuFragment extends Fragment {
 			}
 		});
         
+        
+        textReturn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+
+				getActivity().finish();
+				Intent intent=new Intent(getActivity(),LoginAndRegisterActivity.class);
+				startActivity(intent);
+			}
+		});
         
         textExit.setOnClickListener(new OnClickListener() {
 			
