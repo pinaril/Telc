@@ -22,10 +22,13 @@ public class TestMemo extends MemoService {
 	@Before
 	public void init(){
 		rt = new RTMemoHelper();
-		rt.setId("12345");
-		rt.setUserId("1");
+		rt.setId("1");
+		rt.setUserId("123");
 		rt.setAging("24");
 		rt.setPriority("8");
+		rt.setLocation("123");
+		rt.setStartTime("21");
+		rt.setContent("test");
 		tm = new TMMemoHelper();
 		tm.setUserId("2");
 		tm.setTimingId("1234");
@@ -45,12 +48,15 @@ public class TestMemo extends MemoService {
 		List<RTMemoHelper> list = getRealTimeMemoByTel("123");
 	}
 	
-	@Test
+	@Ignore
 	public void testGetTimingMemo(){
 		List<TMMemoHelper> list = getTimingMemoByTel("123");
 		System.out.println(list.get(0).getUserId());
 		System.out.println(list.get(0).getContent());
 	}
-	
+	@Test
+	public void testUpdateRealtimeMemo(){
+		updateRealTimeMemo(rt);
+	}
 
 }

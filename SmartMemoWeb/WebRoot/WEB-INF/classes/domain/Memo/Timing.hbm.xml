@@ -8,7 +8,7 @@
     <class name="domain.Memo.Timing" table="timing" catalog="memo">
         <id name="timingId" type="java.lang.Integer">
             <column name="timingId" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <many-to-one name="user" lazy="false" class="domain.SystemManagement.User" fetch="select">
             <column name="userId" />
