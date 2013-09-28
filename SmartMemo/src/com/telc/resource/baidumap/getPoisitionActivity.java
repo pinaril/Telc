@@ -109,7 +109,7 @@ public class getPoisitionActivity extends Activity {
 	            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 	                    long arg3) {
 	            	
-	              keyWorldsView.setText("aa"+arg2);
+	              keyWorldsView.setText((String)listItem.get(arg2).get("ItemText"));
 	            }
 	        });
 				
