@@ -81,7 +81,7 @@ public class getPoisitionActivity extends Activity {
 	 * 搜索关键字输入窗口
 	 */
 	private AutoCompleteTextView keyWorldsView = null;
-	private int load_Index;
+//	private int load_Index;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -136,11 +136,6 @@ public class getPoisitionActivity extends Activity {
 		
 		keyWorldsView = (AutoCompleteTextView) findViewById(R.id.et_oneactivity_enterPoi);
 		
-//		//自动弹出键盘
-//		InputMethodManager inputManager = (InputMethodManager)
-//		getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
-//		inputManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-
 
 		/**
 		 * 当输入关键字变化时，动态更新建议列表

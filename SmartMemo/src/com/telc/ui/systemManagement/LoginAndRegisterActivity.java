@@ -49,6 +49,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 			@Override
 			public void onClick(View v) {
 				String userphone = et_phoneNum.getText().toString();
+				
 				String password = et_password.getText().toString();
 				if (userphone.equals("") || password.equals("")) {
 					Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
@@ -95,6 +96,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 			public void onClick(View v) {
 				String userphone = et_phoneNum.getText().toString();
 				String password = et_password.getText().toString();
+				
 				User user = new User();
 				user.setUserID(userphone);
 				user.setPhoneNum(userphone);
@@ -103,7 +105,9 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 					Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
 							"用户名密码请填完整", Toast.LENGTH_SHORT);
 					toast.show();
-				} else {
+				} else if(!userphone.matches("^(13|15|18)\\d{9}$")){
+					Toast.makeText(getApplicationContext(), "电话号码格式不正确！", Toast.LENGTH_SHORT).show();
+				}else {
 					SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
 							MODE_PRIVATE, null);
 					service = new UserService(db);
