@@ -96,7 +96,7 @@ public class getPoisitionActivity extends Activity {
 		//生成适配器的Item 和动态数组对应的元素
 		listItemAdapter = new SimpleAdapter(this,listItem, R.layout.item_list_location,  new String[] {"ItemText"}, new int[]{R.id.tv_ltem_list_location});
 				
-		subLayout = (LinearLayout)getLayoutInflater().inflate(R.layout.dituqudianandwodeweizhi, null);
+		subLayout = (LinearLayout)getLayoutInflater().inflate(R.layout.sublayout_getposition, null);
 		mainLayout.addView(subLayout);
 		suggestLayout = (LinearLayout)getLayoutInflater().inflate(R.layout.suggestlist, null);
 
@@ -108,7 +108,7 @@ public class getPoisitionActivity extends Activity {
 	            @Override
 	            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 	                    long arg3) {
-	            	
+	            
 	              keyWorldsView.setText((String)listItem.get(arg2).get("ItemText"));
 	            }
 	        });
@@ -135,10 +135,11 @@ public class getPoisitionActivity extends Activity {
 
 		
 		keyWorldsView = (AutoCompleteTextView) findViewById(R.id.et_oneactivity_enterPoi);
-		//自动弹出键盘
-		InputMethodManager inputManager = (InputMethodManager)
-		getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
-		inputManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+		
+//		//自动弹出键盘
+//		InputMethodManager inputManager = (InputMethodManager)
+//		getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
+//		inputManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
 
 		/**
