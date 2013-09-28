@@ -76,7 +76,7 @@ public class PeriodicService implements IPeriodicService {
 		int priority=periodic.getPriority();	
 		String sql="insert into PERIODIC (periodic_id,period,period_detail,user_id,content,priority) values ('"+periodic_id+"','"+period+"','"+period_detail+"','"+content+"','"+user_id+"','"+priority+"')";
 		db.execSQL(sql);
-		return false;
+		return true;
 	}
 
 	@Override
