@@ -27,12 +27,16 @@ import com.telc.smartmemo.R;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -44,7 +48,6 @@ import android.widget.Toast;
 
 public class getPoisitionActivity extends Activity {
 
-	private EditText editText;
 	// 定位相关
 	LocationClient mLocClient;
 	LocationData locData = null;
@@ -53,23 +56,23 @@ public class getPoisitionActivity extends Activity {
 
 	String city = "";
 	//城市定位次数
-	int cityFlag = 2;
+	int cityFlag = 1;
 
 	BMapManager mBMapMan = null;
 
 	int i = 0;
 	
 	//111
-		LinearLayout mainLayout;
-		LinearLayout suggestLayout;
-		LinearLayout subLayout;
-		boolean  layoutFlag = true;
-		ListView listView ;
+	LinearLayout mainLayout;
+	LinearLayout suggestLayout;
+	LinearLayout subLayout;
+	boolean  layoutFlag = true;
+	ListView listView ;
 
-		//生成动态数组 ，加入数据
-		ArrayList< HashMap<String , Object>> listItem;
-		HashMap<String , Object> map;
-		SimpleAdapter listItemAdapter;
+	//生成动态数组 ，加入数据
+	ArrayList< HashMap<String , Object>> listItem;
+	HashMap<String , Object> map;
+	SimpleAdapter listItemAdapter;
 	
 
 	// private GeoPoint gPoint = null;
@@ -78,7 +81,6 @@ public class getPoisitionActivity extends Activity {
 	 * 搜索关键字输入窗口
 	 */
 	private AutoCompleteTextView keyWorldsView = null;
-	private ArrayAdapter<String> sugAdapter = null;
 	private int load_Index;
 
 	@Override
@@ -91,7 +93,6 @@ public class getPoisitionActivity extends Activity {
 		listItem = new ArrayList<HashMap<String,Object>>();
 		
 		
-		
 		//生成适配器的Item 和动态数组对应的元素
 		listItemAdapter = new SimpleAdapter(this,listItem, R.layout.item_list_location,  new String[] {"ItemText"}, new int[]{R.id.tv_ltem_list_location});
 				
@@ -101,13 +102,21 @@ public class getPoisitionActivity extends Activity {
 
 		//绑定layout 里面的ListView
 		listView = (ListView)suggestLayout.findViewById(R.id.lv_list_location);
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+
+	            @Override
+	            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+	                    long arg3) {
+	            	
+	              keyWorldsView.setText("aa"+arg2);
+	            }
+	        });
 				
 		mBMapMan = new BMapManager(getApplication());
 		mBMapMan.init("A974f3064aefefc68e26feb3503c5fd1", null);
 
 		
-		init();
-
 		// 定位初始化
 		mLocClient = new LocationClient(this);
 		locData = new LocationData();
@@ -124,10 +133,13 @@ public class getPoisitionActivity extends Activity {
 		mSearch = new MKSearch();
 		mSearch.init(mBMapMan, new MySearchListener());
 
+		
 		keyWorldsView = (AutoCompleteTextView) findViewById(R.id.et_oneactivity_enterPoi);
-		sugAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_dropdown_item_1line);
-		keyWorldsView.setAdapter(sugAdapter);
+		//自动弹出键盘
+		InputMethodManager inputManager = (InputMethodManager)
+		getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
+		inputManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+
 
 		/**
 		 * 当输入关键字变化时，动态更新建议列表
@@ -162,16 +174,13 @@ public class getPoisitionActivity extends Activity {
 				}
 				
 				if (!city.equals("")) {
-
 					/**
 					 * 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
 					 */
 					mSearch.suggestionSearch(cs.toString(), city);
 				}
-
 			}
 		});
-
 	}
 
 	/**
@@ -180,20 +189,8 @@ public class getPoisitionActivity extends Activity {
 	 * @param v
 	 */
 	public void searchButtonProcess(View v) {
-		// EditText editCity = (EditText)findViewById(R.id.city);
-		editText = (EditText) findViewById(R.id.et_oneactivity_enterPoi);
-		mSearch.poiSearchInCity("福州", editText.getText().toString());
+		mSearch.poiSearchInCity(city, keyWorldsView.getText().toString());
 		System.out.println(mSearch);
-		System.out.println(mSearch);
-	}
-
-	public void init() {
-		editText = (EditText) findViewById(R.id.et_oneactivity_enterPoi);
-
-		// 自动弹出键盘
-		// InputMethodManager inputManager = (InputMethodManager)
-		// getApplication().getSystemService(Context.INPUT_METHOD_SERVICE);
-		// inputManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 	}
 
 	// 返回上个Activity
@@ -304,8 +301,6 @@ public class getPoisitionActivity extends Activity {
 
 				LocationInfoTran.selectFlag = 1;
 
-				// RealtimeMemoFragment realtimeMemoFragment =
-				// (RealtimeMemoFragment)getA
 
 				// Intent intent = new Intent();
 				// intent.setClass(getPoisitionActivity.this,
@@ -314,12 +309,6 @@ public class getPoisitionActivity extends Activity {
 				setResult(0);
 				getPoisitionActivity.this.finish();
 
-				// for (MKPoiInfo info : res.getAllPoi()) {
-				// if (info.pt != null) {
-				// mMapView.getController().animateTo(info.pt);
-				// break;
-				// }
-				// }
 			} else if (res.getCityListNum() > 0) {
 				// 当输入关键字在本市没有找到，但在其他城市找到时，返回包含该关键字信息的城市列表
 				String strInfo = "在";
@@ -368,12 +357,8 @@ public class getPoisitionActivity extends Activity {
 			if (res == null || res.getAllSuggestions() == null) {
 				return;
 			}
-//			sugAdapter.clear();
-//			for (MKSuggestionInfo info : res.getAllSuggestions()) {
-//				if (info.key != null)
-//					sugAdapter.add(info.key);
-//			}
-//			sugAdapter.notifyDataSetChanged();
+			
+			listItem.clear();
 			
 			for (MKSuggestionInfo info : res.getAllSuggestions()) {
 				if (info.key != null){
