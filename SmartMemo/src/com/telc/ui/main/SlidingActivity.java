@@ -101,6 +101,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
         plusMenu.add(0,1,0,"新建实时提醒");//添加下拉Item
         plusMenu.add(0,2,0,"新建定时提醒");
         plusMenu.add(0,3,0,"新建周期性提醒");
+        
         //实例化按钮
         MenuItem menuItem=plusMenu.getItem();
         menuItem.setIcon(android.R.drawable.ic_input_add);
