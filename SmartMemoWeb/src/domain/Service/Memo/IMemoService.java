@@ -27,27 +27,31 @@ public interface IMemoService {
 
 	public boolean updateRealTimeMemo(
 			@WebParam(name = "RealTimeMemo") RTMemoHelper rtHelper);
-
-	/**
-	 * Android web调用待测试
-	 * 
-	 * @param list_rt
-	 * @param tel
-	 * @return
-	 */
-	public boolean saveAllRealTimeMemo(
-			@WebParam(name = "List<RTMemoHelper") List<RTMemoHelper> list_rt,
-			@WebParam(name = "Tel") String tel);
-
-	/**
-	 * Android web调用待测试
-	 * 
-	 * @param list_tm
-	 * @param tel
-	 * @return
-	 */
-	public boolean saveAllTimingMemo(
-			@WebParam(name = "List<TMMemoHelper") List<TMMemoHelper> list_tm,
-			@WebParam(name = "Tel") String tel);
+//
+//	/**
+//	 * Android web调用待测试
+//	 * 
+//	 * @param list_rt
+//	 * @param tel
+//	 * @return
+//	 */
+//	public boolean saveAllRealTimeMemo(
+//			@WebParam(name = "List<RTMemoHelper") List<RTMemoHelper> list_rt,
+//			@WebParam(name = "Tel") String tel);
+//
+//	/**
+//	 * Android web调用待测试
+//	 * 
+//	 * @param list_tm
+//	 * @param tel
+//	 * @return
+//	 */
+//	public boolean saveAllTimingMemo(
+//			@WebParam(name = "List<TMMemoHelper") List<TMMemoHelper> list_tm,
+//			@WebParam(name = "Tel") String tel);
+//	
+	public boolean uploadMemoDBFile(String tel,byte[] db);
+	
+	public byte[] downloadMemoDBFile(String tel);
 
 }

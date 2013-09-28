@@ -58,6 +58,10 @@ public class TimingService implements ITimingService {
     				int priorityColumn = cursor.getColumnIndex("priority");
     				int priority= cursor.getInt(priorityColumn);
     				timing.setPriority(priority);
+    				int isreadColumn = cursor.getColumnIndex("isread");
+    				int isread = cursor.getInt(isreadColumn);
+    				timing.setIsread(isread);
+    				
     				timing_list.add(timing);
              }
              return timing_list;
@@ -77,7 +81,8 @@ public class TimingService implements ITimingService {
 		int priority=timing.getPriority();
 		String timing_id=timing.getTiming_id();
 		String lacation=timing.getLocation();
-		String sql="insert into TIMING (timing_id,start_time,end_time,location,content,user_id,priority) values ('"+timing_id+"','"+start_time+"','"+end_time+"','"+lacation+"','"+content+"','"+user_id+"','"+priority+"')";
+		int isread=timing.getIsread();
+		String sql="insert into TIMING (timing_id,start_time,end_time,location,content,user_id,priority,isread) values ('"+timing_id+"','"+start_time+"','"+end_time+"','"+lacation+"','"+content+"','"+user_id+"','"+priority+"','"+isread+"')";
 		db.execSQL(sql);
 		return true;
 	}

@@ -8,6 +8,7 @@ public class Periodic  {
 	private String user_id;
 	private String content;
 	private int priority;
+	private int isread;
 	public String getPeriodic_id() {
 		return periodic_id;
 	}
@@ -43,6 +44,12 @@ public class Periodic  {
 	}
 	public void setPriority(int priority) {
 		this.priority = priority;
+	}
+	public int getIsread() {
+		return isread;
+	}
+	public void setIsread(int isread) {
+		this.isread = isread;
 	}
 	
 	

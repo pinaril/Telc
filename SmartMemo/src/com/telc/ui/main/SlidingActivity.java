@@ -25,6 +25,7 @@ import com.telc.ui.Memos.PeriodicActivity;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.main.viewModel.ContentFragment;
 import com.telc.ui.main.viewModel.MenuFragment;
+import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -50,7 +51,7 @@ import android.widget.Toast;
  */
 public class SlidingActivity extends SlidingFragmentActivity implements DBConstant {
 	
-
+	public SharedPreferences sp;
 	
 	@Override
 	public void onDestroy() {
@@ -65,8 +66,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		super.onCreate(savedInstanceState);
 		setTitle("智慧备忘录");//设置备忘录标题
 		setContentView(R.layout.activity_content);
-
-
+		sp=getSharedPreferences("Login",MODE_PRIVATE);
+		
 		
         setBehindContentView(R.layout.activity_menu);//设置侧边的布局文件
         //Fragment事件开始
