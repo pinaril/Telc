@@ -8,6 +8,8 @@ import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,10 +87,12 @@ public class MenuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
-				getActivity().finish();
+				Editor edit=((SlidingActivity)getActivity()).sp.edit();
+				edit.putBoolean("login_in", false);
+				edit.commit();
 				Intent intent=new Intent(getActivity(),LoginAndRegisterActivity.class);
 				startActivity(intent);
+				getActivity().finish();
 			}
 		});
         
