@@ -86,9 +86,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
-                    android:drawableLeft="@drawable/complete"
+                    android:drawableLeft="@drawable/uncomplete"
                     android:drawableRight="@drawable/goto_view"
-                    android:text="已完成"
+                    android:text="未完成"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -115,9 +115,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
-                    android:drawableLeft="@drawable/uncomplete"
+                    android:drawableLeft="@drawable/complete"
                     android:drawableRight="@drawable/goto_view"
-                    android:text="未完成"
+                    android:text="已完成"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>

@@ -19,7 +19,9 @@
         <RatingBar
             android:id="@+id/ratingBarPeriodicPriority"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:stepSize="1" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -47,16 +49,20 @@
 
         <TextView
             android:id="@+id/textPeriodicDetail"
-            android:layout_width="89dp"
+            android:layout_width="68dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:text="详细：" />
 
-        <Spinner
-            android:id="@+id/spinnerPeriodicDetail"
+        <EditText
+            android:id="@+id/editTextPeriodicDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
 
     </LinearLayout>
 
@@ -69,13 +75,14 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="0.18"
             android:text="内容：" />
 
         <EditText
             android:id="@+id/editPeriodicContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.26"
             android:ems="10"
             android:inputType="textMultiLine" />
 

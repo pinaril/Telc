@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.telc.data.dbDriver.DBConstant;
+import com.telc.domain.Emtity.RealTime;
 import com.telc.domain.Emtity.Timing;
 import com.telc.domain.Service.RealTimeService;
 import com.telc.domain.Service.TimingService;
 import com.telc.smartmemo.R;
+
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,42 +25,44 @@ import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 
-
-public class ContentFragment extends Fragment {
-	//数据库
-	private SQLiteDatabase db;
-	private TimingService timingService;
-	private RealTimeService realTimeService;
-	private SharedPreferences sp;//用来获取xml保存的useiId
-	ListView memoList;
-//	保存list中的item的列表
-	List<Map <String, Object>> mList=new ArrayList<Map<String,Object>>();
-//	listView适配器
-	SimpleAdapter mAdapter=null;
-//	适配器中的key
-	String[] from={"textListCategory","ratingBarListItem","textListContent"};
-//	value
-	int[] to={R.id.textListCategory,R.id.ratingBarListItem,R.id.textListContent};
+public class UnconmplateFragment extends Fragment{
 	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+	//数据库
+		private SQLiteDatabase db;
+		private TimingService timingService;
+		private RealTimeService realTimeService;
+		private SharedPreferences sp;//用来获取xml保存的useiId
+		
+		ListView uncompleteList;
+//		保存list中的item的列表
+		List<Map <String, Object>> mList=new ArrayList<Map<String,Object>>();
+//		listView适配器
+		SimpleAdapter mAdapter=null;
+//		适配器中的key
+		String[] from={"textListCategory","ratingBarListItem","textListContent"};
+//		value
+		int[] to={R.id.textListCategory,R.id.ratingBarListItem,R.id.textListContent};
 
-    }
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.activity_content, null);
-		memoList=(ListView) view.findViewById(R.id.listMemoList);
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		View view=inflater.inflate(R.layout.activity_uncomplete, null);
 		sp=getActivity().getSharedPreferences("Login", getActivity().MODE_PRIVATE);
+		
 		//实例化Adapter
 		initAdapert();
-		if(mAdapter!=null)
-			memoList.setAdapter(mAdapter);
-        return view;
+		if (mAdapter != null)
+			uncompleteList.setAdapter(mAdapter);
+		return view;
 	}
-	
-	
+
 	private void initAdapert() {
 		// TODO Auto-generated method stub
 		//打开数据库
@@ -70,12 +74,13 @@ public class ContentFragment extends Fragment {
 //		获取userId
 		String userId=sp.getString("user", null);
 //		数据库中获取的List<Timing>
-		List<Timing> list = timingService.getTimingByUserID(userId);
-		if(list==null)
+		List<Timing> timingList = timingService.getTimingByUserID(userId);
+		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
+		if(timingList==null && realList==null)
 			return;
 		else{
 		Timing tempTiming;
-		Iterator it = list.iterator();
+		Iterator it = timingList.iterator();
 		while(it.hasNext()){
 			tempTiming = (Timing) it.next();
 			Map <String, Object> mListItem=new HashMap<String, Object>();
@@ -111,4 +116,5 @@ public class ContentFragment extends Fragment {
 		});
 		}
 	}
+
 }
