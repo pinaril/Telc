@@ -1,5 +1,8 @@
 package com.telc.resource.baidumap;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -33,6 +36,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,11 +52,25 @@ public class getPoisitionActivity extends Activity {
 	private MKSearch mSearch = null;
 
 	String city = "";
-	boolean cityFlag = true;
+	//城市定位次数
+	int cityFlag = 2;
 
 	BMapManager mBMapMan = null;
 
 	int i = 0;
+	
+	//111
+		LinearLayout mainLayout;
+		LinearLayout suggestLayout;
+		LinearLayout subLayout;
+		boolean  layoutFlag = true;
+		ListView listView ;
+
+		//生成动态数组 ，加入数据
+		ArrayList< HashMap<String , Object>> listItem;
+		HashMap<String , Object> map;
+		SimpleAdapter listItemAdapter;
+	
 
 	// private GeoPoint gPoint = null;
 
@@ -64,11 +84,28 @@ public class getPoisitionActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_one);
+		mainLayout = (LinearLayout)getLayoutInflater().inflate(R.layout.activity_one, null);
+		setContentView(mainLayout);
+		
+		
+		listItem = new ArrayList<HashMap<String,Object>>();
+		
+		
+		
+		//生成适配器的Item 和动态数组对应的元素
+		listItemAdapter = new SimpleAdapter(this,listItem, R.layout.item_list_location,  new String[] {"ItemText"}, new int[]{R.id.tv_ltem_list_location});
+				
+		subLayout = (LinearLayout)getLayoutInflater().inflate(R.layout.dituqudianandwodeweizhi, null);
+		mainLayout.addView(subLayout);
+		suggestLayout = (LinearLayout)getLayoutInflater().inflate(R.layout.suggestlist, null);
 
+		//绑定layout 里面的ListView
+		listView = (ListView)suggestLayout.findViewById(R.id.lv_list_location);
+				
 		mBMapMan = new BMapManager(getApplication());
 		mBMapMan.init("A974f3064aefefc68e26feb3503c5fd1", null);
 
+		
 		init();
 
 		// 定位初始化
@@ -108,13 +145,24 @@ public class getPoisitionActivity extends Activity {
 
 			public void onTextChanged(CharSequence cs, int arg1, int arg2,
 					int arg3) {
+				
 				if (cs.length() <= 0) {
+					if(!layoutFlag){
+						mainLayout.removeView(suggestLayout);
+						mainLayout.addView(subLayout);
+						layoutFlag = true;
+					}
 					return;
 				}
-
+				
+				if(layoutFlag){
+					mainLayout.removeView(subLayout);
+					mainLayout.addView(suggestLayout);
+					layoutFlag = false;
+				}
+				
 				if (!city.equals("")) {
 
-					// System.out.print(city);
 					/**
 					 * 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
 					 */
@@ -204,11 +252,11 @@ public class getPoisitionActivity extends Activity {
 			locData.latitude = location.getLatitude();
 			locData.longitude = location.getLongitude();
 
-			if (cityFlag) {
+			if (cityFlag > 0) {
 				mSearch.reverseGeocode(new GeoPoint((int) (location
 						.getLatitude() * 1e6),
 						(int) (location.getLongitude() * 1e6)));
-				cityFlag = false;
+				cityFlag --;
 			}
 		}
 
@@ -320,12 +368,22 @@ public class getPoisitionActivity extends Activity {
 			if (res == null || res.getAllSuggestions() == null) {
 				return;
 			}
-			sugAdapter.clear();
+//			sugAdapter.clear();
+//			for (MKSuggestionInfo info : res.getAllSuggestions()) {
+//				if (info.key != null)
+//					sugAdapter.add(info.key);
+//			}
+//			sugAdapter.notifyDataSetChanged();
+			
 			for (MKSuggestionInfo info : res.getAllSuggestions()) {
-				if (info.key != null)
-					sugAdapter.add(info.key);
+				if (info.key != null){
+					map = new HashMap<String, Object>();
+					map.put("ItemText", info.key);
+				listItem.add(map);
+				}
 			}
-			sugAdapter.notifyDataSetChanged();
+			
+			listView.setAdapter(listItemAdapter);
 		}
 	}
 
