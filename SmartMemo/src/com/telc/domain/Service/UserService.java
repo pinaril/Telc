@@ -42,12 +42,29 @@ public class UserService implements IUserService {
 				int userIDColumn = cursor.getColumnIndex("userID");
 				String rt_userID = cursor.getString(userIDColumn);
 				user_Result.setUserID(rt_userID);
-                user_Result.setPhoneNum(rt_userID);
-				int userPwdCloumn=cursor.getColumnIndex("userPwd");
+				user_Result.setPhoneNum(rt_userID);
+				int userPwdCloumn = cursor.getColumnIndex("userPwd");
 				String rt_userPwd = cursor.getString(userPwdCloumn);
 				user_Result.setUserPwd(rt_userPwd);
-				
-				
+				int nickNameCloumn = cursor.getColumnIndex("nickName");
+				String nickName = cursor.getString(nickNameCloumn);
+				user_Result.setUserName(nickName);
+				int ageCloumn = cursor.getColumnIndex("age");
+				int age = cursor.getInt(ageCloumn);
+				user_Result.setAge(age);
+				int sexCloumn = cursor.getColumnIndex("sex");
+				String sex = cursor.getString(sexCloumn);
+				user_Result.setSex(sex);
+				int hobCloumn = cursor.getColumnIndex("hob");
+				String hob = cursor.getString(hobCloumn);
+				user_Result.setHob(hob);
+				int profCloumn = cursor.getColumnIndex("prof");
+				String prof = cursor.getString(profCloumn);
+				user_Result.setProf(prof);
+				int imageCloumn = cursor.getColumnIndex("image");
+				String image = cursor.getString(imageCloumn);
+				user_Result.setImage(image);
+
 			}
 			return user_Result;
 		}
@@ -57,14 +74,15 @@ public class UserService implements IUserService {
 	public boolean addUser(User user) {
 		// TODO Auto-generated method stub
 
-		String userPwd=user.getUserPwd();
-		String userPhone=user.getPhoneNum();
-		//判斷用戶是否已註冊
+		String userPwd = user.getUserPwd();
+		String userPhone = user.getPhoneNum();
+		// 判斷用戶是否已註冊
 		String sql0 = "select a.[rowid] as _id,* from USER_MA as a where tel='"
 				+ userPhone + "'";
 		cursor = db.rawQuery(sql0, null);
 		if (cursor.moveToFirst() == false) {
-			String sql="insert into USER_MA values ('"+userPhone+"','"+userPhone+"','null','"+userPwd+"','0','null')";
+			String sql = "insert into USER_MA values ('" + userPhone + "','"
+					+ userPhone + "','null','" + userPwd + "','0','null','null','null','null')";
 			db.execSQL(sql);
 			return true;
 		} else {
@@ -75,15 +93,15 @@ public class UserService implements IUserService {
 
 	@Override
 	public boolean updateUser(User user) {
-		String image=user.getImage();
-		String phone=user.getPhoneNum();
-		int age=user.getAge();
-		String name=user.getUserName();
-        String hob=user.getHob();
-        String prof=user.getProf();
-        String sex=user.getSex();
-        
-        String sql="update USER_MA set ";
+		String image = user.getImage();
+		String phone = user.getPhoneNum();
+		int age = user.getAge();
+		String name = user.getUserName();
+		String hob = user.getHob();
+		String prof = user.getProf();
+		String sex = user.getSex();
+
+		String sql = "update USER_MA set ";
 		return true;
 	}
 
