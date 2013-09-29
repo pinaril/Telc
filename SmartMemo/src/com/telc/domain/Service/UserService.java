@@ -42,10 +42,12 @@ public class UserService implements IUserService {
 				int userIDColumn = cursor.getColumnIndex("userID");
 				String rt_userID = cursor.getString(userIDColumn);
 				user_Result.setUserID(rt_userID);
-
+                user_Result.setPhoneNum(rt_userID);
 				int userPwdCloumn=cursor.getColumnIndex("userPwd");
 				String rt_userPwd = cursor.getString(userPwdCloumn);
 				user_Result.setUserPwd(rt_userPwd);
+				
+				
 			}
 			return user_Result;
 		}
@@ -55,9 +57,8 @@ public class UserService implements IUserService {
 	public boolean addUser(User user) {
 		// TODO Auto-generated method stub
 
-		String userPwd=user.getPassword();
+		String userPwd=user.getUserPwd();
 		String userPhone=user.getPhoneNum();
-
 		//判斷用戶是否已註冊
 		String sql0 = "select a.[rowid] as _id,* from USER_MA as a where tel='"
 				+ userPhone + "'";
@@ -74,9 +75,16 @@ public class UserService implements IUserService {
 
 	@Override
 	public boolean updateUser(User user) {
-		boolean result = false;
-
-		return result;
+		String image=user.getImage();
+		String phone=user.getPhoneNum();
+		int age=user.getAge();
+		String name=user.getUserName();
+        String hob=user.getHob();
+        String prof=user.getProf();
+        String sex=user.getSex();
+        
+        String sql="update USER_MA set ";
+		return true;
 	}
 
 }

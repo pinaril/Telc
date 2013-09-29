@@ -67,7 +67,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 						toast.show();
 
 					} else {
-						if (password.equals(user.getPassword())) {
+						if (password.equals(user.getUserPwd())) {
 							//将登录状态改为已登录，并保存当前登录的用户用户名
 							Editor editor = sp.edit();
 							editor.putBoolean("login_in", true);
@@ -100,7 +100,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant {
 				User user = new User();
 				user.setUserID(userphone);
 				user.setPhoneNum(userphone);
-				user.setPassword(password);
+				user.setUserPwd(password);
 				if (userphone.equals("") || password.equals("")) {
 					Toast toast = Toast.makeText(LoginAndRegisterActivity.this,
 							"用户名密码请填完整", Toast.LENGTH_SHORT);
