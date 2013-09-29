@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,7 +35,7 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 	private IUserService userService;
 	private String[] mdata = { "男", "女" };
 	private ArrayAdapter<String> adapter;
-
+    View view;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -46,10 +47,10 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.activity_personalinfo, null);
+		view = inflater.inflate(R.layout.activity_personalinfo, null);
 		iv_photo = (ImageView) view.findViewById(R.id.photo);
 		et_name = (EditText) view.findViewById(R.id.et_info_name);
-		et_age = (EditText) view.findViewById(R.id.et_age);
+		et_age = (EditText) view.findViewById(R.id.et_info_age);
 		et_phone = (EditText) view.findViewById(R.id.et_info_phone);
 		et_hob = (EditText) view.findViewById(R.id.et_info_hob);
 		et_prof = (EditText) view.findViewById(R.id.et_info_prof);
@@ -97,13 +98,14 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 			}
 		}
 
-		bt_ok.setOnClickListener(new View.OnClickListener() {
-
+		bt_ok.setOnClickListener(new OnClickListener() {
+			
 			@Override
-			public void onClick(View v) {
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
 				User user = new User();
-				String t = et_age.getText().toString();
-				user.setAge(Integer.parseInt(et_age.getText().toString()));
+				//String t = et_age.getText().toString();
+				user.setAge(Integer.valueOf((et_age.getText().toString())));
 				user.setHob(et_hob.getText().toString());
 				user.setPhoneNum(userphone);
 				user.setUserID(userphone);
@@ -112,6 +114,7 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 				userService.updateUser(user);
 			}
 		});
+	
 	}
 
 	@Override
