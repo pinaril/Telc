@@ -59,9 +59,9 @@ public class RealTimeService implements IRealTimeService{
     				int priority= cursor.getInt(priorityColumn);
     				realTime.setPriority(priority);
     				
-    				int iscompletedColumn = cursor.getColumnIndex("isread");
-    				int iscompleted = cursor.getInt(iscompletedColumn);
-    				realTime.setIscomplete(iscompleted);
+    				int isfinishColumn = cursor.getColumnIndex("isfinish");
+    				int isfinish = cursor.getInt(isfinishColumn);
+    				realTime.setIsfinish(isfinish);
     				
     				realTime_list.add(realTime);
              }
@@ -82,8 +82,8 @@ public class RealTimeService implements IRealTimeService{
 		String real_id=realTime.getReal_id();
 		String lacation=realTime.getLocation();
 		int aging=realTime.getAging();
-		int iscomplete=realTime.getIscomplete();
-		String sql="insert into REAL_TIME (real_id,start_time,location,aging,content,user_id,priority,isread) values ('"+real_id+"','"+start_time+"','"+lacation+"','"+aging+"','"+content+"','"+user_id+"','"+priority+"','"+iscomplete+"')";
+		int isfinish=realTime.getIsfinish();
+		String sql="insert into REAL_TIME (real_id,start_time,location,aging,content,user_id,priority,isfinish) values ('"+real_id+"','"+start_time+"','"+lacation+"','"+aging+"','"+content+"','"+user_id+"','"+priority+"','"+isfinish+"')";
 		db.execSQL(sql);
 		return true;
 	}
