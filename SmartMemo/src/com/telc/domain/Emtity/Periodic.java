@@ -8,7 +8,7 @@ public class Periodic  {
 	private String user_id;
 	private String content;
 	private int priority;
-	private int iscompeleted;
+	private int isfinish;
 	public String getPeriodic_id() {
 		return periodic_id;
 	}
@@ -45,11 +45,11 @@ public class Periodic  {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-	public int getIscompeleted() {
-		return iscompeleted;
+	public int getIsfinish() {
+		return isfinish;
 	}
-	public void setIscompeleted(int iscompeleted) {
-		this.iscompeleted = iscompeleted;
+	public void setIsfinish(int isfinish) {
+		this.isfinish = isfinish;
 	}
 
 	

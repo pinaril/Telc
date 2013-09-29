@@ -26,6 +26,7 @@ import com.telc.domain.Service.TimingService;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicActivity;
 import com.telc.ui.Memos.RealtimeMemoActivity;
+import com.telc.ui.Memos.TimingMemoActivity;
 import com.telc.ui.main.viewModel.ContentFragment;
 import com.telc.ui.main.viewModel.MenuFragment;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
@@ -130,6 +131,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		           Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;
             	case 2:
+            		intent=new Intent(SlidingActivity.this,TimingMemoActivity.class);
+ 		           startActivity(intent);
             		Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;
             	case 3:
