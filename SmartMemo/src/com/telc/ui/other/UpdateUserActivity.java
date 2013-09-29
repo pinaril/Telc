@@ -57,7 +57,6 @@ public class UpdateUserActivity extends Activity {
 			case R.id.btn_save_setuser:// 保存用户信息
 				User user1 = obtainNewUserInfo();
 				User user2 = updateUserService.obtainUserInfo();
-
 				// 比较修改后的信息是否与原来的用户信息是否相同，若是相同则显示保存成功，否则，将信息保存到远程服务器
 				if (!user1.equals(user2)) {
 					service.updateUser(user1);
@@ -65,7 +64,6 @@ public class UpdateUserActivity extends Activity {
 					Toast.makeText(UpdateUserActivity.this, "保存成功",
 							Toast.LENGTH_LONG).show();
 				}
-
 				break;
 			}
 

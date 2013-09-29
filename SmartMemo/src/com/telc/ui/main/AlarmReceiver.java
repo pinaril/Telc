@@ -1,4 +1,6 @@
-package com.telc.domain.Service;
+package com.telc.ui.main;
+
+import java.util.Calendar;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,7 +13,7 @@ public class AlarmReceiver extends BroadcastReceiver{
 	@Override
 	public void onReceive(Context arg0, Intent arg1) {
 		// TODO Auto-generated method stub
-		Toast.makeText(arg0, "test收到广播 AT", Toast.LENGTH_LONG).show();
+		Toast.makeText(arg0, "test收到广播 AT"+"   "+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
 		Log.e("alarm", String.valueOf(System.currentTimeMillis()));
 	}
 

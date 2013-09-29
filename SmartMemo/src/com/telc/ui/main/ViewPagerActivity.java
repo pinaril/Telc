@@ -21,7 +21,6 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.telc.domain.Service.AlarmReceiver;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicActivity;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;

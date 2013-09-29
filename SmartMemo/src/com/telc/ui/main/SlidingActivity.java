@@ -26,8 +26,6 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.Timing;
 import com.telc.domain.Emtity.User;
-import com.telc.domain.Service.AlarmReceiver;
-import com.telc.domain.Service.AlarmService;
 import com.telc.domain.Service.RealTimeService;
 import com.telc.domain.Service.TimingService;
 import com.telc.resource.baidumap.LocationInfoTran;
@@ -65,24 +63,19 @@ import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Toast;
 
-
 /**
  * @author WWB
  *
  */
 public class SlidingActivity extends SlidingFragmentActivity implements DBConstant {
-	public AlarmService mAlarmService;
+
 	public SharedPreferences sp;
-	
-	
 	//声明一个NotificationManager类
 	private NotificationManager notificationManager;
-	
 	//定位相关
 	private LocationClient mLocClient;
 	private LocationData locData =  null;
-	
-	
+
 	//linshi yong lei bofang
 	private MediaPlayer mediaPlayer;
 
@@ -100,7 +93,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		setTitle("智慧备忘录");//设置备忘录标题
 		setContentView(R.layout.activity_unfinish);
 		sp=getSharedPreferences("Login",MODE_PRIVATE);
-		mAlarmService=new AlarmService(this);
 		
 		setBehindContentView(R.layout.activity_menu);//设置侧边的布局文件
         //Fragment事件开始
@@ -127,7 +119,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		//初始化NotificationManager对象
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
-		
 		//linshi de 
 		mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.sound);
 		
@@ -142,8 +133,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		option.setScanSpan(5000);
 		mLocClient.setLocOption(option);
 		mLocClient.start();
-		
-		
+
 	}
 	
 	public class mainLocationListenner implements BDLocationListener {
@@ -201,14 +191,17 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
     public boolean onOptionsItemSelected(MenuItem item) {
     	Intent intent;
             if (item.getItemId() == android.R.id.home) {
-                //toggle就是程序自动判断是打开还是关闭
+            	Intent intn=new Intent(SlidingActivity.this,AlarmReceiver.class);
+            	PendingIntent pendingIntent=PendingIntent.getBroadcast(this, 0, intn, 0);
+				//获取闹钟管理器
+				AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+				//设置闹钟
+//				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pendingIntent);
+				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 5*1000, pendingIntent);
+//				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+86400000, 10*1000, pendingIntent);
+//				alarmManager.cancel(pendingIntent);
+				//toggle就是程序自动判断是打开还是关闭
                 toggle();
-//                Calendar calendar=Calendar.getInstance();  
-//                calendar.setTimeInMillis(System.currentTimeMillis());  
-//                calendar.add(Calendar.SECOND, 5);
-//                AlarmManager alarm=(AlarmManager) getSystemService(ALARM_SERVICE);
-//                mAlarmService.sendTimeAlarm(calendar);
-//                mAlarmService.cancelAlarm(this);
                 return false;
             }else {
             	switch (item.getItemId()) {
