@@ -101,7 +101,8 @@ public class UserService implements IUserService {
 		String prof = user.getProf();
 		String sex = user.getSex();
 
-		String sql = "update USER_MA set ";
+		String sql = "update USER_MA set nickName='"+name+"',age='"+age+"',sex='"+sex+"',hob='"+hob+"',image='"+image+"',prof='"+prof+"' where tel='"+phone+"'";
+		db.execSQL(sql);
 		return true;
 	}
 
