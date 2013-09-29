@@ -14,7 +14,7 @@ public class Timing {
 	private String content;
 	private String user_id;
 	private int priority;
-	private int isread;
+	private int iscompleted;
 	public String getTiming_id() {
 		return timing_id;
 	}
@@ -57,12 +57,13 @@ public class Timing {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-	public int getIsread() {
-		return isread;
+	public int getIscompleted() {
+		return iscompleted;
 	}
-	public void setIsread(int isread) {
-		this.isread = isread;
-	} 
+	public void setIscompleted(int iscompleted) {
+		this.iscompleted = iscompleted;
+	}
+
 	
 	
 }
