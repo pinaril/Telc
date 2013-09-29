@@ -4,6 +4,7 @@ import com.telc.smartmemo.R;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.main.SlidingActivity;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
+import com.telc.ui.systemManagement.PersonalInfoFragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -59,9 +60,10 @@ public class MenuFragment extends Fragment {
 				/**
 				 * @parma  replace（被替换的layout，新的fragment）
 				 */
-				fm.beginTransaction().replace(R.id.content, contentFragment == null ?new ContentFragment():contentFragment )
+				fm.beginTransaction().replace(R.id.content, new PersonalInfoFragment())
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
+				
 			}
 		});
         
