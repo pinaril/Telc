@@ -31,46 +31,46 @@ import android.widget.Toast;
 
 public class RealtimeMemoActivity extends SherlockFragmentActivity {
 
-	TextView textImportant;
-	RatingBar rb_priority;
-	TextView textLocation;
-	EditText et_location;
+	private TextView textImportant;
+	private RatingBar rb_priority;
+	private TextView textLocation;
+	private EditText et_location;
 	// ImageView iv_maps;
-	TextView textAging;
-	Spinner spinner_time;
-	EditText et_content;
-	ArrayAdapter<String> adapter;
+	private TextView textAging;
+	private Spinner spinner_time;
+	private EditText et_content;
+	private ArrayAdapter<String> adapter;
 
 	//存储数据的参数
 	//重要程度
-	int priority = 0;
+	private int priority = 0;
 	//时效
-	int aging = 0;
+	private int aging = 0;
 	//定位的名称
-	String locationName = "";
+	private String locationName = "";
 	//定位的经纬度
-	String locationLatLon = "";
+	private String locationLatLon = "";
 	//提醒的内容
-	String content = "";
+	private String content = "";
 	//当前时间
-	String start_Time = "";
+	private String start_Time = "";
 	
-	static final String[] spinnerSelect={"1天","2天","3天","1周","2周","1月"};
+	private static final String[] spinnerSelect={"1天","2天","3天","1周","2周","1月"};
 	
-	RealTime realTime = null;
+	private RealTime realTime = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_realtime_memo);
 
-		textImportant = (TextView) findViewById(R.id.textImportant);
+		//textImportant = (TextView) findViewById(R.id.textImportant);
 		rb_priority = (RatingBar) findViewById(R.id.rb_priority);
-		textLocation = (TextView) findViewById(R.id.textLocation);
+		//textLocation = (TextView) findViewById(R.id.textLocation);
 		et_location = (EditText) findViewById(R.id.et_location);
 
 		// iv_maps=(ImageView) findViewById(R.id.iv_maps);
-		textAging = (TextView) findViewById(R.id.textAging);
+		//textAging = (TextView) findViewById(R.id.textAging);
 		
 		spinner_time = (Spinner) findViewById(R.id.spinner_time);
 		 //将可选内容与ArrayAdapter连接起来
@@ -218,7 +218,8 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			
 			
 			
-			
+			LocationInfoTran.startToUse = true;
+			this.finish();
 			
 			return true;
 		} else

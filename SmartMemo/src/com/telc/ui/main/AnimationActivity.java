@@ -9,15 +9,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.ImageView;
 
 public class AnimationActivity extends Activity {
 	
 	private SharedPreferences sp;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 

@@ -14,6 +14,7 @@ public class RealTime {
 	private String content;
 	private String user_id;
 	private int priority;
+	private int iscomplete;
 	public String getReal_id() {
 		return real_id;
 	}
@@ -57,6 +58,12 @@ public class RealTime {
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-	
+	public int getIscomplete() {
+		return iscomplete;
+	}
+	public void setIscomplete(int iscomplete) {
+		this.iscomplete = iscomplete;
+	}
+
 	
 }
