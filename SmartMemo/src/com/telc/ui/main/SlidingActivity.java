@@ -56,7 +56,7 @@ import android.widget.Toast;
  *
  */
 public class SlidingActivity extends SlidingFragmentActivity implements DBConstant {
-	
+	public AlarmService mAlarmService;
 	public SharedPreferences sp;
 
 	@Override
@@ -73,7 +73,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		setTitle("智慧备忘录");//设置备忘录标题
 		setContentView(R.layout.activity_content);
 		sp=getSharedPreferences("Login",MODE_PRIVATE);
-		
+		mAlarmService=new AlarmService(this);
 		
 		setBehindContentView(R.layout.activity_menu);//设置侧边的布局文件
         //Fragment事件开始
@@ -121,6 +121,13 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
             if (item.getItemId() == android.R.id.home) {
                 //toggle就是程序自动判断是打开还是关闭
                 toggle();
+                Calendar calendar=Calendar.getInstance();  
+                calendar.setTimeInMillis(System.currentTimeMillis());  
+                calendar.add(Calendar.SECOND, 5);
+                AlarmManager alarm=(AlarmManager) getSystemService(ALARM_SERVICE);
+//                mAlarmService.sendRealTimeAlarm(SlidingActivity.this,alarm);
+                mAlarmService.sendTimeAlarm(calendar);
+//                mAlarmService.cancelAlarm(this);
                 return false;
             }else {
             	switch (item.getItemId()) {
