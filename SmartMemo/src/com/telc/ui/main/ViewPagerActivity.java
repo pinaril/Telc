@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -19,7 +21,9 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.telc.domain.Service.AlarmReceiver;
 import com.telc.smartmemo.R;
+import com.telc.ui.Memos.PeriodicActivity;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
 public class ViewPagerActivity extends Activity {
@@ -87,6 +91,7 @@ public class ViewPagerActivity extends Activity {
 					// TODO Auto-generated method stub
 					Intent intent=new Intent(ViewPagerActivity.this,LoginAndRegisterActivity.class);
 					startActivity(intent);
+
 					viewPagerActivity.finish();
 				}
 			});
