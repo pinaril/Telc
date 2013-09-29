@@ -64,13 +64,13 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_realtime_memo);
 
-		textImportant = (TextView) findViewById(R.id.textImportant);
+		//textImportant = (TextView) findViewById(R.id.textImportant);
 		rb_priority = (RatingBar) findViewById(R.id.rb_priority);
-		textLocation = (TextView) findViewById(R.id.textLocation);
+		//textLocation = (TextView) findViewById(R.id.textLocation);
 		et_location = (EditText) findViewById(R.id.et_location);
 
 		// iv_maps=(ImageView) findViewById(R.id.iv_maps);
-		textAging = (TextView) findViewById(R.id.textAging);
+		//textAging = (TextView) findViewById(R.id.textAging);
 		
 		spinner_time = (Spinner) findViewById(R.id.spinner_time);
 		 //将可选内容与ArrayAdapter连接起来
