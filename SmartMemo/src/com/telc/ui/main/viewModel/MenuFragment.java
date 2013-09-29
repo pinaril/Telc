@@ -60,7 +60,7 @@ public class MenuFragment extends Fragment {
 				/**
 				 * @parma  replace（被替换的layout，新的fragment）
 				 */
-				fm.beginTransaction().replace(R.id.content, new PersonalInfoFragment())
+				fm.beginTransaction().replace(R.id.unfinish, new PersonalInfoFragment())
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
