@@ -90,7 +90,6 @@ public class UnconmplateFragment extends Fragment{
 		Iterator it = timingList.iterator();
 		while(it.hasNext()){
 			tempTiming = (Timing) it.next();
-//			if(tempTiming.)
 			Map <String, Object> mListItem=new HashMap<String, Object>();
 			String temp;
 			mListItem.put("textListCategory", "定时提醒");
