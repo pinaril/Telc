@@ -58,6 +58,10 @@ public class PeriodicService implements IPeriodicService {
 				int priorityColumn = cursor.getColumnIndex("priority");
 				int priority = cursor.getInt(priorityColumn);
 				periodic.setPriority(priority);
+				
+				int infinishColumn = cursor.getColumnIndex("isfinish");
+				int infinish = cursor.getInt(infinishColumn);
+				periodic.setIsfinish(infinish);
 				periodic_list.add(periodic);
 
 			}
@@ -74,9 +78,10 @@ public class PeriodicService implements IPeriodicService {
 		String content=periodic.getContent();
 		String user_id=periodic.getUser_id();
 		int priority=periodic.getPriority();	
-		String sql="insert into PERIODIC (periodic_id,period,period_detail,user_id,content,priority) values ('"+periodic_id+"','"+period+"','"+period_detail+"','"+content+"','"+user_id+"','"+priority+"')";
+		int isfinish=periodic.getIsfinish();
+		String sql="insert into PERIODIC (periodic_id,period,period_detail,user_id,content,priority,isfinish) values ('"+periodic_id+"','"+period+"','"+period_detail+"','"+content+"','"+user_id+"','"+priority+"','"+isfinish+"')";
 		db.execSQL(sql);
-		return false;
+		return true;
 	}
 
 	@Override

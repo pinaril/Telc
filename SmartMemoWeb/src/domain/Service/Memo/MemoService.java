@@ -13,6 +13,8 @@ import domain.Memo.Realtime;
 import domain.Memo.RealtimeDAO;
 import domain.Memo.Timing;
 import domain.Memo.TimingDAO;
+import domain.Memo.UserDb;
+import domain.Memo.UserDbDAO;
 import domain.SystemManagement.User;
 import domain.SystemManagement.UserDAO;
 
@@ -20,6 +22,7 @@ public class MemoService implements IMemoService {
 	private UserDAO userDao;
 	private RealtimeDAO realtimeDao;
 	private TimingDAO timingDao;
+	private UserDbDAO userDbDao;
 	private ApplicationContext ctx;
 
 	@Override
@@ -110,63 +113,63 @@ public class MemoService implements IMemoService {
 		return list_helper;
 	}
 
-	@Override
-	public boolean saveAllRealTimeMemo(List<RTMemoHelper> list_rt, String tel) {
-		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-		realtimeDao = RealtimeDAO.getFromApplicationContext(ctx);
-		userDao = UserDAO.getFromApplicationContext(ctx);
-		// User user = (User) userDao.findByTel(tel).get(0);
-		User user = userDao.findById(Integer.parseInt(tel));
-		Iterator it_rt = list_rt.iterator();
-		try {
-			while (it_rt.hasNext()) {
-				RTMemoHelper rtHelper = new RTMemoHelper();
-				Realtime real = new Realtime();
-				rtHelper = (RTMemoHelper) it_rt.next();
-				real.setAging(Integer.parseInt(rtHelper.getAging()));
-				real.setContent(rtHelper.getContent());
-				real.setId(Integer.parseInt(rtHelper.getId()));
-				real.setLocation(rtHelper.getLocation());
-				real.setPriority(Integer.parseInt(rtHelper.getPriority()));
-				real.setStartTime(rtHelper.getStartTime());
-				real.setUser(user);
-				realtimeDao.save(real);
-			}
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-
-	}
-
-	@Override
-	public boolean saveAllTimingMemo(List<TMMemoHelper> list_tm, String tel) {
+//	@Override
+//	public boolean saveAllRealTimeMemo(List<RTMemoHelper> list_rt, String tel) {
 //		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-//		timingDao = TimingDAO.getFromApplicationContext(ctx);
+//		realtimeDao = RealtimeDAO.getFromApplicationContext(ctx);
 //		userDao = UserDAO.getFromApplicationContext(ctx);
+//		// User user = (User) userDao.findByTel(tel).get(0);
 //		User user = userDao.findById(Integer.parseInt(tel));
-//		Iterator it = list_tm.iterator();
+//		Iterator it_rt = list_rt.iterator();
 //		try {
-//			while (it.hasNext()) {
-//				TMMemoHelper tmHelper = (TMMemoHelper) it.next();
-//				Timing tm = new Timing();
-//				tm.setContent(tmHelper.getContent());
-//				tm.setEndTime(tmHelper.getEndTime());
-//				tm.setLocation(tmHelper.getLocation());
-//				tm.setPriority(Integer.parseInt(tmHelper.getPriority()));
-//				tm.setStartTime(tmHelper.getStartTime());
-//				tm.setTimingId(Integer.getInteger(tmHelper.getTimingId()));
-//				tm.setUser(user);
-//				timingDao.save(tm);
+//			while (it_rt.hasNext()) {
+//				RTMemoHelper rtHelper = new RTMemoHelper();
+//				Realtime real = new Realtime();
+//				rtHelper = (RTMemoHelper) it_rt.next();
+//				real.setAging(Integer.parseInt(rtHelper.getAging()));
+//				real.setContent(rtHelper.getContent());
+//				real.setId(Integer.parseInt(rtHelper.getId()));
+//				real.setLocation(rtHelper.getLocation());
+//				real.setPriority(Integer.parseInt(rtHelper.getPriority()));
+//				real.setStartTime(rtHelper.getStartTime());
+//				real.setUser(user);
+//				realtimeDao.save(real);
 //			}
 //			return true;
 //		} catch (Exception e) {
 //			return false;
 //		}
-		return false;
+//
+//	}
 
-	}
-
+//	@Override
+//	public boolean saveAllTimingMemo(List<TMMemoHelper> list_tm, String tel) {
+////		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+////		timingDao = TimingDAO.getFromApplicationContext(ctx);
+////		userDao = UserDAO.getFromApplicationContext(ctx);
+////		User user = userDao.findById(Integer.parseInt(tel));
+////		Iterator it = list_tm.iterator();
+////		try {
+////			while (it.hasNext()) {
+////				TMMemoHelper tmHelper = (TMMemoHelper) it.next();
+////				Timing tm = new Timing();
+////				tm.setContent(tmHelper.getContent());
+////				tm.setEndTime(tmHelper.getEndTime());
+////				tm.setLocation(tmHelper.getLocation());
+////				tm.setPriority(Integer.parseInt(tmHelper.getPriority()));
+////				tm.setStartTime(tmHelper.getStartTime());
+////				tm.setTimingId(Integer.getInteger(tmHelper.getTimingId()));
+////				tm.setUser(user);
+////				timingDao.save(tm);
+////			}
+////			return true;
+////		} catch (Exception e) {
+////			return false;
+////		}
+//		return false;
+//
+//	}
+//
 	@Override
 	public boolean updateRealTimeMemo(RTMemoHelper rtHelper) {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
@@ -188,6 +191,29 @@ public class MemoService implements IMemoService {
 			return false;
 		}
 
+	}
+
+	@Override
+	public boolean uploadMemoDBFile(String tel,byte[] db) {
+		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		userDbDao = UserDbDAO.getFromApplicationContext(ctx);
+		UserDb userDb = new UserDb(tel, db);
+		try {
+			userDbDao.save(userDb);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public byte[] downloadMemoDBFile(String tel) {
+		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		userDbDao = UserDbDAO.getFromApplicationContext(ctx);
+		UserDb userDb = userDbDao.findById(tel);
+		byte[] db = userDb.getMemoDb();
+		return db;
 	}
 
 }

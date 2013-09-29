@@ -37,6 +37,7 @@
 				<value>domain/SystemManagement/User.hbm.xml</value>
 				<value>domain/Memo/Realtime.hbm.xml</value>
 				<value>domain/Memo/Timing.hbm.xml</value>
+				<value>domain/Memo/UserDb.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -61,8 +62,7 @@
 	<!-- Memo -->
 	<bean id="Memo" class="domain.Service.Memo.MemoService">
 	</bean>
-	<jaxws:server id="memo"
-		serviceClass="domain.Service.Memo.IMemoService"
+	<jaxws:server id="memo" serviceClass="domain.Service.Memo.IMemoService"
 		address="/Memo">
 		<jaxws:serviceBean>
 			<ref bean="memo" /> <!-- 要暴露的 bean 的引用 -->
@@ -75,6 +75,11 @@
 	</bean>
 
 	<bean id="TimingDAO" class="domain.Memo.TimingDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="UserDbDAO" class="domain.Memo.UserDbDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

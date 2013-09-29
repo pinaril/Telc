@@ -11,17 +11,19 @@ import com.telc.domain.Emtity.Timing;
 import com.telc.domain.Service.RealTimeService;
 import com.telc.domain.Service.TimingService;
 import com.telc.smartmemo.R;
-import com.telc.ui.main.SlidingActivity;
-
 import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
@@ -35,6 +37,8 @@ public class ContentFragment extends Fragment {
 	private RealTimeService realTimeService;
 	private SharedPreferences sp;//用来获取xml保存的useiId
 	ListView memoList;
+	LinearLayout memo_item;
+	Drawable drawable ;
 //	保存list中的item的列表
 	List<Map <String, Object>> mList=new ArrayList<Map<String,Object>>();
 //	listView适配器
@@ -84,7 +88,7 @@ public class ContentFragment extends Fragment {
 			tempTiming = (Timing) it.next();
 			Map <String, Object> mListItem=new HashMap<String, Object>();
 			String temp;
-			mListItem.put("textListCategory", "定时提醒");
+			mListItem.put("textListCategory", "类别：定时提醒");
 			mListItem.put("ratingBarListItem", (float)tempTiming.getPriority());
 			if(tempTiming.getContent().length()<=10){
 				temp=tempTiming.getContent();
@@ -96,7 +100,20 @@ public class ContentFragment extends Fragment {
 		}
 		
         mAdapter=new SimpleAdapter(getActivity(), mList, R.layout.listview_layout, 
-				from, to);
+				from, to)
+        {
+        	@SuppressWarnings("deprecation")
+			@Override
+        	public View getView(final int position, final View convertView,
+        	final ViewGroup parent) {
+        		View view = super.getView(position, convertView, parent);
+//        		memo_item=(LinearLayout) view.findViewById(R.id.memo_item);
+//				drawable = getResources().getDrawable(R.drawable.common_button_green);
+//				memo_item.setBackgroundDrawable(drawable);
+				return view;
+        	
+        	}
+        };
 		//重写Adapter支持RatingBar
 		mAdapter.setViewBinder(new ViewBinder() {
 			@Override
@@ -108,11 +125,14 @@ public class ContentFragment extends Fragment {
 					float ratingValue=value.floatValue();
 					RatingBar ratingBar=(RatingBar) view;
 					ratingBar.setRating(ratingValue);
+					
 					return true;
 				}else 
 				return false;
 			}
 		});
+		
+		
 		}
 	}
 }
