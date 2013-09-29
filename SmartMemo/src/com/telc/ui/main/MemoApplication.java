@@ -32,8 +32,6 @@ public class MemoApplication extends Application implements DBConstant {
 			Editor editor = sharedPreferences2.edit();
 			editor.putString("pathload", path);
 			editor.commit();
-			Toast.makeText(getApplicationContext(), "数据成功导入SD卡",
-					Toast.LENGTH_SHORT).show();
 		}
 	}
 }
