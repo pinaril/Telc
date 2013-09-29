@@ -2,6 +2,8 @@ package com.telc.domain.Service;
 
 import java.util.Calendar;
 
+import com.telc.ui.main.SlidingActivity;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -35,20 +37,24 @@ private AlarmManager mAlarmManager;
 		}
 	}
 	
-	public boolean sendRealTimeAlarm(){
-		Intent intent =new Intent(mContext,AlarmReceiver.class);
-		PendingIntent pendingIntent=PendingIntent.getBroadcast(mContext, 0, intent, 0);
-		mAlarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent);
-		mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(),2000, pendingIntent);
-		Toast.makeText(mContext, "loop！", Toast.LENGTH_SHORT).show();
+	public boolean sendRealTimeAlarm(Context ctx,AlarmManager am){
+		 Calendar calendar=Calendar.getInstance();  
+         calendar.setTimeInMillis(System.currentTimeMillis());  
+         calendar.add(Calendar.SECOND, 5);
+		Intent intent =new Intent(ctx,AlarmReceiver.class);
+		PendingIntent pendingIntent=PendingIntent.getBroadcast(ctx, 0, intent, 0);
+		am.set(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(), pendingIntent);
+		am.setRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(),5000, pendingIntent);
+		Toast.makeText(ctx, "发送成功！", Toast.LENGTH_SHORT).show();
 		return true;
+		
 	}
 	
-	public boolean cancelAlarm(){
-		Intent intent=new Intent(mContext,AlarmReceiver.class);
-		PendingIntent pendingIntent=PendingIntent.getBroadcast(mContext, 0, intent, 0);
+	public boolean cancelAlarm(Context ctx){
+		Intent intent=new Intent(ctx,AlarmReceiver.class);
+		PendingIntent pendingIntent=PendingIntent.getBroadcast(ctx, 0, intent, 0);
 		mAlarmManager.cancel(pendingIntent);
-		Toast.makeText(mContext, "广播取消成功！", Toast.LENGTH_SHORT).show();
+		Toast.makeText(ctx, "广播取消成功！", Toast.LENGTH_SHORT).show();
 		return true;
 	}
 }

@@ -37,7 +37,7 @@ public class ContentFragment extends Fragment {
 	private RealTimeService realTimeService;
 	private SharedPreferences sp;//用来获取xml保存的useiId
 	ListView memoList;
-	LinearLayout memo_item;
+//	LinearLayout memo_item;
 	Drawable drawable ;
 //	保存list中的item的列表
 	List<Map <String, Object>> mList=new ArrayList<Map<String,Object>>();
