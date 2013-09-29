@@ -18,7 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class MenuFragment extends Fragment {
-	int index=-1;
+	int index=2;
 	
 	TextView textUserInfo;
 	TextView textFinished;
@@ -28,7 +28,7 @@ public class MenuFragment extends Fragment {
 	TextView textExit;
 	TextView textReturn;
 	ContentFragment contentFragment;
-	
+	UnconmplateFragment uncomplateFragment;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,25 @@ public class MenuFragment extends Fragment {
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
 		});
+        
+        textUnfinish.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				if(index==2)
+					((SlidingActivity)getActivity()).getSlidingMenu().toggle();
+				index=2;
+				FragmentManager fm = ((SlidingActivity)getActivity()).getFragmentManager();
+				/**
+				 * @parma  replace（被替换的layout，新的fragment）
+				 */
+				fm.beginTransaction().replace(R.id.content, uncomplateFragment == null ?new UnconmplateFragment():uncomplateFragment )
+				.commit();
+				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
+			}
+		});
+        
         
         textFinished.setOnClickListener(new OnClickListener() {
 			

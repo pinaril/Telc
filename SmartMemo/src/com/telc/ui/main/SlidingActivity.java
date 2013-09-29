@@ -121,12 +121,11 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
             if (item.getItemId() == android.R.id.home) {
                 //toggle就是程序自动判断是打开还是关闭
                 toggle();
-                Calendar calendar=Calendar.getInstance();  
-                calendar.setTimeInMillis(System.currentTimeMillis());  
-                calendar.add(Calendar.SECOND, 5);
-                AlarmManager alarm=(AlarmManager) getSystemService(ALARM_SERVICE);
-//                mAlarmService.sendRealTimeAlarm(SlidingActivity.this,alarm);
-                mAlarmService.sendTimeAlarm(calendar);
+//                Calendar calendar=Calendar.getInstance();  
+//                calendar.setTimeInMillis(System.currentTimeMillis());  
+//                calendar.add(Calendar.SECOND, 5);
+//                AlarmManager alarm=(AlarmManager) getSystemService(ALARM_SERVICE);
+//                mAlarmService.sendTimeAlarm(calendar);
 //                mAlarmService.cancelAlarm(this);
                 return false;
             }else {

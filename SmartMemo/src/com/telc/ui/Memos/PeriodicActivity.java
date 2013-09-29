@@ -124,6 +124,7 @@ public class PeriodicActivity extends SherlockFragmentActivity {
 //		设置隐藏属性
 		userid=sp.getString("user", null);
 		mPeriodic.setUser_id(userid);
+		mPeriodic.setIscompeleted(0);
 		
 		if(periodicHelper.addPeriodic(mPeriodic)){
 			Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();

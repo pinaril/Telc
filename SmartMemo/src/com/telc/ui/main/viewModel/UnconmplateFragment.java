@@ -87,21 +87,57 @@ public class UnconmplateFragment extends Fragment{
 		Timing tempTiming;
 		RealTime tempRealTime;
 		Periodic tempPreiodic;
-		Iterator it = timingList.iterator();
-		while(it.hasNext()){
-			tempTiming = (Timing) it.next();
-//			if(tempTiming.)
+//		定时提醒迭代器
+		Iterator itTiming = timingList.iterator();
+		while(itTiming.hasNext()){
+			tempTiming = (Timing) itTiming.next();
+			if(tempTiming.getIscompleted()==0){
+				Map <String, Object> mListItem=new HashMap<String, Object>();
+				String temp;
+				mListItem.put("textListCategory", "定时提醒");
+				mListItem.put("ratingBarListItem", (float)tempTiming.getPriority());
+				if(tempTiming.getContent().length()<=10){
+					temp=tempTiming.getContent();
+				}else{
+					temp=tempTiming.getContent().substring(0, 10)+"……";
+				}
+				mListItem.put("textListContent",temp);
+				mList.add(mListItem);
+			}else
+				continue;
+		}
+//		实时提醒迭代器
+		Iterator itRealTime=realList.iterator();
+		while(itRealTime.hasNext()){
+			tempRealTime=(RealTime) itRealTime.next();
+			if(tempRealTime.getIscomplete()==0){
+				Map <String, Object> mListItem=new HashMap<String, Object>();
+				String temp;
+				mListItem.put("textListCategory", "实时提醒");
+				mListItem.put("ratingBarListItem", (float)tempRealTime.getPriority());
+				if(tempRealTime.getContent().length()<=10){
+					temp=tempRealTime.getContent();
+				}else{
+					temp=tempRealTime.getContent().substring(0, 10)+"……";
+				}
+				mListItem.put("textListContent",temp);
+				mList.add(mListItem);
+			}else
+				continue;
+		}
+//		周期性提醒迭代器
+		Iterator itPIterator=perioList.iterator();
+		while(itPIterator.hasNext()){
+			tempPreiodic=(Periodic) itPIterator.next();
 			Map <String, Object> mListItem=new HashMap<String, Object>();
 			String temp;
-			mListItem.put("textListCategory", "定时提醒");
-			mListItem.put("ratingBarListItem", (float)tempTiming.getPriority());
-			if(tempTiming.getContent().length()<=10){
-				temp=tempTiming.getContent();
+			mListItem.put("textListCategory", "周期性提醒");
+			mListItem.put("ratingBarListItem", (float)tempPreiodic.getPriority());
+			if(tempPreiodic.getContent().length()<=10){
+				temp=tempPreiodic.getContent();
 			}else{
-				temp=tempTiming.getContent().substring(0, 10)+"……";
+				temp=tempPreiodic.getContent().substring(0, 10)+"……";
 			}
-			mListItem.put("textListContent",temp);
-			mList.add(mListItem);
 		}
 		
         mAdapter=new SimpleAdapter(getActivity(), mList, R.layout.listview_layout, 
