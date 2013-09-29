@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout 
-    
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/lightblue" 
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-    
 <LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/whitesmoke"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textImportant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="尽快完善这个界面"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="25dp" />
+            android:text="重要程度:"
+            android:layout_gravity="center_vertical"
+            android:textSize="20dp" />
 
         <RatingBar
             android:id="@+id/rb_priority"
-            android:layout_width="145dp"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+             />
 
     </LinearLayout>
 
@@ -61,15 +59,7 @@
                 android:ems="10" >
 
             </EditText>
-
-            <ImageView
-                android:id="@+id/iv_maps"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_alignTop="@+id/et_location"
-                android:layout_marginLeft="140dp"
-                android:src="@drawable/maps" />
+          
         </RelativeLayout>
     </LinearLayout>
 
@@ -109,6 +99,5 @@
         </EditText>
     </LinearLayout>
 
-</LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

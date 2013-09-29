@@ -17,6 +17,7 @@ public abstract class AbstractRealtime implements java.io.Serializable {
 	private String location;
 	private Integer aging;
 	private String content;
+	private Integer priority;
 
 	// Constructors
 
@@ -31,13 +32,14 @@ public abstract class AbstractRealtime implements java.io.Serializable {
 
 	/** full constructor */
 	public AbstractRealtime(Integer id, User user, String startTime,
-			String location, Integer aging, String content) {
+			String location, Integer aging, String content, Integer priority) {
 		this.id = id;
 		this.user = user;
 		this.startTime = startTime;
 		this.location = location;
 		this.aging = aging;
 		this.content = content;
+		this.priority = priority;
 	}
 
 	// Property accessors
@@ -88,6 +90,14 @@ public abstract class AbstractRealtime implements java.io.Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Integer getPriority() {
+		return this.priority;
+	}
+
+	public void setPriority(Integer priority) {
+		this.priority = priority;
 	}
 
 }

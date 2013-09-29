@@ -1,11 +1,13 @@
 package com.telc.ui.main.viewModel;
 
 import com.telc.smartmemo.R;
-import com.telc.ui.RealtimeMemo.viewModel.RealtimeMemoFragment;
+import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.main.SlidingActivity;
+import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,14 +19,14 @@ public class MenuFragment extends Fragment {
 	int index=-1;
 	
 	TextView textUserInfo;
-	TextView textMemo;
 	TextView textFinished;
 	TextView textUnfinish;
 	TextView textAbout;
-	TextView textExplain;
+	TextView textSetting;
 	TextView textExit;
+	TextView textReturn;
 	ContentFragment contentFragment;
-	RealtimeMemoFragment realtimeFragment;
+	RealtimeMemoActivity realtimeFragment;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,13 @@ public class MenuFragment extends Fragment {
 		@Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){	
 		View view=inflater.inflate(R.layout.activity_menu, null);
-        textUserInfo=(TextView)view.findViewById(R.id.textUserInfo);
-        textMemo=(TextView) view.findViewById(R.id.textMemo);
-        textFinished=(TextView) view.findViewById(R.id.textFinished);
-        textUnfinish=(TextView) view.findViewById(R.id.textUnfinish);
-        textAbout=(TextView) view.findViewById(R.id.textAbout);
-        textExplain=(TextView) view.findViewById(R.id.textExplain);
-        textExit=(TextView) view.findViewById(R.id.textExit);
-        
+        textUserInfo=(TextView)view.findViewById(R.id.txt_userinfo);
+        textFinished=(TextView) view.findViewById(R.id.txt_completed);
+        textUnfinish=(TextView) view.findViewById(R.id.txt_uncomplete);
+        textAbout=(TextView) view.findViewById(R.id.txt_about);
+        textSetting=(TextView) view.findViewById(R.id.txt_setting);
+        textExit=(TextView) view.findViewById(R.id.txt_exit);
+        textReturn=(TextView) view.findViewById(R.id.txt_return);
         textUserInfo.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -70,14 +71,26 @@ public class MenuFragment extends Fragment {
 				if(index==2)
 					 ((SlidingActivity)getActivity()).getSlidingMenu().toggle();
 				index=2;
-				FragmentManager fm = ((SlidingActivity)getActivity()).getFragmentManager();
-				fm.beginTransaction().replace(R.id.content, realtimeFragment == null ?new RealtimeMemoFragment():realtimeFragment)
-				.addToBackStack(null)
-				.commit();
-				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
+//				FragmentManager fm = ((SlidingActivity)getActivity()).getFragmentManager();
+//				fm.beginTransaction().replace(R.id.content, realtimeFragment == null ?new RealtimeMemoActivity():realtimeFragment)
+//				.addToBackStack(null)
+//				.commit();
+//				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
 		});
         
+        
+        textReturn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+
+				getActivity().finish();
+				Intent intent=new Intent(getActivity(),LoginAndRegisterActivity.class);
+				startActivity(intent);
+			}
+		});
         
         textExit.setOnClickListener(new OnClickListener() {
 			

@@ -8,13 +8,14 @@ package com.telc.domain.Emtity;
  */
 public class User {
 	private String image;
-	private String userID;
+	public static String userID;
 	
 	private String userName;
 	private String userPwd;
 	
 	private int age;
 	private String sex;
+
 	private String prof;
 	private String hob;
 	private String phoneNum;
@@ -107,5 +108,6 @@ public class User {
 	public void setImage(String image) {
 		this.image = image;
 	}
+
 
 }
