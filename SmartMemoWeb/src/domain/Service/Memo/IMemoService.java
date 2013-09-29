@@ -53,5 +53,7 @@ public interface IMemoService {
 	public boolean uploadMemoDBFile(String tel,byte[] db);
 	
 	public byte[] downloadMemoDBFile(String tel);
+	
+	public boolean deleteMemoDBFile(String tel);
 
 }

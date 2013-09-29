@@ -7,11 +7,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import domain.Helper.UserHelper;
+import domain.SystemManagement.Account;
+import domain.SystemManagement.AccountDAO;
 import domain.SystemManagement.User;
 import domain.SystemManagement.UserDAO;
 
 public class SystemManagement implements ISystemManagement {
 	private UserDAO userDao;
+	private AccountDAO accountDao;
 	private ApplicationContext ctx;
 
 	@Override
@@ -91,4 +94,33 @@ public class SystemManagement implements ISystemManagement {
 		}
 		return userHelper;
 	}
+
+	@Override
+	public boolean login(String tel, String pwd) {
+		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		accountDao = AccountDAO.getFromApplicationContext(ctx);
+		Account account = accountDao.findById(tel);
+		if(account.getPwd().equals(pwd))
+			return true;
+		else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean register(String tel, String pwd) {
+		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		accountDao = AccountDAO.getFromApplicationContext(ctx);
+		Account account = new Account();
+		account.setTel(tel);
+		account.setPwd(pwd);
+		try {
+			accountDao.save(account);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+	
 }

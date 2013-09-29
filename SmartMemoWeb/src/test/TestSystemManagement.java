@@ -23,7 +23,7 @@ public class TestSystemManagement extends SystemManagement {
 	}
 	@Ignore
 	public void testSaveUser() {
-		saveUser(userHelper);
+		
 	}
 	@Ignore
 	public void testUpdate(){
