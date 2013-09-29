@@ -131,27 +131,25 @@ public class UnfinishFragment extends Fragment{
 		}
 		}
 		
-		if(perioList==null){
-			return;
-		}else{
-		Periodic tempPreiodic;
-//		周期性提醒迭代器
-		Iterator itPeriodic=perioList.iterator();
-		while(itPeriodic.hasNext()){
-			tempPreiodic=(Periodic) itPeriodic.next();
-			Map <String, Object> mListItem=new HashMap<String, Object>();
-			String temp;
-			mListItem.put("textListCategory", "周期性提醒");
-			mListItem.put("ratingBarListItem", (float)tempPreiodic.getPriority());
-			if(tempPreiodic.getContent().length()<=10){
-				temp=tempPreiodic.getContent();
-			}else{
-				temp=tempPreiodic.getContent().substring(0, 10)+"……";
-			}
-			mListItem.put("textListContent",temp);
-			mList.add(mListItem);
-		}
-		}
+//		if(perioList!=null){
+//		Periodic tempPreiodic;
+////		周期性提醒迭代器
+//		Iterator itPeriodic=perioList.iterator();
+//		while(itPeriodic.hasNext()){
+//			tempPreiodic=(Periodic) itPeriodic.next();
+//			Map <String, Object> mListItem=new HashMap<String, Object>();
+//			String temp;
+//			mListItem.put("textListCategory", "周期性提醒");
+//			mListItem.put("ratingBarListItem", (float)tempPreiodic.getPriority());
+//			if(tempPreiodic.getContent().length()<=10){
+//				temp=tempPreiodic.getContent();
+//			}else{
+//				temp=tempPreiodic.getContent().substring(0, 10)+"……";
+//			}
+//			mListItem.put("textListContent",temp);
+//			mList.add(mListItem);
+//		}
+//		}
         mAdapter=new SimpleAdapter(getActivity(), mList, R.layout.listview_layout, 
 				from, to);
 		//重写Adapter支持RatingBar

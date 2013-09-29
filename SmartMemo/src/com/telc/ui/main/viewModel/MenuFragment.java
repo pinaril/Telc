@@ -27,8 +27,8 @@ public class MenuFragment extends Fragment {
 	TextView textSetting;
 	TextView textExit;
 	TextView textReturn;
-	ContentFragment contentFragment=null;
-	UnfinishFragment unfinishFragment=null;
+	ContentFragment contentFragment;
+	UnfinishFragment unfinishFragment;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +77,8 @@ public class MenuFragment extends Fragment {
 				/**
 				 * @parma  replace（被替换的layout，新的fragment）
 				 */
-				fm.beginTransaction().replace(R.id.unfinish, unfinishFragment == null ?new UnfinishFragment():unfinishFragment )
+//				fm.beginTransaction().replace(R.id.unfinish, unfinishFragment == null ?new UnfinishFragment():unfinishFragment )
+				fm.beginTransaction().replace(R.id.unfinish, new UnfinishFragment())
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
