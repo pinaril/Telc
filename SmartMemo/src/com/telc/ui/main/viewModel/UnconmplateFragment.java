@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.telc.data.dbDriver.DBConstant;
+import com.telc.domain.Emtity.Periodic;
 import com.telc.domain.Emtity.RealTime;
 import com.telc.domain.Emtity.Timing;
+import com.telc.domain.Service.PeriodicService;
 import com.telc.domain.Service.RealTimeService;
 import com.telc.domain.Service.TimingService;
 import com.telc.smartmemo.R;
@@ -31,6 +33,7 @@ public class UnconmplateFragment extends Fragment{
 		private SQLiteDatabase db;
 		private TimingService timingService;
 		private RealTimeService realTimeService;
+		private PeriodicService periodicService;
 		private SharedPreferences sp;//用来获取xml保存的useiId
 		
 		ListView uncompleteList;
@@ -71,18 +74,23 @@ public class UnconmplateFragment extends Fragment{
 		//实例化数据库服务
 		timingService=new TimingService(db);
 		realTimeService=new RealTimeService(db);
+		periodicService=new PeriodicService(db);
 //		获取userId
 		String userId=sp.getString("user", null);
 //		数据库中获取的List<Timing>
 		List<Timing> timingList = timingService.getTimingByUserID(userId);
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
-		if(timingList==null && realList==null)
+		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
+		if(timingList==null && realList==null && perioList==null)
 			return;
 		else{
 		Timing tempTiming;
+		RealTime tempRealTime;
+		Periodic tempPreiodic;
 		Iterator it = timingList.iterator();
 		while(it.hasNext()){
 			tempTiming = (Timing) it.next();
+//			if(tempTiming.)
 			Map <String, Object> mListItem=new HashMap<String, Object>();
 			String temp;
 			mListItem.put("textListCategory", "定时提醒");

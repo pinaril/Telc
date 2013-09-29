@@ -28,13 +28,13 @@ public class MenuFragment extends Fragment {
 	TextView textExit;
 	TextView textReturn;
 	ContentFragment contentFragment;
-	RealtimeMemoActivity realtimeFragment;
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        
+       
 	}
 	
 		@Override
@@ -47,8 +47,8 @@ public class MenuFragment extends Fragment {
         textSetting=(TextView) view.findViewById(R.id.txt_setting);
         textExit=(TextView) view.findViewById(R.id.txt_exit);
         textReturn=(TextView) view.findViewById(R.id.txt_return);
+        
         textUserInfo.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -70,9 +70,9 @@ public class MenuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(index==2)
-					 ((SlidingActivity)getActivity()).getSlidingMenu().toggle();
-				index=2;
+//				if(index==2)
+//					 ((SlidingActivity)getActivity()).getSlidingMenu().toggle();
+//				index=2;
 //				FragmentManager fm = ((SlidingActivity)getActivity()).getFragmentManager();
 //				fm.beginTransaction().replace(R.id.content, realtimeFragment == null ?new RealtimeMemoActivity():realtimeFragment)
 //				.addToBackStack(null)

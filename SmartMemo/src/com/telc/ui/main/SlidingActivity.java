@@ -2,6 +2,7 @@ package com.telc.ui.main;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,6 +19,8 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.Timing;
 import com.telc.domain.Emtity.User;
+import com.telc.domain.Service.AlarmReceiver;
+import com.telc.domain.Service.AlarmService;
 import com.telc.domain.Service.RealTimeService;
 import com.telc.domain.Service.TimingService;
 import com.telc.smartmemo.R;
@@ -27,7 +30,10 @@ import com.telc.ui.main.viewModel.ContentFragment;
 import com.telc.ui.main.viewModel.MenuFragment;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
+import android.app.AlarmManager;
 import android.app.FragmentTransaction;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -52,7 +58,7 @@ import android.widget.Toast;
 public class SlidingActivity extends SlidingFragmentActivity implements DBConstant {
 	
 	public SharedPreferences sp;
-	
+
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
@@ -69,7 +75,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		sp=getSharedPreferences("Login",MODE_PRIVATE);
 		
 		
-        setBehindContentView(R.layout.activity_menu);//设置侧边的布局文件
+		setBehindContentView(R.layout.activity_menu);//设置侧边的布局文件
         //Fragment事件开始
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         //创建两个fragment
@@ -101,6 +107,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
         plusMenu.add(0,1,0,"新建实时提醒");//添加下拉Item
         plusMenu.add(0,2,0,"新建定时提醒");
         plusMenu.add(0,3,0,"新建周期性提醒");
+        
         //实例化按钮
         MenuItem menuItem=plusMenu.getItem();
         menuItem.setIcon(android.R.drawable.ic_input_add);
