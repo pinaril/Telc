@@ -19,6 +19,7 @@ import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,9 +84,7 @@ public class UnfinishFragment extends Fragment{
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
 		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
 		
-		if(timingList==null ){
-			return;
-		}else{
+		if(timingList!=null ){
 		Timing tempTiming;
 //		定时提醒迭代器
 		Iterator itTiming = timingList.iterator();
@@ -107,9 +106,7 @@ public class UnfinishFragment extends Fragment{
 		}
 		}
 		
-		if(realList==null){
-			return;
-		}else{
+		if(realList!=null){
 //		实时提醒迭代器
 		RealTime tempRealTime;
 		Iterator itRealTime=realList.iterator();
@@ -131,25 +128,25 @@ public class UnfinishFragment extends Fragment{
 		}
 		}
 		
-//		if(perioList!=null){
-//		Periodic tempPreiodic;
-////		周期性提醒迭代器
-//		Iterator itPeriodic=perioList.iterator();
-//		while(itPeriodic.hasNext()){
-//			tempPreiodic=(Periodic) itPeriodic.next();
-//			Map <String, Object> mListItem=new HashMap<String, Object>();
-//			String temp;
-//			mListItem.put("textListCategory", "周期性提醒");
-//			mListItem.put("ratingBarListItem", (float)tempPreiodic.getPriority());
-//			if(tempPreiodic.getContent().length()<=10){
-//				temp=tempPreiodic.getContent();
-//			}else{
-//				temp=tempPreiodic.getContent().substring(0, 10)+"……";
-//			}
-//			mListItem.put("textListContent",temp);
-//			mList.add(mListItem);
-//		}
-//		}
+		if(perioList!=null){
+		Periodic tempPreiodic;
+//		周期性提醒迭代器
+		Iterator itPeriodic=perioList.iterator();
+		while(itPeriodic.hasNext()){
+			tempPreiodic=(Periodic) itPeriodic.next();
+			Map <String, Object> mListItem=new HashMap<String, Object>();
+			String temp;
+			mListItem.put("textListCategory", "周期性提醒");
+			mListItem.put("ratingBarListItem", (float)tempPreiodic.getPriority());
+			if(tempPreiodic.getContent().length()<=10){
+				temp=tempPreiodic.getContent();
+			}else{
+				temp=tempPreiodic.getContent().substring(0, 10)+"……";
+			}
+			mListItem.put("textListContent",temp);
+			mList.add(mListItem);
+		}
+		}
         mAdapter=new SimpleAdapter(getActivity(), mList, R.layout.listview_layout, 
 				from, to);
 		//重写Adapter支持RatingBar

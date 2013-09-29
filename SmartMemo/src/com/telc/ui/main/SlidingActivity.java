@@ -107,11 +107,10 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         //创建两个fragment
         MenuFragment menuFragment = new MenuFragment();
-        ContentFragment contentFragment=new ContentFragment();
         UnfinishFragment unfinishFragment=new UnfinishFragment();
         //设置对应的framelayout的ID
         fragmentTransaction.replace(R.id.menu, menuFragment);
-        fragmentTransaction.replace(R.id.unfinish, contentFragment);
+        fragmentTransaction.replace(R.id.unfinish, unfinishFragment);
 //        提交事务
         fragmentTransaction.commit();
         
