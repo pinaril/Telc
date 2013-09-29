@@ -1,7 +1,5 @@
 package com.telc.ui.systemManagement;
 
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
-import com.telc.data.dbDriver.MyDBHelp;
 import com.telc.domain.Emtity.User;
 import com.telc.domain.IService.IUserService;
 import com.telc.domain.Service.UserService;
@@ -13,11 +11,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.telc.data.dbDriver.DBConstant;
 
 public class PersonalInfoFragment extends Fragment implements DBConstant {
@@ -34,6 +36,8 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 	private IUserService userService;
 	private String[] mdata = { "男", "女" };
 	private ArrayAdapter<String> adapter;
+	private View view;
+	private String sex;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,10 +50,10 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.activity_personalinfo, null);
+		view = inflater.inflate(R.layout.activity_personalinfo, null);
 		iv_photo = (ImageView) view.findViewById(R.id.photo);
 		et_name = (EditText) view.findViewById(R.id.et_info_name);
-		et_age = (EditText) view.findViewById(R.id.et_age);
+		et_age = (EditText) view.findViewById(R.id.et_info_age);
 		et_phone = (EditText) view.findViewById(R.id.et_info_phone);
 		et_hob = (EditText) view.findViewById(R.id.et_info_hob);
 		et_prof = (EditText) view.findViewById(R.id.et_info_prof);
@@ -84,19 +88,36 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 		User user = userService.getUserByUserPhone(userphone);
 		et_phone.setText(user.getPhoneNum());
 		et_name.setText(user.getUserName());
-		if (user.getAge() != 0 && user.getHob() != null
-				&& user.getProf() != null && user.getSex() != null&&user.getUserName()!=null){
-			et_age.setText(user.getAge());
+
+			et_age.setText((new Integer(user.getAge()).toString()));
 			et_hob.setText(user.getHob());
 			et_prof.setText(user.getProf());
 			et_name.setText(user.getUserName());
 			if (user.getSex().equals("男")) {
 				sp_sex.setSelection(1, true);
 			}else{
-				sp_sex.setSelection(2,true);
+				sp_sex.setSelection(0,true);
 			}
-		}
+		sp_sex.setOnItemSelectedListener(new OnItemSelectedListener(){
 
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				if(arg2==0){
+					sex = "男";
+				}else{
+					sex = "女";
+				}
+				
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		bt_ok.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -109,9 +130,11 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 				user.setUserID(userphone);
 				user.setProf(et_prof.getText().toString());
 				user.setUserName(et_name.getText().toString());
+				user.setSex(sex);
 				userService.updateUser(user);
 			}
 		});
+		
 	}
 
 	@Override
@@ -119,5 +142,12 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 		// TODO Auto-generated method stub
 		super.onPause();
 	}
+
+	@Override
+	public void onStart() {
+		// TODO Auto-generated method stub
+		super.onStart();
+	}
+	
 
 }
