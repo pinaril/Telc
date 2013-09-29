@@ -18,7 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class MenuFragment extends Fragment {
-	int index=2;
+	int index=0;
 	
 	TextView textUserInfo;
 	TextView textFinished;
@@ -27,8 +27,8 @@ public class MenuFragment extends Fragment {
 	TextView textSetting;
 	TextView textExit;
 	TextView textReturn;
-	ContentFragment contentFragment;
-	UnfinishFragment uncomplateFragment;
+	ContentFragment contentFragment=null;
+	UnfinishFragment unfinishFragment=null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,8 +41,8 @@ public class MenuFragment extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){	
 		View view=inflater.inflate(R.layout.activity_menu, null);
         textUserInfo=(TextView)view.findViewById(R.id.txt_userinfo);
-        textFinished=(TextView) view.findViewById(R.id.txt_completed);
-        textUnfinish=(TextView) view.findViewById(R.id.txt_uncomplete);
+        textFinished=(TextView) view.findViewById(R.id.txt_finish);
+        textUnfinish=(TextView) view.findViewById(R.id.txt_unfinish);
         textAbout=(TextView) view.findViewById(R.id.txt_about);
         textSetting=(TextView) view.findViewById(R.id.txt_setting);
         textExit=(TextView) view.findViewById(R.id.txt_exit);
@@ -59,7 +59,7 @@ public class MenuFragment extends Fragment {
 				/**
 				 * @parma  replace（被替换的layout，新的fragment）
 				 */
-				fm.beginTransaction().replace(R.id.content, contentFragment == null ?new ContentFragment():contentFragment )
+				fm.beginTransaction().replace(R.id.unfinish, contentFragment == null ?new ContentFragment():contentFragment )
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
@@ -77,7 +77,7 @@ public class MenuFragment extends Fragment {
 				/**
 				 * @parma  replace（被替换的layout，新的fragment）
 				 */
-				fm.beginTransaction().replace(R.id.content, uncomplateFragment == null ?new UnfinishFragment():uncomplateFragment )
+				fm.beginTransaction().replace(R.id.unfinish, unfinishFragment == null ?new UnfinishFragment():unfinishFragment )
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}

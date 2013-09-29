@@ -56,7 +56,8 @@ public class UnfinishFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view=inflater.inflate(R.layout.activity_uncomplete, null);
+		View view=inflater.inflate(R.layout.activity_unfinish, null);
+		uncompleteList=(ListView) view.findViewById(R.id.listViewUnfinish);
 		sp=getActivity().getSharedPreferences("Login", getActivity().MODE_PRIVATE);
 		
 		//实例化Adapter
@@ -81,17 +82,16 @@ public class UnfinishFragment extends Fragment{
 		List<Timing> timingList = timingService.getTimingByUserID(userId);
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
 		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
-		if(timingList==null && realList==null && perioList==null)
+		
+		if(timingList==null ){
 			return;
-		else{
+		}else{
 		Timing tempTiming;
-		RealTime tempRealTime;
-		Periodic tempPreiodic;
 //		定时提醒迭代器
 		Iterator itTiming = timingList.iterator();
 		while(itTiming.hasNext()){
 			tempTiming = (Timing) itTiming.next();
-			if(tempTiming.getIscompleted()==0){
+			if(tempTiming.getIsfinish()==0){
 				Map <String, Object> mListItem=new HashMap<String, Object>();
 				String temp;
 				mListItem.put("textListCategory", "定时提醒");
@@ -103,14 +103,19 @@ public class UnfinishFragment extends Fragment{
 				}
 				mListItem.put("textListContent",temp);
 				mList.add(mListItem);
-			}else
-				continue;
+			}
 		}
+		}
+		
+		if(realList==null){
+			return;
+		}else{
 //		实时提醒迭代器
+		RealTime tempRealTime;
 		Iterator itRealTime=realList.iterator();
 		while(itRealTime.hasNext()){
 			tempRealTime=(RealTime) itRealTime.next();
-			if(tempRealTime.getIscomplete()==0){
+			if(tempRealTime.getIsfinish()==0){
 				Map <String, Object> mListItem=new HashMap<String, Object>();
 				String temp;
 				mListItem.put("textListCategory", "实时提醒");
@@ -122,13 +127,18 @@ public class UnfinishFragment extends Fragment{
 				}
 				mListItem.put("textListContent",temp);
 				mList.add(mListItem);
-			}else
-				continue;
+			}
 		}
+		}
+		
+		if(perioList==null){
+			return;
+		}else{
+		Periodic tempPreiodic;
 //		周期性提醒迭代器
-		Iterator itPIterator=perioList.iterator();
-		while(itPIterator.hasNext()){
-			tempPreiodic=(Periodic) itPIterator.next();
+		Iterator itPeriodic=perioList.iterator();
+		while(itPeriodic.hasNext()){
+			tempPreiodic=(Periodic) itPeriodic.next();
 			Map <String, Object> mListItem=new HashMap<String, Object>();
 			String temp;
 			mListItem.put("textListCategory", "周期性提醒");
@@ -138,8 +148,10 @@ public class UnfinishFragment extends Fragment{
 			}else{
 				temp=tempPreiodic.getContent().substring(0, 10)+"……";
 			}
+			mListItem.put("textListContent",temp);
+			mList.add(mListItem);
 		}
-		
+		}
         mAdapter=new SimpleAdapter(getActivity(), mList, R.layout.listview_layout, 
 				from, to);
 		//重写Adapter支持RatingBar
@@ -159,6 +171,6 @@ public class UnfinishFragment extends Fragment{
 			}
 		});
 		}
-	}
-
 }
+
+
