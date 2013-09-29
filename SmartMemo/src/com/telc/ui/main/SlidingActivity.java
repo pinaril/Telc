@@ -34,9 +34,9 @@ import com.telc.resource.baidumap.LocationInfoTran;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicActivity;
 import com.telc.ui.Memos.RealtimeMemoActivity;
-import com.telc.ui.Memos.TimingMemoActivity;
 import com.telc.ui.main.viewModel.ContentFragment;
 import com.telc.ui.main.viewModel.MenuFragment;
+import com.telc.ui.main.viewModel.UnfinishFragment;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
 import android.app.AlarmManager;
@@ -71,8 +71,9 @@ import android.widget.Toast;
  *
  */
 public class SlidingActivity extends SlidingFragmentActivity implements DBConstant {
-	
+	public AlarmService mAlarmService;
 	public SharedPreferences sp;
+	
 	
 	//声明一个NotificationManager类
 	private NotificationManager notificationManager;
@@ -97,23 +98,22 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setTitle("智慧备忘录");//设置备忘录标题
-		setContentView(R.layout.activity_content);
+		setContentView(R.layout.activity_unfinish);
 		sp=getSharedPreferences("Login",MODE_PRIVATE);
-		
+		mAlarmService=new AlarmService(this);
 		
 		setBehindContentView(R.layout.activity_menu);//设置侧边的布局文件
         //Fragment事件开始
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         //创建两个fragment
         MenuFragment menuFragment = new MenuFragment();
-        ContentFragment contentFragment=new ContentFragment();
+        UnfinishFragment unfinishFragment=new UnfinishFragment();
         //设置对应的framelayout的ID
         fragmentTransaction.replace(R.id.menu, menuFragment);
-        fragmentTransaction.replace(R.id.content, contentFragment);
+        fragmentTransaction.replace(R.id.unfinish, unfinishFragment);
 //        提交事务
         fragmentTransaction.commit();
         
-
 //        设置滑动菜单的属性
 		SlidingMenu sm= getSlidingMenu();
 		sm.setShadowWidth(15);
@@ -203,6 +203,12 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
             if (item.getItemId() == android.R.id.home) {
                 //toggle就是程序自动判断是打开还是关闭
                 toggle();
+//                Calendar calendar=Calendar.getInstance();  
+//                calendar.setTimeInMillis(System.currentTimeMillis());  
+//                calendar.add(Calendar.SECOND, 5);
+//                AlarmManager alarm=(AlarmManager) getSystemService(ALARM_SERVICE);
+//                mAlarmService.sendTimeAlarm(calendar);
+//                mAlarmService.cancelAlarm(this);
                 return false;
             }else {
             	switch (item.getItemId()) {
@@ -212,8 +218,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		           Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;
             	case 2:
-            		intent=new Intent(SlidingActivity.this,TimingMemoActivity.class);
- 		           startActivity(intent);
             		Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;
             	case 3:
