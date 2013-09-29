@@ -43,9 +43,11 @@ private AlarmManager mAlarmManager;
          calendar.add(Calendar.SECOND, 5);
 		Intent intent =new Intent(ctx,AlarmReceiver.class);
 		PendingIntent pendingIntent=PendingIntent.getBroadcast(ctx, 0, intent, 0);
+		am.set(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(), pendingIntent);
 		am.setRepeating(AlarmManager.ELAPSED_REALTIME, System.currentTimeMillis(),5000, pendingIntent);
 		Toast.makeText(ctx, "发送成功！", Toast.LENGTH_SHORT).show();
 		return true;
+		
 	}
 	
 	public boolean cancelAlarm(Context ctx){

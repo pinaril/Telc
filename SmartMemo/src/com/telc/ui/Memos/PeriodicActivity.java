@@ -40,6 +40,7 @@ public class PeriodicActivity extends SherlockFragmentActivity {
 	Spinner spinnerPeriodic;
 	EditText editPeriodicContent,editPeriodicDetail;
 	private ArrayAdapter<String> spinnerAdapter;
+	AlarmService mAlarmService;
 	private Context mContext;
 //	周期性提醒对象
 	private Periodic mPeriodic=new Periodic();
@@ -64,7 +65,19 @@ public class PeriodicActivity extends SherlockFragmentActivity {
 		spinnerPeriodic=(Spinner) findViewById(R.id.spinnerPeriodic);
 		editPeriodicDetail=(EditText) findViewById(R.id.editTextPeriodicDetail);
 		editPeriodicContent=(EditText) findViewById(R.id.editPeriodicContent);
-
+		
+		editPeriodicDetail.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				AlarmManager am=(AlarmManager) getSystemService(ALARM_SERVICE);
+				mAlarmService=new AlarmService(mContext);
+				mAlarmService.sendRealTimeAlarm(mContext, am);
+				
+			}
+		});
+		
 		 //将可选内容与ArrayAdapter连接起来
 		spinnerAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,spinnerPeriodicItem);
 		//设置下拉列表的风格

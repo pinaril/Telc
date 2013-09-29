@@ -63,7 +63,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light" >
-        <receiver android:name=".AlarmReceiver" android:process=":remote" />
+       
         <activity
             android:name="com.telc.ui.main.SlidingActivity"
             android:label="@string/app_name" >
@@ -106,6 +106,7 @@
               android:label="@string/app_name">
               
           </activity>
+          
           <activity 
               android:name="com.telc.ui.Memos.PeriodicActivity"
               android:label="@string/app_name">

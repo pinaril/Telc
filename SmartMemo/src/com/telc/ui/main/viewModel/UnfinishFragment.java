@@ -27,7 +27,7 @@ import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 
-public class UnconmplateFragment extends Fragment{
+public class UnfinishFragment extends Fragment{
 	
 	//数据库
 		private SQLiteDatabase db;
