@@ -38,6 +38,7 @@
 				<value>domain/Memo/Realtime.hbm.xml</value>
 				<value>domain/Memo/Timing.hbm.xml</value>
 				<value>domain/Memo/UserDb.hbm.xml</value>
+				<value>domain/SystemManagement/Account.hbm.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -80,6 +81,11 @@
 		</property>
 	</bean>
 	<bean id="UserDbDAO" class="domain.Memo.UserDbDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="AccountDAO" class="domain.SystemManagement.AccountDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
