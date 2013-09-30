@@ -19,6 +19,7 @@ import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 
-public class UnconmplateFragment extends Fragment{
+public class UnfinishFragment extends Fragment{
 	
 	//数据库
 		private SQLiteDatabase db;
@@ -56,7 +57,8 @@ public class UnconmplateFragment extends Fragment{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view=inflater.inflate(R.layout.activity_uncomplete, null);
+		View view=inflater.inflate(R.layout.activity_unfinish, null);
+		uncompleteList=(ListView) view.findViewById(R.id.listViewUnfinish);
 		sp=getActivity().getSharedPreferences("Login", getActivity().MODE_PRIVATE);
 		
 		//实例化Adapter
@@ -81,29 +83,70 @@ public class UnconmplateFragment extends Fragment{
 		List<Timing> timingList = timingService.getTimingByUserID(userId);
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
 		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
-		if(timingList==null && realList==null && perioList==null)
-			return;
-		else{
+		
+		if(timingList!=null ){
 		Timing tempTiming;
+//		定时提醒迭代器
+		Iterator itTiming = timingList.iterator();
+		while(itTiming.hasNext()){
+			tempTiming = (Timing) itTiming.next();
+			if(tempTiming.getIsfinish()==0){
+				Map <String, Object> mListItem=new HashMap<String, Object>();
+				String temp;
+				mListItem.put("textListCategory", "定时提醒");
+				mListItem.put("ratingBarListItem", (float)tempTiming.getPriority());
+				if(tempTiming.getContent().length()<=10){
+					temp=tempTiming.getContent();
+				}else{
+					temp=tempTiming.getContent().substring(0, 10)+"……";
+				}
+				mListItem.put("textListContent",temp);
+				mList.add(mListItem);
+			}
+		}
+		}
+		
+		if(realList!=null){
+//		实时提醒迭代器
 		RealTime tempRealTime;
+		Iterator itRealTime=realList.iterator();
+		while(itRealTime.hasNext()){
+			tempRealTime=(RealTime) itRealTime.next();
+			if(tempRealTime.getIsfinish()==0){
+				Map <String, Object> mListItem=new HashMap<String, Object>();
+				String temp;
+				mListItem.put("textListCategory", "实时提醒");
+				mListItem.put("ratingBarListItem", (float)tempRealTime.getPriority());
+				if(tempRealTime.getContent().length()<=10){
+					temp=tempRealTime.getContent();
+				}else{
+					temp=tempRealTime.getContent().substring(0, 10)+"……";
+				}
+				mListItem.put("textListContent",temp);
+				mList.add(mListItem);
+			}
+		}
+		}
+		
+		if(perioList!=null){
 		Periodic tempPreiodic;
-		Iterator it = timingList.iterator();
-		while(it.hasNext()){
-			tempTiming = (Timing) it.next();
-//			if(tempTiming.)
+//		周期性提醒迭代器
+		Iterator itPeriodic=perioList.iterator();
+		while(itPeriodic.hasNext()){
+			tempPreiodic=(Periodic) itPeriodic.next();
 			Map <String, Object> mListItem=new HashMap<String, Object>();
 			String temp;
-			mListItem.put("textListCategory", "定时提醒");
-			mListItem.put("ratingBarListItem", (float)tempTiming.getPriority());
-			if(tempTiming.getContent().length()<=10){
-				temp=tempTiming.getContent();
+			mListItem.put("textListCategory", "周期性提醒");
+			mListItem.put("ratingBarListItem", (float)tempPreiodic.getPriority());
+			if(tempPreiodic.getContent().length()<=10){
+				temp=tempPreiodic.getContent();
 			}else{
-				temp=tempTiming.getContent().substring(0, 10)+"……";
+				temp=tempPreiodic.getContent().substring(0, 10)+"……";
 			}
 			mListItem.put("textListContent",temp);
 			mList.add(mListItem);
 		}
-		
+		}
         mAdapter=new SimpleAdapter(getActivity(), mList, R.layout.listview_layout, 
 				from, to);
 		//重写Adapter支持RatingBar
@@ -123,6 +166,6 @@ public class UnconmplateFragment extends Fragment{
 			}
 		});
 		}
-	}
-
 }
+
+

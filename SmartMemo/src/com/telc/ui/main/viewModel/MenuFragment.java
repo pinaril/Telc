@@ -19,7 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class MenuFragment extends Fragment {
-	int index=-1;
+	int index=0;
 	
 	TextView textUserInfo;
 	TextView textFinished;
@@ -29,7 +29,7 @@ public class MenuFragment extends Fragment {
 	TextView textExit;
 	TextView textReturn;
 	ContentFragment contentFragment;
-	
+	UnfinishFragment unfinishFragment;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,8 +42,8 @@ public class MenuFragment extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){	
 		View view=inflater.inflate(R.layout.activity_menu, null);
         textUserInfo=(TextView)view.findViewById(R.id.txt_userinfo);
-        textFinished=(TextView) view.findViewById(R.id.txt_completed);
-        textUnfinish=(TextView) view.findViewById(R.id.txt_uncomplete);
+        textFinished=(TextView) view.findViewById(R.id.txt_finish);
+        textUnfinish=(TextView) view.findViewById(R.id.txt_unfinish);
         textAbout=(TextView) view.findViewById(R.id.txt_about);
         textSetting=(TextView) view.findViewById(R.id.txt_setting);
         textExit=(TextView) view.findViewById(R.id.txt_exit);
@@ -60,12 +60,32 @@ public class MenuFragment extends Fragment {
 				/**
 				 * @parma  replace（被替换的layout，新的fragment）
 				 */
-				fm.beginTransaction().replace(R.id.content, new PersonalInfoFragment())
+				fm.beginTransaction().replace(R.id.unfinish, new PersonalInfoFragment())
+				.commit();
+				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
+			}
+		});
+        
+        textUnfinish.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				if(index==2)
+					((SlidingActivity)getActivity()).getSlidingMenu().toggle();
+				index=2;
+				FragmentManager fm = ((SlidingActivity)getActivity()).getFragmentManager();
+				/**
+				 * @parma  replace（被替换的layout，新的fragment）
+				 */
+//				fm.beginTransaction().replace(R.id.unfinish, unfinishFragment == null ?new UnfinishFragment():unfinishFragment )
+				fm.beginTransaction().replace(R.id.unfinish, new UnfinishFragment())
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 				
 			}
 		});
+        
         
         textFinished.setOnClickListener(new OnClickListener() {
 			

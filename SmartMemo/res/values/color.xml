@@ -148,5 +148,6 @@
 <color name="black">#000000</color><!--黑色 -->  
 <color name="dark_blue">#ff2672b2</color>
 <color name="mibai">#ffefebe7</color>
+<color name="lightblue">#63B8FF</color>
 
 </resources>  
