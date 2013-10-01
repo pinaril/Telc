@@ -92,9 +92,9 @@ public class PeriodicService implements IPeriodicService {
 				+ "','"
 				+ period_detail
 				+ "','"
-				+ content
-				+ "','"
 				+ user_id
+				+ "','"
+				+ content
 				+ "','"
 				+ priority
 				+ "','"
