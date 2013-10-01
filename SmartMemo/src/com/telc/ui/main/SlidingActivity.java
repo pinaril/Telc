@@ -93,47 +93,20 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		//初始化NotificationManager对象
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
-		
 		locationServiceInfoTran.canBeDestroy = false;
 
-		startService(intent);
 	}
 	
-//	public class mainLocationListenner implements BDLocationListener {
-//
-//		@Override
-//		public void onReceiveLocation(BDLocation location) {
-//			if (location == null)
-//				return;
-//
-////			Toast.makeText(getApplicationContext(), "我一直在运行哦！", Toast.LENGTH_SHORT).show();
-//			
-//			if(LocationInfoTran.startToUse){
-//				GeoPoint historyGeoPoint = new GeoPoint((int)(LocationInfoTran.locationData.latitude*1000000), (int)(LocationInfoTran.locationData.longitude*1000000));
-//				GeoPoint tmpGeoPoint = new GeoPoint((int)(location.getLatitude()*1000000), (int)(location.getLongitude()*1000000));
-//				double distance = DistanceUtil.getDistance(historyGeoPoint,tmpGeoPoint);
-//				
-//				//显示距离
-//				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+distance+"m", Toast.LENGTH_SHORT).show();
-//				if(distance < 100){
-//					if(mediaPlayer == null)
-//					mediaPlayer = MediaPlayer.create(SlidingActivity.this, R.raw.sound);
-//
-//					mediaPlayer.start();
-//				}
-//				else{
-//					if(mediaPlayer != null)
-//						mediaPlayer.stop();
-//				}
-//			}
-//		}
-//
-//		public void onReceivePoi(BDLocation poiLocation) {
-//			if (poiLocation == null) {
-//				return;
-//			}
-//		}
-//	}
+	
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		
+		startService(intent);
+
+		super.onResume();
+	}
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -225,7 +198,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 				int ic = R.drawable.z_ic_launcher;
 				setNotiType(ic, "点击查看备忘录");
 
-				moveTaskToBack(true);
+				moveTaskToBack(false);
 				
 				//后台定位服务不可被销毁
 				locationServiceInfoTran.canBeDestroy = false;

@@ -129,8 +129,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
   
         public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,  
                 long arg3) {  
-//        	spinner_time = spinnerSelect[arg2];
-//        	Toast.makeText(getApplicationContext(), "arg"+arg2, Toast.LENGTH_SHORT).show();
         	switch (arg2) {
 			case 0:
 				aging = 24;
@@ -177,9 +175,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			finish();
 			return true;
 		} else if (item.getItemId() == 0) {
-			// 执行保存////////////////////////////////////
-			// /////////////////////////////////
-			// /////////////////////////////////
 
 			priority = (int)rb_priority.getRating();
 			if(priority == 0){
