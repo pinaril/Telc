@@ -1,12 +1,18 @@
 package com.telc.ui.Memos;
+
 import com.telc.smartmemo.R;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
@@ -24,12 +30,14 @@ public class TimingMemoActivity extends Activity {
 	TimingMemoActivity timingMemoActivity;
 	TableRow tabl_location, tabl_content;
 	Drawable drawable;
-
+	private Dialog dl;
+	Context context;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_timing);
 		timingMemoActivity = this;
+		context=this;
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		init();
 	}
@@ -37,7 +45,7 @@ public class TimingMemoActivity extends Activity {
 	public void init() {
 
 		ed_timing_time = (EditText) findViewById(R.id.ed_timing_time);
-
+        
 		ed_timing_loction = (EditText) findViewById(R.id.ed_timing_loction);
 
 		edit_Timing_Content = (EditText) findViewById(R.id.edit_Timing_Content);
@@ -48,6 +56,23 @@ public class TimingMemoActivity extends Activity {
 		tabl_content = (TableRow) findViewById(R.id.tabl_content);
 		sw_timing = (Switch) findViewById(R.id.sw_timing);
 
+		ed_timing_time.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				dl = new Dialog(context);	
+				dl.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+				LayoutInflater inflater = LayoutInflater
+						.from(TimingMemoActivity.this);
+				final View dialogView = inflater.inflate(R.layout.time_dialog,
+						null);
+				dl.setContentView(dialogView);
+				dl.show();
+			}
+		});
+		
 		sw_timing.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@SuppressWarnings("deprecation")
