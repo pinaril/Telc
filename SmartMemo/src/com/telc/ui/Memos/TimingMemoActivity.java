@@ -41,6 +41,8 @@ public class TimingMemoActivity extends Activity {
 	String location = "";//获取地点设置
 	private Dialog dl;
 	Context context;
+	
+	String contentString,start_time, end_timeString;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,6 +80,8 @@ public class TimingMemoActivity extends Activity {
 							+ LocationInfoTran.locationData.longitude,
 					Toast.LENGTH_SHORT).show();
 		}
+		
+		
 	}
 
 	
@@ -105,9 +109,6 @@ public class TimingMemoActivity extends Activity {
 		tabl_content = (TableRow) findViewById(R.id.tabl_content);
 		sw_timing = (Switch) findViewById(R.id.sw_timing);
 		
-		
-		
-
 		ed_timing_time.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -137,8 +138,9 @@ public class TimingMemoActivity extends Activity {
 					tabl_location.setVisibility(View.VISIBLE);
 					drawable = getResources().getDrawable(
 							R.drawable.table_button_bottom_bg);
-					tabl_content.setBackgroundDrawable(drawable);	
+					tabl_content.setBackgroundDrawable(drawable);
 				} else {
+					location = null;
 					drawable = getResources().getDrawable(
 							R.drawable.table_button_single_bg);
 					tabl_content.setBackgroundDrawable(drawable);	
@@ -151,24 +153,25 @@ public class TimingMemoActivity extends Activity {
 		ed_timing_loction.clearFocus();
 				// 始终不弹出软键盘
 		ed_timing_loction.setInputType(InputType.TYPE_NULL);
-		obtainTimingInfo();
 	}
 
 	//保存定时备忘录
 	public void saveTimingMemo(){
 		Timing timing = obtainTimingInfo();
+		if (contentString == null||contentString.equals("")) {
+			Toast.makeText(TimingMemoActivity.this, "提醒內容不能為空", Toast.LENGTH_SHORT).show();
+			return;
+		}if (start_time.compareTo(end_timeString)>0) {
+			Toast.makeText(TimingMemoActivity.this, "提醒內容不能為空", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		service.addTiming(timing);
 	}
-	
 	
 	private Timing obtainTimingInfo() {
 		Timing timing = new Timing();
 		TimeService service = new TimeService();
-		
-
-
 		ed_timing_loction.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
@@ -178,11 +181,12 @@ public class TimingMemoActivity extends Activity {
 			}
 		});
 		//定时提醒中主要包括提醒时间，提醒内容，定时的星级大小，定時的起始時間，定時的結束時間
-		String start_time = service.getCurrentTime();
-		String end_timeString = ed_timing_time.getText().toString();
-		String contentString = edit_Timing_Content.getText().toString();
+		start_time = service.getCurrentTime();
+		end_timeString = ed_timing_time.getText().toString();
+		contentString = edit_Timing_Content.getText().toString();
 		int priority = ratingBarTimingPriority.getNumStars();
 		int isFinished = 0;
+		location = String.valueOf(LocationInfoTran.locationData.latitude) +"    "+ String.valueOf(LocationInfoTran.locationData.longitude);
 		
 		timing.setContent(contentString);
 		timing.setEnd_time(end_timeString);
