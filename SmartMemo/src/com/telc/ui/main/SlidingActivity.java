@@ -128,15 +128,15 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
     	Intent intent;
             if (item.getItemId() == android.R.id.home) {
             	
-            	Intent intn=new Intent(SlidingActivity.this,AlarmReceiver.class);
-            	PendingIntent pendingIntent=PendingIntent.getBroadcast(this, 0, intn, 0);
+//            	Intent intn=new Intent(SlidingActivity.this,AlarmReceiver.class);
+//            	PendingIntent pendingIntent=PendingIntent.getBroadcast(this, 0, intn, 0);
 				//获取闹钟管理器
-				AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+//				AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 				//设置闹钟
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pendingIntent);
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,pendingIntent);
-				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,3000, pendingIntent);
-				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,5000,pendingIntent);
+//				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,3000, pendingIntent);
+//				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,5000,pendingIntent);
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+30000, pendingIntent);
 //				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+86400000, 10*1000, pendingIntent);
 //				alarmManager.cancel(pendingIntent);

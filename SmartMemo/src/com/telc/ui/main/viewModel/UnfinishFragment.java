@@ -18,8 +18,13 @@ import com.telc.domain.Service.RealTimeService;
 import com.telc.domain.Service.TimingService;
 import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
+import com.telc.ui.Memos.PeriodicMemoDelActivity;
+import com.telc.ui.Memos.RealtimeMemoDelActivity;
+import com.telc.ui.Memos.TimingMemoDelActivity;
+import com.telc.ui.main.SlidingActivity;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -84,15 +89,38 @@ public class UnfinishFragment extends Fragment {
 				// TODO Auto-generated method stub
 				String itemValue=arg0.getItemAtPosition(position).toString();
 				String index=itemValue.substring(15, 34);
-				index=String.valueOf(timService.getSecondsFromDate(index));
+				String startTime=index;
+				index=String.valueOf(timService.getSecondsFromDate(startTime));
 				String[] itemCategory=itemValue.split(",");
 				String categoryString=itemCategory[2].substring(18);
 				System.out.print(categoryString);
 				
-				
+				if(categoryString.compareTo("实时提醒")==0){
+					Bundle bundle = new Bundle(); // 创建Bundle对象
+					bundle.putString("index", index);
+					bundle.putString("startTime", startTime);
+					Intent intent=new Intent((SlidingActivity)getActivity(),RealtimeMemoDelActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}else if(categoryString.compareTo("定时提醒")==0){
+					Bundle bundle = new Bundle(); // 创建Bundle对象
+					bundle.putString("index", index);
+					bundle.putString("startTime", startTime);
+					Intent intent=new Intent((SlidingActivity)getActivity(),TimingMemoDelActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}else if(categoryString.compareTo("周期性提醒")==0){
+					Bundle bundle = new Bundle(); // 创建Bundle对象
+					bundle.putString("index", index);
+					bundle.putString("startTime", startTime);
+					Intent intent=new Intent((SlidingActivity)getActivity(),PeriodicMemoDelActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}else {
+					return;
+				}
 			}
 		});
-
 		return view;
 	}
 	
