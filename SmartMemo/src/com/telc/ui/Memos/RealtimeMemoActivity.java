@@ -191,7 +191,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			
 			locationName = et_location.getText().toString().trim();// 可以删除
 			if(LocationInfoTran.StateFlag)
-				locationLatLon = String.valueOf(LocationInfoTran.locationData.latitude) +" "+ String.valueOf(LocationInfoTran.locationData.longitude);
+				locationLatLon = String.valueOf(LocationInfoTran.locationData.latitude) +"-"+ String.valueOf(LocationInfoTran.locationData.longitude);
 
 			if(locationName.equals("")){
 				Toast.makeText(getApplicationContext(), "请选择提醒地点！", Toast.LENGTH_SHORT).show();

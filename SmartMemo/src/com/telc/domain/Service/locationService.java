@@ -73,7 +73,7 @@ public class locationService extends Service {
 		
 		//获取用户ID
 		userid = sp.getString("user", null);
-		realTimeList = realTimeHelper.getRealTimeByUserID(userid);
+		
 		
 		super.onCreate();
 	}
@@ -87,15 +87,23 @@ public class locationService extends Service {
 
 				
 			Iterator it = realTimeList.iterator();
+			realTimeList = realTimeHelper.getRealTimeByUserID(userid);
 			
 			while(it.hasNext()){
 				
 				RealTime realTime = new RealTime();
 				realTime = (RealTime)it.next();
 				
-				String[] strarray=realTime.getLocation().split(" "); 
+				String[] strarray=realTime.getLocation().split("-");
+				
+				
 				Toast.makeText(getApplicationContext(),"长度为  "+strarray.length, Toast.LENGTH_SHORT).show();
 
+				
+				for(int i=0;i<strarray.length;i++){
+					Toast.makeText(getApplicationContext(), i+" str"+strarray[i], Toast.LENGTH_SHORT).show();
+				}
+				
 //				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+realTime.getLocation()+"m", Toast.LENGTH_SHORT).show();
 			}
 			
