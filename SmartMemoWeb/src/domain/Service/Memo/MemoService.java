@@ -216,4 +216,18 @@ public class MemoService implements IMemoService {
 		return db;
 	}
 
+	@Override
+	public boolean deleteMemoDBFile(String tel) {
+		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		userDbDao = UserDbDAO.getFromApplicationContext(ctx);
+		UserDb userDb = userDbDao.findById(tel);
+		try {
+			userDbDao.delete(userDb);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+	}
+
 }

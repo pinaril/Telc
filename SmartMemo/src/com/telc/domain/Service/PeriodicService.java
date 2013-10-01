@@ -79,7 +79,7 @@ public class PeriodicService implements IPeriodicService {
 		String user_id=periodic.getUser_id();
 		int priority=periodic.getPriority();	
 		int isfinish=periodic.getIsfinish();
-		String sql="insert into PERIODIC (periodic_id,period,period_detail,user_id,content,priority,isfinish) values ('"+periodic_id+"','"+period+"','"+period_detail+"','"+content+"','"+user_id+"','"+priority+"','"+isfinish+"')";
+		String sql="insert into PERIODIC (periodic_id,period,period_detail,user_id,content,priority,isfinish) values ('"+periodic_id+"','"+period+"','"+period_detail+"','"+user_id+"','"+content+"','"+priority+"','"+isfinish+"')";
 		db.execSQL(sql);
 		return true;
 	}
