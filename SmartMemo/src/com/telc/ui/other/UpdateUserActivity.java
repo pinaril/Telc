@@ -41,7 +41,7 @@ public class UpdateUserActivity extends Activity {
 		et_pro = (EditText) findViewById(R.id.et_pro);
 		et_hob = (EditText) findViewById(R.id.et_hob);
 		et_tel = (EditText) findViewById(R.id.et_tel);
-		btn_save_setuser = (Button) findViewById(R.id.btn_save_setuser);
+		btn_save_setuser = (Button) findViewById(R.id.btn_save_user);
 		btn_save_setuser.setOnClickListener(listener);
 
 	}
@@ -51,7 +51,7 @@ public class UpdateUserActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case 2://R.id.btn_save_setuser
+			case 2131034229://R.id.btn_save_setuser
 				String phoneNum = "";
 				User user1 = obtainNewUserInfo();
 				User user2 = service.getUserByUserPhone(phoneNum);

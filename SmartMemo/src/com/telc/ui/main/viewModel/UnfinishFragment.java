@@ -1,6 +1,8 @@
 package com.telc.ui.main.viewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -40,6 +42,10 @@ public class UnfinishFragment extends Fragment{
 		ListView uncompleteList;
 //		保存list中的item的列表
 		List<Map <String, Object>> mList=new ArrayList<Map<String,Object>>();
+		
+		
+		//根据mList的新列表
+		
 //		listView适配器
 		SimpleAdapter mAdapter=null;
 //		适配器中的key
@@ -49,7 +55,6 @@ public class UnfinishFragment extends Fragment{
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 	}
 
@@ -79,10 +84,58 @@ public class UnfinishFragment extends Fragment{
 		periodicService=new PeriodicService(db);
 //		获取userId
 		String userId=sp.getString("user", null);
+		
+		
 //		数据库中获取的List<Timing>
 		List<Timing> timingList = timingService.getTimingByUserID(userId);
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
 		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
+		
+		
+		
+		Collections.sort(timingList, new Comparator<Timing>() {
+
+			@Override
+			public int compare(Timing lhs, Timing rhs) {
+				String timeidString = lhs.getTiming_id();
+				String tiString = rhs.getTiming_id();
+				if (lhs.getPriority() > rhs.getPriority()) {
+					return 1;
+				}else  if (lhs.getPriority() == rhs.getPriority()){
+					if (timeidString.compareTo(tiString)>0) {
+						return 1;
+					}else {
+						return -1;
+					}
+				}else {
+					return -1;
+				}	
+			}
+		});
+		
+		Collections.sort(perioList, new Comparator<Periodic>() {
+
+			@Override
+			public int compare(Periodic lhs, Periodic rhs) {
+				if (lhs.getPriority() > rhs.getPriority()) {
+					return 1;
+				}else {
+					return -1;
+				}	
+			}
+		});
+		
+		Collections.sort(realList, new Comparator<RealTime>() {
+
+			@Override
+			public int compare(RealTime lhs, RealTime rhs) {
+				if (lhs.getPriority() > rhs.getPriority()) {
+					return 1;
+				}else {
+					return -1;
+				}	
+			}
+		});
 		
 		if(timingList!=null ){
 		Timing tempTiming;
