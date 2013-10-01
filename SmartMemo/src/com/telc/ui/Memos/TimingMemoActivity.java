@@ -74,6 +74,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		init();
+		LocationInfoTran.StateFlag = false;
 	}
 
 	public void init1() {

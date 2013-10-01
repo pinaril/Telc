@@ -112,7 +112,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 				intent.setClass(RealtimeMemoActivity.this,
 						getPoisitionActivity.class);
 				startActivityForResult(intent, 0);
-				// startActivity(intent);
 			}
 		});
 		
@@ -121,7 +120,9 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 		realTimeHelper=new RealTimeService(db);
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		init();
+		
+		LocationInfoTran.StateFlag =false;
+//		init();
 	}
 	
 	 //使用数组形式操作  
@@ -182,7 +183,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 				return false;
 			}
 			
-//			aging = 24;
 			
 			locationName = et_location.getText().toString().trim();// 可以删除
 			if(LocationInfoTran.StateFlag)
@@ -213,7 +213,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			//设置隐藏属性
 			userid = sp.getString("user", null);
 			
-			
 			realTime.setPriority(priority);
 			realTime.setContent(content);
 			realTime.setAging(aging);
@@ -232,9 +231,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 				Toast.makeText(getApplicationContext(), "保存失败！", Toast.LENGTH_SHORT).show();
 				return false;
 			}
-
-			
-//			LocationInfoTran.startToUse = true;
 			
 		} else
 			return false;
@@ -267,6 +263,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			if (LocationInfoTran.selectFlag == 1) {
 				et_location.setText(LocationInfoTran.positionNameString);
 			}
+			
 			Toast.makeText(
 					getApplicationContext(),
 					"坐标点：" + LocationInfoTran.locationData.latitude + "\n"
