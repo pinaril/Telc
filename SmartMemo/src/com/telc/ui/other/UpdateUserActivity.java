@@ -54,11 +54,9 @@ public class UpdateUserActivity extends Activity {
 			case 2131034229://R.id.btn_save_setuser
 				String phoneNum = "";
 				User user1 = obtainNewUserInfo();
-<<<<<<< HEAD
+
 				User user2 = service.getUserByUserPhone(phoneNum);
-=======
-				User user2 = updateUserService.obtainUserInfo();
->>>>>>> 946ac78ea5b67587b27f60d1dc96c074c9871bb4
+
 				// 比较修改后的信息是否与原来的用户信息是否相同，若是相同则显示保存成功，否则，将信息保存到远程服务器
 				if (!user1.equals(user2)) {
 					service.updateUser(user1);
