@@ -47,6 +47,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_register);
+		user = new User();
 		initControlsAndRegEvent();
 		// 判断是否状态是否为已登录，如果是则直接进入主界面
 		if (sp.getBoolean("login_in", false)) {
@@ -81,7 +82,6 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 				userphone = et_phoneNum.getText().toString();
 				String password = et_password.getText().toString();
 				loginOrRegistr = false;
-				user = new User();
 				user.setUserID(userphone);
 				user.setPhoneNum(userphone);
 				user.setUserPwd(password);
@@ -134,6 +134,14 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 			editor.putBoolean("login_in", true);
 			editor.putString("user", userphone);
 			editor.commit();
+			if((service.getUserByUserPhone(et_phoneNum.getText().toString()))==null){
+//				userphone = et_phoneNum.getText().toString();
+//				String password = et_password.getText().toString();
+//				user.setUserID(userphone);
+//				user.setPhoneNum(userphone)
+//				user.setUserPwd(password)
+//				service.addUser(user);
+			}
 			if (loginOrRegistr == false) {
 				service.addUser(user);
 			}
