@@ -1,6 +1,8 @@
 package com.telc.ui.Memos;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -125,6 +127,7 @@ public class PeriodicActivity extends SherlockFragmentActivity {
 		userid=sp.getString("user", null);
 		mPeriodic.setUser_id(userid);
 		mPeriodic.setIsfinish(0);
+		mPeriodic.setStart_time("1234");
 		
 		if(periodicHelper.addPeriodic(mPeriodic)){
 			Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();

@@ -98,7 +98,7 @@ public class PeriodicService implements IPeriodicService {
 				+ "','"
 				+ priority
 				+ "','"
-				+ isfinish + "','" + start_time + ")";
+				+ isfinish + "','" + start_time + "')";
 
 		db.execSQL(sql);
 		return true;
