@@ -1,5 +1,6 @@
-package com.telc.time.service;
+package com.telc.domain.time.Service;
 
+import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +11,7 @@ public class TimeService {
 	 * 
 	 * @return 获取系统的当前时间，时间的格式为yyyy-MM-dd HH:mm:ss
 	 */
+	@SuppressLint("SimpleDateFormat")
 	public String getCurrentTime(){
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date = new Date(System.currentTimeMillis());
@@ -23,6 +25,7 @@ public class TimeService {
 	 * @param m 毫秒数字
 	 * @return 将毫秒数字转化为String类型的时间，格式为yyyy-MM-dd HH:mm:ss
 	 */
+	@SuppressLint("SimpleDateFormat")
 	public String longSwithToString(long m){
 		Date date = new Date(m);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

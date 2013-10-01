@@ -15,9 +15,15 @@ import com.telc.domain.Emtity.Timing;
 import com.telc.domain.Service.PeriodicService;
 import com.telc.domain.Service.RealTimeService;
 import com.telc.domain.Service.TimingService;
+import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
+import com.telc.ui.Memos.PeriodicMemoDelActivity;
+import com.telc.ui.Memos.RealtimeMemoDelActivity;
+import com.telc.ui.Memos.TimingMemoDelActivity;
+import com.telc.ui.main.SlidingActivity;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -42,8 +48,13 @@ public class UnfinishFragment extends Fragment {
 	private RealTimeService realTimeService;
 	private PeriodicService periodicService;
 	private SharedPreferences sp;// 用来获取xml保存的useiId
+
 	private TextView textListCategory;
 	int color;
+
+	TimeService timService;
+
+
 	ListView uncompleteList;
 	// 保存list中的item的列表
 	List<Map<String, Object>> mList = new ArrayList<Map<String, Object>>();
@@ -60,9 +71,9 @@ public class UnfinishFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		timService=new TimeService();
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -83,16 +94,57 @@ public class UnfinishFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
+
 				// Map<String, Object> testMap=null;
 				// testMap.putAll((Map<? extends String, ? extends Object>)
 				// arg0.getItemAtPosition(position));
+
+				String itemValue=arg0.getItemAtPosition(position).toString();
+				String index=itemValue.substring(15, 34);
+				String startTime=index;
+				index=String.valueOf(timService.getSecondsFromDate(startTime));
+				String[] itemCategory=itemValue.split(",");
+				String categoryString=itemCategory[2].substring(18);
+				System.out.print(categoryString);
+				
+				if(categoryString.compareTo("实时提醒")==0){
+					Bundle bundle = new Bundle(); // 创建Bundle对象
+					bundle.putString("index", index);
+					bundle.putString("startTime", startTime);
+					Intent intent=new Intent((SlidingActivity)getActivity(),RealtimeMemoDelActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}else if(categoryString.compareTo("定时提醒")==0){
+					Bundle bundle = new Bundle(); // 创建Bundle对象
+					bundle.putString("index", index);
+					bundle.putString("startTime", startTime);
+					Intent intent=new Intent((SlidingActivity)getActivity(),TimingMemoDelActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}else if(categoryString.compareTo("周期性提醒")==0){
+					Bundle bundle = new Bundle(); // 创建Bundle对象
+					bundle.putString("index", index);
+					bundle.putString("startTime", startTime);
+					Intent intent=new Intent((SlidingActivity)getActivity(),PeriodicMemoDelActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}else {
+					return;
+				}
+
 			}
 		});
-
 		return view;
 	}
+	
+//	@Override
+//	public void onResume() {
+//		// TODO Auto-generated method stub
+//		initAdapert();
+//		if (mAdapter != null)
+//			uncompleteList.setAdapter(mAdapter);
+//	}
 
-	@SuppressWarnings({ "static-access", "rawtypes" })
 	private void initAdapert() {
 		// TODO Auto-generated method stub
 		// 打开数据库

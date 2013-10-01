@@ -1,3 +1,4 @@
+
 package com.telc.ui.Memos;
 
 import java.util.Calendar;
@@ -10,10 +11,10 @@ import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.Timing;
 import com.telc.domain.IService.ITimingService;
 import com.telc.domain.Service.TimingService;
+import com.telc.domain.time.Service.TimeService;
 import com.telc.resource.baidumap.LocationInfoTran;
 import com.telc.resource.baidumap.getPoisitionActivity;
 import com.telc.smartmemo.R;
-import com.telc.time.service.TimeService;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
 import android.app.Dialog;
@@ -201,6 +202,16 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 	// 保存定时备忘录
 	public void saveTimingMemo() {
 		Timing timing = obtainTimingInfo();
+		if (timing.getEnd_time().compareTo(timing.getStart_time()) < 0) {
+			Toast.makeText(TimingMemoActivity.this, "提醒时间要比当前时间晚哦", Toast.LENGTH_SHORT).show();
+			return ;
+		}
+		
+		if(timing.getContent() == null||timing.getContent().equals("")){
+			Toast.makeText(TimingMemoActivity.this, "提醒内容不能为空", Toast.LENGTH_SHORT).show();
+			return ;
+		};
+		
 		timingService.addTiming(timing);
 		Toast.makeText(context, "保存成功！", Toast.LENGTH_SHORT).show();
 		finish();
@@ -227,9 +238,9 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		String start_time = service.getCurrentTime();
 		String end_timeString = ed_timing_time.getText().toString();
 		String contentString = edit_Timing_Content.getText().toString();
-		int priority = ratingBarTimingPriority.getNumStars();
+		int priority = (int) ratingBarTimingPriority.getRating();
 		int isFinished = 0;
-
+		
 		timing.setUser_id(sp.getString("user", null));
 		timing.setContent(contentString);
 		timing.setEnd_time(end_timeString);
