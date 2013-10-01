@@ -92,13 +92,13 @@ public class PeriodicService implements IPeriodicService {
 				+ "','"
 				+ period_detail
 				+ "','"
-				+ content
-				+ "','"
 				+ user_id
+				+ "','"
+				+ content
 				+ "','"
 				+ priority
 				+ "','"
-				+ isfinish + "','" + start_time + ")";
+				+ isfinish + "','" + start_time + "')";
 
 		db.execSQL(sql);
 		return true;
