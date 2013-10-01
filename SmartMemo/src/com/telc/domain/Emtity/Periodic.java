@@ -9,6 +9,7 @@ public class Periodic  {
 	private String content;
 	private int priority;
 	private int isfinish;
+	private String start_time;
 	public String getPeriodic_id() {
 		return periodic_id;
 	}
@@ -50,6 +51,12 @@ public class Periodic  {
 	}
 	public void setIsfinish(int isfinish) {
 		this.isfinish = isfinish;
+	}
+	public String getStart_time() {
+		return start_time;
+	}
+	public void setStart_time(String start_time) {
+		this.start_time = start_time;
 	}
 
 	

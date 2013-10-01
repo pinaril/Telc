@@ -14,4 +14,6 @@ public interface IPeriodicService {
 	public boolean addPeriodic(Periodic periodic);
 
 	public boolean removePeriodic(String periodic_id);
+	
+	public Periodic findPeriodicByStart(String start_time);
 }

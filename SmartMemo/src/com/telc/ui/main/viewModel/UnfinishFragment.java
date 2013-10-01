@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> b89db25dd3d27478a8a5f0769e24801b56a469d2
 package com.telc.ui.main.viewModel;
 
 import java.util.ArrayList;
@@ -47,10 +51,10 @@ public class UnfinishFragment extends Fragment {
 	SimpleAdapter mAdapter = null;
 	// 适配器中的key
 	String[] from = { "textListCategory", "ratingBarListItem",
-			"textListContent" };
+			"textListContent","textStartTime" };
 	// value
 	int[] to = { R.id.textListCategory, R.id.ratingBarListItem,
-			R.id.textListContent };
+			R.id.textListContent,R.id.textStartTime };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -76,10 +80,11 @@ public class UnfinishFragment extends Fragment {
 		uncompleteList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
+			public void onItemClick(AdapterView<?> arg0, View view, int position,
+					long id) {
 				// TODO Auto-generated method stub
-
+//				Map<String, Object> testMap=null;
+//				testMap.putAll((Map<? extends String, ? extends Object>) arg0.getItemAtPosition(position));
 			}
 		});
 
@@ -171,6 +176,7 @@ public class UnfinishFragment extends Fragment {
 						temp = tempTiming.getContent().substring(0, 10) + "……";
 					}
 					mListItem.put("textListContent", temp);
+					mListItem.put("textStartTime", tempTiming.getStart_time());
 					mList.add(mListItem);
 				}
 			}
@@ -195,6 +201,7 @@ public class UnfinishFragment extends Fragment {
 								+ "……";
 					}
 					mListItem.put("textListContent", temp);
+					mListItem.put("textStartTime", tempRealTime.getStart_time());
 					mList.add(mListItem);
 				}
 			}
@@ -217,6 +224,7 @@ public class UnfinishFragment extends Fragment {
 					temp = tempPreiodic.getContent().substring(0, 10) + "……";
 				}
 				mListItem.put("textListContent", temp);
+				mListItem.put("textStartTime", tempPreiodic.getStart_time());
 				mList.add(mListItem);
 			}
 		}
