@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> b89db25dd3d27478a8a5f0769e24801b56a469d2
 package com.telc.ui.main.viewModel;
 
 import java.util.ArrayList;
