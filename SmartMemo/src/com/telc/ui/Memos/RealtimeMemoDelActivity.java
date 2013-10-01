@@ -14,22 +14,25 @@ import com.telc.resource.baidumap.getPoisitionActivity;
 import com.telc.smartmemo.R;
 import com.telc.domain.Emtity.RealTime;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.renderscript.Sampler.Value;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RealtimeMemoActivity extends SherlockFragmentActivity {
+public class RealtimeMemoDelActivity extends SherlockFragmentActivity {
 
 	
 	//数据库
@@ -69,6 +72,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 	
 	private static final String[] spinnerSelect={"1天","2天","3天","1周","2周","1月"};
 	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -106,9 +110,10 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(RealtimeMemoActivity.this,
+				intent.setClass(RealtimeMemoDelActivity.this,
 						getPoisitionActivity.class);
 				startActivityForResult(intent, 0);
+				// startActivity(intent);
 			}
 		});
 		
@@ -117,9 +122,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 		realTimeHelper=new RealTimeService(db);
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		LocationInfoTran.StateFlag =false;
-//		init();
+		init();
 	}
 	
 	 //使用数组形式操作  
@@ -127,6 +130,8 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
   
         public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,  
                 long arg3) {  
+//        	spinner_time = spinnerSelect[arg2];
+//        	Toast.makeText(getApplicationContext(), "arg"+arg2, Toast.LENGTH_SHORT).show();
         	switch (arg2) {
 			case 0:
 				aging = 24;
@@ -158,9 +163,9 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 		// TODO Auto-generated method stub
 		SubMenu menuCheck;
 		MenuItem check;
-		menuCheck = menu.addSubMenu("保存");
+		menuCheck = menu.addSubMenu("删除");
 		check = menuCheck.getItem();
-		check.setIcon(R.drawable.ic_right);
+		check.setIcon(R.drawable.ic_recycle);
 		check.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
 				| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		return true;
@@ -173,17 +178,17 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			finish();
 			return true;
 		} else if (item.getItemId() == 0) {
-
-			priority = (int)rb_priority.getRating();
-			if(priority == 0){
-				Toast.makeText(getApplicationContext(), "请选择优先权！", Toast.LENGTH_SHORT).show();
-				return false;
-			}
+//			priority = (int)rb_priority.getRating();
+//			if(priority == 0){
+//				Toast.makeText(getApplicationContext(), "请选择优先权！", Toast.LENGTH_SHORT).show();
+//				return false;
+//			}
 			
+//			aging = 24;
 			
 			locationName = et_location.getText().toString().trim();// 可以删除
 			if(LocationInfoTran.StateFlag)
-				locationLatLon = String.valueOf(LocationInfoTran.locationData.latitude) +"-"+ String.valueOf(LocationInfoTran.locationData.longitude);
+				locationLatLon = String.valueOf(LocationInfoTran.locationData.latitude) +"    "+ String.valueOf(LocationInfoTran.locationData.longitude);
 
 			if(locationName.equals("")){
 				Toast.makeText(getApplicationContext(), "请选择提醒地点！", Toast.LENGTH_SHORT).show();
@@ -210,6 +215,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			//设置隐藏属性
 			userid = sp.getString("user", null);
 			
+			
 			realTime.setPriority(priority);
 			realTime.setContent(content);
 			realTime.setAging(aging);
@@ -229,12 +235,10 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 				Toast.makeText(getApplicationContext(), "保存失败！", Toast.LENGTH_SHORT).show();
 				return false;
 			}
-<<<<<<< HEAD
 
 			
+			
 //			LocationInfoTran.startToUse = true;
-=======
->>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 			
 		} else
 			return false;
@@ -267,7 +271,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			if (LocationInfoTran.selectFlag == 1) {
 				et_location.setText(LocationInfoTran.positionNameString);
 			}
-			
 			Toast.makeText(
 					getApplicationContext(),
 					"坐标点：" + LocationInfoTran.locationData.latitude + "\n"

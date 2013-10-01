@@ -10,7 +10,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.smartmemo.R;
-import com.telc.ui.Memos.PeriodicActivity;
+import com.telc.ui.Memos.PeriodicMemoActivity;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.Memos.TimingMemoActivity;
 import com.telc.ui.main.viewModel.MenuFragment;
@@ -99,41 +99,16 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		startService(intent);
 	}
 	
-//	public class mainLocationListenner implements BDLocationListener {
-//
-//		@Override
-//		public void onReceiveLocation(BDLocation location) {
-//			if (location == null)
-//				return;
-//
-////			Toast.makeText(getApplicationContext(), "我一直在运行哦！", Toast.LENGTH_SHORT).show();
-//			
-//			if(LocationInfoTran.startToUse){
-//				GeoPoint historyGeoPoint = new GeoPoint((int)(LocationInfoTran.locationData.latitude*1000000), (int)(LocationInfoTran.locationData.longitude*1000000));
-//				GeoPoint tmpGeoPoint = new GeoPoint((int)(location.getLatitude()*1000000), (int)(location.getLongitude()*1000000));
-//				double distance = DistanceUtil.getDistance(historyGeoPoint,tmpGeoPoint);
-//				
-//				//显示距离
-//				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+distance+"m", Toast.LENGTH_SHORT).show();
-//				if(distance < 100){
-//					if(mediaPlayer == null)
-//					mediaPlayer = MediaPlayer.create(SlidingActivity.this, R.raw.sound);
-//
-//					mediaPlayer.start();
-//				}
-//				else{
-//					if(mediaPlayer != null)
-//						mediaPlayer.stop();
-//				}
-//			}
-//		}
-//
-//		public void onReceivePoi(BDLocation poiLocation) {
-//			if (poiLocation == null) {
-//				return;
-//			}
-//		}
-//	}
+	
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		
+		startService(intent);
+
+		super.onResume();
+	}
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -183,7 +158,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
             		Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;
             	case 3:
-            		intent=new Intent(SlidingActivity.this,PeriodicActivity.class);
+            		intent=new Intent(SlidingActivity.this,PeriodicMemoActivity.class);
  		           	startActivity(intent);
  		           	Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;
@@ -225,7 +200,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 				int ic = R.drawable.z_ic_launcher;
 				setNotiType(ic, "点击查看备忘录");
 
-				moveTaskToBack(true);
+				moveTaskToBack(false);
 				
 				//后台定位服务不可被销毁
 				locationServiceInfoTran.canBeDestroy = false;

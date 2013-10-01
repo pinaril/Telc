@@ -1,4 +1,4 @@
-package com.telc.time.service;
+package com.telc.domain.time.Service;
 
 import android.annotation.SuppressLint;
 import java.text.SimpleDateFormat;

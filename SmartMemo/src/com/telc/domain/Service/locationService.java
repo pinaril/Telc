@@ -7,6 +7,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+<<<<<<< HEAD
+=======
+import android.media.MediaPlayer;
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 import android.os.IBinder;
 import android.widget.Toast;
 
@@ -18,6 +22,7 @@ import com.baidu.mapapi.map.LocationData;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.RealTime;
 import com.telc.resource.baidumap.locationServiceInfoTran;
+import com.telc.smartmemo.R;
 
 public class locationService extends Service {
 	
@@ -31,7 +36,11 @@ public class locationService extends Service {
 	private RealTimeService realTimeHelper;
 		
 	//实时提醒对象
+<<<<<<< HEAD
 	private RealTime realTime = new RealTime();
+=======
+//	private RealTime realTime = new RealTime();
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 		
 	//xml 保存userid
 	private SharedPreferences sp;
@@ -39,6 +48,11 @@ public class locationService extends Service {
 	
 	private List<RealTime> realTimeList = null;
 	
+<<<<<<< HEAD
+=======
+	private MediaPlayer mediaPlayer;
+	
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 	
 
 	@Override
@@ -74,6 +88,10 @@ public class locationService extends Service {
 		//获取用户ID
 		userid = sp.getString("user", null);
 		
+<<<<<<< HEAD
+=======
+		mediaPlayer = MediaPlayer.create(locationService.this, R.raw.sound);
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 		
 		super.onCreate();
 	}
@@ -85,19 +103,53 @@ public class locationService extends Service {
 			if (location == null)
 				return;
 
+<<<<<<< HEAD
 				
+=======
+			
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 			Iterator it = realTimeList.iterator();
 			realTimeList = realTimeHelper.getRealTimeByUserID(userid);
 			
 			while(it.hasNext()){
+<<<<<<< HEAD
 				
+=======
+
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 				RealTime realTime = new RealTime();
 				realTime = (RealTime)it.next();
 				
 				String[] strarray=realTime.getLocation().split("-");
 				
+<<<<<<< HEAD
 				
 				Toast.makeText(getApplicationContext(),"长度为  "+strarray.length, Toast.LENGTH_SHORT).show();
+=======
+				if(strarray.length> 2)
+					return;
+				
+				double one = Double.valueOf(strarray[0]);
+				double two = Double.valueOf(strarray[1]);
+				
+				Toast.makeText(getApplicationContext(),"one  "+one, Toast.LENGTH_SHORT).show();
+				
+				Toast.makeText(getApplicationContext(),"two  "+two, Toast.LENGTH_SHORT).show();
+				
+//				GeoPoint historyGeoPoint = new GeoPoint((int)(LocationInfoTran.locationData.latitude*1000000), (int)(LocationInfoTran.locationData.longitude*1000000));
+//				GeoPoint tmpGeoPoint = new GeoPoint((int)(location.getLatitude()*1000000), (int)(location.getLongitude()*1000000));
+//				double distance = DistanceUtil.getDistance(historyGeoPoint,tmpGeoPoint);
+//				
+//				//显示距离
+//				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+distance+"m", Toast.LENGTH_SHORT).show();
+//				if(distance < 100){
+//					if(mediaPlayer == null)
+//					mediaPlayer = MediaPlayer.create(SlidingActivity.this, R.raw.sound);
+//
+//					mediaPlayer.start();
+				
+				
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 
 				
 				for(int i=0;i<strarray.length;i++){
@@ -125,6 +177,7 @@ public class locationService extends Service {
 		super.onDestroy();
 		
 		//若后台的定位服务不可被销毁 则重启
+<<<<<<< HEAD
 //		if(locationServiceInfoTran.canBeDestroy){
 ////			stopService(new Intent("com.telc.domain.Service.locationService"));
 //			super.onDestroy();
@@ -133,13 +186,23 @@ public class locationService extends Service {
 //			localIntent.setAction("com.telc.domain.Service.locationService");
 //			this.startService(localIntent);
 //		}
+=======
+		if(locationServiceInfoTran.canBeDestroy){
+//			stopService(new Intent("com.telc.domain.Service.locationService"));
+			super.onDestroy();
+		}else{
+			Intent localIntent = new Intent();
+			localIntent.setAction("com.telc.domain.Service.locationService");
+			this.startService(localIntent);
+		}
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 	}
 
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
-//		flags =  START_STICKY;
+		flags =  START_STICKY;
 		
 		Toast.makeText(getApplicationContext(), "start servet", Toast.LENGTH_SHORT).show();
 		

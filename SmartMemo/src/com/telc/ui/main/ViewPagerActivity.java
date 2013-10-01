@@ -22,7 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.telc.smartmemo.R;
-import com.telc.ui.Memos.PeriodicActivity;
+import com.telc.ui.Memos.PeriodicMemoActivity;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
 public class ViewPagerActivity extends Activity {

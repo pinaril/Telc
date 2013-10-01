@@ -16,6 +16,7 @@ import com.telc.domain.Emtity.Timing;
 import com.telc.domain.Service.PeriodicService;
 import com.telc.domain.Service.RealTimeService;
 import com.telc.domain.Service.TimingService;
+import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
 
 import android.app.Fragment;
@@ -40,6 +41,7 @@ public class UnfinishFragment extends Fragment {
 	private RealTimeService realTimeService;
 	private PeriodicService periodicService;
 	private SharedPreferences sp;// 用来获取xml保存的useiId
+	TimeService timService;
 
 	ListView uncompleteList;
 	// 保存list中的item的列表
@@ -57,9 +59,9 @@ public class UnfinishFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		timService=new TimeService();
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -80,15 +82,28 @@ public class UnfinishFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View view, int position,
 					long id) {
 				// TODO Auto-generated method stub
-//				Map<String, Object> testMap=null;
-//				testMap.putAll((Map<? extends String, ? extends Object>) arg0.getItemAtPosition(position));
+				String itemValue=arg0.getItemAtPosition(position).toString();
+				String index=itemValue.substring(15, 34);
+				index=String.valueOf(timService.getSecondsFromDate(index));
+				String[] itemCategory=itemValue.split(",");
+				String categoryString=itemCategory[2].substring(18);
+				System.out.print(categoryString);
+				
+				
 			}
 		});
 
 		return view;
 	}
+	
+//	@Override
+//	public void onResume() {
+//		// TODO Auto-generated method stub
+//		initAdapert();
+//		if (mAdapter != null)
+//			uncompleteList.setAdapter(mAdapter);
+//	}
 
-	@SuppressWarnings({ "static-access", "rawtypes" })
 	private void initAdapert() {
 		// TODO Auto-generated method stub
 		// 打开数据库
