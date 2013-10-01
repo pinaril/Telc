@@ -9,12 +9,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:background="@color/black"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@color/black" >
 
             <TextView
                 android:id="@+id/textView1"
@@ -30,7 +30,8 @@
         <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@color/lightgray" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,6 +42,59 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="日期："
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/dateEt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:cursorVisible="false"
+                        android:editable="false"
+                        android:ems="10" >
+
+                        <requestFocus />
+                    </EditText>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <DatePicker
+                        android:id="@+id/datePicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="时间："
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/timeEt"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:cursorVisible="false"
+                        android:editable="false"
+                        android:ems="10" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -48,10 +102,11 @@
                     android:layout_height="wrap_content" >
 
                     <TimePicker
-                        android:id="@+id/timePicker1"
+                        android:id="@+id/timePicker"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" />
+                        android:layout_weight="1" 
+                        android:layout_gravity="center"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -63,15 +118,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="确定" />
+                        android:text="确定" 
+                        android:textColor="@color/white"
+                        android:background="@drawable/dialog_button_bg"/>
 
                     <Button
                         android:id="@+id/btn_time_dialog_cancel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="取消" />
+                        android:text="取消"
+                        android:textColor="@color/white"
+                        android:background="@drawable/dialog_button_bg" />
                 </LinearLayout>
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

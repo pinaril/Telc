@@ -69,7 +69,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 	
 	private static final String[] spinnerSelect={"1天","2天","3天","1周","2周","1月"};
 	
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -189,7 +188,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			
 			locationName = et_location.getText().toString().trim();// 可以删除
 			if(LocationInfoTran.StateFlag)
-				locationLatLon = String.valueOf(LocationInfoTran.locationData.latitude) +"    "+ String.valueOf(LocationInfoTran.locationData.longitude);
+				locationLatLon = String.valueOf(LocationInfoTran.locationData.latitude) +"-"+ String.valueOf(LocationInfoTran.locationData.longitude);
 
 			if(locationName.equals("")){
 				Toast.makeText(getApplicationContext(), "请选择提醒地点！", Toast.LENGTH_SHORT).show();
@@ -236,7 +235,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 				return false;
 			}
 
-			
 			
 //			LocationInfoTran.startToUse = true;
 			
