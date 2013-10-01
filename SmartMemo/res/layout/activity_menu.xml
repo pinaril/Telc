@@ -26,26 +26,16 @@
                 android:layout_height="48dp"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="18dp"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="" />
-                </LinearLayout>
-
                 <TextView
                     android:id="@+id/txt_userinfo"
                     android:layout_width="match_parent"
-                    android:layout_height="38dp"
+                    android:layout_height="56dp"
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/userinfo"
                     android:drawableRight="@drawable/goto_view"
                     android:text="个人信息"
                     android:textColor="@color/white"
+                   android:gravity="center_vertical"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -73,22 +63,18 @@
                         android:textColor="@color/white"
                         android:textSize="26sp" />
 
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="" 
-                         android:textSize="10sp"/>
+                 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/txt_unfinish"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/uncomplete"
                     android:drawableRight="@drawable/goto_view"
                     android:text="未完成"
+                    android:gravity="center_vertical"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -98,26 +84,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="12dp"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:id="@+id/TextView01"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="" />
-                </LinearLayout>
-
                 <TextView
                     android:id="@+id/txt_finish"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/complete"
                     android:drawableRight="@drawable/goto_view"
                     android:text="已完成"
+                    android:gravity="center_vertical"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -152,26 +127,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" 
-                         android:textSize="10sp"/>
-                </LinearLayout>
-
                 <TextView
                     android:id="@+id/txt_setting"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/setting"
                     android:drawableRight="@drawable/goto_view"
                     android:text="设置"
                     android:textColor="@color/white"
+                    android:gravity="center_vertical"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -180,25 +145,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="12dp"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
 
                 <TextView
                     android:id="@+id/txt_about"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/book"
                     android:drawableRight="@drawable/goto_view"
                     android:text="关于"
+                    android:gravity="center_vertical"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -208,23 +164,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="12dp"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
 
                 <TextView
                     android:id="@+id/txt_return"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:drawableRight="@drawable/goto_view"
                     android:text="返回登录界面"
+                    android:gravity="center_vertical"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -235,22 +182,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="28dp"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
                 <TextView
                     android:id="@+id/txt_exit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:drawableRight="@drawable/goto_view"
                     android:text="退出"
+                    android:gravity="center_vertical"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
