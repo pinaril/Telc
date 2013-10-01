@@ -1,4 +1,4 @@
-package time.service;
+package com.telc.time.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -8,7 +8,7 @@ public class TimeService {
 	
 	/**
 	 * 
-	 * @return «@È¡®”Ç°µÄ•rég£¬¸ñÊ½žéyyyy-MM-dd HH:mm:ss
+	 * @return ï¿½@È¡ï¿½ï¿½Ç°ï¿½Ä•rï¿½gï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½yyyy-MM-dd HH:mm:ss
 	 */
 	public String getCurrentTime(){
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -18,7 +18,7 @@ public class TimeService {
 	}
 	
 //	
-//	//½«¸ñÊ½žéString×ª»»ÎªÈÕÆÚ
+//	//ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½String×ªï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 	public Date getDateFrom(String s){
 		@SuppressWarnings("deprecation")
 		Date date = new Date(s);
@@ -28,8 +28,8 @@ public class TimeService {
 	
 	/**
 	 * 
-	 * @param m Ê±¼äµÄÃëÊý
-	 * @return Ê±¼äµÄStringÀàÐÍ
+	 * @param m Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @return Ê±ï¿½ï¿½ï¿½Stringï¿½ï¿½ï¿½ï¿½
 	 */
 	public String longSwithToString(long m){
 		Date date = new Date(m);
@@ -38,7 +38,7 @@ public class TimeService {
 		return string;
 	}
 	
-	//¸ù¾ÝÈÕÆÚ»ñÈ¡ºÁÃëÊý
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public long getSecondsFromDate(String expireDate){ 
         if(expireDate == null||expireDate.trim().equals(" "))
         	return 0; 
@@ -56,9 +56,9 @@ public class TimeService {
 	
 	/**
 	 * 
-	 * @param startDate ¿ªÊ¼ÈÕÆÚ
-	 * @param endDate ½áÊøÈÕÆÚ
-	 * @return Á½¸öÈÕÆÚµÄ¼ä¸ôºÁÃëÊý
+	 * @param startDate ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+	 * @param endDate ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	public static long getGapCount(Date startDate, Date endDate) {  
 	       Calendar fromCalendar = Calendar.getInstance();    
