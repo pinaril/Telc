@@ -74,7 +74,7 @@ public class getPoisitionActivity extends Activity {
 	HashMap<String , Object> map;
 	SimpleAdapter listItemAdapter;
 	
-
+	
 	// private GeoPoint gPoint = null;
 
 	/**
@@ -159,6 +159,7 @@ public class getPoisitionActivity extends Activity {
 						mainLayout.removeView(suggestLayout);
 						mainLayout.addView(subLayout);
 						layoutFlag = true;
+						layoutFlag = true;
 					}
 					return;
 				}
@@ -167,14 +168,26 @@ public class getPoisitionActivity extends Activity {
 					mainLayout.removeView(subLayout);
 					mainLayout.addView(suggestLayout);
 					layoutFlag = false;
+					layoutFlag = false;
+					
 				}
 				
-				if (!city.equals("")) {
+				//zhe  li hai shi ke yi gai gai de  o 
+				if (city.equals(""))
+					city = "福州市";
+//				{
 					/**
 					 * 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
 					 */
 					mSearch.suggestionSearch(cs.toString(), city);
-				}
+//				}else{
+////					if(locData != null )
+////						mSearch.reverseGeocode(new GeoPoint((int) (locData.latitude * 1e6),
+////							(int) (locData.longitude * 1e6)));
+////					else{
+//						Toast.makeText(getApplicationContext(), "尚未定位成功，请稍后！", Toast.LENGTH_SHORT).show();
+//					}
+//				}
 			}
 		});
 	}
@@ -185,8 +198,12 @@ public class getPoisitionActivity extends Activity {
 	 * @param v
 	 */
 	public void searchButtonProcess(View v) {
+		if(city.equals("")){
+			Toast.makeText(getApplicationContext(), "城市尚未定位成功，请稍后！", Toast.LENGTH_SHORT).show();
+			return;
+		}
 		mSearch.poiSearchInCity(city, keyWorldsView.getText().toString());
-		System.out.println(mSearch);
+//		System.out.println(mSearch);
 	}
 
 	// 返回上个Activity
@@ -222,6 +239,16 @@ public class getPoisitionActivity extends Activity {
 		getPoisitionActivity.this.finish();
 
 	}
+	
+	
+
+//	@Override
+//	protected void onResume() {
+//		// TODO Auto-generated method stub
+//		layoutFlag = true;
+//		layoutFlag = true;
+//		super.onResume();
+//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -251,6 +278,9 @@ public class getPoisitionActivity extends Activity {
 						(int) (location.getLongitude() * 1e6)));
 				cityFlag --;
 			}
+				if(!city.equals("")){
+					mLocClient.stop();
+				}
 		}
 
 		public void onReceivePoi(BDLocation poiLocation) {
