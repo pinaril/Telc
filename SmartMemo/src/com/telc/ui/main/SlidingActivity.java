@@ -199,8 +199,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 				AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 				//设置闹钟
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pendingIntent);
-				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,pendingIntent);
-				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+30000, pendingIntent);
+				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,5000,pendingIntent);
+//				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+30000, pendingIntent);
 //				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+86400000, 10*1000, pendingIntent);
 //				alarmManager.cancel(pendingIntent);
 				//toggle就是程序自动判断是打开还是关闭

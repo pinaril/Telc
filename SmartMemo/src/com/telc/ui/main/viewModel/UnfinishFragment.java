@@ -80,8 +80,8 @@ public class UnfinishFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View view, int position,
 					long id) {
 				// TODO Auto-generated method stub
-				Map<String, Object> testMap=null;
-				testMap.putAll((Map<? extends String, ? extends Object>) arg0.getItemAtPosition(position));
+//				Map<String, Object> testMap=null;
+//				testMap.putAll((Map<? extends String, ? extends Object>) arg0.getItemAtPosition(position));
 			}
 		});
 
@@ -220,6 +220,7 @@ public class UnfinishFragment extends Fragment {
 					temp = tempPreiodic.getContent().substring(0, 10) + "……";
 				}
 				mListItem.put("textListContent", temp);
+				mListItem.put("textStartTime", tempPreiodic.getStart_time());
 				mList.add(mListItem);
 			}
 		}
