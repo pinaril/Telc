@@ -8,7 +8,7 @@ public class TimeService {
 	
 	/**
 	 * 
-	 * @return �@ȡ��ǰ�ĕr�g����ʽ��yyyy-MM-dd HH:mm:ss
+	 * @return 获取系统的当前时间，时间的格式为yyyy-MM-dd HH:mm:ss
 	 */
 	public String getCurrentTime(){
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -17,19 +17,11 @@ public class TimeService {
 		return string;
 	}
 	
-//	
-//	//����ʽ��Stringת��Ϊ����
-	public Date getDateFrom(String s){
-		@SuppressWarnings("deprecation")
-		Date date = new Date(s);
-		return date;
-	}
-	
 	
 	/**
 	 * 
-	 * @param m ʱ�������
-	 * @return ʱ���String����
+	 * @param m 毫秒数字
+	 * @return 将毫秒数字转化为String类型的时间，格式为yyyy-MM-dd HH:mm:ss
 	 */
 	public String longSwithToString(long m){
 		Date date = new Date(m);
@@ -38,7 +30,7 @@ public class TimeService {
 		return string;
 	}
 	
-	//������ڻ�ȡ������
+	//将时间字符串转化为long类型的毫秒数
 	public long getSecondsFromDate(String expireDate){ 
         if(expireDate == null||expireDate.trim().equals(" "))
         	return 0; 
@@ -56,9 +48,9 @@ public class TimeService {
 	
 	/**
 	 * 
-	 * @param startDate ��ʼ����
-	 * @param endDate ��������
-	 * @return �������ڵļ��������
+	 * @param startDate 开始时间
+	 * @param endDate 结束时间
+	 * @return 时间的间隔数字，为毫秒计算
 	 */
 	public static long getGapCount(Date startDate, Date endDate) {  
 	       Calendar fromCalendar = Calendar.getInstance();    
