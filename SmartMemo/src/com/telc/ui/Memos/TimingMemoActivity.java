@@ -1,24 +1,26 @@
 package com.telc.ui.Memos;
+import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.Timing;
+import com.telc.domain.IService.ITimingService;
+import com.telc.domain.Service.TimingService;
 import com.telc.smartmemo.R;
 import com.telc.time.service.TimeService;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TableRow;
-import android.widget.Toast;
 
 public class TimingMemoActivity extends Activity {
+	
+	ITimingService service;
 
 	EditText ed_timing_time, ed_timing_loction, edit_Timing_Content;
 	RatingBar ratingBarTimingPriority;
@@ -26,6 +28,7 @@ public class TimingMemoActivity extends Activity {
 	TimingMemoActivity timingMemoActivity;
 	TableRow tabl_location, tabl_content;
 	Drawable drawable;
+	String location = "";//获取地点设置
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,10 +36,17 @@ public class TimingMemoActivity extends Activity {
 		setContentView(R.layout.activity_timing);
 		timingMemoActivity = this;
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		init();
 	}
+	
+	
+	
 
 	public void init() {
+		SQLiteDatabase db = openOrCreateDatabase(DBConstant.DB_FILENAME,
+				MODE_PRIVATE, null);
+		service = new TimingService(db);
 
 		ed_timing_time = (EditText) findViewById(R.id.ed_timing_time);
 
@@ -51,7 +61,7 @@ public class TimingMemoActivity extends Activity {
 		sw_timing = (Switch) findViewById(R.id.sw_timing);
 		
 		
-		Timing timing = obtainTimingInfo();
+		
 
 		sw_timing.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -63,26 +73,44 @@ public class TimingMemoActivity extends Activity {
 					tabl_location.setVisibility(View.VISIBLE);
 					drawable = getResources().getDrawable(
 							R.drawable.table_button_bottom_bg);
-					tabl_content.setBackgroundDrawable(drawable);			
+					tabl_content.setBackgroundDrawable(drawable);	
+					location = ed_timing_loction.getText().toString();
 				} else {
 					drawable = getResources().getDrawable(
 							R.drawable.table_button_single_bg);
 					tabl_content.setBackgroundDrawable(drawable);	
 					tabl_location.setVisibility(View.GONE);
+					location = null;
 				}
 			}
 		});
 	}
 
+	//保存定时备忘录
+	public void saveTimingMemo(){
+		Timing timing = obtainTimingInfo();
+		service.addTiming(timing);
+	}
+	
+	
 	private Timing obtainTimingInfo() {
+		Timing timing = new Timing();
 		TimeService service = new TimeService();
 		//定时提醒中主要包括提醒时间，提醒内容，定时的星级大小，定時的起始時間，定時的結束時間
 		String start_time = service.getCurrentTime();
+		String end_timeString = ed_timing_time.getText().toString();
 		String contentString = edit_Timing_Content.getText().toString();
-		int property = ratingBarTimingPriority.getNumStars();
+		int priority = ratingBarTimingPriority.getNumStars();
 		int isFinished = 0;
 		
-		return null;
+		timing.setContent(contentString);
+		timing.setEnd_time(end_timeString);
+		timing.setIsfinish(isFinished);
+		timing.setPriority(priority);
+		timing.setLocation(location);
+		timing.setStart_time(start_time);
+		
+		return timing;
 	}
 
 }
