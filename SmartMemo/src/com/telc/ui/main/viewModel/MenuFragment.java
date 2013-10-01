@@ -75,11 +75,10 @@ public class MenuFragment extends Fragment {
 				/**
 				 * @parma replace（被替换的layout，新的fragment）
 				 */
-				fm.beginTransaction()
-						.replace(R.id.unfinish, new PersonalInfoFragment())
-						.commit();
-				((SlidingActivity) getActivity()).getSlidingMenu()
-						.showContent();
+
+				fm.beginTransaction().replace(R.id.unfinish, new PersonalInfoFragment())
+				.commit();
+				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
 		});
 
@@ -107,14 +106,11 @@ public class MenuFragment extends Fragment {
 				/**
 				 * @parma replace（被替换的layout，新的fragment）
 				 */
-				// fm.beginTransaction().replace(R.id.unfinish, unfinishFragment
-				// == null ?new UnfinishFragment():unfinishFragment )
-				fm.beginTransaction()
-						.replace(R.id.unfinish, new UnfinishFragment())
-						.commit();
-				((SlidingActivity) getActivity()).getSlidingMenu()
-						.showContent();
 
+				fm.beginTransaction().replace(R.id.unfinish, unfinishFragment == null ?new UnfinishFragment():unfinishFragment )
+//				fm.beginTransaction().replace(R.id.unfinish, new UnfinishFragment())
+				.commit();
+				((SlidingActivity)getActivity()).getSlidingMenu().showContent();	
 			}
 		});
 

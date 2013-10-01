@@ -7,6 +7,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
+import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Service.RealTimeService;
 import com.telc.resource.baidumap.LocationInfoTran;
 import com.telc.resource.baidumap.getPoisitionActivity;
@@ -15,6 +16,8 @@ import com.telc.domain.Emtity.RealTime;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.renderscript.Sampler.Value;
 import android.text.InputType;
@@ -31,6 +34,18 @@ import android.widget.Toast;
 
 public class RealtimeMemoActivity extends SherlockFragmentActivity {
 
+	
+	//数据库
+	private SQLiteDatabase db;
+	private RealTimeService realTimeHelper;
+		
+	//实时提醒对象
+	private RealTime realTime = new RealTime();
+		
+	//xml 保存userid
+	private SharedPreferences sp;
+	private String userid;
+	
 	private TextView textImportant;
 	private RatingBar rb_priority;
 	private TextView textLocation;
@@ -57,21 +72,15 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 	
 	private static final String[] spinnerSelect={"1天","2天","3天","1周","2周","1月"};
 	
-	private RealTime realTime = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_realtime_memo);
 
-		//textImportant = (TextView) findViewById(R.id.textImportant);
 		rb_priority = (RatingBar) findViewById(R.id.rb_priority);
-		//textLocation = (TextView) findViewById(R.id.textLocation);
 		et_location = (EditText) findViewById(R.id.et_location);
 
-		// iv_maps=(ImageView) findViewById(R.id.iv_maps);
-		//textAging = (TextView) findViewById(R.id.textAging);
-		
 		spinner_time = (Spinner) findViewById(R.id.spinner_time);
 		 //将可选内容与ArrayAdapter连接起来
 		adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,spinnerSelect);
@@ -107,6 +116,10 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 				// startActivity(intent);
 			}
 		});
+		
+		sp = getSharedPreferences("Login", MODE_PRIVATE);
+		db=openOrCreateDatabase(DBConstant.DB_FILENAME,MODE_PRIVATE, null);
+		realTimeHelper=new RealTimeService(db);
 
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		init();
@@ -203,25 +216,33 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			}
 			
 			
-			Toast.makeText(getApplicationContext(), "time "+ start_Time, Toast.LENGTH_SHORT).show();
+			//设置隐藏属性
+			userid = sp.getString("user", null);
 			
-			realTime = new RealTime();
 			
 			realTime.setPriority(priority);
 			realTime.setContent(content);
 			realTime.setAging(aging);
 			realTime.setLocation(locationLatLon);
 			realTime.setStart_time(start_Time);
+			realTime.setUser_id(userid);
 			
 //			realTime.setReal_id("");
-			realTime.setUser_id("BB");
+
+			if(realTimeHelper.addRealTime(realTime)){
+				Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();
+				finish();
+				return true;
+			}
+			else {
+				Toast.makeText(getApplicationContext(), "保存失败！", Toast.LENGTH_SHORT).show();
+				return false;
+			}
+
 			
 			
+//			LocationInfoTran.startToUse = true;
 			
-			LocationInfoTran.startToUse = true;
-			this.finish();
-			
-			return true;
 		} else
 			return false;
 	}
