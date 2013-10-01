@@ -1,4 +1,3 @@
-
 package com.telc.ui.main.viewModel;
 
 import java.util.ArrayList;
@@ -16,11 +15,19 @@ import com.telc.domain.Emtity.Timing;
 import com.telc.domain.Service.PeriodicService;
 import com.telc.domain.Service.RealTimeService;
 import com.telc.domain.Service.TimingService;
+import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
+import com.telc.ui.Memos.PeriodicMemoDelActivity;
+import com.telc.ui.Memos.RealtimeMemoDelActivity;
+import com.telc.ui.Memos.TimingMemoDelActivity;
+import com.telc.ui.main.SlidingActivity;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +38,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
+import android.widget.TextView;
 
 public class UnfinishFragment extends Fragment {
 
@@ -41,6 +49,12 @@ public class UnfinishFragment extends Fragment {
 	private PeriodicService periodicService;
 	private SharedPreferences sp;// 用来获取xml保存的useiId
 
+	private TextView textListCategory;
+	int color;
+
+	TimeService timService;
+
+
 	ListView uncompleteList;
 	// 保存list中的item的列表
 	List<Map<String, Object>> mList = new ArrayList<Map<String, Object>>();
@@ -48,18 +62,18 @@ public class UnfinishFragment extends Fragment {
 	SimpleAdapter mAdapter = null;
 	// 适配器中的key
 	String[] from = { "textListCategory", "ratingBarListItem",
-			"textListContent","textStartTime" };
+			"textListContent", "textStartTime" };
 	// value
 	int[] to = { R.id.textListCategory, R.id.ratingBarListItem,
-			R.id.textListContent,R.id.textStartTime };
+			R.id.textListContent, R.id.textStartTime };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		timService=new TimeService();
 	}
 
-	@SuppressWarnings("static-access")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -77,18 +91,60 @@ public class UnfinishFragment extends Fragment {
 		uncompleteList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View view, int position,
-					long id) {
+			public void onItemClick(AdapterView<?> arg0, View view,
+					int position, long id) {
 				// TODO Auto-generated method stub
-//				Map<String, Object> testMap=null;
-//				testMap.putAll((Map<? extends String, ? extends Object>) arg0.getItemAtPosition(position));
+
+				// Map<String, Object> testMap=null;
+				// testMap.putAll((Map<? extends String, ? extends Object>)
+				// arg0.getItemAtPosition(position));
+
+				String itemValue=arg0.getItemAtPosition(position).toString();
+				String index=itemValue.substring(15, 34);
+				String startTime=index;
+				index=String.valueOf(timService.getSecondsFromDate(startTime));
+				String[] itemCategory=itemValue.split(",");
+				String categoryString=itemCategory[2].substring(18);
+				System.out.print(categoryString);
+				
+				if(categoryString.compareTo("实时提醒")==0){
+					Bundle bundle = new Bundle(); // 创建Bundle对象
+					bundle.putString("index", index);
+					bundle.putString("startTime", startTime);
+					Intent intent=new Intent((SlidingActivity)getActivity(),RealtimeMemoDelActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}else if(categoryString.compareTo("定时提醒")==0){
+					Bundle bundle = new Bundle(); // 创建Bundle对象
+					bundle.putString("index", index);
+					bundle.putString("startTime", startTime);
+					Intent intent=new Intent((SlidingActivity)getActivity(),TimingMemoDelActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}else if(categoryString.compareTo("周期性提醒")==0){
+					Bundle bundle = new Bundle(); // 创建Bundle对象
+					bundle.putString("index", index);
+					bundle.putString("startTime", startTime);
+					Intent intent=new Intent((SlidingActivity)getActivity(),PeriodicMemoDelActivity.class);
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}else {
+					return;
+				}
+
 			}
 		});
-
 		return view;
 	}
+	
+//	@Override
+//	public void onResume() {
+//		// TODO Auto-generated method stub
+//		initAdapert();
+//		if (mAdapter != null)
+//			uncompleteList.setAdapter(mAdapter);
+//	}
 
-	@SuppressWarnings({ "static-access", "rawtypes" })
 	private void initAdapert() {
 		// TODO Auto-generated method stub
 		// 打开数据库
@@ -126,51 +182,51 @@ public class UnfinishFragment extends Fragment {
 				}
 			});
 		}
-		
+
 		if (perioList != null) {
-		Collections.sort(perioList, new Comparator<Periodic>() {
+			Collections.sort(perioList, new Comparator<Periodic>() {
 
-			@Override
-			public int compare(Periodic lhs, Periodic rhs) {
-				String periodicStartTime1 = lhs.getStart_time();
-				String periodicStartTime2 = rhs.getStart_time();
-				if (lhs.getPriority() < rhs.getPriority()) {
-					return 1;
-				} else if (lhs.getPriority() == rhs.getPriority()) {
-					if (periodicStartTime1.compareTo(periodicStartTime2) > 0) {
+				@Override
+				public int compare(Periodic lhs, Periodic rhs) {
+					String periodicStartTime1 = lhs.getStart_time();
+					String periodicStartTime2 = rhs.getStart_time();
+					if (lhs.getPriority() < rhs.getPriority()) {
 						return 1;
+					} else if (lhs.getPriority() == rhs.getPriority()) {
+						if (periodicStartTime1.compareTo(periodicStartTime2) > 0) {
+							return 1;
+						} else {
+							return -1;
+						}
 					} else {
 						return -1;
 					}
-				} else {
-					return -1;
 				}
-			}
-		});
+			});
 		}
-		
+
 		if (realList != null) {
-		Collections.sort(realList, new Comparator<RealTime>() {
+			Collections.sort(realList, new Comparator<RealTime>() {
 
-			@Override
-			public int compare(RealTime lhs, RealTime rhs) {
-				String realStartTime1 = lhs.getStart_time();
-				String realStartTime2 = rhs.getStart_time();
-				if (lhs.getPriority() < rhs.getPriority()) {
-					return 1;
-				} else if (lhs.getPriority() == rhs.getPriority()) {
-					if (realStartTime1.compareTo(realStartTime2) > 0) {
+				@Override
+				public int compare(RealTime lhs, RealTime rhs) {
+					String realStartTime1 = lhs.getStart_time();
+					String realStartTime2 = rhs.getStart_time();
+					if (lhs.getPriority() < rhs.getPriority()) {
 						return 1;
+					} else if (lhs.getPriority() == rhs.getPriority()) {
+						if (realStartTime1.compareTo(realStartTime2) > 0) {
+							return 1;
+						} else {
+							return -1;
+						}
 					} else {
 						return -1;
 					}
-				} else {
-					return -1;
 				}
-			}
-		});
+			});
 		}
-		
+
 		if (realList != null) {
 			// 实时提醒迭代器
 			RealTime tempRealTime;
@@ -190,7 +246,8 @@ public class UnfinishFragment extends Fragment {
 								+ "……";
 					}
 					mListItem.put("textListContent", temp);
-					mListItem.put("textStartTime", tempRealTime.getStart_time());
+					mListItem
+							.put("textStartTime", tempRealTime.getStart_time());
 					mList.add(mListItem);
 				}
 			}
@@ -214,12 +271,12 @@ public class UnfinishFragment extends Fragment {
 						temp = tempTiming.getContent().substring(0, 10) + "……";
 					}
 					mListItem.put("textListContent", temp);
-					mListItem.put("textStartTime",tempTiming.getStart_time());
+					mListItem.put("textStartTime", tempTiming.getStart_time());
+
 					mList.add(mListItem);
 				}
 			}
 		}
-
 
 		if (perioList != null) {
 			Periodic tempPreiodic;
@@ -244,17 +301,34 @@ public class UnfinishFragment extends Fragment {
 		}
 		mAdapter = new SimpleAdapter(getActivity(), mList,
 				R.layout.listview_layout, from, to);
+
 		// 重写Adapter支持RatingBar
 		mAdapter.setViewBinder(new ViewBinder() {
 			@Override
 			public boolean setViewValue(View view, Object data,
 					String textRepresentation) {
 				// TODO Auto-generated method stub
+
+				if (view.getId() == R.id.textListCategory) {
+					String category = (String) data;
+					if (category.equals("定时提醒")) {
+						color = getResources().getColor(R.color.pink);
+
+					} else if (category.equals("实时提醒")) {
+						color = getResources().getColor(R.color.green);
+
+					} else if (category.equals("周期性提醒")) {
+						color = getResources().getColor(R.color.yellow);
+					}
+					TextView textListCategory = (TextView) view;
+					textListCategory.setTextColor(color);
+				}
 				if (view.getId() == R.id.ratingBarListItem) {
 					Float value = (Float) data;
 					float ratingValue = value.floatValue();
 					RatingBar ratingBar = (RatingBar) view;
 					ratingBar.setRating(ratingValue);
+
 					return true;
 				} else
 					return false;

@@ -20,6 +20,7 @@ import com.baidu.mapapi.utils.DistanceUtil;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.RealTime;
+import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.smartmemo.R;
 
 public class locationService extends Service {
@@ -33,16 +34,20 @@ public class locationService extends Service {
 	private SQLiteDatabase db;
 	private RealTimeService realTimeHelper;
 		
-		
+	//实时提醒对象
+
+	private RealTime realTime = new RealTime();
+
+//	private RealTime realTime = new RealTime();
+
 	//xml 保存userid
 	private SharedPreferences sp;
 	private String userid;
 	
 	private List<RealTime> realTimeList = null;
-	
+
 	private MediaPlayer mediaPlayer;
 	
-
 	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
@@ -82,6 +87,7 @@ public class locationService extends Service {
 		
 		
 		mediaPlayer = MediaPlayer.create(locationService.this, R.raw.sound);
+
 		
 		super.onCreate();
 	}
@@ -104,11 +110,19 @@ public class locationService extends Service {
 			
 			while(it.hasNext()){
 
+				
+
+
+
 				RealTime realTime = new RealTime();
 				realTime = (RealTime)it.next();
 				
 				String[] strarray=realTime.getLocation().split("-");
 				
+
+				
+				Toast.makeText(getApplicationContext(),"长度为  "+strarray.length, Toast.LENGTH_SHORT).show();
+
 				if(strarray.length> 2)
 					return;
 				
@@ -201,16 +215,16 @@ public class locationService extends Service {
 		Toast.makeText(getApplicationContext(), "service 被销毁", Toast.LENGTH_SHORT).show();
 //		mLocClient.stop();
 		super.onDestroy();
-		
-		//若后台的定位服务不可被销毁 则重启
-//		if(locationServiceInfoTran.canBeDestroy){
-////			stopService(new Intent("com.telc.domain.Service.locationService"));
-//			super.onDestroy();
-//		}else{
-//			Intent localIntent = new Intent();
-//			localIntent.setAction("com.telc.domain.Service.locationService");
-//			this.startService(localIntent);
-//		}
+
+		if(locationServiceInfoTran.canBeDestroy){
+//			stopService(new Intent("com.telc.domain.Service.locationService"));
+			super.onDestroy();
+		}else{
+			Intent localIntent = new Intent();
+			localIntent.setAction("com.telc.domain.Service.locationService");
+			this.startService(localIntent);
+		}
+
 	}
 
 	@Override

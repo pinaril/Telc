@@ -10,7 +10,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.smartmemo.R;
-import com.telc.ui.Memos.PeriodicActivity;
+import com.telc.ui.Memos.PeriodicMemoActivity;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.Memos.TimingMemoActivity;
 import com.telc.ui.main.viewModel.MenuFragment;
@@ -92,8 +92,10 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		//初始化NotificationManager对象
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
+		
 		locationServiceInfoTran.canBeDestroy = false;
 
+		startService(intent);
 	}
 	
 	
@@ -126,15 +128,15 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
     	Intent intent;
             if (item.getItemId() == android.R.id.home) {
             	
-            	Intent intn=new Intent(SlidingActivity.this,AlarmReceiver.class);
-            	PendingIntent pendingIntent=PendingIntent.getBroadcast(this, 0, intn, 0);
+//            	Intent intn=new Intent(SlidingActivity.this,AlarmReceiver.class);
+//            	PendingIntent pendingIntent=PendingIntent.getBroadcast(this, 0, intn, 0);
 				//获取闹钟管理器
-				AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+//				AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 				//设置闹钟
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pendingIntent);
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,pendingIntent);
-				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,3000, pendingIntent);
-				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,5000,pendingIntent);
+//				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,3000, pendingIntent);
+//				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,5000,pendingIntent);
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+30000, pendingIntent);
 //				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+86400000, 10*1000, pendingIntent);
 //				alarmManager.cancel(pendingIntent);
@@ -154,7 +156,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
             		Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;
             	case 3:
-            		intent=new Intent(SlidingActivity.this,PeriodicActivity.class);
+            		intent=new Intent(SlidingActivity.this,PeriodicMemoActivity.class);
  		           	startActivity(intent);
  		           	Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;
