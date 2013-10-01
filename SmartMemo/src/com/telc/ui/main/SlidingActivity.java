@@ -1,42 +1,20 @@
 package com.telc.ui.main;
 
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.zip.Inflater;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.map.LocationData;
-import com.baidu.mapapi.utils.DistanceUtil;
-import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
-import com.telc.domain.Emtity.Timing;
-import com.telc.domain.Emtity.User;
-import com.telc.domain.Service.RealTimeService;
-import com.telc.domain.Service.TimingService;
-import com.telc.resource.baidumap.LocationInfoTran;
+import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicActivity;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.Memos.TimingMemoActivity;
-import com.telc.ui.main.viewModel.ContentFragment;
 import com.telc.ui.main.viewModel.MenuFragment;
 import com.telc.ui.main.viewModel.UnfinishFragment;
-import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -49,19 +27,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.database.sqlite.SQLiteDatabase;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.renderscript.Sampler;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.SimpleAdapter;
-import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Toast;
 
 /**
@@ -70,15 +37,21 @@ import android.widget.Toast;
  */
 public class SlidingActivity extends SlidingFragmentActivity implements DBConstant {
 
+	
+	//创建启动  Service  的  Intent 
+	final Intent intent =  new Intent("com.telc.domain.Service.locationService");
+	
+//	intent.setAction("com.telc.domain.Service.locationService");
+	
 	public SharedPreferences sp;
 	//声明一个NotificationManager类
 	private NotificationManager notificationManager;
-	//定位相关
-	private LocationClient mLocClient;
-	private LocationData locData =  null;
+//	//定位相关
+//	private LocationClient mLocClient;
+//	private LocationData locData =  null;
 
 	//linshi yong lei bofang
-	private MediaPlayer mediaPlayer;
+//	private MediaPlayer mediaPlayer;
 
 	@Override
 	public void onDestroy() {
@@ -119,59 +92,48 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		
 		//初始化NotificationManager对象
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-
-		//linshi de
-		mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.sound);
 		
-		//定位初始化
-		mLocClient = new LocationClient(getApplicationContext());
-		locData = new LocationData();
-		mainLocationListenner mainListener = new mainLocationListenner();
-		mLocClient.registerLocationListener(mainListener);
-		LocationClientOption option = new LocationClientOption();
-		option.setOpenGps(true);// 打开gps
-		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(5000);
-		mLocClient.setLocOption(option);
-		mLocClient.start();
+		
+		locationServiceInfoTran.canBeDestroy = false;
 
+		startService(intent);
 	}
 	
-	public class mainLocationListenner implements BDLocationListener {
-
-		@Override
-		public void onReceiveLocation(BDLocation location) {
-			if (location == null)
-				return;
-
-//			Toast.makeText(getApplicationContext(), "我一直在运行哦！", Toast.LENGTH_SHORT).show();
-			
-			if(LocationInfoTran.startToUse){
-				GeoPoint historyGeoPoint = new GeoPoint((int)(LocationInfoTran.locationData.latitude*1000000), (int)(LocationInfoTran.locationData.longitude*1000000));
-				GeoPoint tmpGeoPoint = new GeoPoint((int)(location.getLatitude()*1000000), (int)(location.getLongitude()*1000000));
-				double distance = DistanceUtil.getDistance(historyGeoPoint,tmpGeoPoint);
-				
-				//显示距离
-				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+distance+"m", Toast.LENGTH_SHORT).show();
-				if(distance < 100){
-					if(mediaPlayer == null)
-					mediaPlayer = MediaPlayer.create(SlidingActivity.this, R.raw.sound);
-
-					mediaPlayer.start();
-				}
-				else{
-					if(mediaPlayer != null)
-						mediaPlayer.stop();
-				}
-			}
-		}
-
-		public void onReceivePoi(BDLocation poiLocation) {
-			if (poiLocation == null) {
-				return;
-			}
-		}
-	}
+//	public class mainLocationListenner implements BDLocationListener {
+//
+//		@Override
+//		public void onReceiveLocation(BDLocation location) {
+//			if (location == null)
+//				return;
+//
+////			Toast.makeText(getApplicationContext(), "我一直在运行哦！", Toast.LENGTH_SHORT).show();
+//			
+//			if(LocationInfoTran.startToUse){
+//				GeoPoint historyGeoPoint = new GeoPoint((int)(LocationInfoTran.locationData.latitude*1000000), (int)(LocationInfoTran.locationData.longitude*1000000));
+//				GeoPoint tmpGeoPoint = new GeoPoint((int)(location.getLatitude()*1000000), (int)(location.getLongitude()*1000000));
+//				double distance = DistanceUtil.getDistance(historyGeoPoint,tmpGeoPoint);
+//				
+//				//显示距离
+//				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+distance+"m", Toast.LENGTH_SHORT).show();
+//				if(distance < 100){
+//					if(mediaPlayer == null)
+//					mediaPlayer = MediaPlayer.create(SlidingActivity.this, R.raw.sound);
+//
+//					mediaPlayer.start();
+//				}
+//				else{
+//					if(mediaPlayer != null)
+//						mediaPlayer.stop();
+//				}
+//			}
+//		}
+//
+//		public void onReceivePoi(BDLocation poiLocation) {
+//			if (poiLocation == null) {
+//				return;
+//			}
+//		}
+//	}
 
 	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -199,6 +161,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 				AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
 				//设置闹钟
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pendingIntent);
+//				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,pendingIntent);
+				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,3000, pendingIntent);
 				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,5000,pendingIntent);
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+30000, pendingIntent);
 //				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+86400000, 10*1000, pendingIntent);
@@ -262,6 +226,11 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 				setNotiType(ic, "点击查看备忘录");
 
 				moveTaskToBack(true);
+				
+				//后台定位服务不可被销毁
+				locationServiceInfoTran.canBeDestroy = false;
+				//开启定位服务
+				startService(intent);
 
 			}
 		});
@@ -272,6 +241,11 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				notificationManager.cancelAll();
+				
+				//关闭后台的定位服务
+				locationServiceInfoTran.canBeDestroy = true;
+				stopService(intent);
+				
 				SlidingActivity.this.finish();
 			}
 		});

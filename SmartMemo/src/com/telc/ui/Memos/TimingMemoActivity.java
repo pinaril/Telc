@@ -2,18 +2,29 @@ package com.telc.ui.Memos;
 
 import java.util.Calendar;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
+import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.Timing;
+import com.telc.domain.IService.ITimingService;
+import com.telc.domain.Service.TimingService;
+import com.telc.resource.baidumap.LocationInfoTran;
+import com.telc.resource.baidumap.getPoisitionActivity;
 import com.telc.smartmemo.R;
 import com.telc.time.service.TimeService;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
+import android.content.Intent;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -24,7 +35,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TableRow;
@@ -32,15 +42,18 @@ import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
 import android.widget.Toast;
 
-public class TimingMemoActivity extends Activity {
+public class TimingMemoActivity extends SherlockFragmentActivity {
 
 	EditText ed_timing_time, ed_timing_loction, edit_Timing_Content, dateEt,
 			timeEt;
 	RatingBar ratingBarTimingPriority;
 	Switch sw_timing;
+	TimingService timingService;
+	private SharedPreferences sp;
 	TimingMemoActivity timingMemoActivity;
 	TableRow tabl_location, tabl_content;
 	Drawable drawable;
+	String location = "";// 获取地点设置
 	private Dialog dl;
 	Context context;
 	private int mHour; // 存放时间的小时
@@ -55,13 +68,78 @@ public class TimingMemoActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_timing);
+		sp = getSharedPreferences("Login", MODE_PRIVATE);
 		timingMemoActivity = this;
 		context = this;
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+
 		init();
 	}
 
+	public void init1() {
+
+		LocationInfoTran.startToUse = false;
+
+		if (LocationInfoTran.StateFlag) {
+			if (LocationInfoTran.selectFlag == 3) {
+				if (LocationInfoTran.locationData.latitude == 0.0
+						|| LocationInfoTran.locationData.longitude == 0.0) {
+					Toast.makeText(getApplicationContext(), "地址获取失败，请检查当前网络！",
+							Toast.LENGTH_SHORT).show();
+					return;
+				}
+				ed_timing_loction.setText("我的位置");
+			}
+			if (LocationInfoTran.selectFlag == 2) {
+				ed_timing_loction.setText("地图上的点");
+			}
+			if (LocationInfoTran.selectFlag == 1) {
+				ed_timing_loction.setText(LocationInfoTran.positionNameString);
+			}
+			Toast.makeText(
+					getApplicationContext(),
+					"坐标点：" + LocationInfoTran.locationData.latitude + "\n"
+							+ LocationInfoTran.locationData.longitude,
+					Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	@Override
+	protected void onResume() {
+		init1();
+		super.onResume();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		MenuItem check;
+		SubMenu menuCheck;
+		menuCheck = menu.addSubMenu("保存");
+		check = menuCheck.getItem();
+		check.setIcon(R.drawable.ic_right);
+		check.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
+				| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if (item.getItemId() == android.R.id.home) {
+			finish();
+			return true;
+		} else if (item.getItemId() == 0) {
+			saveTimingMemo();
+			return true;
+		} else
+			return false;
+	}
+
 	public void init() {
+		SQLiteDatabase db = openOrCreateDatabase(DBConstant.DB_FILENAME,
+				MODE_PRIVATE, null);
+		timingService = new TimingService(db);
 
 		ed_timing_time = (EditText) findViewById(R.id.ed_timing_time);
 
@@ -96,7 +174,6 @@ public class TimingMemoActivity extends Activity {
 		});
 
 		sw_timing.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
 			@SuppressWarnings("deprecation")
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean isChecked) {
@@ -106,6 +183,7 @@ public class TimingMemoActivity extends Activity {
 					drawable = getResources().getDrawable(
 							R.drawable.table_button_bottom_bg);
 					tabl_content.setBackgroundDrawable(drawable);
+
 				} else {
 					drawable = getResources().getDrawable(
 							R.drawable.table_button_single_bg);
@@ -114,17 +192,54 @@ public class TimingMemoActivity extends Activity {
 				}
 			}
 		});
+		// 失去焦点
+		ed_timing_loction.clearFocus();
+		// 始终不弹出软键盘
+		ed_timing_loction.setInputType(InputType.TYPE_NULL);
+	}
+
+	// 保存定时备忘录
+	public void saveTimingMemo() {
+		Timing timing = obtainTimingInfo();
+		timingService.addTiming(timing);
+		Toast.makeText(context, "保存成功！", Toast.LENGTH_SHORT).show();
+		finish();
 	}
 
 	private Timing obtainTimingInfo() {
+		Timing timing = new Timing();
 		TimeService service = new TimeService();
+
 		// 定时提醒中主要包括提醒时间，提醒内容，定时的星级大小，定時的起始時間，定時的結束時間
+
+		ed_timing_loction.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent();
+				intent.setClass(TimingMemoActivity.this,
+						getPoisitionActivity.class);
+				startActivityForResult(intent, 0);
+			}
+		});
+		// 定时提醒中主要包括提醒时间，提醒内容，定时的星级大小，定時的起始時間，定時的結束時間
+
 		String start_time = service.getCurrentTime();
+		String end_timeString = ed_timing_time.getText().toString();
 		String contentString = edit_Timing_Content.getText().toString();
-		int property = ratingBarTimingPriority.getNumStars();
+		int priority = ratingBarTimingPriority.getNumStars();
 		int isFinished = 0;
 
-		return null;
+		timing.setUser_id(sp.getString("user", null));
+		timing.setContent(contentString);
+		timing.setEnd_time(end_timeString);
+		timing.setIsfinish(isFinished);
+		timing.setPriority(priority);
+		timing.setLocation(location);
+		timing.setStart_time(start_time);
+
+		return timing;
+
 	}
 
 	private void InitDialog(View view) {
@@ -134,7 +249,8 @@ public class TimingMemoActivity extends Activity {
 		timePicker = (TimePicker) view.findViewById(R.id.timePicker);
 		btn_time_dialog_ok = (Button) view
 				.findViewById(R.id.btn_time_dialog_ok);
-		btn_time_dialog_cancel=(Button) view.findViewById(R.id.btn_time_dialog_cancel);
+		btn_time_dialog_cancel = (Button) view
+				.findViewById(R.id.btn_time_dialog_cancel);
 		timePicker.setIs24HourView(true);
 		Calendar calendar = Calendar.getInstance();
 		int year = calendar.get(Calendar.YEAR);
@@ -165,14 +281,14 @@ public class TimingMemoActivity extends Activity {
 		});
 
 		btn_time_dialog_cancel.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				dl.dismiss();
 			}
 		});
-		
+
 		btn_time_dialog_ok.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -182,13 +298,12 @@ public class TimingMemoActivity extends Activity {
 					Toast toast = Toast.makeText(getApplicationContext(),
 							"请选择日期", Toast.LENGTH_SHORT);
 					toast.show();
-				}
-				else if (time.equals("")) {
+				} else if (time.equals("")) {
 					Toast toast = Toast.makeText(getApplicationContext(),
 							"请选择时间", Toast.LENGTH_SHORT);
 					toast.show();
 				} else {
-					ed_timing_time.setText(date + time+":00");
+					ed_timing_time.setText(date + time + ":00");
 					dl.dismiss();
 				}
 			}

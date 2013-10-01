@@ -122,6 +122,18 @@
             android:process=":remote" >
         </service> 
 
+        <!-- 开启定位服务 -->
+         <service 
+            android:name="com.telc.domain.Service.locationService"
+            android:enabled="true"
+             android:process=":remote"
+            >
+            <intent-filter >
+                <action android:name="com.telc.domain.Service.locationService"/>
+            </intent-filter>
+        </service>
+        
+        
     </application>
 
 </manifest>
