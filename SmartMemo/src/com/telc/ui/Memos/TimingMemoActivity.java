@@ -1,6 +1,8 @@
 package com.telc.ui.Memos;
 
+import com.telc.domain.Emtity.Timing;
 import com.telc.smartmemo.R;
+import com.telc.time.service.TimeService;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -55,6 +57,9 @@ public class TimingMemoActivity extends Activity {
 		tabl_location.setVisibility(View.GONE);
 		tabl_content = (TableRow) findViewById(R.id.tabl_content);
 		sw_timing = (Switch) findViewById(R.id.sw_timing);
+		
+		
+		Timing timing = obtainTimingInfo();
 
 		ed_timing_time.setOnClickListener(new OnClickListener() {
 			
@@ -92,6 +97,17 @@ public class TimingMemoActivity extends Activity {
 				}
 			}
 		});
+	}
+
+	private Timing obtainTimingInfo() {
+		TimeService service = new TimeService();
+		//定时提醒中主要包括提醒时间，提醒内容，定时的星级大小，定時的起始時間，定時的結束時間
+		String start_time = service.getCurrentTime();
+		String contentString = edit_Timing_Content.getText().toString();
+		int property = ratingBarTimingPriority.getNumStars();
+		int isFinished = 0;
+		
+		return null;
 	}
 
 }

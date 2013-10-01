@@ -22,7 +22,6 @@ import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +59,7 @@ public class UnfinishFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -88,6 +88,7 @@ public class UnfinishFragment extends Fragment {
 		return view;
 	}
 
+	@SuppressWarnings({ "static-access", "rawtypes" })
 	private void initAdapert() {
 		// TODO Auto-generated method stub
 		// 打开数据库
