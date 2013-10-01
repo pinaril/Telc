@@ -30,7 +30,7 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class PeriodicActivity extends SherlockFragmentActivity {
+public class PeriodicMemoActivity extends SherlockFragmentActivity {
 //	数据库
 	private SQLiteDatabase db;
 	private PeriodicService periodicHelper;
@@ -128,6 +128,7 @@ public class PeriodicActivity extends SherlockFragmentActivity {
 		mPeriodic.setUser_id(userid);
 		mPeriodic.setIsfinish(0);
 		mPeriodic.setStart_time("1234");
+		mPeriodic.setPeriodic_id(String.valueOf(System.currentTimeMillis()));
 		
 		if(periodicHelper.addPeriodic(mPeriodic)){
 			Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();

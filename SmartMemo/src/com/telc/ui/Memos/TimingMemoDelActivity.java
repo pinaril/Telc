@@ -36,14 +36,14 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 
-public class TimingMemoActivity extends SherlockFragmentActivity {
+public class TimingMemoDelActivity extends SherlockFragmentActivity {
 
 	EditText ed_timing_time, ed_timing_loction, edit_Timing_Content;
 	RatingBar ratingBarTimingPriority;
 	Switch sw_timing;
 	TimingService timingService;
 	private SharedPreferences sp;
-	TimingMemoActivity timingMemoActivity;
+	TimingMemoDelActivity timingMemoActivity;
 	TableRow tabl_location, tabl_content;
 	Drawable drawable;
 	String location = "";//获取地点设置
@@ -103,9 +103,9 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		// TODO Auto-generated method stub
 		MenuItem check;
 		SubMenu menuCheck;
-		menuCheck=menu.addSubMenu("保存");
+		menuCheck=menu.addSubMenu("删除");
 		check=menuCheck.getItem();
-		check.setIcon(R.drawable.ic_right);
+		check.setIcon(R.drawable.ic_recycle);
 		check.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		return true;
 	}
@@ -118,7 +118,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 			finish();
 			return true;
 		}else if(item.getItemId()==0){
-			saveTimingMemo();
+//			saveTimingMemo();
 			return true;
 		}else
 			return false;
@@ -151,7 +151,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 				dl.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 				LayoutInflater inflater = LayoutInflater
-						.from(TimingMemoActivity.this);
+						.from(TimingMemoDelActivity.this);
 				final View dialogView = inflater.inflate(R.layout.time_dialog,
 						null);
 				dl.setContentView(dialogView);
@@ -200,7 +200,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
-				intent.setClass(TimingMemoActivity.this,
+				intent.setClass(TimingMemoDelActivity.this,
 						getPoisitionActivity.class);
 				startActivityForResult(intent, 0);
 			}

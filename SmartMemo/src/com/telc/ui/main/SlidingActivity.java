@@ -10,7 +10,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.smartmemo.R;
-import com.telc.ui.Memos.PeriodicActivity;
+import com.telc.ui.Memos.PeriodicMemoActivity;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.Memos.TimingMemoActivity;
 import com.telc.ui.main.viewModel.MenuFragment;
@@ -181,7 +181,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
             		Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;
             	case 3:
-            		intent=new Intent(SlidingActivity.this,PeriodicActivity.class);
+            		intent=new Intent(SlidingActivity.this,PeriodicMemoActivity.class);
  		           	startActivity(intent);
  		           	Toast.makeText(this,item.getTitle() ,Toast.LENGTH_SHORT).show();
 	            	return true;

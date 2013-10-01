@@ -32,7 +32,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RealtimeMemoActivity extends SherlockFragmentActivity {
+public class RealtimeMemoDelActivity extends SherlockFragmentActivity {
 
 	
 	//数据库
@@ -110,7 +110,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent();
-				intent.setClass(RealtimeMemoActivity.this,
+				intent.setClass(RealtimeMemoDelActivity.this,
 						getPoisitionActivity.class);
 				startActivityForResult(intent, 0);
 				// startActivity(intent);
@@ -163,9 +163,9 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 		// TODO Auto-generated method stub
 		SubMenu menuCheck;
 		MenuItem check;
-		menuCheck = menu.addSubMenu("保存");
+		menuCheck = menu.addSubMenu("删除");
 		check = menuCheck.getItem();
-		check.setIcon(R.drawable.ic_right);
+		check.setIcon(R.drawable.ic_recycle);
 		check.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS
 				| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		return true;
@@ -178,15 +178,11 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			finish();
 			return true;
 		} else if (item.getItemId() == 0) {
-			// 执行保存////////////////////////////////////
-			// /////////////////////////////////
-			// /////////////////////////////////
-
-			priority = (int)rb_priority.getRating();
-			if(priority == 0){
-				Toast.makeText(getApplicationContext(), "请选择优先权！", Toast.LENGTH_SHORT).show();
-				return false;
-			}
+//			priority = (int)rb_priority.getRating();
+//			if(priority == 0){
+//				Toast.makeText(getApplicationContext(), "请选择优先权！", Toast.LENGTH_SHORT).show();
+//				return false;
+//			}
 			
 //			aging = 24;
 			

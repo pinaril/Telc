@@ -1,4 +1,4 @@
-package com.telc.time.service;
+package com.telc.domain.time.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
