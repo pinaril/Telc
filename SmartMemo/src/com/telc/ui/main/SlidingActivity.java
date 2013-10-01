@@ -1,43 +1,20 @@
 package com.telc.ui.main;
 
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.zip.Inflater;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.map.LocationData;
-import com.baidu.mapapi.utils.DistanceUtil;
-import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
-import com.telc.domain.Emtity.Timing;
-import com.telc.domain.Emtity.User;
-import com.telc.domain.Service.RealTimeService;
-import com.telc.domain.Service.TimingService;
-import com.telc.resource.baidumap.LocationInfoTran;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicActivity;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.Memos.TimingMemoActivity;
-import com.telc.ui.main.viewModel.ContentFragment;
 import com.telc.ui.main.viewModel.MenuFragment;
 import com.telc.ui.main.viewModel.UnfinishFragment;
-import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -50,19 +27,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.database.sqlite.SQLiteDatabase;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.renderscript.Sampler;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.SimpleAdapter;
-import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Toast;
 
 /**
@@ -186,6 +152,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
     public boolean onOptionsItemSelected(MenuItem item) {
     	Intent intent;
             if (item.getItemId() == android.R.id.home) {
+            	
             	Intent intn=new Intent(SlidingActivity.this,AlarmReceiver.class);
             	PendingIntent pendingIntent=PendingIntent.getBroadcast(this, 0, intn, 0);
 				//获取闹钟管理器
@@ -194,6 +161,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+5000, pendingIntent);
 //				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,pendingIntent);
 				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+10000,3000, pendingIntent);
+				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+20000,5000,pendingIntent);
+//				alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+30000, pendingIntent);
 //				alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+86400000, 10*1000, pendingIntent);
 //				alarmManager.cancel(pendingIntent);
 				//toggle就是程序自动判断是打开还是关闭

@@ -47,6 +47,10 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login_register);
+		user = new User();
+		SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
+				MODE_PRIVATE, null);
+		service = new UserService(db);
 		initControlsAndRegEvent();
 		// 判断是否状态是否为已登录，如果是则直接进入主界面
 		if (sp.getBoolean("login_in", false)) {
@@ -81,7 +85,6 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 				userphone = et_phoneNum.getText().toString();
 				String password = et_password.getText().toString();
 				loginOrRegistr = false;
-				user = new User();
 				user.setUserID(userphone);
 				user.setPhoneNum(userphone);
 				user.setUserPwd(password);
@@ -93,9 +96,6 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 					Toast.makeText(getApplicationContext(), "电话号码格式不正确！",
 							Toast.LENGTH_SHORT).show();
 				} else {
-					SQLiteDatabase db = openOrCreateDatabase(DB_FILENAME,
-							MODE_PRIVATE, null);
-					service = new UserService(db);
 					HashMap<String, Object> args = new HashMap<String, Object>();
 					args.put("tel", userphone);
 					args.put("pwd", password);
@@ -130,10 +130,18 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 		boolean flag = (Boolean) result;
 		if (flag == true) {
 			// 将登录状态改为已登录，并保存当前登录的用户用户名
+			userphone = et_phoneNum.getText().toString();
+			String password = et_password.getText().toString();
+			user.setUserID(userphone);
+			user.setPhoneNum(userphone);
+			user.setUserPwd(password);
 			Editor editor = sp.edit();
 			editor.putBoolean("login_in", true);
 			editor.putString("user", userphone);
 			editor.commit();
+			if((service.getUserByUserPhone(userphone))==null){
+				service.addUser(user);
+			}
 			if (loginOrRegistr == false) {
 				service.addUser(user);
 			}

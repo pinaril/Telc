@@ -84,6 +84,7 @@ public class MenuFragment extends Fragment {
 
 		textUnfinish.setOnClickListener(new OnClickListener() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub

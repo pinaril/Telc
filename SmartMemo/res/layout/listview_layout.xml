@@ -37,6 +37,14 @@
                 android:layout_weight="1"
                 android:text="textListCategory" />
 
+            <TextView
+                android:id="@+id/textStartTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text=""
+                android:visibility="invisible" />
+
             <RatingBar
                 android:id="@+id/ratingBarListItem"
                 style="?android:attr/ratingBarStyleSmall"

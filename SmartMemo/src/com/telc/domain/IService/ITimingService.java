@@ -14,4 +14,5 @@ public interface ITimingService {
 	public List<Timing> getTimingByUserID(String user_id);
 	public boolean addTiming(Timing timing);
 	public boolean removeTiming(String timing_id);
+	public Timing findTimingByStart(String start_time);
 }

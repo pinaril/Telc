@@ -12,8 +12,9 @@ import com.telc.domain.IService.IPeriodicService;
 
 /**
  * 周期性提醒数据库操作
+ * 
  * @author evil
- *
+ * 
  */
 public class PeriodicService implements IPeriodicService {
 
@@ -58,12 +59,16 @@ public class PeriodicService implements IPeriodicService {
 				int priorityColumn = cursor.getColumnIndex("priority");
 				int priority = cursor.getInt(priorityColumn);
 				periodic.setPriority(priority);
-				
+
 				int infinishColumn = cursor.getColumnIndex("isfinish");
 				int infinish = cursor.getInt(infinishColumn);
 				periodic.setIsfinish(infinish);
-				periodic_list.add(periodic);
 
+				int start_timeColumn = cursor.getColumnIndex("start_time");
+				String start_time = cursor.getString(start_timeColumn);
+				periodic.setStart_time(start_time);
+
+				periodic_list.add(periodic);
 			}
 			return periodic_list;
 		}
@@ -72,14 +77,29 @@ public class PeriodicService implements IPeriodicService {
 	@Override
 	public boolean addPeriodic(Periodic periodic) {
 		// TODO Auto-generated method stub
-		String periodic_id=periodic.getPeriodic_id();
-		String period=periodic.getPeriod();
-		String period_detail=periodic.getPeriod_detail();
-		String content=periodic.getContent();
-		String user_id=periodic.getUser_id();
-		int priority=periodic.getPriority();	
-		int isfinish=periodic.getIsfinish();
-		String sql="insert into PERIODIC (periodic_id,period,period_detail,user_id,content,priority,isfinish) values ('"+periodic_id+"','"+period+"','"+period_detail+"','"+user_id+"','"+content+"','"+priority+"','"+isfinish+"')";
+		String periodic_id = periodic.getPeriodic_id();
+		String period = periodic.getPeriod();
+		String period_detail = periodic.getPeriod_detail();
+		String content = periodic.getContent();
+		String user_id = periodic.getUser_id();
+		int priority = periodic.getPriority();
+		int isfinish = periodic.getIsfinish();
+		String start_time = periodic.getStart_time();
+		String sql = "insert into PERIODIC (periodic_id,period,period_detail,user_id,content,priority,isfinish,start_time) values ('"
+				+ periodic_id
+				+ "','"
+				+ period
+				+ "','"
+				+ period_detail
+				+ "','"
+				+ user_id
+				+ "','"
+				+ content
+				+ "','"
+				+ priority
+				+ "','"
+				+ isfinish + "','" + start_time + "')";
+
 		db.execSQL(sql);
 		return true;
 	}
@@ -87,9 +107,58 @@ public class PeriodicService implements IPeriodicService {
 	@Override
 	public boolean removePeriodic(String periodic_id) {
 		// TODO Auto-generated method stub
-		String sql = "delete from PERIODIC where periodic_id='"+periodic_id+"'";
+		String sql = "delete from PERIODIC where periodic_id='" + periodic_id
+				+ "'";
 		db.execSQL(sql);
 		return true;
+	}
+
+	@Override
+	public Periodic findPeriodicByStart(String start_time) {
+		// TODO Auto-generated method stub
+		String sql = "select a.[rowid] as _id,* from PERIODIC as a where start_time='"
+				+ start_time + "'";
+		cursor = db.rawQuery(sql, null);
+		Periodic periodic = new Periodic();
+		if (cursor.moveToFirst() == false) {
+			return null;
+		} else {
+			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor
+					.moveToNext()) {
+
+				int periodicIDColumn = cursor.getColumnIndex("periodic_id");
+				String periodic_id = cursor.getString(periodicIDColumn);
+				periodic.setPeriodic_id(periodic_id);
+
+				int periodColumn = cursor.getColumnIndex("period");
+				String period = cursor.getString(periodColumn);
+				periodic.setPeriod(period);
+
+				int periodDetailColumn = cursor.getColumnIndex("period_detail");
+				String period_detail = cursor.getString(periodDetailColumn);
+				periodic.setPeriod_detail(period_detail);
+
+				int user_idColumn = cursor.getColumnIndex("user_id");
+				String user_id = cursor.getString(user_idColumn);
+				periodic.setUser_id(user_id);
+
+				int contentColumn = cursor.getColumnIndex("content");
+				String content = cursor.getString(contentColumn);
+				periodic.setContent(content);
+
+				int priorityColumn = cursor.getColumnIndex("priority");
+				int priority = cursor.getInt(priorityColumn);
+				periodic.setPriority(priority);
+
+				int infinishColumn = cursor.getColumnIndex("isfinish");
+				int infinish = cursor.getInt(infinishColumn);
+				periodic.setIsfinish(infinish);
+
+				periodic.setStart_time(start_time);
+			}
+			return periodic;
+		}
+
 	}
 
 }
