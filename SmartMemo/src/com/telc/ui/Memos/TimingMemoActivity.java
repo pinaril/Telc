@@ -1,16 +1,17 @@
 package com.telc.ui.Memos;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
 import com.telc.domain.Emtity.Timing;
 import com.telc.smartmemo.R;
 import com.telc.time.service.TimeService;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -18,13 +19,11 @@ import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TableRow;
-import android.widget.Toast;
 
-public class TimingMemoActivity extends Activity {
+public class TimingMemoActivity extends SherlockFragmentActivity {
 
 	EditText ed_timing_time, ed_timing_loction, edit_Timing_Content;
 	RatingBar ratingBarTimingPriority;
@@ -43,6 +42,34 @@ public class TimingMemoActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		init();
 	}
+
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		MenuItem check;
+		SubMenu menuCheck;
+		menuCheck=menu.addSubMenu("保存");
+		check=menuCheck.getItem();
+		check.setIcon(R.drawable.ic_right);
+		check.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		return true;
+	}
+
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId()==android.R.id.home){
+			finish();
+			return true;
+		}else if(item.getItemId()==0){
+			obtainTimingInfo();
+			return true;
+		}else
+			return false;
+	}
+
 
 	public void init() {
 

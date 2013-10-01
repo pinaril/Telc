@@ -110,12 +110,12 @@ public class UnfinishFragment extends Fragment {
 
 				@Override
 				public int compare(Timing lhs, Timing rhs) {
-					String timeidString = lhs.getTiming_id();
-					String tiString = rhs.getTiming_id();
+					String timingStartTime1 = lhs.getStart_time();
+					String timingStartTime2 = rhs.getStart_time();
 					if (lhs.getPriority() < rhs.getPriority()) {
 						return 1;
 					} else if (lhs.getPriority() == rhs.getPriority()) {
-						if (timeidString.compareTo(tiString) > 0) {
+						if (timingStartTime1.compareTo(timingStartTime2) > 0) {
 							return 1;
 						} else {
 							return -1;
@@ -132,8 +132,16 @@ public class UnfinishFragment extends Fragment {
 
 			@Override
 			public int compare(Periodic lhs, Periodic rhs) {
-				if (lhs.getPriority() > rhs.getPriority()) {
+				String periodicStartTime1 = lhs.getStart_time();
+				String periodicStartTime2 = rhs.getStart_time();
+				if (lhs.getPriority() < rhs.getPriority()) {
 					return 1;
+				} else if (lhs.getPriority() == rhs.getPriority()) {
+					if (periodicStartTime1.compareTo(periodicStartTime2) > 0) {
+						return 1;
+					} else {
+						return -1;
+					}
 				} else {
 					return -1;
 				}
@@ -146,8 +154,16 @@ public class UnfinishFragment extends Fragment {
 
 			@Override
 			public int compare(RealTime lhs, RealTime rhs) {
-				if (lhs.getPriority() > rhs.getPriority()) {
+				String realStartTime1 = lhs.getStart_time();
+				String realStartTime2 = rhs.getStart_time();
+				if (lhs.getPriority() < rhs.getPriority()) {
 					return 1;
+				} else if (lhs.getPriority() == rhs.getPriority()) {
+					if (realStartTime1.compareTo(realStartTime2) > 0) {
+						return 1;
+					} else {
+						return -1;
+					}
 				} else {
 					return -1;
 				}
