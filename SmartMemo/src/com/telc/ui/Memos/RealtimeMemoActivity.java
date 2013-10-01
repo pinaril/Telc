@@ -14,19 +14,16 @@ import com.telc.resource.baidumap.getPoisitionActivity;
 import com.telc.smartmemo.R;
 import com.telc.domain.Emtity.RealTime;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.renderscript.Sampler.Value;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -232,6 +229,12 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 				Toast.makeText(getApplicationContext(), "保存失败！", Toast.LENGTH_SHORT).show();
 				return false;
 			}
+<<<<<<< HEAD
+
+			
+//			LocationInfoTran.startToUse = true;
+=======
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 			
 		} else
 			return false;

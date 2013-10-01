@@ -7,7 +7,10 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+<<<<<<< HEAD
+=======
 import android.media.MediaPlayer;
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 import android.os.IBinder;
 import android.widget.Toast;
 
@@ -33,7 +36,11 @@ public class locationService extends Service {
 	private RealTimeService realTimeHelper;
 		
 	//实时提醒对象
+<<<<<<< HEAD
+	private RealTime realTime = new RealTime();
+=======
 //	private RealTime realTime = new RealTime();
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 		
 	//xml 保存userid
 	private SharedPreferences sp;
@@ -41,8 +48,11 @@ public class locationService extends Service {
 	
 	private List<RealTime> realTimeList = null;
 	
+<<<<<<< HEAD
+=======
 	private MediaPlayer mediaPlayer;
 	
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 	
 
 	@Override
@@ -78,7 +88,10 @@ public class locationService extends Service {
 		//获取用户ID
 		userid = sp.getString("user", null);
 		
+<<<<<<< HEAD
+=======
 		mediaPlayer = MediaPlayer.create(locationService.this, R.raw.sound);
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 		
 		super.onCreate();
 	}
@@ -90,17 +103,29 @@ public class locationService extends Service {
 			if (location == null)
 				return;
 
+<<<<<<< HEAD
+				
+=======
 			
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 			Iterator it = realTimeList.iterator();
 			realTimeList = realTimeHelper.getRealTimeByUserID(userid);
 			
 			while(it.hasNext()){
+<<<<<<< HEAD
+				
+=======
 
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 				RealTime realTime = new RealTime();
 				realTime = (RealTime)it.next();
 				
 				String[] strarray=realTime.getLocation().split("-");
 				
+<<<<<<< HEAD
+				
+				Toast.makeText(getApplicationContext(),"长度为  "+strarray.length, Toast.LENGTH_SHORT).show();
+=======
 				if(strarray.length> 2)
 					return;
 				
@@ -124,6 +149,7 @@ public class locationService extends Service {
 //					mediaPlayer.start();
 				
 				
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 
 				
 				for(int i=0;i<strarray.length;i++){
@@ -151,6 +177,16 @@ public class locationService extends Service {
 		super.onDestroy();
 		
 		//若后台的定位服务不可被销毁 则重启
+<<<<<<< HEAD
+//		if(locationServiceInfoTran.canBeDestroy){
+////			stopService(new Intent("com.telc.domain.Service.locationService"));
+//			super.onDestroy();
+//		}else{
+//			Intent localIntent = new Intent();
+//			localIntent.setAction("com.telc.domain.Service.locationService");
+//			this.startService(localIntent);
+//		}
+=======
 		if(locationServiceInfoTran.canBeDestroy){
 //			stopService(new Intent("com.telc.domain.Service.locationService"));
 			super.onDestroy();
@@ -159,6 +195,7 @@ public class locationService extends Service {
 			localIntent.setAction("com.telc.domain.Service.locationService");
 			this.startService(localIntent);
 		}
+>>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 	}
 
 	

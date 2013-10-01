@@ -93,8 +93,10 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		//初始化NotificationManager对象
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		
+		
 		locationServiceInfoTran.canBeDestroy = false;
 
+		startService(intent);
 	}
 	
 	
