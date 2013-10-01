@@ -214,7 +214,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			realTime.setStart_time(start_Time);
 			
 //			realTime.setReal_id("");
-			realTime.setUser_id("BB");
+//			realTime.setUser_id("BB");
 			
 			
 			
