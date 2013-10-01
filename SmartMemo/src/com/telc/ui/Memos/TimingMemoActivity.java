@@ -1,8 +1,4 @@
 package com.telc.ui.Memos;
-
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.SubMenu;
 import com.telc.smartmemo.R;
 
 import android.app.Activity;

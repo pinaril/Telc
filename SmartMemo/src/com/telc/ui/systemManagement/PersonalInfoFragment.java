@@ -86,8 +86,9 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 		sp = getActivity().getSharedPreferences("Login",
 				getActivity().MODE_PRIVATE);
 		userphone = sp.getString("user", null);
-		User user = userService.getUserByUserPhone(userphone);
-		
+		System.out.println(userphone);
+		User user = userService.getUserByUserPhone(userphone.toString());
+		System.out.println(user.getPhoneNum());
 		et_phone.setText(user.getPhoneNum());
 
 		et_name.setText(user.getUserName());
