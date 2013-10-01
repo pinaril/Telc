@@ -11,8 +11,9 @@ import com.telc.domain.IService.ITimingService;
 
 /**
  * 定时提醒数据库操作
+ * 
  * @author CZW
- *
+ * 
  */
 public class TimingService implements ITimingService {
 	private SQLiteDatabase db;
@@ -28,43 +29,43 @@ public class TimingService implements ITimingService {
 	@Override
 	public List<Timing> getTimingByUserID(String user_id) {
 		// TODO Auto-generated method stub
-		
-		List<Timing> timing_list=new ArrayList<Timing>();
+
+		List<Timing> timing_list = new ArrayList<Timing>();
 		String sql = "select a.[rowid] as _id,* from TIMING as a where user_id='"
 				+ user_id + "'";
 		cursor = db.rawQuery(sql, null);
 		if (cursor.moveToFirst() == false) {
 			return null;
-		} else {     
-             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor
- 					.moveToNext()) {
-            	    Timing timing=new Timing();
-            		int timingIDColumn = cursor.getColumnIndex("timing_id");
-    				String timing_id = cursor.getString(timingIDColumn);
-    				timing.setTiming_id(timing_id);
-    				int startTimeColumn = cursor.getColumnIndex("start_time");
-    				String start_time = cursor.getString(startTimeColumn);
-    				timing.setStart_time(start_time);
-    				int endTimeColumn = cursor.getColumnIndex("end_time");
-    				String end_time = cursor.getString(endTimeColumn);
-    				timing.setEnd_time(end_time);
-    				int locationColumn = cursor.getColumnIndex("location");
-    				String location = cursor.getString(locationColumn);
-    				timing.setLocation(location);
-    				int contentColumn = cursor.getColumnIndex("content");
-    				String content= cursor.getString(contentColumn);
-    				timing.setContent(content);
-    				timing.setUser_id(user_id);
-    				int priorityColumn = cursor.getColumnIndex("priority");
-    				int priority= cursor.getInt(priorityColumn);
-    				timing.setPriority(priority);
-    				int isfinishColumn = cursor.getColumnIndex("isfinish");
-    				int isfinish= cursor.getInt(isfinishColumn);
-    				timing.setIsfinish(isfinish);
-    				
-    				timing_list.add(timing);
-             }
-             return timing_list;
+		} else {
+			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor
+					.moveToNext()) {
+				Timing timing = new Timing();
+				int timingIDColumn = cursor.getColumnIndex("timing_id");
+				String timing_id = cursor.getString(timingIDColumn);
+				timing.setTiming_id(timing_id);
+				int startTimeColumn = cursor.getColumnIndex("start_time");
+				String start_time = cursor.getString(startTimeColumn);
+				timing.setStart_time(start_time);
+				int endTimeColumn = cursor.getColumnIndex("end_time");
+				String end_time = cursor.getString(endTimeColumn);
+				timing.setEnd_time(end_time);
+				int locationColumn = cursor.getColumnIndex("location");
+				String location = cursor.getString(locationColumn);
+				timing.setLocation(location);
+				int contentColumn = cursor.getColumnIndex("content");
+				String content = cursor.getString(contentColumn);
+				timing.setContent(content);
+				timing.setUser_id(user_id);
+				int priorityColumn = cursor.getColumnIndex("priority");
+				int priority = cursor.getInt(priorityColumn);
+				timing.setPriority(priority);
+				int isfinishColumn = cursor.getColumnIndex("isfinish");
+				int isfinish = cursor.getInt(isfinishColumn);
+				timing.setIsfinish(isfinish);
+
+				timing_list.add(timing);
+			}
+			return timing_list;
 		}
 	}
 
@@ -74,15 +75,28 @@ public class TimingService implements ITimingService {
 	@Override
 	public boolean addTiming(Timing timing) {
 		// TODO Auto-generated method stub
-		String user_id=timing.getUser_id();
-		String start_time=timing.getStart_time();
-		String end_time=timing.getEnd_time();
-		String content=timing.getContent();
-		int priority=timing.getPriority();
-		String timing_id=timing.getTiming_id();
-		String lacation=timing.getLocation();
-		int isfinish=timing.getIsfinish();
-		String sql="insert into TIMING (timing_id,start_time,end_time,location,content,user_id,priority,isfinish) values ('"+timing_id+"','"+start_time+"','"+end_time+"','"+lacation+"','"+content+"','"+user_id+"','"+priority+"','"+isfinish+"')";
+		String user_id = timing.getUser_id();
+		String start_time = timing.getStart_time();
+		String end_time = timing.getEnd_time();
+		String content = timing.getContent();
+		int priority = timing.getPriority();
+		String timing_id = timing.getTiming_id();
+		String lacation = timing.getLocation();
+		int isfinish = timing.getIsfinish();
+		String sql = "insert into TIMING (timing_id,start_time,end_time,location,content,user_id,priority,isfinish) values ('"
+				+ timing_id
+				+ "','"
+				+ start_time
+				+ "','"
+				+ end_time
+				+ "','"
+				+ lacation
+				+ "','"
+				+ content
+				+ "','"
+				+ user_id
+				+ "','"
+				+ priority + "','" + isfinish + "')";
 		db.execSQL(sql);
 		return true;
 	}
@@ -93,10 +107,51 @@ public class TimingService implements ITimingService {
 	@Override
 	public boolean removeTiming(String timing_id) {
 		// TODO Auto-generated method stub
-		
-		String sql = "delete from TIMING where timing_id='"+timing_id+"'";
+
+		String sql = "delete from TIMING where timing_id='" + timing_id + "'";
 		db.execSQL(sql);
 		return true;
+	}
+
+	@Override
+	public Timing findTimingByStart(String start_time) {
+		// TODO Auto-generated method stub
+		Timing timing = new Timing();
+		String sql = "select a.[rowid] as _id,* from TIMING as a where start_time='"
+				+ start_time + "'";
+		cursor = db.rawQuery(sql, null);
+		if (cursor.moveToFirst() == false) {
+			return null;
+		} else {
+			for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor
+					.moveToNext()) {
+				int timingIDColumn = cursor.getColumnIndex("timing_id");
+				String timing_id = cursor.getString(timingIDColumn);
+				timing.setTiming_id(timing_id);
+
+				timing.setStart_time(start_time);
+				int endTimeColumn = cursor.getColumnIndex("end_time");
+				String end_time = cursor.getString(endTimeColumn);
+				timing.setEnd_time(end_time);
+				int locationColumn = cursor.getColumnIndex("location");
+				String location = cursor.getString(locationColumn);
+				timing.setLocation(location);
+				int contentColumn = cursor.getColumnIndex("content");
+				String content = cursor.getString(contentColumn);
+				timing.setContent(content);
+				int user_idColumn = cursor.getColumnIndex("user_id");
+				String user_id = cursor.getString(user_idColumn);
+				timing.setUser_id(user_id);
+				int priorityColumn = cursor.getColumnIndex("priority");
+				int priority = cursor.getInt(priorityColumn);
+				timing.setPriority(priority);
+				int isfinishColumn = cursor.getColumnIndex("isfinish");
+				int isfinish = cursor.getInt(isfinishColumn);
+				timing.setIsfinish(isfinish);
+
+			}
+			return timing;
+		}
 	}
 
 }
