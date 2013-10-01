@@ -170,31 +170,7 @@ public class UnfinishFragment extends Fragment {
 			}
 		});
 		}
-
-		if (timingList != null) {
-			Timing tempTiming;
-			// 定时提醒迭代器
-			Iterator itTiming = timingList.iterator();
-			while (itTiming.hasNext()) {
-				tempTiming = (Timing) itTiming.next();
-				if (tempTiming.getIsfinish() == 0) {
-					Map<String, Object> mListItem = new HashMap<String, Object>();
-					String temp;
-					mListItem.put("textListCategory", "定时提醒");
-					mListItem.put("ratingBarListItem",
-							(float) tempTiming.getPriority());
-					if (tempTiming.getContent().length() <= 10) {
-						temp = tempTiming.getContent();
-					} else {
-						temp = tempTiming.getContent().substring(0, 10) + "……";
-					}
-					mListItem.put("textListContent", temp);
-					mListItem.put("textStartTime", tempTiming.getStart_time());
-					mList.add(mListItem);
-				}
-			}
-		}
-
+		
 		if (realList != null) {
 			// 实时提醒迭代器
 			RealTime tempRealTime;
@@ -219,6 +195,31 @@ public class UnfinishFragment extends Fragment {
 				}
 			}
 		}
+
+		if (timingList != null) {
+			Timing tempTiming;
+			// 定时提醒迭代器
+			Iterator itTiming = timingList.iterator();
+			while (itTiming.hasNext()) {
+				tempTiming = (Timing) itTiming.next();
+				if (tempTiming.getIsfinish() == 0) {
+					Map<String, Object> mListItem = new HashMap<String, Object>();
+					String temp;
+					mListItem.put("textListCategory", "定时提醒");
+					mListItem.put("ratingBarListItem",
+							(float) tempTiming.getPriority());
+					if (tempTiming.getContent().length() <= 10) {
+						temp = tempTiming.getContent();
+					} else {
+						temp = tempTiming.getContent().substring(0, 10) + "……";
+					}
+					mListItem.put("textListContent", temp);
+					mListItem.put("textStartTime",tempTiming.getStart_time());
+					mList.add(mListItem);
+				}
+			}
+		}
+
 
 		if (perioList != null) {
 			Periodic tempPreiodic;
@@ -260,5 +261,5 @@ public class UnfinishFragment extends Fragment {
 			}
 		});
 	}
-}
 
+}
