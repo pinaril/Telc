@@ -20,9 +20,12 @@ import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicMemoDelActivity;
 import com.telc.ui.Memos.RealtimeMemoDelActivity;
 import com.telc.ui.Memos.TimingMemoDelActivity;
+import com.telc.ui.main.AlarmReceiver;
 import com.telc.ui.main.SlidingActivity;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -151,6 +154,8 @@ public class UnfinishFragment extends Fragment {
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
 		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
 
+		timingRemind(timingList);
+		
 		if (timingList != null) {
 			Collections.sort(timingList, new Comparator<Timing>() {
 				@Override
@@ -324,4 +329,33 @@ public class UnfinishFragment extends Fragment {
 		});
 	}
 
+	private void timingRemind(List<Timing> list){
+		
+		Collections.sort(list, new Comparator<Timing>() {
+			@Override
+			public int compare(Timing lhs, Timing rhs) {
+				String timingEndTime1 = String.valueOf(timService.getSecondsFromDate(lhs.getEnd_time()));
+				String timingEndTime2 = String.valueOf(timService.getSecondsFromDate(rhs.getEnd_time()));
+				if (timingEndTime1.compareTo(timingEndTime2)>=0) {
+					return -1;
+				}
+				else {
+					return 1;
+				}
+			}
+		});
+		String mContent=list.get(0).getContent();
+		
+		Intent alarm=new Intent(getActivity(),AlarmReceiver.class);
+		Bundle bundle=new Bundle();
+		bundle.putString("userId",sp.getString("user", null));
+		bundle.putString("content", mContent);
+		alarm.putExtras(bundle);
+		
+		PendingIntent piIntent=PendingIntent.getBroadcast(getActivity(), 0, alarm, 0);
+		AlarmManager amAlarmManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
+		amAlarmManager.set(AlarmManager.RTC_WAKEUP, timService.getSecondsFromDate(list.get(0).getEnd_time()), piIntent);
+//		timService.getSecondsFromDate(list.get(0).getEnd_time());
+	}
+	
 }
