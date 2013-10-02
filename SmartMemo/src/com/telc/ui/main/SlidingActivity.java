@@ -195,12 +195,15 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 				setNotiType(ic, "点击查看备忘录");
 
 				//后台运行
-				moveTaskToBack(false);
+//				moveTaskToBack(false);
 				
+				//销毁Activity
+				SlidingActivity.this.finish();
+
 				//后台定位服务不可被销毁
 				locationServiceInfoTran.canBeDestroy = false;
 				//开启定位服务
-				startService(intent);
+//				startService(intent);
 
 			}
 		});
@@ -238,7 +241,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		}else{
 			return null;
 		}
-//		return super.onCreateDialog(id);
 	}
 
 	@Override
