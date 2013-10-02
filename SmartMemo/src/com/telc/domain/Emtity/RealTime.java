@@ -15,6 +15,7 @@ public class RealTime {
 	private String user_id;
 	private int priority;
 	private int isfinish;
+	private String location_detail;
 	public String getReal_id() {
 		return real_id;
 	}
@@ -63,6 +64,12 @@ public class RealTime {
 	}
 	public void setIsfinish(int isfinish) {
 		this.isfinish = isfinish;
+	}
+	public String getLocation_detail() {
+		return location_detail;
+	}
+	public void setLocation_detail(String location_detail) {
+		this.location_detail = location_detail;
 	}
 
 

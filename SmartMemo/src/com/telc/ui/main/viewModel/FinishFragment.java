@@ -68,7 +68,7 @@ public class FinishFragment extends Fragment {
 			"textListContent","textIndex" };
 	// value
 	int[] to = { R.id.textListCategory, R.id.ratingBarListItem,
-			R.id.textListContent, R.id.textStartTime };
+			R.id.textListContent, R.id.textIndex };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -315,13 +315,13 @@ public class FinishFragment extends Fragment {
 				if (view.getId() == R.id.textListCategory) {
 					String category = (String) data;
 					if (category.equals("定时提醒")) {
-						color = getResources().getColor(R.color.pink);
+						color = getResources().getColor(R.color.breanpink);
 
 					} else if (category.equals("实时提醒")) {
-						color = getResources().getColor(R.color.green);
+						color = getResources().getColor(R.color.bluegreen);
 
 					} else if (category.equals("周期性提醒")) {
-						color = getResources().getColor(R.color.yellow);
+						color = getResources().getColor(R.color.oringeyello);
 					}
 					TextView textListCategory = (TextView) view;
 					textListCategory.setTextColor(color);

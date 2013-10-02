@@ -30,7 +30,7 @@ public class MenuFragment extends Fragment {
 	TextView textSetting;
 	TextView textExit;
 	TextView textReturn;
-	FinishFragment contentFragment;
+	FinishFragment finishFragment;
 	UnfinishFragment unfinishFragment;
 	Drawable drawable;
 
@@ -45,6 +45,7 @@ public class MenuFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.activity_menu, null);
+		drawable = getResources().getDrawable(R.drawable.bg_press);
 		textUserInfo = (TextView) view.findViewById(R.id.txt_userinfo);
 		textFinished = (TextView) view.findViewById(R.id.txt_finish);
 		textUnfinish = (TextView) view.findViewById(R.id.txt_unfinish);
@@ -53,6 +54,8 @@ public class MenuFragment extends Fragment {
 		textExit = (TextView) view.findViewById(R.id.txt_exit);
 		textReturn = (TextView) view.findViewById(R.id.txt_return);
 
+		textUnfinish.setBackgroundDrawable(drawable);
+		
 		textUserInfo.setOnClickListener(new OnClickListener() {
 			@SuppressWarnings("deprecation")
 			@Override
@@ -109,7 +112,6 @@ public class MenuFragment extends Fragment {
 				 */
 
 				fm.beginTransaction().replace(R.id.unfinish, unfinishFragment == null ?new UnfinishFragment():unfinishFragment )
-//				fm.beginTransaction().replace(R.id.unfinish, new UnfinishFragment())
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();	
 			}
@@ -121,15 +123,15 @@ public class MenuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				// if(index==2)
-				// ((SlidingActivity)getActivity()).getSlidingMenu().toggle();
-				// index=2;
-				// FragmentManager fm =
-				// ((SlidingActivity)getActivity()).getFragmentManager();
-				// fm.beginTransaction().replace(R.id.content, realtimeFragment
-				// == null ?new RealtimeMemoActivity():realtimeFragment)
-				// .addToBackStack(null)
-				// .commit();
+				 if(index==3)
+					 ((SlidingActivity)getActivity()).getSlidingMenu().toggle();
+				 index=3;
+				 FragmentManager fm =
+				 ((SlidingActivity)getActivity()).getFragmentManager();
+				 fm.beginTransaction().replace(R.id.unfinish, finishFragment
+				 == null ?new FinishFragment():finishFragment)
+				 .addToBackStack(null)
+				 .commit();
 				drawable = getResources().getDrawable(R.drawable.bg_press);
 				textUserInfo.setBackgroundDrawable(null);
 				textFinished.setBackgroundDrawable(drawable);
@@ -138,8 +140,7 @@ public class MenuFragment extends Fragment {
 				textAbout.setBackgroundDrawable(null);
 				textReturn.setBackgroundDrawable(null);
 				textExit.setBackgroundDrawable(null);
-
-				// ((SlidingActivity)getActivity()).getSlidingMenu().showContent();
+				 ((SlidingActivity)getActivity()).getSlidingMenu().showContent();	
 			}
 		});
 

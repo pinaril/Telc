@@ -12,4 +12,6 @@ public interface IRealTimeService {
 	public boolean addRealTime(RealTime realTime);
 	public boolean removeRealTime(String real_id);
 	public RealTime findRealTimeByStart(String start_time);
+	public boolean updateRealTime(RealTime realTime);
+	public boolean updateIsfinish(String real_id);
 }

@@ -164,4 +164,22 @@ public class PeriodicService implements IPeriodicService {
 
 	}
 
+	//修改备忘录内容
+	@Override
+	public boolean updatePeriodic(Periodic periodic) {
+		// TODO Auto-generated method stub
+		String sql = "update PERIODIC set period='"+periodic.getPeriod()+"',period_detail='"+periodic.getPeriod_detail()+"',content='"+periodic.getContent()+"',priority='"+periodic.getPriority()+"' where periodic_id='"+periodic.getPeriodic_id()+"'";
+		db.execSQL(sql);
+		return true;
+	}
+
+	//标志已完成
+	@Override
+	public boolean updateIsfinish(String periodic_id) {
+		// TODO Auto-generated method stub
+		String sql = "update PERIODIC set isfinish='"+1+"' where periodic_id='"+periodic_id+"'";
+		db.execSQL(sql);
+		return true;
+	}
+
 }

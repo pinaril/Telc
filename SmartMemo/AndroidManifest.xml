@@ -126,6 +126,14 @@
               android:name="com.telc.ui.Memos.PeriodicMemoDelActivity"
               android:label="@string/app_name">
               </activity>
+              <activity 
+                  android:name="com.telc.ui.Memos.RealtimeMemoDelActivity"
+                  android:label="@string/app_name">
+              </activity>
+              <activity 
+                  android:name="com.telc.ui.Memos.TimingMemoDelActivity"
+                  android:label="@string/app_name">   
+              </activity>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

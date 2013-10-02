@@ -40,7 +40,7 @@
                 android:text="textListCategory" />
 
             <TextView
-                android:id="@+id/textStartTime"
+                android:id="@+id/textIndex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
