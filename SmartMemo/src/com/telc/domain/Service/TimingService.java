@@ -62,7 +62,9 @@ public class TimingService implements ITimingService {
 				int isfinishColumn = cursor.getColumnIndex("isfinish");
 				int isfinish = cursor.getInt(isfinishColumn);
 				timing.setIsfinish(isfinish);
-
+				int location_detailColumn = cursor.getColumnIndex("location_detail");
+				String location_detail = cursor.getString(location_detailColumn);
+				timing.setLocation_detail(location_detail);
 				timing_list.add(timing);
 			}
 			return timing_list;
@@ -83,7 +85,8 @@ public class TimingService implements ITimingService {
 		String timing_id = timing.getTiming_id();
 		String lacation = timing.getLocation();
 		int isfinish = timing.getIsfinish();
-		String sql = "insert into TIMING (timing_id,start_time,end_time,location,content,user_id,priority,isfinish) values ('"
+		String location_detail=timing.getLocation_detail();
+		String sql = "insert into TIMING (timing_id,start_time,end_time,location,content,user_id,priority,isfinish,location_detail) values ('"
 				+ timing_id
 				+ "','"
 				+ start_time
@@ -96,7 +99,7 @@ public class TimingService implements ITimingService {
 				+ "','"
 				+ user_id
 				+ "','"
-				+ priority + "','" + isfinish + "')";
+				+ priority + "','" + isfinish + "','"+location_detail+"')";
 		db.execSQL(sql);
 		return true;
 	}
@@ -148,6 +151,9 @@ public class TimingService implements ITimingService {
 				int isfinishColumn = cursor.getColumnIndex("isfinish");
 				int isfinish = cursor.getInt(isfinishColumn);
 				timing.setIsfinish(isfinish);
+				int location_detailColumn = cursor.getColumnIndex("location_detail");
+				String location_detail = cursor.getString(location_detailColumn);
+				timing.setLocation_detail(location_detail);
 
 			}
 			return timing;
@@ -158,7 +164,7 @@ public class TimingService implements ITimingService {
 	@Override
 	public boolean updateTiming(Timing timing) {
 		// TODO Auto-generated method stub
-		String sql = "update TIMING set end_time='"+timing.getEnd_time()+"', location='"+timing.getLocation()+"', content='"+timing.getContent()+"',priority='"+timing.getPriority()+"' where timing_id='"+timing.getTiming_id()+"'";
+		String sql = "update TIMING set end_time='"+timing.getEnd_time()+"', location='"+timing.getLocation()+"', content='"+timing.getContent()+"',priority='"+timing.getPriority()+"',location_detail='"+timing.getLocation_detail()+"' where timing_id='"+timing.getTiming_id()+"'";
 		db.execSQL(sql);
 		return true;
 	}
