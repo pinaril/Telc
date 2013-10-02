@@ -3,6 +3,7 @@ package com.telc.ui.main.viewModel;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.main.SlidingActivity;
+import com.telc.ui.other.SettingActivity;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 import com.telc.ui.systemManagement.PersonalInfoFragment;
 
@@ -194,6 +195,10 @@ public class MenuFragment extends Fragment {
 				textAbout.setBackgroundDrawable(null);
 				textReturn.setBackgroundDrawable(null);
 				textExit.setBackgroundDrawable(null);
+				
+				Intent intent = new Intent(getActivity(),SettingActivity.class);
+				startActivity(intent);
+				getActivity().finish();
 			}
 		});
 
