@@ -64,14 +64,13 @@ public class PeriodicMemoDelActivity extends SherlockFragmentActivity {
 		Intent intent=getIntent();
 		Bundle bundle=intent.getExtras();
 		mIndex=bundle.getString("index");
-		mStartTime=bundle.getString("startTime");
 		
 		ratingBarPeriodicPriority=(RatingBar) findViewById(R.id.ratingBarPeriodicPriority);
 		spinnerPeriodic=(Spinner) findViewById(R.id.spinnerPeriodic);
 		editPeriodicDetail=(EditText) findViewById(R.id.editTextPeriodicDetail);
 		editPeriodicContent=(EditText) findViewById(R.id.editPeriodicContent);
 		
-		mPeriodic=periodicHelper.findPeriodicByStart(mStartTime);
+		mPeriodic=periodicHelper.findPeriodicByStart(mIndex);
 		
 		ratingBarPeriodicPriority.setRating((float)mPeriodic.getPriority());
 		editPeriodicDetail.setText(mPeriodic.getPeriod_detail());

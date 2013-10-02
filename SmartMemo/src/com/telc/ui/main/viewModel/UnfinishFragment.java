@@ -55,7 +55,7 @@ public class UnfinishFragment extends Fragment {
 	SimpleAdapter mAdapter = null;
 	// 适配器中的key
 	String[] from = { "textListCategory", "ratingBarListItem",
-			"textListContent","textStartTime" };
+			"textListContent","textIndex" };
 	// value
 	int[] to = { R.id.textListCategory, R.id.ratingBarListItem,
 			R.id.textListContent,R.id.textStartTime };
@@ -88,31 +88,26 @@ public class UnfinishFragment extends Fragment {
 					long id) {
 				// TODO Auto-generated method stub
 				String itemValue=arg0.getItemAtPosition(position).toString();
-				String index=itemValue.substring(15, 34);
-				String startTime=index;
-				index=String.valueOf(timService.getSecondsFromDate(startTime));
-				String[] itemCategory=itemValue.split(",");
-				String categoryString=itemCategory[2].substring(18);
+				String[] itemSplit=itemValue.split(",");
+				String index=itemSplit[2].substring(11);
+				String categoryString=itemSplit[1].substring(18);
 				System.out.print(categoryString);
 				
 				if(categoryString.compareTo("实时提醒")==0){
 					Bundle bundle = new Bundle(); // 创建Bundle对象
 					bundle.putString("index", index);
-					bundle.putString("startTime", startTime);
 					Intent intent=new Intent((SlidingActivity)getActivity(),RealtimeMemoDelActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
 				}else if(categoryString.compareTo("定时提醒")==0){
 					Bundle bundle = new Bundle(); // 创建Bundle对象
 					bundle.putString("index", index);
-					bundle.putString("startTime", startTime);
 					Intent intent=new Intent((SlidingActivity)getActivity(),TimingMemoDelActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
 				}else if(categoryString.compareTo("周期性提醒")==0){
 					Bundle bundle = new Bundle(); // 创建Bundle对象
 					bundle.putString("index", index);
-					bundle.putString("startTime", startTime);
 					Intent intent=new Intent((SlidingActivity)getActivity(),PeriodicMemoDelActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
@@ -281,7 +276,7 @@ public class UnfinishFragment extends Fragment {
 					temp = tempPreiodic.getContent().substring(0, 10) + "……";
 				}
 				mListItem.put("textListContent", temp);
-				mListItem.put("textStartTime", tempPreiodic.getStart_time());
+				mListItem.put("textIndex", tempPreiodic.getPeriodic_id());
 				mList.add(mListItem);
 			}
 		}

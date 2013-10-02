@@ -30,7 +30,7 @@ import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 
 
-public class ContentFragment extends Fragment {
+public class FinishFragment extends Fragment {
 	//数据库
 	private SQLiteDatabase db;
 	private TimingService timingService;

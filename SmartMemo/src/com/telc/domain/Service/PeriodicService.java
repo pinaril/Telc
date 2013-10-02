@@ -114,10 +114,10 @@ public class PeriodicService implements IPeriodicService {
 	}
 
 	@Override
-	public Periodic findPeriodicByStart(String start_time) {
+	public Periodic findPeriodicByStart(String id) {
 		// TODO Auto-generated method stub
-		String sql = "select a.[rowid] as _id,* from PERIODIC as a where start_time='"
-				+ start_time + "'";
+		String sql = "select a.[rowid] as _id,* from PERIODIC as a where periodic_id='"
+				+ id + "'";
 		cursor = db.rawQuery(sql, null);
 		Periodic periodic = new Periodic();
 		if (cursor.moveToFirst() == false) {
@@ -153,8 +153,11 @@ public class PeriodicService implements IPeriodicService {
 				int infinishColumn = cursor.getColumnIndex("isfinish");
 				int infinish = cursor.getInt(infinishColumn);
 				periodic.setIsfinish(infinish);
+				
+				int starttimeColumn = cursor.getColumnIndex("isfinish");
+				String starttime = cursor.getString(starttimeColumn);
+				periodic.setStart_time(starttime);
 
-				periodic.setStart_time(start_time);
 			}
 			return periodic;
 		}

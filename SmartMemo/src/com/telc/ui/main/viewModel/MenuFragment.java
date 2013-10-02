@@ -29,7 +29,7 @@ public class MenuFragment extends Fragment {
 	TextView textSetting;
 	TextView textExit;
 	TextView textReturn;
-	ContentFragment contentFragment;
+	FinishFragment contentFragment;
 	UnfinishFragment unfinishFragment;
 	Drawable drawable;
 

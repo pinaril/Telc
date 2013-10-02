@@ -229,12 +229,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 				Toast.makeText(getApplicationContext(), "保存失败！", Toast.LENGTH_SHORT).show();
 				return false;
 			}
-<<<<<<< HEAD
-
-			
-//			LocationInfoTran.startToUse = true;
-=======
->>>>>>> 1c6bd91c02e2635570733548d3f2b235d38f90f4
 			
 		} else
 			return false;

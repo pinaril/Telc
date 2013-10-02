@@ -129,8 +129,10 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 		userid=sp.getString("user", null);
 		mPeriodic.setUser_id(userid);
 		mPeriodic.setIsfinish(0);
-		mPeriodic.setStart_time(mTime.getCurrentTime());
-		mPeriodic.setPeriodic_id(String.valueOf(System.currentTimeMillis()));
+		String startTime=mTime.longSwithToString(System.currentTimeMillis());
+		String idString=String.valueOf(mTime.getSecondsFromDate(startTime));
+		mPeriodic.setStart_time(startTime);
+		mPeriodic.setPeriodic_id(idString);
 		
 		if(periodicHelper.addPeriodic(mPeriodic)){
 			Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();
