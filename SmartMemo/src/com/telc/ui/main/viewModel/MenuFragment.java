@@ -111,7 +111,6 @@ public class MenuFragment extends Fragment {
 				 */
 
 				fm.beginTransaction().replace(R.id.unfinish, unfinishFragment == null ?new UnfinishFragment():unfinishFragment )
-//				fm.beginTransaction().replace(R.id.unfinish, new UnfinishFragment())
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();	
 			}
@@ -123,9 +122,9 @@ public class MenuFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				 if(index==2)
+				 if(index==3)
 					 ((SlidingActivity)getActivity()).getSlidingMenu().toggle();
-				 index=2;
+				 index=3;
 				 FragmentManager fm =
 				 ((SlidingActivity)getActivity()).getFragmentManager();
 				 fm.beginTransaction().replace(R.id.unfinish, finishFragment
@@ -140,8 +139,7 @@ public class MenuFragment extends Fragment {
 				textAbout.setBackgroundDrawable(null);
 				textReturn.setBackgroundDrawable(null);
 				textExit.setBackgroundDrawable(null);
-
-				// ((SlidingActivity)getActivity()).getSlidingMenu().showContent();
+				 ((SlidingActivity)getActivity()).getSlidingMenu().showContent();	
 			}
 		});
 

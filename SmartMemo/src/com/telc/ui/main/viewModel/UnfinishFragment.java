@@ -153,7 +153,6 @@ public class UnfinishFragment extends Fragment {
 
 		if (timingList != null) {
 			Collections.sort(timingList, new Comparator<Timing>() {
-
 				@Override
 				public int compare(Timing lhs, Timing rhs) {
 					String timingStartTime1 = lhs.getStart_time();

@@ -4,7 +4,10 @@ import com.telc.domain.Emtity.User;
 import com.telc.domain.IService.IUserService;
 import com.telc.domain.Service.UserService;
 import com.telc.smartmemo.R;
+import com.telc.ui.main.viewModel.UnfinishFragment;
+
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
@@ -203,6 +206,7 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 				user.setUserName(et_name.getText().toString());
 				user.setSex(sex);
 				userService.updateUser(user);
+				Toast.makeText(getActivity(), "保存成功！", Toast.LENGTH_SHORT).show();
 			}
 		});
 
