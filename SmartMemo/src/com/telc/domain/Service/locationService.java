@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
 import android.widget.Toast;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -19,6 +20,8 @@ import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.RealTime;
 import com.telc.resource.baidumap.locationServiceInfoTran;
+import com.telc.resource.remind.connentNet;
+import com.telc.resource.remind.remindContent;
 import com.telc.smartmemo.R;
 
 public class locationService extends Service {
@@ -28,12 +31,14 @@ public class locationService extends Service {
 	private LocationClient mLocClient;
 	private LocationData locData =  null;
 	
+	
+	private int remindDistance = 100 ;
+	
 	//数据库
 	private SQLiteDatabase db;
 	private RealTimeService realTimeHelper;
 		
 	//实时提醒对象
-
 
 	private RealTime realTime = new RealTime();
 
@@ -54,7 +59,6 @@ public class locationService extends Service {
 		// TODO Auto-generated method stub
 		Toast.makeText(getApplicationContext(), "service 被创建", Toast.LENGTH_SHORT).show();
 		
-
 		//定位初始化
 		mLocClient = new LocationClient(getApplicationContext());
 		locData = new LocationData();
@@ -68,7 +72,6 @@ public class locationService extends Service {
 		mLocClient.start();
 
 
-		
 		sp = getSharedPreferences("Login", MODE_PRIVATE);
 		db=openOrCreateDatabase(DBConstant.DB_FILENAME,MODE_PRIVATE, null);
 		realTimeHelper=new RealTimeService(db);
@@ -78,6 +81,7 @@ public class locationService extends Service {
 		Toast.makeText(getApplicationContext(),"userid"+ userid, Toast.LENGTH_SHORT).show();
 		
 		super.onCreate();
+		
 	}
 
 	public class mainLocationListenner implements BDLocationListener {
@@ -88,6 +92,7 @@ public class locationService extends Service {
 			if (location == null)
 				return;
 			
+			realTimeList = realTimeHelper.getRealTimeByUserID(userid);
 			Iterator it = realTimeList.iterator();
 			
 			while(it.hasNext()){
@@ -97,8 +102,6 @@ public class locationService extends Service {
 				
 				String[] strarray=realTime.getLocation().split("-");
 
-				Toast.makeText(getApplicationContext(),"长度为  "+strarray.length, Toast.LENGTH_SHORT).show();
-
 				if(strarray.length> 2)
 					return;
 				
@@ -106,35 +109,50 @@ public class locationService extends Service {
 				double lonNum = Double.valueOf(strarray[1]);
 				
 				
-				GeoPoint historyGeoPoint = new GeoPoint((int)(latNum*1000000), (int)(lonNum*1000000));
-				
-				Toast.makeText(getApplicationContext(), ""+historyGeoPoint, Toast.LENGTH_SHORT).show();
+//				GeoPoint historyGeoPoint = new GeoPoint((int)(latNum*1000000), (int)(lonNum*1000000));
 
+//				GeoPoint tempGeoPoint = new GeoPoint((int)(location.getLatitude()*1000000), (int)(location.getLongitude()*1000000));
 
 				
-//				double distance = DistanceUtil.getDistance(historyGeoPoint,historyGeoPoint);
+//				double mLat1 = 39.90923; // point1纬度
+//				double mLon1 = 116.357428; // point1经度
+//				double mLat2 = 39.90923;// point2纬度
+//				double mLon2 = 116.397428;// point2经度
 				
-//				自定义函数 计算 经纬度两点距离
-//				double distance = getDistance(latNum, lonNum, location.getLatitude(), location.getLongitude());
+//				android.os.Debug.waitForDebugger();
+				double distanceShort = GetShortDistance(lonNum, latNum, location.getLongitude(), location.getLatitude());
+				double distanceLong = GetShortDistance(lonNum, latNum, location.getLongitude(), location.getLatitude());
 //				
-//				Toast.makeText(getApplicationContext(), distance+"m", Toast.LENGTH_SHORT).show();
+				double distance;
+				if(distanceLong > 10000)
+					distance = distanceLong;
+				else
+					distance = distanceShort;
 				
-				//显示距离
-//				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+s+"m", Toast.LENGTH_SHORT).show();
+//				double distance = DistanceUtil.getDistance(historyGeoPoint,tempGeoPoint);
+
+				//				自定义函数 计算 经纬度两点距离
+				Toast.makeText(getApplicationContext(), distance+"m", Toast.LENGTH_SHORT).show();
+				
+				if(realTime.getIsfinish() == 0)
+				{
+					remindContent.useId = userid;
+					remindContent.Content = realTime.getContent();
+					
+					if(distance < remindDistance )
+					{
+//						new connentNet().start();
+						//设置已完成
+						realTime.setIsfinish(1);
+					}
+					
+				}
+				
+				
+				
 			}
 			
 			
-			
-			
-//				if(distance < 100){
-////					if(mediaPlayer == null)
-////						mediaPlayer = MediaPlayer.create(locationService.this, R.raw.sound);
-//
-//					mediaPlayer.start();
-//				}
-//				
-//			}
-////
 		}
 
 		@Override
@@ -146,39 +164,55 @@ public class locationService extends Service {
 	
 	 
 	//根据经纬度 求两点距离
-	private double getDistance(double lat1,double lng1,double lat2,double lng2){
-		
-		double radlat1 = lat1*3.1415926/180.0*1000000;
-		 double radlat2 =   lat2*3.1415926/180.0*1000000;
-		 double radlng1 =   lng1*3.1415926/180.0*1000000;
-		 double radlng2 = lng2*3.1415926/180.0*1000000;
-		
-		 double ff = (radlat1+radlat2)/2.0;
-		 double gg =   (radlat1-radlat2)/2.0;
-		 double ll = (radlng1-radlng2)/2.0;
-		 
-		 
-		 double ss =   Math.pow((Math.sin(gg)),2)*Math.pow((Math.cos(ll)),2)+Math.pow((Math.cos(ff)),2)*Math.pow((Math.sin(ll)),2);
-		 double   cc =   Math.pow((Math.cos(gg)),2)*Math.pow((Math.cos(ll)),2)+Math.pow((Math.sin(ff)),2)*Math.pow((Math.sin(ll)),2);
-		 double   ww = Math.atan(Math.sqrt(ss/cc));
-		 
-		 double banjin = 6378.135;  //地球半径km
-		 double dist =   2*ww*banjin;
-		 double rr = Math.sqrt(ss*cc)/ww;
-		 double h1 =   (3*rr-1)/(2*cc);
-		 double h2 = (3*rr+1)/(2*ss);
-		 double xx =   1/298.257223543; //修正率
-		 double dm;
-		 
-		 if(ww!=0)
-			 dm =   dist*(1+xx*h1*Math.pow((Math.sin(ff)),2)*Math.pow((Math.cos(gg)),2)-xx*h2*Math.pow((Math.cos(ff)),2)*Math.pow((Math.sin(gg)),2));
-			 else
-			 dm   = 0;  
-			    
-		 return dm;
+	static double DEF_PI = 3.14159265359; // PI
+	static double DEF_2PI= 6.28318530712; // 2*PI
+	static double DEF_PI180= 0.01745329252; // PI/180.0
+	static double DEF_R =6370693.5; // radius of earth
+	public double GetShortDistance(double lon1, double lat1, double lon2, double lat2)
+	{
+		double ew1, ns1, ew2, ns2;
+		double dx, dy, dew;
+		double distance;
+			// 角度转换为弧度
+		ew1 = lon1 * DEF_PI180;
+		ns1 = lat1 * DEF_PI180;
+		ew2 = lon2 * DEF_PI180;
+		ns2 = lat2 * DEF_PI180;
+		// 经度差
+		dew = ew1 - ew2;
+		// 若跨东经和西经180 度，进行调整
+		if (dew > DEF_PI)
+		dew = DEF_2PI - dew;
+		else if (dew < -DEF_PI)
+		dew = DEF_2PI + dew;
+		dx = DEF_R * Math.cos(ns1) * dew; // 东西方向长度(在纬度圈上的投影长度)
+		dy = DEF_R * (ns1 - ns2); // 南北方向长度(在经度圈上的投影长度)
+		// 勾股定理求斜边长
+		distance = Math.sqrt(dx * dx + dy * dy);
+		return distance;
+	}
+	public double GetLongDistance(double lon1, double lat1, double lon2, double lat2)
+	{
+		double ew1, ns1, ew2, ns2;
+		double distance;
+		// 角度转换为弧度
+		ew1 = lon1 * DEF_PI180;
+		ns1 = lat1 * DEF_PI180;
+		ew2 = lon2 * DEF_PI180;
+		ns2 = lat2 * DEF_PI180;
+		// 求大圆劣弧与球心所夹的角(弧度)
+		distance = Math.sin(ns1) * Math.sin(ns2) + Math.cos(ns1) * Math.cos(ns2) * Math.cos(ew1 - ew2);
+		// 调整到[-1..1]范围内，避免溢出
+		if (distance > 1.0)
+		     distance = 1.0;
+		else if (distance < -1.0)
+	      distance = -1.0;
+		// 求大圆劣弧长度
+		distance = DEF_R * Math.acos(distance);
+		return distance;
 	}
 	
-	
+		
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
@@ -187,7 +221,6 @@ public class locationService extends Service {
 //		mLocClient.stop();
 		super.onDestroy();
 		//若后台的定位服务不可被销毁 则重启
-
 
 		if(locationServiceInfoTran.canBeDestroy){
 //			stopService(new Intent("com.telc.domain.Service.locationService"));
