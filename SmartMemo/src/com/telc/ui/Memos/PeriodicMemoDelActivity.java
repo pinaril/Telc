@@ -35,29 +35,21 @@ public class PeriodicMemoDelActivity extends SherlockFragmentActivity {
 	private SQLiteDatabase db;
 	private PeriodicService periodicHelper;
 //	xml保存userid
-	private SharedPreferences sp;
-	private String userid;
 	RatingBar ratingBarPeriodicPriority;
 	Spinner spinnerPeriodic;
 	EditText editPeriodicContent,editPeriodicDetail;
 	private ArrayAdapter<String> spinnerAdapter;
-	private Context mContext;
 //	周期性提醒对象
 	private Periodic mPeriodic=new Periodic();
-	private String mIndex,mStartTime;
-//	保存spinner中的位置
-	private int periodicPosition;
+	private String mIndex;
 	
 	private final String[] spinnerPeriodicItem={"每天","每周","每月"};
-	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_periodic);
-		mContext=this;
-		sp = getSharedPreferences("Login", MODE_PRIVATE);
 		db=openOrCreateDatabase(DBConstant.DB_FILENAME,MODE_PRIVATE, null);
 		periodicHelper=new PeriodicService(db);
 		
