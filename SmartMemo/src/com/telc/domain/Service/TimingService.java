@@ -154,4 +154,22 @@ public class TimingService implements ITimingService {
 		}
 	}
 
+	//修改实时提醒内容
+	@Override
+	public boolean updateTiming(Timing timing) {
+		// TODO Auto-generated method stub
+		String sql = "update TIMING set end_time='"+timing.getEnd_time()+"', location='"+timing.getLocation()+"', content='"+timing.getContent()+"',priority='"+timing.getPriority()+"' where timing_id='"+timing.getTiming_id()+"'";
+		db.execSQL(sql);
+		return true;
+	}
+
+	//标志已完成
+	@Override
+	public boolean updateIsfinish(String timing_id) {
+		// TODO Auto-generated method stub
+		String sql = "update TIMING set isfinish='"+1+"' where timing_id='"+timing_id+"'";
+		db.execSQL(sql);
+		return true;
+	}
+
 }

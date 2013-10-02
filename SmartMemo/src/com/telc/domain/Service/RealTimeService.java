@@ -156,4 +156,22 @@ public class RealTimeService implements IRealTimeService {
 		}
 	}
 
+	//修改实时提醒内容
+	@Override
+	public boolean updateRealTime(RealTime realTime) {
+		// TODO Auto-generated method stub
+		String sql = "update REAL_TIME set location='"+realTime.getLocation()+"', aging='"+realTime.getAging()+"', content='"+realTime.getContent()+"', priority='"+realTime.getPriority()+"' where real_id='"+realTime.getReal_id()+"'";
+		db.execSQL(sql);
+		return true;
+	}
+
+	//标志已完成
+	@Override
+	public boolean updateIsfinish(String real_id) {
+		// TODO Auto-generated method stub
+		String sql = "update REAL_TIME set isfinish='"+1+"' where real_id='"+real_id+"'";
+		db.execSQL(sql);
+		return true;
+	}
+
 }
