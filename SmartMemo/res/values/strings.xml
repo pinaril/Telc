@@ -12,5 +12,12 @@
     <string name="text_hob">爱好：</string>
     <string name="text_tel">电话：</string>
     <string name="btn_save_setuser">保存我的信息</string>
+    <string name="about_show_use_instruction">软件使用说明</string>
+    <string name="soft_current_version">当前版本:</string>
+    <string name="show_current_version">显示当前版本</string>
+    <string name="use_instruction">使用说明:</string>
+    <string name="remind_text_distance">提醒距离：</string>
+    <string name="remind_city">城市设置：</string>
+    <string name="remind_province">省份设置：</string>
 
 </resources>

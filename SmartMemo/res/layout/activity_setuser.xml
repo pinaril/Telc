@@ -90,7 +90,7 @@
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/soft_current_version"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/et_sex"
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/soft_current_version"
             android:layout_marginTop="60dp"
             android:text="@string/text_pro"
             android:textSize="22sp" />

@@ -219,7 +219,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 
 	private Timing obtainTimingInfo() {
 		Timing timing = new Timing();
-		ITimingService service = new TimeService();
+		TimeService service = new TimeService();
 
 		// 定时提醒中主要包括提醒时间，提醒内容，定时的星级大小，定時的起始時間，定時的結束時間
 
