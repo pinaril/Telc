@@ -65,7 +65,7 @@ public class UnfinishFragment extends Fragment {
 			"textListContent","textIndex" };
 	// value
 	int[] to = { R.id.textListCategory, R.id.ratingBarListItem,
-			R.id.textListContent, R.id.textStartTime };
+			R.id.textListContent, R.id.textIndex };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -94,16 +94,11 @@ public class UnfinishFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-
-				// Map<String, Object> testMap=null;
-				// testMap.putAll((Map<? extends String, ? extends Object>)
-				// arg0.getItemAtPosition(position));
-
 				String itemValue=arg0.getItemAtPosition(position).toString();
 				String[] itemSplit=itemValue.split(",");
 				String index=itemSplit[2].substring(11);
 				String categoryString=itemSplit[1].substring(18);
-				System.out.print(categoryString);
+				
 				
 				if(categoryString.compareTo("实时提醒")==0){
 					Bundle bundle = new Bundle(); // 创建Bundle对象
@@ -158,7 +153,6 @@ public class UnfinishFragment extends Fragment {
 
 		if (timingList != null) {
 			Collections.sort(timingList, new Comparator<Timing>() {
-
 				@Override
 				public int compare(Timing lhs, Timing rhs) {
 					String timingStartTime1 = lhs.getStart_time();
@@ -241,8 +235,7 @@ public class UnfinishFragment extends Fragment {
 								+ "……";
 					}
 					mListItem.put("textListContent", temp);
-					mListItem
-							.put("textStartTime", tempRealTime.getStart_time());
+					mListItem.put("textIndex", tempRealTime.getReal_id());
 					mList.add(mListItem);
 				}
 			}
@@ -266,7 +259,7 @@ public class UnfinishFragment extends Fragment {
 						temp = tempTiming.getContent().substring(0, 10) + "……";
 					}
 					mListItem.put("textListContent", temp);
-					mListItem.put("textStartTime", tempTiming.getStart_time());
+					mListItem.put("textIndex", tempTiming.getTiming_id());
 
 					mList.add(mListItem);
 				}
@@ -307,13 +300,13 @@ public class UnfinishFragment extends Fragment {
 				if (view.getId() == R.id.textListCategory) {
 					String category = (String) data;
 					if (category.equals("定时提醒")) {
-						color = getResources().getColor(R.color.pink);
+						color = getResources().getColor(R.color.breanpink);
 
 					} else if (category.equals("实时提醒")) {
-						color = getResources().getColor(R.color.green);
+						color = getResources().getColor(R.color.bluegreen);
 
 					} else if (category.equals("周期性提醒")) {
-						color = getResources().getColor(R.color.yellow);
+						color = getResources().getColor(R.color.oringeyello);
 					}
 					TextView textListCategory = (TextView) view;
 					textListCategory.setTextColor(color);
