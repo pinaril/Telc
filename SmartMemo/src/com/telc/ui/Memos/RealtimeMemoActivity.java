@@ -230,6 +230,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			realTime.setLocation(locationLatLon);
 			realTime.setStart_time(start_Time);
 			realTime.setUser_id(userid);
+			realTime.setLocation_detail(LocationInfoTran.positionNameString);
 			realTime.setReal_id(String.valueOf(System.currentTimeMillis()));
 			
 
