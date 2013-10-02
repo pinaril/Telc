@@ -15,4 +15,6 @@ public interface ITimingService {
 	public boolean addTiming(Timing timing);
 	public boolean removeTiming(String timing_id);
 	public Timing findTimingByStart(String start_time);
+	public boolean updateTiming(Timing timing);
+	public boolean updateIsfinish(String timing_id);
 }

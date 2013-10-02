@@ -118,7 +118,7 @@ public class RealtimeMemoDelActivity extends SherlockFragmentActivity {
 			case 5:
 				break;
 			}
-        }  
+        }
   
         public void onNothingSelected(AdapterView<?> arg0) {  
         }  

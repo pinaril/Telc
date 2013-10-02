@@ -10,10 +10,9 @@ import com.telc.domain.Emtity.Periodic;
 public interface IPeriodicService {
 	
 	public List<Periodic> getPeriodicByUserID(String user_id);
-
 	public boolean addPeriodic(Periodic periodic);
-
 	public boolean removePeriodic(String periodic_id);
-	
 	public Periodic findPeriodicByStart(String start_time);
+	public boolean updatePeriodic(Periodic periodic);
+	public boolean updateIsfinish(String periodic_id);
 }

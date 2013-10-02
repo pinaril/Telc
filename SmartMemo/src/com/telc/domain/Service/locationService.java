@@ -110,16 +110,8 @@ public class locationService extends Service {
 				
 				
 //				GeoPoint historyGeoPoint = new GeoPoint((int)(latNum*1000000), (int)(lonNum*1000000));
-
 //				GeoPoint tempGeoPoint = new GeoPoint((int)(location.getLatitude()*1000000), (int)(location.getLongitude()*1000000));
 
-				
-//				double mLat1 = 39.90923; // point1纬度
-//				double mLon1 = 116.357428; // point1经度
-//				double mLat2 = 39.90923;// point2纬度
-//				double mLon2 = 116.397428;// point2经度
-				
-//				android.os.Debug.waitForDebugger();
 				double distanceShort = GetShortDistance(lonNum, latNum, location.getLongitude(), location.getLatitude());
 				double distanceLong = GetShortDistance(lonNum, latNum, location.getLongitude(), location.getLatitude());
 //				
@@ -128,10 +120,8 @@ public class locationService extends Service {
 					distance = distanceLong;
 				else
 					distance = distanceShort;
-				
-//				double distance = DistanceUtil.getDistance(historyGeoPoint,tempGeoPoint);
 
-				//				自定义函数 计算 经纬度两点距离
+				//自定义函数 计算 经纬度两点距离
 				Toast.makeText(getApplicationContext(), distance+"m", Toast.LENGTH_SHORT).show();
 				
 				if(realTime.getIsfinish() == 0)
@@ -141,18 +131,16 @@ public class locationService extends Service {
 					
 					if(distance < remindDistance )
 					{
+						//开启一个线程  调用提醒服务
 //						new connentNet().start();
 						//设置已完成
 						realTime.setIsfinish(1);
+						
+//						realTimeHelper
 					}
 					
 				}
-				
-				
-				
 			}
-			
-			
 		}
 
 		@Override
@@ -222,6 +210,7 @@ public class locationService extends Service {
 		super.onDestroy();
 		//若后台的定位服务不可被销毁 则重启
 
+//		locationServiceInfoTran.canBeDestroy = true;
 		if(locationServiceInfoTran.canBeDestroy){
 //			stopService(new Intent("com.telc.domain.Service.locationService"));
 			super.onDestroy();
