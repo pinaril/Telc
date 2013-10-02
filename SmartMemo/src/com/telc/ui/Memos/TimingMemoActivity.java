@@ -300,8 +300,10 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 
 				});
 
-		
-		
+		TimeService service=new TimeService();
+		String currentTime=service.longSwithToString(System.currentTimeMillis());
+		String currentHour=currentTime.substring(11, 13);
+		timePicker.setCurrentHour(Integer.valueOf(currentHour));
 		timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
 
 			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {

@@ -177,7 +177,7 @@ public class PeriodicService implements IPeriodicService {
 	@Override
 	public boolean updateIsfinish(String periodic_id) {
 		// TODO Auto-generated method stub
-		String sql = "update PERIODIC set isfinish='"+1+"' where periodic_id='"+periodic_id+"'";
+		String sql = "update PERIODIC set isfinish="+1+" where periodic_id='"+periodic_id+"'";
 		db.execSQL(sql);
 		return true;
 	}

@@ -57,7 +57,7 @@ public class UnfinishFragment extends Fragment {
 
 	ListView uncompleteList;
 	// 保存list中的item的列表
-	List<Map<String, Object>> mList = new ArrayList<Map<String, Object>>();
+	List<Map<String, Object>> mList;
 	// listView适配器
 	SimpleAdapter mAdapter = null;
 	// 适配器中的key
@@ -82,7 +82,6 @@ public class UnfinishFragment extends Fragment {
 		uncompleteList = (ListView) view.findViewById(R.id.listViewUnfinish);
 		sp = getActivity().getSharedPreferences("Login",
 				getActivity().MODE_PRIVATE);
-
 		// 实例化Adapter
 		initAdapert();
 		if (mAdapter != null)
@@ -127,16 +126,6 @@ public class UnfinishFragment extends Fragment {
 		return view;
 	}
 	
-//	@Override
-//	public void onResume() {
-//		// TODO Auto-generated method stub
-//		initAdapert();
-//		if (mAdapter != null)
-//			uncompleteList.setAdapter(mAdapter);
-//	}
-
-	
-	
 	private void initAdapert() {
 		// TODO Auto-generated method stub
 		// 打开数据库
@@ -152,7 +141,7 @@ public class UnfinishFragment extends Fragment {
 		List<Timing> timingList = timingService.getTimingByUserID(userId);
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
 		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
-
+		mList = new ArrayList<Map<String, Object>>();
 		if (timingList != null) {
 			Collections.sort(timingList, new Comparator<Timing>() {
 				@Override
@@ -326,10 +315,16 @@ public class UnfinishFragment extends Fragment {
 		});
 	}
 
-//	@Override
-//	public void onViewStateRestored(Bundle savedInstanceState) {
-//		// TODO Auto-generated method stub
-//		System.out.println("================");
-//	}
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		mAdapter=null;		
+		initAdapert();
+		if (mAdapter != null)
+		{
+			uncompleteList.setAdapter(mAdapter);
+		}
+	}
 
 }
