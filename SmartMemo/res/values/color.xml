@@ -146,8 +146,12 @@
 <color name="darkblue">#00008B</color><!--暗蓝色 -->  
 <color name="navy">#000080</color><!--海军色 -->  
 <color name="black">#000000</color><!--黑色 -->  
-<color name="dark_blue">#ff2672b2</color>
-<color name="mibai">#ffefebe7</color>
-<color name="lightblue">#63B8FF</color>
+<color name="dark_blue">#ff2672b2</color><!-- 深蓝 -->
+<color name="mibai">#ffefebe7</color><!-- 米白 -->
+<color name="lightblue">#63B8FF</color><!-- 浅蓝 -->
+<color name="breanpink">#FF77B3</color><!-- 脑残粉 -->
+<color name="bluegreen">#0BD7CA</color><!-- 蓝绿 -->
+<color name="oringeyello">#FFCC00</color><!-- 偏橘黄 -->
+
 
 </resources>  

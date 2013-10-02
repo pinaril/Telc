@@ -44,6 +44,7 @@ public class TimingMemoDelActivity extends SherlockFragmentActivity {
 	TimingService timingService;
 	private SharedPreferences sp;
 	TimingMemoDelActivity timingMemoActivity;
+	private String mIndex;
 	TableRow tabl_location, tabl_content;
 	Drawable drawable;
 	String location = "";//获取地点设置
@@ -56,6 +57,10 @@ public class TimingMemoDelActivity extends SherlockFragmentActivity {
 		sp = getSharedPreferences("Login", MODE_PRIVATE);
 		timingMemoActivity = this;
 		context=this;
+		Intent intent=getIntent();
+		Bundle bundle=intent.getExtras();
+		mIndex=bundle.getString("index");
+		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		init();
@@ -118,7 +123,9 @@ public class TimingMemoDelActivity extends SherlockFragmentActivity {
 			finish();
 			return true;
 		}else if(item.getItemId()==0){
-//			saveTimingMemo();
+			Toast.makeText(context, "删除成功！", Toast.LENGTH_SHORT).show();
+			timingService.removeTiming(mIndex);
+			finish();
 			return true;
 		}else
 			return false;
@@ -182,15 +189,6 @@ public class TimingMemoDelActivity extends SherlockFragmentActivity {
 		ed_timing_loction.setInputType(InputType.TYPE_NULL);
 	}
 
-	//保存定时备忘录
-	public void saveTimingMemo(){
-		Timing timing = obtainTimingInfo();
-		timingService.addTiming(timing);
-		Toast.makeText(context, "保存成功！", Toast.LENGTH_SHORT).show();
-		finish();
-	}
-	
-	
 	private Timing obtainTimingInfo() {
 		Timing timing = new Timing();
 		TimeService service = new TimeService();
