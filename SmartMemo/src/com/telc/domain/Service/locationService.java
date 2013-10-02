@@ -54,6 +54,7 @@ public class locationService extends Service {
 		// TODO Auto-generated method stub
 		Toast.makeText(getApplicationContext(), "service 被创建", Toast.LENGTH_SHORT).show();
 		
+
 		//定位初始化
 		mLocClient = new LocationClient(getApplicationContext());
 		locData = new LocationData();
@@ -65,6 +66,7 @@ public class locationService extends Service {
 		option.setScanSpan(5000);
 		mLocClient.setLocOption(option);
 		mLocClient.start();
+
 
 		
 		sp = getSharedPreferences("Login", MODE_PRIVATE);
@@ -180,7 +182,6 @@ public class locationService extends Service {
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
-
 		
 		Toast.makeText(getApplicationContext(), "service 被销毁", Toast.LENGTH_SHORT).show();
 //		mLocClient.stop();
