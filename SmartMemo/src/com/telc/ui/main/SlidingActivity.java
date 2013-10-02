@@ -57,7 +57,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-
 	}
 
 	@Override
@@ -98,7 +97,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 
 		startService(intent);
 	}
-	
 	
 	
 	@Override
@@ -165,24 +163,20 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 	            default:
 	            		return false;
             }
-           }
+         }
     }
 
-    
     //z 
     private void setNotiType(int iconID,String text){
     	
-    	//
     	PendingIntent contentintent = PendingIntent.getActivity(getApplicationContext(), 0, getIntent(), 0);
     	
     	Notification notification = new Notification(iconID,"我的通知栏	",System.currentTimeMillis());
     	
     	notification.flags |= Notification.FLAG_ONGOING_EVENT;
 
-    	
     	notification.setLatestEventInfo(getApplicationContext(), "智慧备忘录", text, contentintent);
     
-    	
     	notificationManager.notify(1, notification);
     }
     
@@ -200,6 +194,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 				int ic = R.drawable.z_ic_launcher;
 				setNotiType(ic, "点击查看备忘录");
 
+				//后台运行
 				moveTaskToBack(false);
 				
 				//后台定位服务不可被销毁
@@ -224,7 +219,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 				SlidingActivity.this.finish();
 			}
 		});
-    	
 		return builder.create();
     }
     
@@ -244,7 +238,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		}else{
 			return null;
 		}
-		
 //		return super.onCreateDialog(id);
 	}
 
@@ -255,14 +248,10 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			
 			showDialog(0x112233);
-			
 			return true;
 		}
 		
 		return super.onKeyDown(keyCode, event);
 	}
     
-    
-    
-	
 }

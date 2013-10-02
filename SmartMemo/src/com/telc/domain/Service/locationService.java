@@ -14,6 +14,8 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.LocationData;
+import com.baidu.mapapi.utils.DistanceUtil;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.RealTime;
 import com.telc.resource.baidumap.locationServiceInfoTran;
@@ -31,13 +33,15 @@ public class locationService extends Service {
 	private RealTimeService realTimeHelper;
 		
 	//实时提醒对象
+
+
+	private RealTime realTime = new RealTime();
+
 	//xml 保存userid
 	private SharedPreferences sp;
 	private String userid;
 	
 	private List<RealTime> realTimeList = null;
-
-	
 
 	@Override
 	public IBinder onBind(Intent arg0) {
@@ -50,6 +54,7 @@ public class locationService extends Service {
 		// TODO Auto-generated method stub
 		Toast.makeText(getApplicationContext(), "service 被创建", Toast.LENGTH_SHORT).show();
 		
+		android.os.Debug.waitForDebugger();
 		
 		//定位初始化
 		mLocClient = new LocationClient(getApplicationContext());
@@ -63,14 +68,16 @@ public class locationService extends Service {
 		mLocClient.setLocOption(option);
 		mLocClient.start();
 		
+		android.os.Debug.waitForDebugger();
+
 		
 		sp = getSharedPreferences("Login", MODE_PRIVATE);
 		db=openOrCreateDatabase(DBConstant.DB_FILENAME,MODE_PRIVATE, null);
 		realTimeHelper=new RealTimeService(db);
 		
-		
 		//获取用户ID
 		userid = sp.getString("user", null);
+		Toast.makeText(getApplicationContext(),"userid"+ userid, Toast.LENGTH_SHORT).show();
 		
 		super.onCreate();
 	}
@@ -79,10 +86,11 @@ public class locationService extends Service {
 
 		@Override
 		public void onReceiveLocation(BDLocation location) {
+			
 			if (location == null)
 				return;
+			
 			Iterator it = realTimeList.iterator();
-			realTimeList = realTimeHelper.getRealTimeByUserID(userid);
 			
 			while(it.hasNext()){
 
@@ -96,35 +104,40 @@ public class locationService extends Service {
 				if(strarray.length> 2)
 					return;
 				
-				double one = Double.valueOf(strarray[0]);
-				double two = Double.valueOf(strarray[1]);
+				double latNum = Double.valueOf(strarray[0]);
+				double lonNum = Double.valueOf(strarray[1]);
 				
-				Toast.makeText(getApplicationContext(),"one  "+one, Toast.LENGTH_SHORT).show();
 				
-				Toast.makeText(getApplicationContext(),"two  "+two, Toast.LENGTH_SHORT).show();
+				GeoPoint historyGeoPoint = new GeoPoint((int)(latNum*1000000), (int)(lonNum*1000000));
 				
-//				GeoPoint historyGeoPoint = new GeoPoint((int)(LocationInfoTran.locationData.latitude*1000000), (int)(LocationInfoTran.locationData.longitude*1000000));
-//				GeoPoint tmpGeoPoint = new GeoPoint((int)(location.getLatitude()*1000000), (int)(location.getLongitude()*1000000));
-//				double distance = DistanceUtil.getDistance(historyGeoPoint,tmpGeoPoint);
-//				
-//				//显示距离
-//				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+distance+"m", Toast.LENGTH_SHORT).show();
-//				if(distance < 100){
-//					if(mediaPlayer == null)
-//					mediaPlayer = MediaPlayer.create(SlidingActivity.this, R.raw.sound);
-//
-//					mediaPlayer.start();
-				
+				Toast.makeText(getApplicationContext(), ""+historyGeoPoint, Toast.LENGTH_SHORT).show();
+
 
 				
-				for(int i=0;i<strarray.length;i++){
-					Toast.makeText(getApplicationContext(), i+" str"+strarray[i], Toast.LENGTH_SHORT).show();
-				}
+				double distance = DistanceUtil.getDistance(historyGeoPoint,historyGeoPoint);
 				
-//				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+realTime.getLocation()+"m", Toast.LENGTH_SHORT).show();
+//				自定义函数 计算 经纬度两点距离
+//				double distance = getDistance(latNum, lonNum, location.getLatitude(), location.getLongitude());
+//				
+				Toast.makeText(getApplicationContext(), distance+"m", Toast.LENGTH_SHORT).show();
+				
+				//显示距离
+//				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+s+"m", Toast.LENGTH_SHORT).show();
 			}
 			
-			}
+			
+			
+			
+//				if(distance < 100){
+////					if(mediaPlayer == null)
+////						mediaPlayer = MediaPlayer.create(locationService.this, R.raw.sound);
+//
+//					mediaPlayer.start();
+//				}
+//				
+//			}
+////
+		}
 
 		@Override
 		public void onReceivePoi(BDLocation arg0) {
@@ -133,15 +146,52 @@ public class locationService extends Service {
 		}
 	}
 	
+	 
+	//根据经纬度 求两点距离
+	private double getDistance(double lat1,double lng1,double lat2,double lng2){
+		
+		double radlat1 = lat1*3.1415926/180.0*1000000;
+		 double radlat2 =   lat2*3.1415926/180.0*1000000;
+		 double radlng1 =   lng1*3.1415926/180.0*1000000;
+		 double radlng2 = lng2*3.1415926/180.0*1000000;
+		
+		 double ff = (radlat1+radlat2)/2.0;
+		 double gg =   (radlat1-radlat2)/2.0;
+		 double ll = (radlng1-radlng2)/2.0;
+		 
+		 
+		 double ss =   Math.pow((Math.sin(gg)),2)*Math.pow((Math.cos(ll)),2)+Math.pow((Math.cos(ff)),2)*Math.pow((Math.sin(ll)),2);
+		 double   cc =   Math.pow((Math.cos(gg)),2)*Math.pow((Math.cos(ll)),2)+Math.pow((Math.sin(ff)),2)*Math.pow((Math.sin(ll)),2);
+		 double   ww = Math.atan(Math.sqrt(ss/cc));
+		 
+		 double banjin = 6378.135;  //地球半径km
+		 double dist =   2*ww*banjin;
+		 double rr = Math.sqrt(ss*cc)/ww;
+		 double h1 =   (3*rr-1)/(2*cc);
+		 double h2 = (3*rr+1)/(2*ss);
+		 double xx =   1/298.257223543; //修正率
+		 double dm;
+		 
+		 if(ww!=0)
+			 dm =   dist*(1+xx*h1*Math.pow((Math.sin(ff)),2)*Math.pow((Math.cos(gg)),2)-xx*h2*Math.pow((Math.cos(ff)),2)*Math.pow((Math.sin(gg)),2));
+			 else
+			 dm   = 0;  
+			    
+		 return dm;
+	}
+	
 	
 	@Override
 	public void onDestroy() {
 		// TODO Auto-generated method stub
-		Toast.makeText(getApplicationContext(), "service 被销毁", Toast.LENGTH_SHORT).show();
-		mLocClient.stop();
-		super.onDestroy();
 		
+		android.os.Debug.waitForDebugger();
+		
+		Toast.makeText(getApplicationContext(), "service 被销毁", Toast.LENGTH_SHORT).show();
+//		mLocClient.stop();
+		super.onDestroy();
 		//若后台的定位服务不可被销毁 则重启
+
 
 		if(locationServiceInfoTran.canBeDestroy){
 //			stopService(new Intent("com.telc.domain.Service.locationService"));
@@ -154,12 +204,14 @@ public class locationService extends Service {
 
 	}
 
-	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
-		flags =  START_STICKY;
 		
+		android.os.Debug.waitForDebugger();
+
+		mLocClient.start();
+		flags =  START_STICKY;
 		Toast.makeText(getApplicationContext(), "start servet", Toast.LENGTH_SHORT).show();
 		
 		return super.onStartCommand(intent, flags, startId);
