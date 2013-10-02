@@ -1,9 +1,14 @@
 package com.telc.resource.baidumap;
 
+import java.util.HashMap;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,7 +28,20 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationOverlay;
 import com.baidu.mapapi.map.PopupClickListener;
 import com.baidu.mapapi.map.PopupOverlay;
+import com.baidu.mapapi.search.MKAddrInfo;
+import com.baidu.mapapi.search.MKBusLineResult;
+import com.baidu.mapapi.search.MKDrivingRouteResult;
+import com.baidu.mapapi.search.MKGeocoderAddressComponent;
+import com.baidu.mapapi.search.MKPoiResult;
+import com.baidu.mapapi.search.MKSearch;
+import com.baidu.mapapi.search.MKSearchListener;
+import com.baidu.mapapi.search.MKShareUrlResult;
+import com.baidu.mapapi.search.MKSuggestionInfo;
+import com.baidu.mapapi.search.MKSuggestionResult;
+import com.baidu.mapapi.search.MKTransitRouteResult;
+import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.telc.resource.baidumap.getPoisitionActivity.MySearchListener;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 
@@ -41,7 +59,12 @@ public class baiduMapActivity extends Activity {
 	private GeoPoint gPoint = null;
 
 	private MapController mMapController = null;
-
+	
+	private MKSearch mSearch = null;
+	private ProgressDialog progressDialog;
+	private boolean progressDialogFlag = false;
+	
+	
 	// 定位相关
 	LocationClient mLocClient;
 	LocationData locData = null;
@@ -64,6 +87,11 @@ public class baiduMapActivity extends Activity {
 			mBMapMan = new BMapManager(getApplication());
 			mBMapMan.init("A974f3064aefefc68e26feb3503c5fd1", null);
 		}
+		
+		// 初始化搜索模块，注册搜索事件监听
+		mSearch = new MKSearch();
+		mSearch.init(mBMapMan, new MySearchListener());
+		
 
 		setContentView(R.layout.activity_two);
 
@@ -160,21 +188,35 @@ public class baiduMapActivity extends Activity {
 		PopupClickListener popListener = new PopupClickListener() {
 			@Override
 			public void onClickedPopup(int index) {
-				Toast.makeText(getApplicationContext(), "目标点选取成功！",
-						Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), "目标点选取成功！",
+//						Toast.LENGTH_SHORT).show();
 
-				LocationInfoTran.StateFlag = true;
-				LocationInfoTran.selectFlag = 2;
-				// LocationInfoTran.geoPoint = gPoint;
-				LocationInfoTran.locationData = selectData;
+				
+				mSearch.reverseGeocode(new GeoPoint((int) (selectData.latitude* 1e6),
+						(int) (selectData.longitude* 1e6)));
+				
+				progressDialog = ProgressDialog.show(baiduMapActivity.this, "请稍后。。", "正在解析地址。。。", true, false);
+				progressDialogFlag = true;//表示progressDiolag 正在显示
+				
+				//新建线程
+				new Thread(){
+
+					@Override
+					public void run() {
+						//需要花时间计算的方法
+						Calculation.calculate(8);
+						
+						//向handler发消息
+						handler.sendEmptyMessage(0);
+					}}.start();
+				
 
 				// Intent intent = new Intent();
 				// intent.setClass(baiduMapActivity.this,
 				// RealtimeMemoActivity.class);
 				// startActivity(intent);
 
-				setResult(1);
-				baiduMapActivity.this.finish();
+
 				pop.hidePop();
 			}
 		};
@@ -182,7 +224,21 @@ public class baiduMapActivity extends Activity {
 		pop = new PopupOverlay(mMapView, popListener);
 	}
 
+//	接收信号 关闭progress框
+	private Handler handler = new Handler(){
 
+		@Override
+		public void handleMessage(Message msg) {
+			
+			if(progressDialogFlag){
+				Toast.makeText(getApplicationContext(), "网络不给力哦，地址解析失败。。", Toast.LENGTH_SHORT).show();
+				//关闭ProgressDialog
+				progressDialog.dismiss();
+				progressDialogFlag = false;
+			}
+			
+		}};
+	
 	/**
 	 * 手动触发一次定位请求
 	 */
@@ -232,6 +288,78 @@ public class baiduMapActivity extends Activity {
 			}
 		}
 	}
+	
+	public class MySearchListener implements MKSearchListener {
+		@Override
+		public void onGetAddrResult(MKAddrInfo result, int iError) {
+			// 返回地址信息搜索结果
+			MKGeocoderAddressComponent kk = result.addressComponents;
+			
+			LocationInfoTran.positionNameString = kk.city + kk.district + kk.street + kk.streetNumber;
+			Toast.makeText(getApplicationContext(), LocationInfoTran.positionNameString+"", Toast.LENGTH_SHORT).show();
+			
+			if(progressDialogFlag){
+				
+				LocationInfoTran.StateFlag = true;
+				LocationInfoTran.selectFlag = 2;
+				// LocationInfoTran.geoPoint = gPoint;
+				LocationInfoTran.locationData = selectData;
+
+				progressDialog.dismiss();
+				progressDialogFlag = false;//表示progressDialog 不显示
+				setResult(1);
+				baiduMapActivity.this.finish();
+				
+			}
+			
+			
+		}
+
+		@Override
+		public void onGetDrivingRouteResult(MKDrivingRouteResult result,
+				int iError) {
+			// 返回驾乘路线搜索结果
+		}
+
+		@Override
+		public void onGetPoiResult(MKPoiResult res, int type, int error) {
+			// 返回poi搜索结果
+
+		}
+
+		@Override
+		public void onGetTransitRouteResult(MKTransitRouteResult result,
+				int iError) {
+			// 返回公交搜索结果
+		}
+
+		@Override
+		public void onGetWalkingRouteResult(MKWalkingRouteResult result,
+				int iError) {
+			// 返回步行路线搜索结果
+		}
+
+		@Override
+		public void onGetBusDetailResult(MKBusLineResult result, int iError) {
+			// 返回公交车详情信息搜索结果
+		}
+
+		@Override
+		public void onGetShareUrlResult(MKShareUrlResult result, int type,
+				int error) {
+			// 在此处理短串请求返回结果.
+		}
+
+		@Override
+		public void onGetPoiDetailSearchResult(int arg0, int arg1) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void onGetSuggestionResult(MKSuggestionResult res, int arg1) {
+			// TODO Auto-generated method stub
+		}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -275,6 +403,8 @@ public class baiduMapActivity extends Activity {
 
 		super.onResume();
 	}
+	
+	
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {

@@ -187,8 +187,8 @@ public class RealTimeService implements IRealTimeService {
 	@Override
 	public boolean updateIsfinish(String real_id) {
 		// TODO Auto-generated method stub
-		String sql = "update REAL_TIME set isfinish='" + 1
-				+ "' where real_id='" + real_id + "'";
+		String sql = "update REAL_TIME set isfinish=" + 1
+				+ " where real_id='" + real_id + "'";
 		db.execSQL(sql);
 		return true;
 	}

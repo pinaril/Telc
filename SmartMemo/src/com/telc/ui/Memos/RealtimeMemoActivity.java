@@ -2,15 +2,33 @@ package com.telc.ui.Memos;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
+import com.baidu.mapapi.BMapManager;
+import com.baidu.mapapi.map.LocationData;
+import com.baidu.mapapi.search.MKAddrInfo;
+import com.baidu.mapapi.search.MKBusLineResult;
+import com.baidu.mapapi.search.MKDrivingRouteResult;
+import com.baidu.mapapi.search.MKGeocoderAddressComponent;
+import com.baidu.mapapi.search.MKPoiResult;
+import com.baidu.mapapi.search.MKSearch;
+import com.baidu.mapapi.search.MKSearchListener;
+import com.baidu.mapapi.search.MKShareUrlResult;
+import com.baidu.mapapi.search.MKSuggestionInfo;
+import com.baidu.mapapi.search.MKSuggestionResult;
+import com.baidu.mapapi.search.MKTransitRouteResult;
+import com.baidu.mapapi.search.MKWalkingRouteResult;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Service.RealTimeService;
+import com.telc.domain.Service.locationService;
 import com.telc.resource.baidumap.LocationInfoTran;
 import com.telc.resource.baidumap.getPoisitionActivity;
+import com.telc.resource.baidumap.getPoisitionActivity.MySearchListener;
 import com.telc.smartmemo.R;
 import com.telc.domain.Emtity.RealTime;
 
@@ -38,7 +56,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 		
 	//实时提醒对象
 	private RealTime realTime = new RealTime();
-		
+	
 	//xml 保存userid
 	private SharedPreferences sp;
 	private String userid;
@@ -73,7 +91,8 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_realtime_memo);
-
+		
+		
 		rb_priority = (RatingBar) findViewById(R.id.rb_priority);
 		et_location = (EditText) findViewById(R.id.et_location);
 
@@ -175,11 +194,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 		} else if (item.getItemId() == 0) {
 
 			priority = (int)rb_priority.getRating();
-//			if(priority == 0){
-//				Toast.makeText(getApplicationContext(), "请选择优先权！", Toast.LENGTH_SHORT).show();
-//				return false;
-//			}
-			
 			
 			locationName = et_location.getText().toString().trim();// 可以删除
 			if(LocationInfoTran.StateFlag)
@@ -218,7 +232,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			realTime.setUser_id(userid);
 			realTime.setReal_id(String.valueOf(System.currentTimeMillis()));
 			
-//			realTime.setReal_id("");
 
 			if(realTimeHelper.addRealTime(realTime)){
 				Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();
@@ -234,6 +247,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 			return false;
 	}
 
+	
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
