@@ -135,6 +135,8 @@ public class UnfinishFragment extends Fragment {
 //			uncompleteList.setAdapter(mAdapter);
 //	}
 
+	
+	
 	private void initAdapert() {
 		// TODO Auto-generated method stub
 		// 打开数据库
@@ -323,5 +325,11 @@ public class UnfinishFragment extends Fragment {
 			}
 		});
 	}
+
+//	@Override
+//	public void onViewStateRestored(Bundle savedInstanceState) {
+//		// TODO Auto-generated method stub
+//		System.out.println("================");
+//	}
 
 }
