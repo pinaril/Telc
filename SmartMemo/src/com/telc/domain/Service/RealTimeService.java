@@ -64,6 +64,12 @@ public class RealTimeService implements IRealTimeService {
 				int isfinish = cursor.getInt(isfinishColumn);
 				realTime.setIsfinish(isfinish);
 
+				int location_detailColumn = cursor
+						.getColumnIndex("location_detail");
+				String location_detail = cursor
+						.getString(location_detailColumn);
+				realTime.setLocation_detail(location_detail);
+
 				realTime_list.add(realTime);
 			}
 			return realTime_list;
@@ -81,15 +87,16 @@ public class RealTimeService implements IRealTimeService {
 		String content = realTime.getContent();
 		int priority = realTime.getPriority();
 		String real_id = realTime.getReal_id();
-		String lacation = realTime.getLocation();
+		String location = realTime.getLocation();
 		int aging = realTime.getAging();
 		int isfinish = realTime.getIsfinish();
-		String sql = "insert into REAL_TIME (real_id,start_time,location,aging,content,user_id,priority,isfinish) values ('"
+		String location_detail = realTime.getLocation_detail();
+		String sql = "insert into REAL_TIME (real_id,start_time,location,aging,content,user_id,priority,isfinish,location_detail) values ('"
 				+ real_id
 				+ "','"
 				+ start_time
 				+ "','"
-				+ lacation
+				+ location
 				+ "','"
 				+ aging
 				+ "','"
@@ -98,7 +105,7 @@ public class RealTimeService implements IRealTimeService {
 				+ user_id
 				+ "','"
 				+ priority
-				+ "','" + isfinish + "')";
+				+ "','" + isfinish + "','" + location_detail + "')";
 		db.execSQL(sql);
 		return true;
 	}
@@ -151,25 +158,37 @@ public class RealTimeService implements IRealTimeService {
 				int isfinish = cursor.getInt(isfinishColumn);
 				realTime.setIsfinish(isfinish);
 
+				int location_detailColumn = cursor
+						.getColumnIndex("location_detail");
+				String location_detail = cursor
+						.getString(location_detailColumn);
+				realTime.setLocation_detail(location_detail);
+
 			}
 			return realTime;
 		}
 	}
 
-	//修改实时提醒内容
+	// 修改实时提醒内容
 	@Override
 	public boolean updateRealTime(RealTime realTime) {
 		// TODO Auto-generated method stub
-		String sql = "update REAL_TIME set location='"+realTime.getLocation()+"', aging='"+realTime.getAging()+"', content='"+realTime.getContent()+"', priority='"+realTime.getPriority()+"' where real_id='"+realTime.getReal_id()+"'";
+		String sql = "update REAL_TIME set location='" + realTime.getLocation()
+				+ "', aging='" + realTime.getAging() + "', content='"
+				+ realTime.getContent() + "', priority='"
+				+ realTime.getPriority() + "',location_detail='"
+				+ realTime.getLocation_detail() + "' where real_id='"
+				+ realTime.getReal_id() + "'";
 		db.execSQL(sql);
 		return true;
 	}
 
-	//标志已完成
+	// 标志已完成
 	@Override
 	public boolean updateIsfinish(String real_id) {
 		// TODO Auto-generated method stub
-		String sql = "update REAL_TIME set isfinish='"+1+"' where real_id='"+real_id+"'";
+		String sql = "update REAL_TIME set isfinish='" + 1
+				+ "' where real_id='" + real_id + "'";
 		db.execSQL(sql);
 		return true;
 	}
