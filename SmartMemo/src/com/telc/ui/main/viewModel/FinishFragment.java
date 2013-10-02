@@ -26,21 +26,24 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
-import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.SimpleAdapter.ViewBinder;
 
-public class UnfinishFragment extends Fragment {
+
+public class FinishFragment extends Fragment {
 
 	// 数据库
 	private SQLiteDatabase db;
@@ -78,8 +81,8 @@ public class UnfinishFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.activity_unfinish, null);
-		uncompleteList = (ListView) view.findViewById(R.id.listViewUnfinish);
+		View view = inflater.inflate(R.layout.activity_finish, null);
+		uncompleteList = (ListView) view.findViewById(R.id.listViewFinish);
 		sp = getActivity().getSharedPreferences("Login",
 				getActivity().MODE_PRIVATE);
 
@@ -228,7 +231,7 @@ public class UnfinishFragment extends Fragment {
 			Iterator itRealTime = realList.iterator();
 			while (itRealTime.hasNext()) {
 				tempRealTime = (RealTime) itRealTime.next();
-				if (tempRealTime.getIsfinish() == 0) {
+				if (tempRealTime.getIsfinish() == 1) {
 					Map<String, Object> mListItem = new HashMap<String, Object>();
 					String temp;
 					mListItem.put("textListCategory", "实时提醒");
@@ -254,7 +257,7 @@ public class UnfinishFragment extends Fragment {
 			Iterator itTiming = timingList.iterator();
 			while (itTiming.hasNext()) {
 				tempTiming = (Timing) itTiming.next();
-				if (tempTiming.getIsfinish() == 0) {
+				if (tempTiming.getIsfinish() == 1) {
 					Map<String, Object> mListItem = new HashMap<String, Object>();
 					String temp;
 					mListItem.put("textListCategory", "定时提醒");
@@ -272,32 +275,37 @@ public class UnfinishFragment extends Fragment {
 				}
 			}
 		}
-
-		if (perioList != null) {
-			Periodic tempPreiodic;
-			// 周期性提醒迭代器
-			Iterator itPeriodic = perioList.iterator();
-			while (itPeriodic.hasNext()) {
-				tempPreiodic = (Periodic) itPeriodic.next();
-				Map<String, Object> mListItem = new HashMap<String, Object>();
-				String temp;
-				mListItem.put("textListCategory", "周期性提醒");
-				mListItem.put("ratingBarListItem",
-						(float) tempPreiodic.getPriority());
-				if (tempPreiodic.getContent().length() <= 10) {
-					temp = tempPreiodic.getContent();
-				} else {
-					temp = tempPreiodic.getContent().substring(0, 10) + "……";
-				}
-				mListItem.put("textListContent", temp);
-				mListItem.put("textIndex", tempPreiodic.getPeriodic_id());
-				mList.add(mListItem);
-			}
-		}
+		
+/**
+ * 周期性提醒不存在完成情况
+ */
+		
+//		if (perioList != null) {
+//			Periodic tempPreiodic;
+//			// 周期性提醒迭代器
+//			Iterator itPeriodic = perioList.iterator();
+//			while (itPeriodic.hasNext()) {
+//				tempPreiodic = (Periodic) itPeriodic.next();
+//				Map<String, Object> mListItem = new HashMap<String, Object>();
+//				String temp;
+//				mListItem.put("textListCategory", "周期性提醒");
+//				mListItem.put("ratingBarListItem",
+//						(float) tempPreiodic.getPriority());
+//				if (tempPreiodic.getContent().length() <= 10) {
+//					temp = tempPreiodic.getContent();
+//				} else {
+//					temp = tempPreiodic.getContent().substring(0, 10) + "……";
+//				}
+//				mListItem.put("textListContent", temp);
+//				mListItem.put("textIndex", tempPreiodic.getPeriodic_id());
+//				mList.add(mListItem);
+//			}
+//		}
+		
 		mAdapter = new SimpleAdapter(getActivity(), mList,
 				R.layout.listview_layout, from, to);
 
-		// 重写Adapter支持RatingBar
+		// 重写Adapter支持RatingBar,修改分类字体颜色
 		mAdapter.setViewBinder(new ViewBinder() {
 			@Override
 			public boolean setViewValue(View view, Object data,

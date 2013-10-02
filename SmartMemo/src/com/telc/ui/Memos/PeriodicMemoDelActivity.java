@@ -35,38 +35,38 @@ public class PeriodicMemoDelActivity extends SherlockFragmentActivity {
 	private SQLiteDatabase db;
 	private PeriodicService periodicHelper;
 //	xml保存userid
-	private SharedPreferences sp;
-	private String userid;
 	RatingBar ratingBarPeriodicPriority;
 	Spinner spinnerPeriodic;
 	EditText editPeriodicContent,editPeriodicDetail;
 	private ArrayAdapter<String> spinnerAdapter;
-	private Context mContext;
 //	周期性提醒对象
 	private Periodic mPeriodic=new Periodic();
-
-//	保存spinner中的位置
-	private int periodicPosition;
+	private String mIndex;
 	
 	private final String[] spinnerPeriodicItem={"每天","每周","每月"};
-	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_periodic);
-		mContext=this;
-		sp = getSharedPreferences("Login", MODE_PRIVATE);
 		db=openOrCreateDatabase(DBConstant.DB_FILENAME,MODE_PRIVATE, null);
 		periodicHelper=new PeriodicService(db);
-
+		
+		Intent intent=getIntent();
+		Bundle bundle=intent.getExtras();
+		mIndex=bundle.getString("index");
+		
 		ratingBarPeriodicPriority=(RatingBar) findViewById(R.id.ratingBarPeriodicPriority);
 		spinnerPeriodic=(Spinner) findViewById(R.id.spinnerPeriodic);
 		editPeriodicDetail=(EditText) findViewById(R.id.editTextPeriodicDetail);
 		editPeriodicContent=(EditText) findViewById(R.id.editPeriodicContent);
-
 		
+		mPeriodic=periodicHelper.findPeriodicByStart(mIndex);
+		
+		ratingBarPeriodicPriority.setRating((float)mPeriodic.getPriority());
+		editPeriodicDetail.setText(mPeriodic.getPeriod_detail());
+		editPeriodicContent.setText(mPeriodic.getContent());
 		 //将可选内容与ArrayAdapter连接起来
 		spinnerAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,spinnerPeriodicItem);
 		//设置下拉列表的风格
@@ -82,9 +82,9 @@ public class PeriodicMemoDelActivity extends SherlockFragmentActivity {
 		// TODO Auto-generated method stub
 		MenuItem check;
 		SubMenu menuCheck;
-		menuCheck=menu.addSubMenu("保存");
+		menuCheck=menu.addSubMenu("删除");
 		check=menuCheck.getItem();
-		check.setIcon(R.drawable.ic_right);
+		check.setIcon(R.drawable.ic_recycle);
 		check.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		return true;
 	}
@@ -97,49 +97,22 @@ public class PeriodicMemoDelActivity extends SherlockFragmentActivity {
 			finish();
 			return true;
 		}else if(item.getItemId()==0){
-			savePeriodicMemo();
+			deletePeriodicMemo();
 			return true;
 		}else
 			return false;
 	}
 
-	private String getPeriodicContent(){
-		return editPeriodicContent.getText().toString();
-	}
-	private String getSpinnerPeriodic(int position){
-		return (String) spinnerPeriodic.getItemAtPosition(position);
-	}
-	private String getPeriodicDetail(){
-		return editPeriodicDetail.getText().toString();
-	}
-	private int getRatingBarPeriodicPriority(){
-		return (int)ratingBarPeriodicPriority.getRating();
-	}
+	private boolean deletePeriodicMemo(){
 
-	private boolean savePeriodicMemo(){
-//		设置从界面输入的数据
-		mPeriodic.setContent(getPeriodicContent());
-		mPeriodic.setPeriod(getSpinnerPeriodic(periodicPosition));
-		mPeriodic.setPeriod_detail(getPeriodicDetail());
-		mPeriodic.setPriority(getRatingBarPeriodicPriority());
-
-//		设置隐藏属性
-		userid=sp.getString("user", null);
-		mPeriodic.setUser_id(userid);
-		mPeriodic.setIsfinish(0);
-		mPeriodic.setStart_time("1234");
-		mPeriodic.setPeriodic_id(String.valueOf(System.currentTimeMillis()));
-		
-		if(periodicHelper.addPeriodic(mPeriodic)){
-			Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();
+		if(periodicHelper.removePeriodic(mIndex)){
+			Toast.makeText(getApplicationContext(), "删除成功！", Toast.LENGTH_SHORT).show();
 			finish();
 			return true;
-		}
-		else {
-			Toast.makeText(getApplicationContext(), "保存失败！", Toast.LENGTH_SHORT).show();
+		}else {
+			Toast.makeText(getApplicationContext(), "删除失败！", Toast.LENGTH_SHORT).show();
 			return false;
 		}
-
 	}
 
 }

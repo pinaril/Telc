@@ -1,5 +1,5 @@
 <FrameLayout 
-    android:id="@+id/content"
+    android:id="@+id/finish"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F2F2F2" 
@@ -11,7 +11,7 @@
         android:orientation="vertical" >
 
         <ListView
-            android:id="@+id/listMemoList"
+            android:id="@+id/listViewFinish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
         </ListView>
