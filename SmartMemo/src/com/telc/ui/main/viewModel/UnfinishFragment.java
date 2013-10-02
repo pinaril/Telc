@@ -154,9 +154,11 @@ public class UnfinishFragment extends Fragment {
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
 		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
 
-		timingRemind(timingList);
 		
 		if (timingList != null) {
+//			提醒
+			timingRemind(timingList);
+			
 			Collections.sort(timingList, new Comparator<Timing>() {
 				@Override
 				public int compare(Timing lhs, Timing rhs) {
@@ -334,12 +336,11 @@ public class UnfinishFragment extends Fragment {
 		Collections.sort(list, new Comparator<Timing>() {
 			@Override
 			public int compare(Timing lhs, Timing rhs) {
-				String timingEndTime1 = String.valueOf(timService.getSecondsFromDate(lhs.getEnd_time()));
-				String timingEndTime2 = String.valueOf(timService.getSecondsFromDate(rhs.getEnd_time()));
-				if (timingEndTime1.compareTo(timingEndTime2)>=0) {
+				long timingEndTime1 = timService.getSecondsFromDate(lhs.getEnd_time());
+				long timingEndTime2 = timService.getSecondsFromDate(rhs.getEnd_time());
+				if (timingEndTime1<=timingEndTime2) {
 					return -1;
-				}
-				else {
+				}else {
 					return 1;
 				}
 			}
@@ -351,7 +352,7 @@ public class UnfinishFragment extends Fragment {
 		bundle.putString("userId",sp.getString("user", null));
 		bundle.putString("content", mContent);
 		alarm.putExtras(bundle);
-		
+		timingService.updateIsfinish(sp.getString("user", null));
 		PendingIntent piIntent=PendingIntent.getBroadcast(getActivity(), 0, alarm, 0);
 		AlarmManager amAlarmManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
 		amAlarmManager.set(AlarmManager.RTC_WAKEUP, timService.getSecondsFromDate(list.get(0).getEnd_time()), piIntent);
