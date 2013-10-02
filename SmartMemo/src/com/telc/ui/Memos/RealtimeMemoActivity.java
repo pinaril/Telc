@@ -175,10 +175,10 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 		} else if (item.getItemId() == 0) {
 
 			priority = (int)rb_priority.getRating();
-			if(priority == 0){
-				Toast.makeText(getApplicationContext(), "请选择优先权！", Toast.LENGTH_SHORT).show();
-				return false;
-			}
+//			if(priority == 0){
+//				Toast.makeText(getApplicationContext(), "请选择优先权！", Toast.LENGTH_SHORT).show();
+//				return false;
+//			}
 			
 			
 			locationName = et_location.getText().toString().trim();// 可以删除

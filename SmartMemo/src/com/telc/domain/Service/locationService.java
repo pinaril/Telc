@@ -54,7 +54,6 @@ public class locationService extends Service {
 		// TODO Auto-generated method stub
 		Toast.makeText(getApplicationContext(), "service 被创建", Toast.LENGTH_SHORT).show();
 		
-		android.os.Debug.waitForDebugger();
 		
 		//定位初始化
 		mLocClient = new LocationClient(getApplicationContext());
@@ -68,7 +67,7 @@ public class locationService extends Service {
 		mLocClient.setLocOption(option);
 		mLocClient.start();
 		
-		android.os.Debug.waitForDebugger();
+//		android.os.Debug.waitForDebugger();
 
 		
 		sp = getSharedPreferences("Login", MODE_PRIVATE);
@@ -114,12 +113,12 @@ public class locationService extends Service {
 
 
 				
-				double distance = DistanceUtil.getDistance(historyGeoPoint,historyGeoPoint);
+//				double distance = DistanceUtil.getDistance(historyGeoPoint,historyGeoPoint);
 				
 //				自定义函数 计算 经纬度两点距离
 //				double distance = getDistance(latNum, lonNum, location.getLatitude(), location.getLongitude());
 //				
-				Toast.makeText(getApplicationContext(), distance+"m", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), distance+"m", Toast.LENGTH_SHORT).show();
 				
 				//显示距离
 //				Toast.makeText(getApplicationContext(),"当前位置与目的点距离为 "+s+"m", Toast.LENGTH_SHORT).show();
@@ -185,7 +184,7 @@ public class locationService extends Service {
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		
-		android.os.Debug.waitForDebugger();
+//		android.os.Debug.waitForDebugger();
 		
 		Toast.makeText(getApplicationContext(), "service 被销毁", Toast.LENGTH_SHORT).show();
 //		mLocClient.stop();
@@ -208,7 +207,7 @@ public class locationService extends Service {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
 		
-		android.os.Debug.waitForDebugger();
+//		android.os.Debug.waitForDebugger();
 
 		mLocClient.start();
 		flags =  START_STICKY;
