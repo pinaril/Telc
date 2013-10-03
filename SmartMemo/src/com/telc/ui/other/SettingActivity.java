@@ -39,7 +39,6 @@ public class SettingActivity extends Activity {
 	}
 
 	private void initProvince() {
-		btnToMainButton = (Button) findViewById(R.id.btn_tomain);
 		text_province = (TextView) findViewById(R.id.show_select_province);
 		text_province.setText(SaveValue.province);
 //		text_province.setText(province);
@@ -81,19 +80,6 @@ public class SettingActivity extends Activity {
 //				
 //			}
 //		});
-		btnToMainButton.setOnClickListener(listener);
-//		System.out.println(text_province.getText());
 		
 	}
-	
-	OnClickListener listener = new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			Intent intent = new Intent(SettingActivity.this,SlidingActivity.class);
-			startActivity(intent);
-			SettingActivity.this.finish();
-		}
-	};
-
 }

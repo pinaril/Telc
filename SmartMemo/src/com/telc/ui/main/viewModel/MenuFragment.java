@@ -1,17 +1,15 @@
 package com.telc.ui.main.viewModel;
 
 import com.telc.smartmemo.R;
-import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.main.SlidingActivity;
-import com.telc.ui.other.AboutActivity;
-import com.telc.ui.other.SettingActivity;
+import com.telc.ui.other.AboutFragment;
+import com.telc.ui.other.SettingFragment;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 import com.telc.ui.systemManagement.PersonalInfoFragment;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -197,10 +195,15 @@ public class MenuFragment extends Fragment {
 				textAbout.setBackgroundDrawable(null);
 				textReturn.setBackgroundDrawable(null);
 				textExit.setBackgroundDrawable(null);
+				if (index == 4)
+					((SlidingActivity) getActivity()).getSlidingMenu().toggle();
+				index = 4;
+				FragmentManager fm = ((SlidingActivity) getActivity())
+						.getFragmentManager();
 				
-				Intent intent = new Intent(getActivity(),SettingActivity.class);
-				startActivity(intent);
-				getActivity().finish();
+				fm.beginTransaction().replace(R.id.unfinish, new SettingFragment() )
+				.commit();
+				((SlidingActivity)getActivity()).getSlidingMenu().showContent();	
 			}
 		});
 
@@ -219,15 +222,17 @@ public class MenuFragment extends Fragment {
 				textReturn.setBackgroundDrawable(null);
 				textExit.setBackgroundDrawable(null);
 				
-				
-				Intent intent = new Intent(getActivity(), AboutActivity.class);
-				startActivity(intent);
-				getActivity().finish();
+				if (index == 5)
+					((SlidingActivity) getActivity()).getSlidingMenu().toggle();
+				index = 5;
+				FragmentManager fm = ((SlidingActivity) getActivity())
+						.getFragmentManager();
+				fm.beginTransaction().replace(R.id.unfinish, new AboutFragment() )
+				.commit();
+				((SlidingActivity)getActivity()).getSlidingMenu().showContent();	
 			}
 		});
-
 		return view;
-
 	}
 
 	@Override

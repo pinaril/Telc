@@ -19,11 +19,15 @@
     <string name="remind_text_distance">提醒距离：</string>
     <string name="remind_city">城市设置：</string>
     <string name="remind_province">省份设置：</string>
-    <string name="set_province">您设置的城市：</string>
+    <string name="set_province">您设置的省份：</string>
     <string name="select_provinces">您选择的省份</string>
     <string name="city_choose">可选省份：</string>
     <string name="btn_tomain">返回主界面</string>
     <string name="use_instructions">以下是使用说明</string>
     <string name="btn_return_main">返回</string>
+    <string name="set_choose_citys">可选城市：</string>
+    <string name="set_choose_city">您设置的城市：</string>
+    <string name="set_distance">您设置的距离：</string>
+    <string name="choose_distance">您选择的距离</string>
 
 </resources>
