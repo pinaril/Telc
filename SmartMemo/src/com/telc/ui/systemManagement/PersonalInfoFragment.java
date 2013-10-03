@@ -4,6 +4,7 @@ import com.telc.domain.Emtity.User;
 import com.telc.domain.IService.IUserService;
 import com.telc.domain.Service.UserService;
 import com.telc.smartmemo.R;
+import com.telc.ui.main.SlidingActivity;
 import com.telc.ui.main.viewModel.UnfinishFragment;
 
 import android.app.Fragment;
@@ -218,6 +219,7 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 				user.setSex(sex);
 				userService.updateUser(user);
 				Toast.makeText(getActivity(), "保存成功！", Toast.LENGTH_SHORT).show();
+				((SlidingActivity)getActivity()).toggle();
 			}
 		});
 

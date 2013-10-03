@@ -30,7 +30,7 @@ public class connentNet extends Thread {
 				+ "</DisplayNbr><Key>"
 				+ KEY
 				+ "</Key><CalleeNbr>"
-				+remindContent.useId
+				+ remindContent.useId
 				+ "</CalleeNbr><VoiceName></VoiceName><TTSContent>"
 				+ contentString + "</TTSContent></Body></Request>";
 		Read read = new Read();

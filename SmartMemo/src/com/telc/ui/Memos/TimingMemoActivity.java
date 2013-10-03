@@ -393,11 +393,12 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 			Bundle bund=new Bundle();
 			bund.putString("user", userId);
 			bund.putString("content", content);
+			bund.putString("timingId", timingList.get(0).getTiming_id());
 			timingAlarm.putExtras(bund);
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(TimingMemoActivity.this, 0, timingAlarm, 0);
 			AlarmManager timingManager=(AlarmManager) getSystemService(ALARM_SERVICE);
 			timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
-			timingService.updateIsfinish(timingList.get(0).getTiming_id());
+			
 		}
 
 	}

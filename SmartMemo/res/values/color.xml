@@ -77,7 +77,6 @@
 <color name="lightsteelblue">#B0C4DE</color><!--亮钢兰色 -->  
 <color name="paleturquoise">#AFEEEE</color><!--苍宝石绿 -->  
 <color name="greenyellow">#ADFF2F</color><!--黄绿色 -->  
-<color name="lightblue">#ADD8E6</color><!--亮蓝色 -->  
 <color name="darkgray">#A9A9A9</color><!--暗灰色 -->  
 <color name="darkgrey">#A9A9A9</color><!--暗灰色 -->  
 <color name="brown">#A52A2A</color><!--褐色 -->  
@@ -148,7 +147,6 @@
 <color name="black">#000000</color><!--黑色 -->  
 <color name="dark_blue">#ff2672b2</color><!-- 深蓝 -->
 <color name="mibai">#ffefebe7</color><!-- 米白 -->
-<color name="lightblue">#63B8FF</color><!-- 浅蓝 -->
 <color name="breanpink">#FF77B3</color><!-- 脑残粉 -->
 <color name="bluegreen">#0BD7CA</color><!-- 蓝绿 -->
 <color name="oringeyello">#FFCC00</color><!-- 偏橘黄 -->
