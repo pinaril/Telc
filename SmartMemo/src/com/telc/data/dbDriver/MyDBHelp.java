@@ -20,12 +20,12 @@ public class MyDBHelp extends SQLiteOpenHelper implements DBConstant{
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		Log.v("MyDBHelp", "数据库创建");
-		//用户信息表
-		String sql_law = "create table "
-				+ USER_MA
-				+ "(userID text, userName text, phoneNum text,userPwd text, age integer,sex text,hob text,prof text,image text);";
-		db.execSQL(sql_law);
+//		Log.v("MyDBHelp", "数据库创建");
+//		//用户信息表
+//		String sql_law = "create table "
+//				+ USER_MA
+//				+ "(userID text, userName text, phoneNum text,userPwd text, age integer,sex text,hob text,prof text,image text);";
+//		db.execSQL(sql_law);
 	}
 
 	@Override
