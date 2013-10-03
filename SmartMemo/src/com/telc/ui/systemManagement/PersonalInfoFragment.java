@@ -94,7 +94,10 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 		System.out.println(user.getPhoneNum());
 		et_phone.setText(user.getPhoneNum());
 
-		et_name.setText(user.getUserName());
+		if(user.getUserName().equals("null"))
+			et_name.setText("");
+		else
+			et_name.setText(user.getUserName());
 
 		et_name.setOnFocusChangeListener(new OnFocusChangeListener() {
 
@@ -131,7 +134,10 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 			}
 		});
 
-		et_hob.setText(user.getHob());
+		if(user.getHob().equals("null"))
+			et_hob.setText("");
+		else
+			et_hob.setText(user.getHob());
 
 		et_hob.setOnFocusChangeListener(new OnFocusChangeListener() {
 			@SuppressWarnings("deprecation")
@@ -148,7 +154,11 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 			}
 		});
 
-		et_prof.setText(user.getProf());
+		
+		if(user.getProf().equals("null"))
+			et_prof.setText("");
+		else
+			et_prof.setText(user.getProf());
 		et_prof.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@SuppressWarnings("deprecation")
@@ -165,7 +175,8 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 			}
 		});
 
-		et_name.setText(user.getUserName());
+		
+//		et_name.setText(user.getUserName());
  
 		sex=user.getSex();
 		if(sex.equals("男"))

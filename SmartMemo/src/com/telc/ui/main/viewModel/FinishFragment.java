@@ -55,12 +55,12 @@ public class FinishFragment extends Fragment {
 	private TextView textListCategory;
 	int color;
 
-	TimeService timService;
+	public TimeService timService;
 
 
-	ListView uncompleteList;
+	ListView completeList;
 	// 保存list中的item的列表
-	List<Map<String, Object>> mList = new ArrayList<Map<String, Object>>();
+	List<Map<String, Object>> mList;
 	// listView适配器
 	SimpleAdapter mAdapter = null;
 	// 适配器中的key
@@ -82,27 +82,26 @@ public class FinishFragment extends Fragment {
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.activity_finish, null);
-		uncompleteList = (ListView) view.findViewById(R.id.listViewFinish);
+		completeList = (ListView) view.findViewById(R.id.listViewFinish);
 		sp = getActivity().getSharedPreferences("Login",
 				getActivity().MODE_PRIVATE);
-
 		// 实例化Adapter
 		initAdapert();
+		
 		if (mAdapter != null)
-			uncompleteList.setAdapter(mAdapter);
+			completeList.setAdapter(mAdapter);
 		// listView中Item的监听
-		uncompleteList.setOnItemClickListener(new OnItemClickListener() {
+		completeList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-
 				String itemValue=arg0.getItemAtPosition(position).toString();
 				String[] itemSplit=itemValue.split(",");
 				String index=itemSplit[2].substring(11);
 				String categoryString=itemSplit[1].substring(18);
-				System.out.print(categoryString);
+				
 				
 				if(categoryString.compareTo("实时提醒")==0){
 					Bundle bundle = new Bundle(); // 创建Bundle对象
@@ -131,14 +130,6 @@ public class FinishFragment extends Fragment {
 		return view;
 	}
 	
-//	@Override
-//	public void onResume() {
-//		// TODO Auto-generated method stub
-//		initAdapert();
-//		if (mAdapter != null)
-//			uncompleteList.setAdapter(mAdapter);
-//	}
-
 	private void initAdapert() {
 		// TODO Auto-generated method stub
 		// 打开数据库
@@ -147,17 +138,16 @@ public class FinishFragment extends Fragment {
 		// 实例化数据库服务
 		timingService = new TimingService(db);
 		realTimeService = new RealTimeService(db);
-		periodicService = new PeriodicService(db);
 		// 获取userId
 		String userId = sp.getString("user", null);
 		// 数据库中获取的List<Timing>
 		List<Timing> timingList = timingService.getTimingByUserID(userId);
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
-		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
+
+		mList = new ArrayList<Map<String, Object>>();
 
 		if (timingList != null) {
 			Collections.sort(timingList, new Comparator<Timing>() {
-
 				@Override
 				public int compare(Timing lhs, Timing rhs) {
 					String timingStartTime1 = lhs.getStart_time();
@@ -177,27 +167,6 @@ public class FinishFragment extends Fragment {
 			});
 		}
 
-		if (perioList != null) {
-			Collections.sort(perioList, new Comparator<Periodic>() {
-
-				@Override
-				public int compare(Periodic lhs, Periodic rhs) {
-					String periodicStartTime1 = lhs.getStart_time();
-					String periodicStartTime2 = rhs.getStart_time();
-					if (lhs.getPriority() < rhs.getPriority()) {
-						return 1;
-					} else if (lhs.getPriority() == rhs.getPriority()) {
-						if (periodicStartTime1.compareTo(periodicStartTime2) > 0) {
-							return 1;
-						} else {
-							return -1;
-						}
-					} else {
-						return -1;
-					}
-				}
-			});
-		}
 
 		if (realList != null) {
 			Collections.sort(realList, new Comparator<RealTime>() {
@@ -240,8 +209,7 @@ public class FinishFragment extends Fragment {
 								+ "……";
 					}
 					mListItem.put("textListContent", temp);
-					mListItem
-							.put("textStartTime", tempRealTime.getStart_time());
+					mListItem.put("textIndex", tempRealTime.getReal_id());
 					mList.add(mListItem);
 				}
 			}
@@ -265,43 +233,17 @@ public class FinishFragment extends Fragment {
 						temp = tempTiming.getContent().substring(0, 10) + "……";
 					}
 					mListItem.put("textListContent", temp);
-					mListItem.put("textStartTime", tempTiming.getStart_time());
+					mListItem.put("textIndex", tempTiming.getTiming_id());
 
 					mList.add(mListItem);
 				}
 			}
 		}
-		
-/**
- * 周期性提醒不存在完成情况
- */
-		
-//		if (perioList != null) {
-//			Periodic tempPreiodic;
-//			// 周期性提醒迭代器
-//			Iterator itPeriodic = perioList.iterator();
-//			while (itPeriodic.hasNext()) {
-//				tempPreiodic = (Periodic) itPeriodic.next();
-//				Map<String, Object> mListItem = new HashMap<String, Object>();
-//				String temp;
-//				mListItem.put("textListCategory", "周期性提醒");
-//				mListItem.put("ratingBarListItem",
-//						(float) tempPreiodic.getPriority());
-//				if (tempPreiodic.getContent().length() <= 10) {
-//					temp = tempPreiodic.getContent();
-//				} else {
-//					temp = tempPreiodic.getContent().substring(0, 10) + "……";
-//				}
-//				mListItem.put("textListContent", temp);
-//				mListItem.put("textIndex", tempPreiodic.getPeriodic_id());
-//				mList.add(mListItem);
-//			}
-//		}
-		
+
 		mAdapter = new SimpleAdapter(getActivity(), mList,
 				R.layout.listview_layout, from, to);
 
-		// 重写Adapter支持RatingBar,修改分类字体颜色
+		// 重写Adapter支持RatingBar
 		mAdapter.setViewBinder(new ViewBinder() {
 			@Override
 			public boolean setViewValue(View view, Object data,
@@ -333,6 +275,17 @@ public class FinishFragment extends Fragment {
 					return false;
 			}
 		});
+	}
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		mAdapter=null;		
+		initAdapert();
+		if (mAdapter != null)
+		{
+			completeList.setAdapter(mAdapter);
+		}
 	}
 
 }
