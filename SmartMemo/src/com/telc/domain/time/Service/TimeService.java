@@ -49,11 +49,8 @@ public class TimeService {
         c.set(expireYear,   expireMonth-1,   expireDay,hou,min,sec); 
         
         long time1 = c.getTimeInMillis();
-<<<<<<< HEAD
         return  time1;
-=======
-        return  time1;
->>>>>>> d4cc0706b9db5363051cbeeafab1842bc4b83e45
+
 } 
 	
 	/**
