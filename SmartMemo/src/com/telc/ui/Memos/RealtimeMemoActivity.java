@@ -243,7 +243,6 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 				Toast.makeText(getApplicationContext(), "保存失败！", Toast.LENGTH_SHORT).show();
 				return false;
 			}
-			
 		} else
 			return false;
 	}

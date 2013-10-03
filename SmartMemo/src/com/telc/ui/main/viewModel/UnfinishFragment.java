@@ -26,8 +26,6 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +50,7 @@ public class UnfinishFragment extends Fragment {
 	private TextView textListCategory;
 	int color;
 
-	TimeService timService;
+	public TimeService timService;
 
 
 	ListView uncompleteList;
@@ -141,7 +139,9 @@ public class UnfinishFragment extends Fragment {
 		List<Timing> timingList = timingService.getTimingByUserID(userId);
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
 		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
+
 		mList = new ArrayList<Map<String, Object>>();
+
 		if (timingList != null) {
 			Collections.sort(timingList, new Comparator<Timing>() {
 				@Override
@@ -314,7 +314,6 @@ public class UnfinishFragment extends Fragment {
 			}
 		});
 	}
-
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
