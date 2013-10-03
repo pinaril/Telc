@@ -32,7 +32,7 @@ public class locationService extends Service {
 	private LocationData locData =  null;
 	
 	
-	private int remindDistance = 100 ;
+	private static int REMIND_DISTANCE = 100 ;
 	
 	//数据库
 	private SQLiteDatabase db;
@@ -67,7 +67,7 @@ public class locationService extends Service {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(20000);
+		option.setScanSpan(30000);
 		mLocClient.setLocOption(option);
 		mLocClient.start();
 
@@ -78,7 +78,7 @@ public class locationService extends Service {
 		
 		//获取用户ID
 		userid = sp.getString("user", null);
-		Toast.makeText(getApplicationContext(),"userid"+ userid, Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getApplicationContext(),"userid"+ userid, Toast.LENGTH_SHORT).show();
 		
 		super.onCreate();
 		
@@ -129,15 +129,13 @@ public class locationService extends Service {
 					remindContent.useId = userid;
 					remindContent.Content = realTime.getContent();
 					
-					if(distance < remindDistance )
+					if(distance < REMIND_DISTANCE )
 					{
 						//开启一个线程  调用提醒服务
-//						new connentNet().start();
+						new connentNet().start();
 						//设置已完成
-//						realTime.setIsfinish(1);
-						realTimeHelper.updateIsfinish(realTime.getUser_id());
+						realTimeHelper.updateIsfinish(realTime.getReal_id());
 						
-//						realTimeHelper
 					}
 					
 				}
