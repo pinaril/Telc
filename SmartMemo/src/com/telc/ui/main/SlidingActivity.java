@@ -12,6 +12,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.Timing;
 import com.telc.domain.Service.TimingService;
+import com.telc.domain.Service.locationSettingService;
 import com.telc.domain.time.Service.TimeService;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.smartmemo.R;
@@ -53,6 +54,11 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 //	intent.setAction("com.telc.domain.Service.locationService");
 	
 	public SharedPreferences sp;
+	
+	//系统设置
+	SharedPreferences preferences;
+	SharedPreferences.Editor editor;
+	
 	//声明一个NotificationManager类
 	private NotificationManager notificationManager;
 //	//定位相关
@@ -104,10 +110,32 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		
 		
 		locationServiceInfoTran.canBeDestroy = false;
+		
+		MyGetSettingInfo();
 
 		startService(intent);
 	}
 	
+	
+	public void MyGetSettingInfo(){
+		
+		preferences = getSharedPreferences("setInfo", MODE_PRIVATE);
+		editor = preferences.edit();
+		
+		int settingflag = preferences.getInt("flag", 0);
+		
+		if(settingflag == 1){
+			
+			locationSettingService.MY_PROVINCE = preferences.getString("mprovince", null);
+
+			locationSettingService.MY_CITY = preferences.getString("mCity", null);
+
+			locationSettingService.MY_REMINDDISTINCE = preferences.getInt("mRemindDistance", 0);
+
+			locationSettingService.MY_LOCATIONTIME = preferences.getInt("mLocationTime", 0);
+		}
+		
+	}
 	
 	@Override
 	protected void onResume() {

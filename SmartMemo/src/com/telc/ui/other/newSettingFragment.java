@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.telc.domain.Service.WeatherService;
 import com.telc.smartmemo.R;
+import com.telc.ui.main.SlidingActivity;
 
 import android.app.Fragment;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class newSettingFragment extends Fragment {
@@ -93,8 +95,8 @@ public class newSettingFragment extends Fragment {
 
 				editor.putInt("flag", flag);
 				editor.commit();
-				
-				
+				Toast.makeText(getActivity(), "保存成功！", Toast.LENGTH_SHORT).show();
+				((SlidingActivity)getActivity()).toggle();
 			}
 		});
 		

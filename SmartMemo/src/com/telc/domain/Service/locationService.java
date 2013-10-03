@@ -36,7 +36,8 @@ public class locationService extends Service {
 	private LocationData locData =  null;
 	
 	
-	private static int REMIND_DISTANCE = 100 ;
+	private int REMIND_DISTANCE ;
+	private int LOCATION_TIME;
 	
 	//数据库
 	private SQLiteDatabase db;
@@ -59,6 +60,18 @@ public class locationService extends Service {
 		// TODO Auto-generated method stub
 //		Toast.makeText(getApplicationContext(), "service 被创建", Toast.LENGTH_SHORT).show();
 		
+		//由用户自己设置提醒的距离
+		if(locationSettingService.MY_REMINDDISTINCE == 101)
+			REMIND_DISTANCE = 100;
+		else
+			REMIND_DISTANCE = locationSettingService.MY_REMINDDISTINCE;
+		
+		//由用户自己设置定位的时间间隔
+		if(locationSettingService.MY_LOCATIONTIME == 21)
+			LOCATION_TIME = 20000;//单位为毫秒
+		else
+			LOCATION_TIME = locationSettingService.MY_LOCATIONTIME *1000;
+		
 		//定位初始化
 		mLocClient = new LocationClient(getApplicationContext());
 		locData = new LocationData();
@@ -67,7 +80,7 @@ public class locationService extends Service {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(20000);//设置定位时间
+		option.setScanSpan(LOCATION_TIME);//设置定位时间
 		mLocClient.setLocOption(option);
 		mLocClient.start();
 
