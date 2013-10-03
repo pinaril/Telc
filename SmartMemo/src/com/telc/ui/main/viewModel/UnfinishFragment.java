@@ -355,6 +355,11 @@ public class UnfinishFragment extends Fragment {
 					bund.putString("user", userId);
 					bund.putString("content", content);
 					bund.putString("timingId", timingList.get(i).getTiming_id());
+					if(timingList.get(i).getLocation().isEmpty()){
+						bund.putString("location", null);
+					}else{
+						bund.putString("location", timingList.get(i).getLocation());
+					}
 					timingAlarm.putExtras(bund);
 					PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
 					AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);

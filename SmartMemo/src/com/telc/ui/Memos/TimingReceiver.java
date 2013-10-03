@@ -29,6 +29,10 @@ public class TimingReceiver extends BroadcastReceiver{
 		String user=bundle.getString("user");
 		String content=bundle.getString("content");
 		String index=bundle.getString("timingId");
+		String location=bundle.getString("location");
+		if(!location.isEmpty()){
+			content="去"+location;
+		}
 		timing.updateIsfinish(index);
 		remindContent.Content=content;
 		remindContent.useId=user;
