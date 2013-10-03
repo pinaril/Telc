@@ -22,7 +22,7 @@ import com.telc.domain.Emtity.RealTime;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.resource.remind.connentNet;
 import com.telc.resource.remind.remindContent;
-import com.telc.smartmemo.R;
+//import com.telc.smartmemo.R;
 
 public class locationService extends Service {
 	
