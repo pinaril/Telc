@@ -122,11 +122,11 @@ public class RealTimeService implements IRealTimeService {
 	}
 
 	@Override
-	public RealTime findRealTimeByStart(String start_time) {
+	public RealTime findRealTimeByStart(String id) {
 		// TODO Auto-generated method stub
 		RealTime realTime = new RealTime();
-		String sql = "select a.[rowid] as _id,* from REAL_TIME as a where start_time='"
-				+ start_time + "'";
+		String sql = "select a.[rowid] as _id,* from REAL_TIME as a where real_id='"
+				+ id + "'";
 		cursor = db.rawQuery(sql, null);
 		if (cursor.moveToFirst() == false) {
 			return null;
@@ -137,7 +137,8 @@ public class RealTimeService implements IRealTimeService {
 				int realIDColumn = cursor.getColumnIndex("real_id");
 				String real_id = cursor.getString(realIDColumn);
 				realTime.setReal_id(real_id);
-				realTime.setStart_time(start_time);
+				
+//				realTime.setStart_time(start_time);
 				int locationColumn = cursor.getColumnIndex("location");
 				String location = cursor.getString(locationColumn);
 				realTime.setLocation(location);
@@ -187,8 +188,8 @@ public class RealTimeService implements IRealTimeService {
 	@Override
 	public boolean updateIsfinish(String real_id) {
 		// TODO Auto-generated method stub
-		String sql = "update REAL_TIME set isfinish='" + 1
-				+ "' where real_id='" + real_id + "'";
+		String sql = "update REAL_TIME set isfinish=" + 1
+				+ " where real_id='" + real_id + "'";
 		db.execSQL(sql);
 		return true;
 	}

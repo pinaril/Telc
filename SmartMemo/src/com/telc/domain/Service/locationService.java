@@ -57,7 +57,7 @@ public class locationService extends Service {
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
-		Toast.makeText(getApplicationContext(), "service 被创建", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getApplicationContext(), "service 被创建", Toast.LENGTH_SHORT).show();
 		
 		//定位初始化
 		mLocClient = new LocationClient(getApplicationContext());
@@ -67,10 +67,9 @@ public class locationService extends Service {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(5000);
+		option.setScanSpan(20000);
 		mLocClient.setLocOption(option);
 		mLocClient.start();
-
 
 		sp = getSharedPreferences("Login", MODE_PRIVATE);
 		db=openOrCreateDatabase(DBConstant.DB_FILENAME,MODE_PRIVATE, null);
@@ -78,7 +77,7 @@ public class locationService extends Service {
 		
 		//获取用户ID
 		userid = sp.getString("user", null);
-		Toast.makeText(getApplicationContext(),"userid"+ userid, Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getApplicationContext(),"userid"+ userid, Toast.LENGTH_SHORT).show();
 		
 		super.onCreate();
 		
@@ -122,7 +121,7 @@ public class locationService extends Service {
 					distance = distanceShort;
 
 				//自定义函数 计算 经纬度两点距离
-				Toast.makeText(getApplicationContext(), distance+"m", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), distance+"m", Toast.LENGTH_SHORT).show();
 				
 				if(realTime.getIsfinish() == 0)
 				{
@@ -134,7 +133,8 @@ public class locationService extends Service {
 						//开启一个线程  调用提醒服务
 //						new connentNet().start();
 						//设置已完成
-						realTime.setIsfinish(1);
+//						realTime.setIsfinish(1);
+						realTimeHelper.updateIsfinish(realTime.getUser_id());
 						
 //						realTimeHelper
 					}
@@ -205,7 +205,7 @@ public class locationService extends Service {
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		
-		Toast.makeText(getApplicationContext(), "service 被销毁", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getApplicationContext(), "service 被销毁", Toast.LENGTH_SHORT).show();
 //		mLocClient.stop();
 		super.onDestroy();
 		//若后台的定位服务不可被销毁 则重启
@@ -228,7 +228,7 @@ public class locationService extends Service {
 
 		mLocClient.start();
 		flags =  START_STICKY;
-		Toast.makeText(getApplicationContext(), "start servet", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getApplicationContext(), "start servet", Toast.LENGTH_SHORT).show();
 		
 		return super.onStartCommand(intent, flags, startId);
 	}

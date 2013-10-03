@@ -24,12 +24,13 @@ import com.baidu.mapapi.search.MKTransitRouteResult;
 import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.telc.smartmemo.R;
-import com.telc.ui.Memos.RealtimeMemoActivity;
 
 import android.app.Activity;
-import android.content.Context;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -74,6 +75,8 @@ public class getPoisitionActivity extends Activity {
 	HashMap<String , Object> map;
 	SimpleAdapter listItemAdapter;
 	
+	private ProgressDialog progressDialog;
+	private boolean progressDialogFlag = false;
 	
 	// private GeoPoint gPoint = null;
 
@@ -179,6 +182,7 @@ public class getPoisitionActivity extends Activity {
 					/**
 					 * 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
 					 */
+					LocationInfoTran.selectFlag = 1;
 					mSearch.suggestionSearch(cs.toString(), city);
 //				}else{
 ////					if(locData != null )
@@ -231,24 +235,61 @@ public class getPoisitionActivity extends Activity {
 		// LocationInfoTran.geoPoint = gPoint;
 		LocationInfoTran.locationData = locData;
 
-		// Intent intent = new Intent();
-		// intent.setClass(this, RealtimeMemoActivity.class);
-		// startActivity(intent);
-		setResult(0);
+		
+		if(locData == null )
+		{
+			Toast.makeText(getApplicationContext(), "尚未定位成功，请重试~",Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		mSearch.reverseGeocode(new GeoPoint((int) (locData.latitude* 1e6),
+				(int) (locData.longitude* 1e6)));
+		
+		progressDialog = ProgressDialog.show(getPoisitionActivity.this, "请稍后。。", "正在解析地址。。。", true, false);
+		progressDialogFlag = true;//表示progressDiolag 正在显示
+		
+		//新建线程
+		new Thread(){
 
-		getPoisitionActivity.this.finish();
+			@Override
+			public void run() {
+				//需要花时间计算的方法
+				Calculation.calculate(8);
+				
+				//向handler发消息
+				handler.sendEmptyMessage(0);
+			}}.start();
+		
+
+			
+//			
+//		setResult(0);
+//
+//		getPoisitionActivity.this.finish();
 
 	}
 	
-	
+//	接收信号 关闭progress框
+	private Handler handler = new Handler(){
 
-//	@Override
-//	protected void onResume() {
-//		// TODO Auto-generated method stub
-//		layoutFlag = true;
-//		layoutFlag = true;
-//		super.onResume();
-//	}
+		@Override
+		public void handleMessage(Message msg) {
+			
+			if(progressDialogFlag){
+				Toast.makeText(getApplicationContext(), "网络不给力哦，地址解析失败。。", Toast.LENGTH_SHORT).show();
+				//关闭ProgressDialog
+				progressDialog.dismiss();
+				progressDialogFlag = false;
+			}
+			
+		}};
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		LocationInfoTran.selectFlag = 0;
+		super.onResume();
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -296,7 +337,18 @@ public class getPoisitionActivity extends Activity {
 			// 返回地址信息搜索结果
 			MKGeocoderAddressComponent kk = result.addressComponents;
 			city = kk.city;
-			Toast.makeText(getApplicationContext(), "city"+ city, Toast.LENGTH_SHORT).show();
+//			Toast.makeText(getApplicationContext(), "city"+ city, Toast.LENGTH_SHORT).show();
+			LocationInfoTran.positionNameString = kk.city + kk.district + kk.street + kk.streetNumber;
+			Toast.makeText(getApplicationContext(), LocationInfoTran.positionNameString+"", Toast.LENGTH_SHORT).show();
+			
+			if(LocationInfoTran.selectFlag == 3  && progressDialogFlag){
+				progressDialog.dismiss();
+				progressDialogFlag = false;//表示progressDialog 不显示
+				setResult(0);
+				getPoisitionActivity.this.finish();
+			}
+			
+			
 		}
 
 		@Override
@@ -324,6 +376,7 @@ public class getPoisitionActivity extends Activity {
 				LocationInfoTran.locationData = newLocationData;
 				// LocationInfoTran.positionNameString = res.getPoi(0).address;
 				LocationInfoTran.positionNameString = res.getPoi(0).name;
+				Toast.makeText(getApplicationContext(), LocationInfoTran.positionNameString+"", Toast.LENGTH_SHORT).show();
 
 				LocationInfoTran.selectFlag = 1;
 

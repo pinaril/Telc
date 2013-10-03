@@ -98,10 +98,6 @@ public class FinishFragment extends Fragment {
 					int position, long id) {
 				// TODO Auto-generated method stub
 
-				// Map<String, Object> testMap=null;
-				// testMap.putAll((Map<? extends String, ? extends Object>)
-				// arg0.getItemAtPosition(position));
-
 				String itemValue=arg0.getItemAtPosition(position).toString();
 				String[] itemSplit=itemValue.split(",");
 				String index=itemSplit[2].substring(11);

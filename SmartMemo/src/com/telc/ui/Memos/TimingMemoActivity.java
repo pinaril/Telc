@@ -1,6 +1,11 @@
 package com.telc.ui.Memos;
 
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import javax.security.auth.PrivateCredentialPermission;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -14,9 +19,12 @@ import com.telc.domain.time.Service.TimeService;
 import com.telc.resource.baidumap.LocationInfoTran;
 import com.telc.resource.baidumap.getPoisitionActivity;
 import com.telc.smartmemo.R;
+import com.telc.ui.main.SlidingActivity;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -48,12 +56,14 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 			timeEt;
 	RatingBar ratingBarTimingPriority;
 	Switch sw_timing;
+	TimeService mTimeService;
 	TimingService timingService;
 	private SharedPreferences sp;
 	TimingMemoActivity timingMemoActivity;
 	TableRow tabl_location, tabl_content;
 	Drawable drawable;
 	String location = "";// 获取地点设置
+	String locationDetail="";
 	private Dialog dl;
 	Context context;
 	private int mHour; // 存放时间的小时
@@ -71,13 +81,14 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		sp = getSharedPreferences("Login", MODE_PRIVATE);
 		timingMemoActivity = this;
 		context = this;
+		mTimeService=new TimeService();
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		init();
 	}
 
 	public void init1() {
-
+		
 		LocationInfoTran.startToUse = false;
 
 		if (LocationInfoTran.StateFlag) {
@@ -212,10 +223,10 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
-		;
-
 		timingService.addTiming(timing);
 		Toast.makeText(context, "保存成功！", Toast.LENGTH_SHORT).show();
+//		从列表中取出时间最近的提醒，并设置发送广播。
+		timingRemind();
 		finish();
 	}
 
@@ -249,8 +260,9 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		timing.setIsfinish(isFinished);
 		timing.setPriority(priority);
 		timing.setLocation(location);
+		timing.setLocation_detail(locationDetail);
 		timing.setStart_time(start_time);
-
+		timing.setTiming_id(String.valueOf(System.currentTimeMillis()));
 		return timing;
 
 	}
@@ -300,8 +312,10 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 
 				});
 
-		
-		
+		TimeService service=new TimeService();
+		String currentTime=service.longSwithToString(System.currentTimeMillis());
+		String currentHour=currentTime.substring(11, 13);
+		timePicker.setCurrentHour(Integer.valueOf(currentHour));
 		timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
 
 			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
@@ -354,4 +368,37 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		});
 
 	}
+	
+
+	private void timingRemind(){
+		List<Timing> timingList=timingService.getTimingByUserID(sp.getString("user", null));
+		if (timingList != null) {
+			Collections.sort(timingList, new Comparator<Timing>() {
+				@Override
+				public int compare(Timing lhs, Timing rhs) {
+					long timingEndtime1 = mTimeService.getSecondsFromDate(lhs.getEnd_time());
+					long timingEndtime2 = mTimeService.getSecondsFromDate(rhs.getEnd_time());
+					if (timingEndtime1<=timingEndtime2) {
+						return -1;
+					} else 
+						return 1;
+				}
+			});
+			
+			String content=timingList.get(0).getContent();
+			String userId=sp.getString("user", null);
+			long endTime= mTimeService.getSecondsFromDate(timingList.get(0).getEnd_time());
+			
+			Intent timingAlarm=new Intent(TimingMemoActivity.this,TimingReceiver.class);
+			Bundle bund=new Bundle();
+			bund.putString("user", userId);
+			bund.putString("content", content);
+			timingAlarm.putExtras(bund);
+			PendingIntent pendingIntent = PendingIntent.getBroadcast(TimingMemoActivity.this, 0, timingAlarm, 0);
+			AlarmManager timingManager=(AlarmManager) getSystemService(ALARM_SERVICE);
+			timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
+		}
+
+	}
+
 }
