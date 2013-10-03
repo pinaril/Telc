@@ -15,7 +15,7 @@
 
    
     <Button
-            android:id="@+id/about_show_use_instruction"
+            android:id="@+id/z_location_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
