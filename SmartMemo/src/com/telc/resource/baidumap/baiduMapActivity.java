@@ -95,7 +95,8 @@ public class baiduMapActivity extends Activity {
 
 		setContentView(R.layout.activity_two);
 
-		requestLocButton = (Button) findViewById(R.id.about_show_use_instruction);
+		requestLocButton = (Button) findViewById(R.id.z_location_button);
+
 		OnClickListener btnClickListener = new OnClickListener() {
 
 			@Override
@@ -418,4 +419,5 @@ public class baiduMapActivity extends Activity {
 		super.onRestoreInstanceState(savedInstanceState);
 		mMapView.onRestoreInstanceState(savedInstanceState);
 	}
+
 }
