@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # built application files
 *.apk
 *.ap_
@@ -17,3 +18,22 @@ lib/
 # Local configuration file (sdk path, etc)
 local.properties
 project.properties
+=======
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+lib/
+# Local configuration file (sdk path, etc)
+local.properties
+project.properties
+>>>>>>> 7d8507282047a76e2aefcd0d32e557e3fbf0baee
