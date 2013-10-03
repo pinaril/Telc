@@ -167,6 +167,9 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		tabl_location.setVisibility(View.GONE);
 		tabl_content = (TableRow) findViewById(R.id.tabl_content);
 		sw_timing = (Switch) findViewById(R.id.sw_timing);
+		
+		ed_timing_time.clearFocus();
+		ed_timing_time.setInputType(InputType.TYPE_NULL);
 
 		Timing timing = obtainTimingInfo();
 
