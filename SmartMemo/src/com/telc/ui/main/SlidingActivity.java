@@ -1,7 +1,5 @@
 package com.telc.ui.main;
 
-
-
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
@@ -16,7 +14,6 @@ import com.telc.ui.Memos.TimingMemoActivity;
 import com.telc.ui.main.viewModel.MenuFragment;
 import com.telc.ui.main.viewModel.UnfinishFragment;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentTransaction;

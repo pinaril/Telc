@@ -68,7 +68,8 @@
             android:name="com.telc.ui.main.SlidingActivity"
             android:label="@string/app_name" >
         </activity>
-        <receiver android:name="com.telc.ui.main.AlarmReceiver" android:process=":SmartMemoRemot" /> 
+        <receiver android:name="com.telc.ui.main.viewModel.AlarmReceiver" android:process=":SmartMemoRemot" />
+        <receiver android:name="com.telc.ui.Memos.TimingReceiver" android:process=":SmartMemoRemot_main" /> 
         <activity
             android:name="com.telc.ui.main.AnimationActivity"
             android:label="@string/app_name"

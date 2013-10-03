@@ -20,17 +20,12 @@ import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicMemoDelActivity;
 import com.telc.ui.Memos.RealtimeMemoDelActivity;
 import com.telc.ui.Memos.TimingMemoDelActivity;
-import com.telc.ui.main.AlarmReceiver;
 import com.telc.ui.main.SlidingActivity;
 
-import android.app.AlarmManager;
 import android.app.Fragment;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +50,7 @@ public class UnfinishFragment extends Fragment {
 	private TextView textListCategory;
 	int color;
 
-	TimeService timService;
+	public TimeService timService;
 
 
 	ListView uncompleteList;
@@ -138,6 +133,8 @@ public class UnfinishFragment extends Fragment {
 //			uncompleteList.setAdapter(mAdapter);
 //	}
 
+	
+	
 	private void initAdapert() {
 		// TODO Auto-generated method stub
 		// 打开数据库
@@ -156,9 +153,6 @@ public class UnfinishFragment extends Fragment {
 
 		
 		if (timingList != null) {
-//			提醒
-			timingRemind(timingList);
-			
 			Collections.sort(timingList, new Comparator<Timing>() {
 				@Override
 				public int compare(Timing lhs, Timing rhs) {
@@ -329,34 +323,6 @@ public class UnfinishFragment extends Fragment {
 					return false;
 			}
 		});
-	}
-
-	private void timingRemind(List<Timing> list){
-		
-		Collections.sort(list, new Comparator<Timing>() {
-			@Override
-			public int compare(Timing lhs, Timing rhs) {
-				long timingEndTime1 = timService.getSecondsFromDate(lhs.getEnd_time());
-				long timingEndTime2 = timService.getSecondsFromDate(rhs.getEnd_time());
-				if (timingEndTime1<=timingEndTime2) {
-					return -1;
-				}else {
-					return 1;
-				}
-			}
-		});
-		String mContent=list.get(0).getContent();
-		
-		Intent alarm=new Intent(getActivity(),AlarmReceiver.class);
-		Bundle bundle=new Bundle();
-		bundle.putString("userId",sp.getString("user", null));
-		bundle.putString("content", mContent);
-		alarm.putExtras(bundle);
-		timingService.updateIsfinish(sp.getString("user", null));
-		PendingIntent piIntent=PendingIntent.getBroadcast(getActivity(), 0, alarm, 0);
-		AlarmManager amAlarmManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
-		amAlarmManager.set(AlarmManager.RTC_WAKEUP, timService.getSecondsFromDate(list.get(0).getEnd_time()), piIntent);
-//		timService.getSecondsFromDate(list.get(0).getEnd_time());
 	}
 	
 }

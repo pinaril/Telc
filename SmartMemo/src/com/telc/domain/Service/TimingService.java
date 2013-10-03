@@ -167,7 +167,7 @@ public class TimingService implements ITimingService {
 	@Override
 	public boolean updateIsfinish(String timing_id) {
 		// TODO Auto-generated method stub
-		String sql = "update TIMING set isfinish='"+1+"' where timing_id='"+timing_id+"'";
+		String sql = "update TIMING set isfinish="+1+" where timing_id='"+timing_id+"'";
 		db.execSQL(sql);
 		return true;
 	}

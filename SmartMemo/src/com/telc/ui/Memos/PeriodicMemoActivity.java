@@ -14,7 +14,6 @@ import com.telc.domain.IService.IPeriodicService;
 import com.telc.domain.Service.PeriodicService;
 import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
-import com.telc.ui.main.AlarmReceiver;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

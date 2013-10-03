@@ -1,4 +1,3 @@
-
 package com.telc.ui.Memos;
 
 import java.util.Calendar;
@@ -203,15 +202,18 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 	public void saveTimingMemo() {
 		Timing timing = obtainTimingInfo();
 		if (timing.getEnd_time().compareTo(timing.getStart_time()) < 0) {
-			Toast.makeText(TimingMemoActivity.this, "提醒时间要比当前时间晚哦", Toast.LENGTH_SHORT).show();
-			return ;
+			Toast.makeText(TimingMemoActivity.this, "提醒时间要比当前时间晚哦",
+					Toast.LENGTH_SHORT).show();
+			return;
 		}
-		
-		if(timing.getContent() == null||timing.getContent().equals("")){
-			Toast.makeText(TimingMemoActivity.this, "提醒内容不能为空", Toast.LENGTH_SHORT).show();
-			return ;
-		};
-		
+
+		if (timing.getContent() == null || timing.getContent().equals("")) {
+			Toast.makeText(TimingMemoActivity.this, "提醒内容不能为空",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		;
+
 		timingService.addTiming(timing);
 		Toast.makeText(context, "保存成功！", Toast.LENGTH_SHORT).show();
 		finish();
@@ -240,7 +242,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		String contentString = edit_Timing_Content.getText().toString();
 		int priority = (int) ratingBarTimingPriority.getRating();
 		int isFinished = 0;
-		
+
 		timing.setUser_id(sp.getString("user", null));
 		timing.setContent(contentString);
 		timing.setEnd_time(end_timeString);
@@ -248,7 +250,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		timing.setPriority(priority);
 		timing.setLocation(location);
 		timing.setStart_time(start_time);
-
+		timing.setTiming_id(String.valueOf(System.currentTimeMillis()));
 		return timing;
 
 	}
@@ -273,20 +275,51 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 
 					public void onDateChanged(DatePicker view, int year,
 							int monthOfYear, int dayOfMonth) {
-
-						dateEt.setText(year + "年" + (monthOfYear + 1) + "月"
-								+ dayOfMonth + "日");
-						date = year + "-" + (monthOfYear + 1) + "-"
-								+ dayOfMonth + " ";
+                        String month,day;
+						if(monthOfYear + 1<10)
+						{
+							month="0"+String.valueOf(monthOfYear + 1);
+						}
+						else
+						{
+							month=String.valueOf(monthOfYear + 1);
+						}
+						if(dayOfMonth<10)
+						{
+							day="0"+String.valueOf(dayOfMonth);
+						}
+						else
+						{
+							day=String.valueOf(dayOfMonth);
+						}
+						dateEt.setText(year + "年" + month + "月"
+								+ day + "日");
+						date = year + "-" + month + "-"
+								+ day + " ";
 					}
 
 				});
 
+		
+		
 		timePicker.setOnTimeChangedListener(new OnTimeChangedListener() {
 
 			public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-				timeEt.setText(hourOfDay + "时" + minute + "分");
-				time = hourOfDay + ":" + minute;
+
+				String hour, min;
+				if (hourOfDay < 10) {
+					hour = "0" + String.valueOf(hourOfDay);
+				} else {
+					hour = String.valueOf(hourOfDay);
+				}
+				if (minute < 10) {
+					min = "0" + String.valueOf(minute);
+				} else {
+					min = String.valueOf(minute);
+				}
+				timeEt.setText(hour + "时" + min + "分");
+				time = hour + ":" + min;
+
 			}
 
 		});
