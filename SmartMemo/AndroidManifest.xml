@@ -93,7 +93,10 @@
             android:name="com.telc.ui.other.SettingActivity"
             android:label="@string/app_name">
         </activity>  
-        
+         <activity
+            android:name="com.telc.ui.other.AboutActivity"
+            android:label="@string/app_name">
+        </activity> 
           <activity
             android:name="com.telc.resource.baidumap.baiduMapActivity"
             android:label="@string/app_name" >
