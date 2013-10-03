@@ -85,7 +85,7 @@ public class RealtimeMemoActivity extends SherlockFragmentActivity {
 	//当前时间
 	private String start_Time = "";
 	
-	private static final String[] spinnerSelect={"1天","2天","3天","1周","2周","1月"};
+	private static final String[] spinnerSelect={"1天","2天","3天","1周","2周","1月(30天)"};
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

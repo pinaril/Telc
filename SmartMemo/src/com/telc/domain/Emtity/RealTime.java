@@ -71,7 +71,5 @@ public class RealTime {
 	public void setLocation_detail(String location_detail) {
 		this.location_detail = location_detail;
 	}
-
-
 	
 }
