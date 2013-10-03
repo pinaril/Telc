@@ -44,11 +44,18 @@ public class TimeService {
         int hou = Integer.parseInt(expireDate.substring(11, 13));
         int min = Integer.parseInt(expireDate.substring(14, 16));
         int sec = Integer.parseInt(expireDate.substring(17, 19));
+<<<<<<< HEAD
+        c.set(expireYear,   expireMonth,   expireDay,hou,min,sec); 
+//        long   time1   =   c.getTime().getTime(); 
+       long time1 = c.getTimeInMillis();
+        return  time1; 
+=======
 
         c.set(expireYear,   expireMonth-1,   expireDay,hou,min,sec); 
         
         long time1 = c.getTimeInMillis();
         return  time1;
+>>>>>>> f54e607135e6c773c4779be239424ed02021f0e7
 } 
 	
 	/**
