@@ -117,11 +117,11 @@ public class TimingService implements ITimingService {
 	}
 
 	@Override
-	public Timing findTimingByStart(String start_time) {
+	public Timing findTimingByStart(String id) {
 		// TODO Auto-generated method stub
 		Timing timing = new Timing();
-		String sql = "select a.[rowid] as _id,* from TIMING as a where start_time='"
-				+ start_time + "'";
+		String sql = "select a.[rowid] as _id,* from TIMING as a where timing_id='"
+				+ id + "'";
 		cursor = db.rawQuery(sql, null);
 		if (cursor.moveToFirst() == false) {
 			return null;
@@ -132,7 +132,7 @@ public class TimingService implements ITimingService {
 				String timing_id = cursor.getString(timingIDColumn);
 				timing.setTiming_id(timing_id);
 
-				timing.setStart_time(start_time);
+//				timing.setStart_time(start_time);
 				int endTimeColumn = cursor.getColumnIndex("end_time");
 				String end_time = cursor.getString(endTimeColumn);
 				timing.setEnd_time(end_time);

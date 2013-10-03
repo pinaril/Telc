@@ -39,9 +39,9 @@ public class RealtimeMemoDelActivity extends SherlockFragmentActivity {
 	private ArrayAdapter<String> adapter;
 	private String mIndex;
 	private static final String[] spinnerSelect={"1天","2天","3天","1周","2周","1月"};
-	
+	private int flag;
 	//实时提醒对象
-	private RealTime mRealTime = new RealTime();
+	private RealTime mRealTime ;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,8 @@ public class RealtimeMemoDelActivity extends SherlockFragmentActivity {
 		db=openOrCreateDatabase(DBConstant.DB_FILENAME,MODE_PRIVATE, null);
 		realTimeHelper=new RealTimeService(db);
 		
-		
-		mRealTime = realTimeHelper.findRealTimeByStart("18359102191");
+		mRealTime = new RealTime();
+		mRealTime = realTimeHelper.findRealTimeByStart(mIndex);
 		
 		
 		rb_priority = (RatingBar) findViewById(R.id.rb_priority);
@@ -72,6 +72,7 @@ public class RealtimeMemoDelActivity extends SherlockFragmentActivity {
 		spinner_time.setAdapter(adapter);
         //设置默认值  
 		spinner_time.setVisibility(View.VISIBLE); 
+		spinner_time.setEnabled(false);
         
 		
 		et_content = (EditText) findViewById(R.id.et_content);
@@ -85,48 +86,23 @@ public class RealtimeMemoDelActivity extends SherlockFragmentActivity {
 		et_location.setInputType(InputType.TYPE_NULL);
 
 		
-		Toast.makeText(getApplicationContext(), ""+mIndex, Toast.LENGTH_SHORT).show();
-//		sp = getSharedPreferences("Login", MODE_PRIVATE);
-//		Toast.makeText(getApplicationContext(), ""+mRealTime.getPriority(), Toast.LENGTH_SHORT).show();
-//		Toast.makeText(getApplicationContext(), ""+mRealTime.getContent(), Toast.LENGTH_SHORT).show();
-//		Toast.makeText(getApplicationContext(), ""+mRealTime.getLocation(), Toast.LENGTH_SHORT).show();
-//		rb_priority.setRating(mRealTime.getPriority());
-//		et_content.setText(mRealTime.getContent());
-//		et_location.setText(mRealTime.getLocation());
+		rb_priority.setRating(mRealTime.getPriority());
+		et_content.setText(mRealTime.getContent());
+		et_location.setText(mRealTime.getLocation_detail());
 		
+		switch(mRealTime.getAging()/24){
+			case 1: flag =0;break;
+			case 2:flag=1;break;
+			case 3:flag=2;break;
+			case 7:flag= 3;break;
+			case 14:flag = 4;break;
+			case 30:flag=5;break;
+		}
 		
-		
-		
+		spinner_time.setSelection(flag);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-	
-	 //使用数组形式操作  
-    class SpinnerSelectedListener implements OnItemSelectedListener{  
-  
-        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,  
-                long arg3) {  
-//        	spinner_time = spinnerSelect[arg2];
-//        	Toast.makeText(getApplicationContext(), "arg"+arg2, Toast.LENGTH_SHORT).show();
-        	switch (arg2) {
-			case 0:
-				break;
-			case 1:
-				break;
-			case 2:
-				break;
-			case 3:
-				break;
-			case 4:
-				break;
-			case 5:
-				break;
-			}
-        }
-  
-        public void onNothingSelected(AdapterView<?> arg0) {  
-        }  
-    } 
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
