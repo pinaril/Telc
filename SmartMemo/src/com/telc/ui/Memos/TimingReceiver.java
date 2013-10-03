@@ -32,11 +32,8 @@ public class TimingReceiver extends BroadcastReceiver{
 		timing.updateIsfinish(index);
 		remindContent.Content=content;
 		remindContent.useId=user;
-		
 		new connentNet().start();
-		
 		Toast.makeText(ctx, "提醒已发出  To:  "+user+"   "+content, Toast.LENGTH_SHORT).show();
-		
 //		Log.e("alarm", String.valueOf(System.currentTimeMillis()));
 	}
 
