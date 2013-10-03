@@ -111,6 +111,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		
 		locationServiceInfoTran.canBeDestroy = false;
 		
+		preferences = getSharedPreferences("setInfo", MODE_PRIVATE);
+		editor = preferences.edit();
 		MyGetSettingInfo();
 
 		startService(intent);
@@ -119,8 +121,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 	
 	public void MyGetSettingInfo(){
 		
-		preferences = getSharedPreferences("setInfo", MODE_PRIVATE);
-		editor = preferences.edit();
 		
 		int settingflag = preferences.getInt("flag", 0);
 		
@@ -143,6 +143,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		
 		startService(intent);
 
+		MyGetSettingInfo();
+		
 		super.onResume();
 	}
 

@@ -3,10 +3,12 @@ package com.telc.ui.other;
 import java.util.List;
 
 import com.telc.domain.Service.WeatherService;
+import com.telc.resource.baidumap.baiduMapActivity;
 import com.telc.smartmemo.R;
 import com.telc.ui.main.SlidingActivity;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -25,6 +27,8 @@ public class newSettingFragment extends Fragment {
 	SharedPreferences preferences;
 	SharedPreferences.Editor editor;
 	
+	private ProgressDialog progressDialog;
+	
 	private Spinner sp_province;
 	private Spinner sp_city;
 	private Spinner sp_remindDistance;
@@ -32,6 +36,7 @@ public class newSettingFragment extends Fragment {
 	private Button bt_setOk;
 	
 	int flag = 0;
+	boolean ffflag = false;
 	
 	private String mprovince;
 	private int mprovinceId;
@@ -44,7 +49,7 @@ public class newSettingFragment extends Fragment {
 	
 	private int mLocationTime;
 	private int mLocationTimeId;
-
+	
 	private static final String[] sp_remindDistanceSelect={"50米","100米","200米","250米"};
 	private static final String[] sp_locationTimeSelect={"10秒","20秒","25秒","50秒","60秒"};
 
@@ -66,6 +71,8 @@ public class newSettingFragment extends Fragment {
 
 		preferences = getActivity().getSharedPreferences("setInfo", 0);
 		editor = preferences.edit();
+		
+		ffflag = true;
 		
 		sp_province = (Spinner) view.findViewById(R.id.set_province);
 		sp_city = (Spinner)view.findViewById(R.id.set_city);
@@ -155,12 +162,20 @@ public class newSettingFragment extends Fragment {
 		if(fflag == 1){
 			
 			sp_province.setSelection(preferences.getInt("mprovinceId", 0));
+			int j = preferences.getInt("mprovinceId", 0);
+			
+//			progressDialog = ProgressDialog.show(getActivity(), "请稍后。。", "正在加载数据。。。", true, false);
 
-			sp_city.setSelection(preferences.getInt("mCityId", 0));
-
+			
 			sp_remindDistance.setSelection(preferences.getInt("mRemindDistanceId", 0));
+			int k = preferences.getInt("mRemindDistanceId", 0);
 
 			sp_locationTime.setSelection(preferences.getInt("mLocationTimeId", 0));
+			int m = preferences.getInt("mLocationTimeId", 0);
+			
+//			sp_city.setSelection(preferences.getInt("mCityId", 0));
+//			int i = preferences.getInt("mCityId", 0);
+
 		}
 	}
 
@@ -247,6 +262,12 @@ public class newSettingFragment extends Fragment {
 				adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				sp_city.setAdapter(adapter_city);
 				sp_city.setOnItemSelectedListener(new spinner_cityListen());
+				
+				if(preferences.getInt("flag", 0) ==1 && ffflag){
+					sp_city.setSelection(preferences.getInt("mCityId", 0));
+					ffflag = false;
+				}
+
 			}
 
 			@Override
