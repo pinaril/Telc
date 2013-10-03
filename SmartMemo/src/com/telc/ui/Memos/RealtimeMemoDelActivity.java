@@ -38,7 +38,7 @@ public class RealtimeMemoDelActivity extends SherlockFragmentActivity {
 	private EditText et_content;
 	private ArrayAdapter<String> adapter;
 	private String mIndex;
-	private static final String[] spinnerSelect={"1天","2天","3天","1周","2周","1月"};
+	private static final String[] spinnerSelect={"1天","2天","3天","1周","2周","1月(30天)"};
 	private int flag;
 	//实时提醒对象
 	private RealTime mRealTime ;

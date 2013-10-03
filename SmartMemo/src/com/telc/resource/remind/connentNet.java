@@ -20,7 +20,7 @@ public class connentNet extends Thread {
 		super.run();
 		Looper.prepare();
 		try {
-			contentString = URLEncoder.encode("content", "UTF-8");
+			contentString = URLEncoder.encode(remindContent.Content, "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -30,7 +30,7 @@ public class connentNet extends Thread {
 				+ "</DisplayNbr><Key>"
 				+ KEY
 				+ "</Key><CalleeNbr>"
-				+"18046041517"
+				+remindContent.useId
 				+ "</CalleeNbr><VoiceName></VoiceName><TTSContent>"
 				+ contentString + "</TTSContent></Body></Request>";
 		Read read = new Read();
