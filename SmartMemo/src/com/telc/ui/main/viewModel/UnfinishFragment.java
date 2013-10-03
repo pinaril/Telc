@@ -358,7 +358,6 @@ public class UnfinishFragment extends Fragment {
 					timingAlarm.putExtras(bund);
 					PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
 					AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
-					timingManager.cancel(pendingIntent);
 					timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
 					return;
 				}

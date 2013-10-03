@@ -336,9 +336,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 				}
 				timeEt.setText(hour + "时" + min + "分");
 				time = hour + ":" + min;
-
 			}
-
 		});
 
 		btn_time_dialog_cancel.setOnClickListener(new OnClickListener() {
