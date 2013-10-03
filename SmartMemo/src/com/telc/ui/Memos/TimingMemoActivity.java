@@ -83,8 +83,8 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		context = this;
 		mTimeService=new TimeService();
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
 		init();
+
 	}
 
 	public void init1() {
@@ -139,9 +139,13 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		// TODO Auto-generated method stub
 		if (item.getItemId() == android.R.id.home) {
 			finish();
+//			从列表中取出时间最近的提醒，并设置发送广播。
+//			timingRemind();
 			return true;
 		} else if (item.getItemId() == 0) {
 			saveTimingMemo();
+//			从列表中取出时间最近的提醒，并设置发送广播。
+//			timingRemind();
 			return true;
 		} else
 			return false;
@@ -225,8 +229,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		}
 		timingService.addTiming(timing);
 		Toast.makeText(context, "保存成功！", Toast.LENGTH_SHORT).show();
-//		从列表中取出时间最近的提醒，并设置发送广播。
-		timingRemind();
+
 		finish();
 	}
 
@@ -333,9 +336,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 				}
 				timeEt.setText(hour + "时" + min + "分");
 				time = hour + ":" + min;
-
 			}
-
 		});
 
 		btn_time_dialog_cancel.setOnClickListener(new OnClickListener() {
@@ -368,38 +369,42 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		});
 
 	}
+
+//	private void timingRemind(){
+//		List<Timing> timingList=timingService.getTimingByUserID(sp.getString("user", null));
+//		if (timingList != null) {
+//			Collections.sort(timingList, new Comparator<Timing>() {
+//				@Override
+//				public int compare(Timing lhs, Timing rhs) {
+//					long timingEndtime1 = mTimeService.getSecondsFromDate(lhs.getEnd_time());
+//					long timingEndtime2 = mTimeService.getSecondsFromDate(rhs.getEnd_time());
+//					if (timingEndtime1<=timingEndtime2) {
+//						return -1;
+//					} else 
+//						return 1;
+//				}
+//			});
+//			for(int i=0;i<timingList.size();i++){
+//				if(timingList.get(i).getIsfinish()==0){
+//					String content=timingList.get(i).getContent();
+//					String userId=sp.getString("user", null);
+//					long endTime= mTimeService.getSecondsFromDate(timingList.get(i).getEnd_time());
+//					
+//					Intent timingAlarm=new Intent(TimingMemoActivity.this,TimingReceiver.class);
+//					Bundle bund=new Bundle();
+//					bund.putString("user", userId);
+//					bund.putString("content", content);
+//					bund.putString("timingId", timingList.get(i).getTiming_id());
+//					timingAlarm.putExtras(bund);
+//					PendingIntent pendingIntent = PendingIntent.getBroadcast(TimingMemoActivity.this, 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
+//					AlarmManager timingManager=(AlarmManager) getSystemService(ALARM_SERVICE);
+//					timingManager.cancel(pendingIntent);
+//					timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
+//					return;
+//				}
+//			}
+//		}
+//
+//	}
 	
-
-	private void timingRemind(){
-		List<Timing> timingList=timingService.getTimingByUserID(sp.getString("user", null));
-		if (timingList != null) {
-			Collections.sort(timingList, new Comparator<Timing>() {
-				@Override
-				public int compare(Timing lhs, Timing rhs) {
-					long timingEndtime1 = mTimeService.getSecondsFromDate(lhs.getEnd_time());
-					long timingEndtime2 = mTimeService.getSecondsFromDate(rhs.getEnd_time());
-					if (timingEndtime1<=timingEndtime2) {
-						return -1;
-					} else 
-						return 1;
-				}
-			});
-			
-			String content=timingList.get(0).getContent();
-			String userId=sp.getString("user", null);
-			long endTime= mTimeService.getSecondsFromDate(timingList.get(0).getEnd_time());
-			
-			Intent timingAlarm=new Intent(TimingMemoActivity.this,TimingReceiver.class);
-			Bundle bund=new Bundle();
-			bund.putString("user", userId);
-			bund.putString("content", content);
-			timingAlarm.putExtras(bund);
-			PendingIntent pendingIntent = PendingIntent.getBroadcast(TimingMemoActivity.this, 0, timingAlarm, 0);
-			AlarmManager timingManager=(AlarmManager) getSystemService(ALARM_SERVICE);
-			timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
-			timingService.updateIsfinish(timingList.get(0).getTiming_id());
-		}
-
-	}
-
 }

@@ -1,5 +1,7 @@
 package com.telc.domain.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
+import android.renderscript.Sampler.Value;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -19,6 +22,7 @@ import com.baidu.mapapi.utils.DistanceUtil;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.RealTime;
+import com.telc.domain.time.Service.TimeService;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.resource.remind.connentNet;
 import com.telc.resource.remind.remindContent;
@@ -37,10 +41,6 @@ public class locationService extends Service {
 	//数据库
 	private SQLiteDatabase db;
 	private RealTimeService realTimeHelper;
-		
-	//实时提醒对象
-
-	private RealTime realTime = new RealTime();
 
 	//xml 保存userid
 	private SharedPreferences sp;
@@ -67,7 +67,7 @@ public class locationService extends Service {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(30000);
+		option.setScanSpan(20000);//设置定位时间
 		mLocClient.setLocOption(option);
 		mLocClient.start();
 
@@ -77,7 +77,6 @@ public class locationService extends Service {
 		
 		//获取用户ID
 		userid = sp.getString("user", null);
-//		Toast.makeText(getApplicationContext(),"userid"+ userid, Toast.LENGTH_SHORT).show();
 		
 		super.onCreate();
 		
@@ -94,49 +93,61 @@ public class locationService extends Service {
 			realTimeList = realTimeHelper.getRealTimeByUserID(userid);
 			Iterator it = realTimeList.iterator();
 			
+			
 			while(it.hasNext()){
-
+				
 				RealTime realTime = new RealTime();
 				realTime = (RealTime)it.next();
 				
-				String[] strarray=realTime.getLocation().split("-");
+//				Toast.makeText(getApplicationContext(), "时效："+agingToDay(realTime.getAging()), Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getApplicationContext(), "当前时间："+new Date(), Toast.LENGTH_SHORT).show();
 
-				if(strarray.length> 2)
-					return;
-				
-				double latNum = Double.valueOf(strarray[0]);
-				double lonNum = Double.valueOf(strarray[1]);
-				
-				
-//				GeoPoint historyGeoPoint = new GeoPoint((int)(latNum*1000000), (int)(lonNum*1000000));
-//				GeoPoint tempGeoPoint = new GeoPoint((int)(location.getLatitude()*1000000), (int)(location.getLongitude()*1000000));
-
-				double distanceShort = GetShortDistance(lonNum, latNum, location.getLongitude(), location.getLatitude());
-				double distanceLong = GetShortDistance(lonNum, latNum, location.getLongitude(), location.getLatitude());
-//				
-				double distance;
-				if(distanceLong > 10000)
-					distance = distanceLong;
-				else
-					distance = distanceShort;
-
-				//自定义函数 计算 经纬度两点距离
-//				Toast.makeText(getApplicationContext(), distance+"m", Toast.LENGTH_SHORT).show();
-				
 				if(realTime.getIsfinish() == 0)
 				{
 					remindContent.useId = userid;
 					remindContent.Content = realTime.getContent();
 					
-					if(distance < REMIND_DISTANCE )
-					{
-						//开启一个线程  调用提醒服务
-						new connentNet().start();
-						//设置已完成
-						realTimeHelper.updateIsfinish(realTime.getReal_id());
-						
-					}
+					long dateStartTime = getSecondsFromDate(realTime.getStart_time());
 					
+					long dateAging = realTime.getAging()*60*60*1000;
+					
+					long dateEndTime = dateStartTime + dateAging ;
+					
+//					Toast.makeText(getApplicationContext(), "dateStartTime"+dateStartTime+"\n  dateEndTime"+dateEndTime
+//							+"\n aa"+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
+					
+					if(System.currentTimeMillis() < dateEndTime){
+					
+						String[] strarray=realTime.getLocation().split("-");
+	
+						if(strarray.length> 2)
+							return;
+					
+						double latNum = Double.valueOf(strarray[0]);
+						double lonNum = Double.valueOf(strarray[1]);
+					
+						double distanceShort = GetShortDistance(lonNum, latNum, location.getLongitude(), location.getLatitude());
+						double distanceLong = GetShortDistance(lonNum, latNum, location.getLongitude(), location.getLatitude());
+					
+						double distance;
+						if(distanceLong > 10000)
+							distance = distanceLong;
+						else
+							distance = distanceShort;
+	
+						if(distance < REMIND_DISTANCE )
+						{
+							//开启一个线程  调用提醒服务
+							new connentNet().start();
+							//设置已完成
+							realTimeHelper.updateIsfinish(realTime.getReal_id());
+							
+						}
+					
+					}else{
+						realTimeHelper.updateIsfinish(realTime.getReal_id());
+					}
+			
 				}
 			}
 		}
@@ -148,6 +159,75 @@ public class locationService extends Service {
 		}
 	}
 	
+	
+	//将时间字符串转化为long类型的毫秒数
+	public long getSecondsFromDate(String expireDate){ 
+        if(expireDate == null||expireDate.trim().equals(" "))
+        	return 0; 
+        Calendar   c   =   Calendar.getInstance(); 
+        int   expireYear   =   Integer.parseInt(expireDate.substring(0,4)); 
+        int   expireMonth   =   Integer.parseInt(expireDate.substring(5,7)); 
+        int   expireDay   =   Integer.parseInt(expireDate.substring(8,10)); 
+        int hou = Integer.parseInt(expireDate.substring(11, 13));
+        int min = Integer.parseInt(expireDate.substring(14, 16));
+        int sec = Integer.parseInt(expireDate.substring(17, 19));
+
+        c.set(expireYear,   expireMonth-1,   expireDay,hou,min,sec); 
+        
+        long time1 = c.getTimeInMillis();
+        return  time1;
+}
+	
+//	//时效由小时转化为时间
+//	private int agingToDay(int aging){
+//		int day = 0;
+//		switch(aging/24){
+//		case 1: day = 1;break;
+//		case 2: day = 2;break;
+//		case 3: day = 3;break;
+//		case 7: day = 7;break;
+//		case 14: day = 14;break;
+//		case 30: day =30;break;
+//		}
+//		return day;
+//	}
+	
+	
+//	//开始时间由String转化为Date类型
+//	private Date timeStringTranToDate(String timeTtring){
+//		
+//		Date date = new Date();
+//		
+//		int year ;
+//		int month;
+//		int day;
+//		int hour;
+//		int minute;
+//		int second;
+//		
+//		String []str =timeTtring.split("-");
+//		
+//		year =Integer.valueOf(str[0]);
+//		month = Integer.valueOf(str[1]);
+//		
+//		String []str2 = str[2].trim().split(" ");
+//		day = Integer.valueOf(str2[0]);
+//		
+//
+//		String []str3 = str2[1].trim().split(":");
+//		hour = Integer.valueOf(str3[0]);
+//		minute = Integer.valueOf(str3[1]);
+//		second = Integer.valueOf(str3[2]);
+//
+//		date.setYear(2014);
+//		date.setMonth(month);
+//		date.setDate(day);
+//		date.setHours(hour);
+//		date.setMinutes(minute);
+//		date.setSeconds(second);
+//		
+//		return date;
+//	}
 	 
 	//根据经纬度 求两点距离
 	static double DEF_PI = 3.14159265359; // PI
@@ -203,11 +283,8 @@ public class locationService extends Service {
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		
-//		Toast.makeText(getApplicationContext(), "service 被销毁", Toast.LENGTH_SHORT).show();
-//		mLocClient.stop();
 		super.onDestroy();
-		//若后台的定位服务不可被销毁 则重启
-
+		
 //		locationServiceInfoTran.canBeDestroy = true;
 		if(locationServiceInfoTran.canBeDestroy){
 //			stopService(new Intent("com.telc.domain.Service.locationService"));
@@ -217,7 +294,6 @@ public class locationService extends Service {
 			localIntent.setAction("com.telc.domain.Service.locationService");
 			this.startService(localIntent);
 		}
-
 	}
 
 	@Override
