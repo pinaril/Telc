@@ -16,15 +16,15 @@ public class TimingReceiver extends BroadcastReceiver{
 	@Override
 	public void onReceive(Context ctx, Intent intent) {
 		// TODO Auto-generated method stub
+		
 		Bundle bundle=intent.getExtras();
-		String user=bundle.getString("userId");
+		String user=bundle.getString("user");
 		String content=bundle.getString("content");
 		remindContent.Content=content;
-		android.os.Debug.waitForDebugger();
 		remindContent.useId=user;
 		new connentNet().start();
 		
-		Toast.makeText(ctx, "test收到广播 AT"+"   "+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
+		Toast.makeText(ctx, "提醒已发出 AT: "+user+content, Toast.LENGTH_SHORT).show();
 //		Log.e("alarm", String.valueOf(System.currentTimeMillis()));
 	}
 
