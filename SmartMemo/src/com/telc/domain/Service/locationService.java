@@ -67,7 +67,7 @@ public class locationService extends Service {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(3000);
+		option.setScanSpan(20000);//设置定位时间
 		mLocClient.setLocOption(option);
 		mLocClient.start();
 
@@ -138,7 +138,7 @@ public class locationService extends Service {
 						if(distance < REMIND_DISTANCE )
 						{
 							//开启一个线程  调用提醒服务
-	//						new connentNet().start();
+							new connentNet().start();
 							//设置已完成
 							realTimeHelper.updateIsfinish(realTime.getReal_id());
 							
