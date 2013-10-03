@@ -397,6 +397,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(TimingMemoActivity.this, 0, timingAlarm, 0);
 			AlarmManager timingManager=(AlarmManager) getSystemService(ALARM_SERVICE);
 			timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
+			timingService.updateIsfinish(timingList.get(0).getTiming_id());
 		}
 
 	}
