@@ -15,7 +15,7 @@ public class Timing {
 	private String user_id;
 	private int priority;
 	private int isfinish;
-	
+	private String location_detail;
 	public String getTiming_id() {
 		return timing_id;
 	}
@@ -63,6 +63,12 @@ public class Timing {
 	}
 	public void setIsfinish(int isfinish) {
 		this.isfinish = isfinish;
+	}
+	public String getLocation_detail() {
+		return location_detail;
+	}
+	public void setLocation_detail(String location_detail) {
+		this.location_detail = location_detail;
 	}
 
 
