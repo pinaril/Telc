@@ -19,10 +19,14 @@ import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicMemoDelActivity;
 import com.telc.ui.Memos.RealtimeMemoDelActivity;
+import com.telc.ui.Memos.TimingMemoActivity;
 import com.telc.ui.Memos.TimingMemoDelActivity;
+import com.telc.ui.Memos.TimingReceiver;
 import com.telc.ui.main.SlidingActivity;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -49,7 +53,6 @@ public class UnfinishFragment extends Fragment {
 
 	private TextView textListCategory;
 	int color;
-
 	public TimeService timService;
 
 
@@ -84,6 +87,7 @@ public class UnfinishFragment extends Fragment {
 		initAdapert();
 		if (mAdapter != null)
 			uncompleteList.setAdapter(mAdapter);
+		
 		// listView中Item的监听
 		uncompleteList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -118,7 +122,6 @@ public class UnfinishFragment extends Fragment {
 				}else {
 					return;
 				}
-
 			}
 		});
 		return view;
@@ -320,10 +323,48 @@ public class UnfinishFragment extends Fragment {
 		super.onResume();
 		mAdapter=null;		
 		initAdapert();
+		timingRemind();
 		if (mAdapter != null)
 		{
 			uncompleteList.setAdapter(mAdapter);
 		}
 	}
-
+	
+	private void timingRemind(){
+		List<Timing> timingList=timingService.getTimingByUserID(sp.getString("user", null));
+		if (timingList != null) {
+			Collections.sort(timingList, new Comparator<Timing>() {
+				@Override
+				public int compare(Timing lhs, Timing rhs) {
+					long timingEndtime1 = timService.getSecondsFromDate(lhs.getEnd_time());
+					long timingEndtime2 = timService.getSecondsFromDate(rhs.getEnd_time());
+					if (timingEndtime1<=timingEndtime2) {
+						return -1;
+					} else 
+						return 1;
+				}
+			});
+			for(int i=0;i<timingList.size();i++){
+				if(timingList.get(i).getIsfinish()==0){
+					String content=timingList.get(i).getContent();
+					String userId=sp.getString("user", null);
+					long endTime= timService.getSecondsFromDate(timingList.get(i).getEnd_time());
+					
+					Intent timingAlarm=new Intent(getActivity(),TimingReceiver.class);
+					Bundle bund=new Bundle();
+					bund.putString("user", userId);
+					bund.putString("content", content);
+					bund.putString("timingId", timingList.get(i).getTiming_id());
+					timingAlarm.putExtras(bund);
+					PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
+					AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
+					timingManager.cancel(pendingIntent);
+					timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
+					return;
+				}
+			}
+		}
+	}
+	
+	
 }

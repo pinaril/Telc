@@ -1,19 +1,28 @@
 package com.telc.ui.main;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
+import com.telc.domain.Emtity.Timing;
+import com.telc.domain.Service.TimingService;
+import com.telc.domain.time.Service.TimeService;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicMemoActivity;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.Memos.TimingMemoActivity;
+import com.telc.ui.Memos.TimingReceiver;
 import com.telc.ui.main.viewModel.MenuFragment;
 import com.telc.ui.main.viewModel.UnfinishFragment;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.FragmentTransaction;
@@ -24,6 +33,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -37,7 +47,9 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 	
 	//创建启动  Service  的  Intent 
 	final Intent intent =  new Intent("com.telc.domain.Service.locationService");
-	
+	SQLiteDatabase db;
+	TimeService timeService=new TimeService();
+	TimingService timing;
 //	intent.setAction("com.telc.domain.Service.locationService");
 	
 	public SharedPreferences sp;
@@ -63,7 +75,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		setTitle("智慧备忘录");//设置备忘录标题
 		setContentView(R.layout.activity_unfinish);
 		sp=getSharedPreferences("Login",MODE_PRIVATE);
-		
+		db=openOrCreateDatabase(DBConstant.DB_FILENAME,MODE_PRIVATE, null);
+		timing=new TimingService(db);
 		setBehindContentView(R.layout.activity_menu);//设置侧边的布局文件
         //Fragment事件开始
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
@@ -245,5 +258,6 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		
 		return super.onKeyDown(keyCode, event);
 	}
+
     
 }
