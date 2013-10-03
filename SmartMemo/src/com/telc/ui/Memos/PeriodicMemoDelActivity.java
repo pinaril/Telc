@@ -43,7 +43,7 @@ public class PeriodicMemoDelActivity extends SherlockFragmentActivity {
 	private Periodic mPeriodic=new Periodic();
 	private String mIndex;
 	
-	private final String[] spinnerPeriodicItem={"每天","每周","每月"};
+//	private final String[] spinnerPeriodicItem={"每天","每周","每月"};
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,8 @@ public class PeriodicMemoDelActivity extends SherlockFragmentActivity {
 		editPeriodicDetail.setText(mPeriodic.getPeriod_detail());
 		editPeriodicContent.setText(mPeriodic.getContent());
 		 //将可选内容与ArrayAdapter连接起来
+		
+		String[] spinnerPeriodicItem={mPeriodic.getPeriod()};
 		spinnerAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,spinnerPeriodicItem);
 		//设置下拉列表的风格
 		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

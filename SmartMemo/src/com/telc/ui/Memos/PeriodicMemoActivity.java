@@ -14,6 +14,7 @@ import com.telc.domain.IService.IPeriodicService;
 import com.telc.domain.Service.PeriodicService;
 import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
+import com.telc.ui.Memos.RealtimeMemoActivity.SpinnerSelectedListener;
 import com.telc.ui.main.AlarmReceiver;
 
 import android.app.AlarmManager;
@@ -25,11 +26,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 public class PeriodicMemoActivity extends SherlockFragmentActivity {
 //	数据库
@@ -74,10 +77,34 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 		//设置下拉列表的风格
 		spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerPeriodic.setAdapter(spinnerAdapter);
+		spinnerPeriodic.setOnItemSelectedListener(new SpinnerSelectedListener());  
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 	}
+	
+	 //使用数组形式操作  
+    class SpinnerSelectedListener implements OnItemSelectedListener{  
+  
+        public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,  
+                long arg3) {  
+        	switch (arg2) {
+			case 0:
+				periodicPosition=0;
+				break;
+			case 1:
+				periodicPosition=1;
+				break;
+			case 2:
+				periodicPosition=2;
+				break;
+			}
+        }  
+  
+        public void onNothingSelected(AdapterView<?> arg0) {  
+        }  
+    } 
+	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
