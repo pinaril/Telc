@@ -85,7 +85,11 @@ public class baiduMapActivity extends Activity {
 
 		if (mBMapMan == null) {
 			mBMapMan = new BMapManager(getApplication());
-			mBMapMan.init("A974f3064aefefc68e26feb3503c5fd1", null);
+			mBMapMan.init("343a6646c6074de1bb7eb38af921165b", null);
+			/*A974f3064aefefc68e26feb3503c5fd1  s
+			 * 
+			 * 343a6646c6074de1bb7eb38af921165b   S发布版的key
+			 * */
 		}
 		
 		// 初始化搜索模块，注册搜索事件监听

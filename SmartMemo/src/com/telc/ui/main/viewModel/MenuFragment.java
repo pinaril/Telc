@@ -179,6 +179,8 @@ public class MenuFragment extends Fragment {
 				drawable = getResources().getDrawable(R.drawable.bg_press);
 				textExit.setBackgroundDrawable(drawable);
 				getActivity().finish();
+//				showDialog(0x112233);
+
 			}
 		});
 
