@@ -2,14 +2,20 @@ package com.telc.ui.other;
 
 import java.util.List;
 
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.domain.Service.WeatherService;
 import com.telc.resource.baidumap.baiduMapActivity;
 import com.telc.smartmemo.R;
 import com.telc.ui.main.SlidingActivity;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +44,8 @@ public class newSettingFragment extends Fragment {
 	int flag = 0;
 	boolean ffflag = false;
 	
+	boolean netFlag = false;
+	
 	private String mprovince;
 	private int mprovinceId;
 	
@@ -52,13 +60,14 @@ public class newSettingFragment extends Fragment {
 	
 	private static final String[] sp_remindDistanceSelect={"50米","100米","200米","250米"};
 	private static final String[] sp_locationTimeSelect={"10秒","20秒","25秒","50秒","60秒"};
+	private static final String[] sp_provinceCity = {""};
 
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
+		
 	}
 	
 
@@ -69,6 +78,8 @@ public class newSettingFragment extends Fragment {
 		
 		View view = inflater.inflate(R.layout.setlayout, null);
 
+		netFlag = isConnect(getActivity());
+		
 		preferences = getActivity().getSharedPreferences("setInfo", 0);
 		editor = preferences.edit();
 		
@@ -132,13 +143,36 @@ public class newSettingFragment extends Fragment {
 		sp_locationTime.setOnItemSelectedListener(new Spinner_locationTime_SelectedListener());  
 
 		
-		//设置城市
+		//设置省份
 		List<String> list_province;
+		
 		list_province = WeatherService.getProviceList();
 		
-		ArrayAdapter<String> adapter_province = new ArrayAdapter<String>(
+		ArrayAdapter<String> adapter_province ;
+		
+		if(netFlag)
+			adapter_province = new ArrayAdapter<String>(
 				getActivity(), android.R.layout.simple_spinner_item,
 				list_province);
+		else{
+			
+			 new AlertDialog.Builder(getActivity())
+	            .setTitle("网络错误") 
+	            .setMessage("网络连接失败，请确认网络连接") 
+	            .setPositiveButton("确定", new DialogInterface.OnClickListener() { 
+	            @Override 
+				public void onClick(DialogInterface arg0, int arg1) { 
+				// TODO Auto-generated method stub 
+	            	android.os.Process.killProcess(android.os.Process.myPid()); 
+				    System.exit(0); 
+				} 
+	            }).show(); 
+			
+			adapter_province = new ArrayAdapter<String>(
+					getActivity(), android.R.layout.simple_spinner_item,
+					sp_provinceCity);
+		}
+		
 		adapter_province.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		
 		sp_province.setAdapter(adapter_province);
@@ -146,7 +180,6 @@ public class newSettingFragment extends Fragment {
 		sp_province.setVisibility(View.VISIBLE); 
 		
 		sp_city.setEnabled(false);
-		
 		
 		return view;
 	}
@@ -164,8 +197,6 @@ public class newSettingFragment extends Fragment {
 			sp_province.setSelection(preferences.getInt("mprovinceId", 0));
 			int j = preferences.getInt("mprovinceId", 0);
 			
-//			progressDialog = ProgressDialog.show(getActivity(), "请稍后。。", "正在加载数据。。。", true, false);
-
 			
 			sp_remindDistance.setSelection(preferences.getInt("mRemindDistanceId", 0));
 			int k = preferences.getInt("mRemindDistanceId", 0);
@@ -179,6 +210,7 @@ public class newSettingFragment extends Fragment {
 		}
 	}
 
+    
 
 	class Spinner_locationTime_SelectedListener implements OnItemSelectedListener{  
     	  
@@ -256,9 +288,16 @@ public class newSettingFragment extends Fragment {
 				List<String> list_city;
 				ArrayAdapter adapter_city;
 				list_city = WeatherService.getCityListByProvince(mprovince);
-				adapter_city = new ArrayAdapter<String>(
+				
+				if(netFlag)
+					adapter_city = new ArrayAdapter<String>(
 						getActivity(), android.R.layout.simple_spinner_item,
 						list_city);
+				else
+					adapter_city = new ArrayAdapter<String>(
+							getActivity(), android.R.layout.simple_spinner_item,
+							sp_provinceCity);
+				
 				adapter_city.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 				sp_city.setAdapter(adapter_city);
 				sp_city.setOnItemSelectedListener(new spinner_cityListen());
@@ -291,4 +330,25 @@ public class newSettingFragment extends Fragment {
 			}
 		}
 		
+		
+		public static boolean isConnect(Context context) { 
+				// 获取手机所有连接管理对象（包括对wi-fi,net等连接的管理） 
+			    try { 
+			        ConnectivityManager connectivity = (ConnectivityManager) context 
+			                .getSystemService(Context.CONNECTIVITY_SERVICE); 
+			        if (connectivity != null) { 
+			            // 获取网络连接管理的对象 
+			            NetworkInfo info = connectivity.getActiveNetworkInfo(); 
+			            if (info != null&& info.isConnected()) { 
+			                // 判断当前网络是否已经连接 
+			                if (info.getState() == NetworkInfo.State.CONNECTED) { 
+			                    return true; 
+			                } 
+			            } 
+			        } 
+			    } catch (Exception e) { 
+			} 
+	        return false; 
+	    } 
+
 }
