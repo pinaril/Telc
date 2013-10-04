@@ -296,6 +296,7 @@ public class locationService extends Service {
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		
+		mLocClient.stop();
 		super.onDestroy();
 		
 //		locationServiceInfoTran.canBeDestroy = true;
@@ -314,7 +315,7 @@ public class locationService extends Service {
 		// TODO Auto-generated method stub
 
 		mLocClient.start();
-		flags =  START_STICKY;
+//		flags =  START_STICKY;
 //		Toast.makeText(getApplicationContext(), "start servet", Toast.LENGTH_SHORT).show();
 		
 		return super.onStartCommand(intent, flags, startId);
