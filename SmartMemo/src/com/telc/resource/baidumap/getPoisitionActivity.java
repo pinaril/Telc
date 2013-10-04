@@ -127,9 +127,9 @@ public class getPoisitionActivity extends Activity {
 		/*
 		 * A974f3064aefefc68e26feb3503c5fd1    s
 		 * 
-		 * 343a6646c6074de1bb7eb38af921165b
+		 * 343a6646c6074de1bb7eb38af921165b   发布版的key
 		 * 
-		 *   */
+		 **/
 
 		
 		// 定位初始化
