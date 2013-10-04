@@ -296,7 +296,7 @@ public class baiduMapActivity extends Activity {
 			// 返回地址信息搜索结果
 			MKGeocoderAddressComponent kk = result.addressComponents;
 			
-			LocationInfoTran.positionNameString = kk.city + kk.district + kk.street + kk.streetNumber;
+			LocationInfoTran.positionNameString = /*kk.city + */kk.district + kk.street + kk.streetNumber;
 			Toast.makeText(getApplicationContext(), LocationInfoTran.positionNameString+"", Toast.LENGTH_SHORT).show();
 			
 			if(progressDialogFlag){
