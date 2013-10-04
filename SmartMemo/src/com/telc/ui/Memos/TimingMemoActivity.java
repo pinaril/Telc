@@ -63,7 +63,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 	TableRow tabl_location, tabl_content;
 	Drawable drawable;
 	String location = "";// 获取地点设置
-	String locationDetail="";
+	String locationDetail=" ";
 	private Dialog dl;
 	Context context;
 	private int mHour; // 存放时间的小时
