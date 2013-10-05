@@ -100,6 +100,9 @@ public class SystemManagement implements ISystemManagement {
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
 		accountDao = AccountDAO.getFromApplicationContext(ctx);
 		Account account = accountDao.findById(tel);
+		if(account==null){
+			return false;
+		}
 		if(account.getPwd().equals(pwd))
 			return true;
 		else {
