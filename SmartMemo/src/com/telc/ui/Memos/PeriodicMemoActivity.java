@@ -1,29 +1,18 @@
 package com.telc.ui.Memos;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.Periodic;
-import com.telc.domain.IService.IPeriodicService;
 import com.telc.domain.Service.PeriodicService;
 import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
-import com.telc.ui.Memos.RealtimeMemoActivity.SpinnerSelectedListener;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -43,7 +32,6 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 	Spinner spinnerPeriodic;
 	EditText editPeriodicContent,editPeriodicDetail;
 	private ArrayAdapter<String> spinnerAdapter;
-	private Context mContext;
 	TimeService mTime=new TimeService();
 //	周期性提醒对象
 	private Periodic mPeriodic=new Periodic();
@@ -59,7 +47,6 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_periodic);
-		mContext=this;
 		sp = getSharedPreferences("Login", MODE_PRIVATE);
 		db=openOrCreateDatabase(DBConstant.DB_FILENAME,MODE_PRIVATE, null);
 		periodicHelper=new PeriodicService(db);

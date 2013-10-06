@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.telc.domain.Emtity.Periodic;
-import com.telc.domain.Emtity.Timing;
 import com.telc.domain.IService.IPeriodicService;
 
 /**

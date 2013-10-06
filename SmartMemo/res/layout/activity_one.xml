@@ -13,14 +13,6 @@
         android:layout_marginTop="5dp"
         android:orientation="horizontal" >
 
-        <Button
-            android:id="@+id/bt_back"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:onClick="bt_back_onclick"
-            android:background="@drawable/btn_back" />
-
         <AutoCompleteTextView
             android:id="@+id/et_oneactivity_enterPoi"
             android:layout_width="wrap_content"

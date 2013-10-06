@@ -3,7 +3,6 @@ package com.telc.ui.main.viewModel;
 import com.telc.smartmemo.R;
 import com.telc.ui.main.SlidingActivity;
 import com.telc.ui.other.AboutFragment;
-import com.telc.ui.other.SettingFragment;
 import com.telc.ui.other.newSettingFragment;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 import com.telc.ui.systemManagement.PersonalInfoFragment;
@@ -82,6 +81,7 @@ public class MenuFragment extends Fragment{
 
 				fm.beginTransaction().replace(R.id.unfinish, new PersonalInfoFragment())
 				.commit();
+				
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
 		});
@@ -206,11 +206,6 @@ public class MenuFragment extends Fragment{
 				index = 4;
 				FragmentManager fm = ((SlidingActivity) getActivity())
 						.getFragmentManager();
-				
-				//kjnlkjl
-//				fm.beginTransaction().replace(R.id.unfinish, new SettingFragment() )
-//				.commit();
-				
 				fm.beginTransaction().replace(R.id.unfinish, new newSettingFragment() )
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();	

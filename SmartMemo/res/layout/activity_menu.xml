@@ -33,16 +33,12 @@
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/userinfo"
                     android:drawableRight="@drawable/goto_view"
-                    android:text="个人信息"
+                    android:gravity="center_vertical"
+                    android:text="   个人信息"
                     android:textColor="@color/white"
-                   android:gravity="center_vertical"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="18dp"
-                android:orientation="vertical" >
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10sp"  
+                    android:layout_marginRight="10sp"/>
 
             </LinearLayout>
 
@@ -61,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:text="备忘录"
                         android:textColor="@color/white"
-                        android:textSize="26sp" />
+                        android:textSize="20sp" />
 
                  
                 </LinearLayout>
@@ -73,10 +69,13 @@
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/uncomplete"
                     android:drawableRight="@drawable/goto_view"
-                    android:text="未完成"
                     android:gravity="center_vertical"
+                    android:text="   未完成"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp" 
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginRight="10sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -91,10 +90,13 @@
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/complete"
                     android:drawableRight="@drawable/goto_view"
-                    android:text="已完成"
                     android:gravity="center_vertical"
+                    android:text="   已完成"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10sp"  
+                    android:layout_marginRight="10sp"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -102,23 +104,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                         android:textSize="10sp" />
-                </LinearLayout>
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="系统"
                     android:textColor="@color/white"
-                    android:textSize="26sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -134,10 +125,12 @@
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/setting"
                     android:drawableRight="@drawable/goto_view"
-                    android:text="设置"
-                    android:textColor="@color/white"
                     android:gravity="center_vertical"
-                    android:textSize="20sp" />
+                    android:text="   设置"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10sp" 
+                    android:layout_marginRight="10sp" />
 
             </LinearLayout>
 
@@ -153,9 +146,11 @@
                     android:drawableBottom="@drawable/battery_horizontal_dividing_line"
                     android:drawableLeft="@drawable/book"
                     android:drawableRight="@drawable/goto_view"
-                    android:text="关于"
                     android:gravity="center_vertical"
+                    android:text="   关于"
                     android:textColor="@color/white"
+                    android:layout_marginLeft="10sp" 
+                    android:layout_marginRight="10sp"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -169,10 +164,13 @@
                     android:id="@+id/txt_return"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
+                    android:drawableLeft="@drawable/ic_logout"
                     android:drawableRight="@drawable/goto_view"
-                    android:text="返回登录界面"
                     android:gravity="center_vertical"
+                    android:text="   返回登录界面"
                     android:textColor="@color/white"
+                    android:layout_marginLeft="10sp" 
+                    android:layout_marginRight="10sp"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -186,11 +184,14 @@
                     android:id="@+id/txt_exit"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
+                    android:drawableLeft="@drawable/ic_exit"
                     android:drawableRight="@drawable/goto_view"
-                    android:text="退出"
                     android:gravity="center_vertical"
+                    android:text="   退出"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10sp" 
+                    android:layout_marginRight="10sp"/>
 
             </LinearLayout>
 
