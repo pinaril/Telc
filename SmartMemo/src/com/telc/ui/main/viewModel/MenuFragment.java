@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment{
 	int index = 0;
 
 	TextView textUserInfo;
@@ -178,7 +178,12 @@ public class MenuFragment extends Fragment {
 				// TODO Auto-generated method stub
 				drawable = getResources().getDrawable(R.drawable.bg_press);
 				textExit.setBackgroundDrawable(drawable);
-				getActivity().finish();
+//				getActivity().finish();
+//				showDialog(0x112234);
+				
+				getActivity().showDialog(0x112233);
+				
+				
 			}
 		});
 
@@ -239,6 +244,7 @@ public class MenuFragment extends Fragment {
 		});
 		return view;
 	}
+	
 
 	@Override
 	public void onDestroy() {

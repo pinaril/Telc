@@ -214,7 +214,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
     }
     
     
-    private Dialog buildDialog(Context context){
+    public  Dialog buildDialog(Context context){
     	AlertDialog.Builder builder = new AlertDialog.Builder(context);
     
     	builder.setTitle("退出");
