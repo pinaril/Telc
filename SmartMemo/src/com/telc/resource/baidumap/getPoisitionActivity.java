@@ -3,6 +3,9 @@ package com.telc.resource.baidumap;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -48,7 +51,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class getPoisitionActivity extends Activity {
+public class getPoisitionActivity extends SherlockFragmentActivity {
 
 	// 定位相关
 	LocationClient mLocClient;
@@ -98,10 +101,8 @@ public class getPoisitionActivity extends Activity {
 		SET_CITY = locationSettingService.MY_CITY;
 		CITY ="";
 		
-		
 		listItem = new ArrayList<HashMap<String,Object>>();
-		
-		
+
 		//生成适配器的Item 和动态数组对应的元素
 		listItemAdapter = new SimpleAdapter(this,listItem, R.layout.item_list_location,  new String[] {"ItemText"}, new int[]{R.id.tv_ltem_list_location});
 				
@@ -209,6 +210,8 @@ public class getPoisitionActivity extends Activity {
 //				}
 			}
 		});
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	/**
@@ -244,7 +247,7 @@ public class getPoisitionActivity extends Activity {
 		intent.setClass(this, baiduMapActivity.class);
 		// startActivity(intent);
 		startActivityForResult(intent, 1);
-		getPoisitionActivity.this.finish();
+//		getPoisitionActivity.this.finish();
 	}
 
 	// 我的位置
@@ -309,12 +312,19 @@ public class getPoisitionActivity extends Activity {
 		super.onResume();
 	}
 
+	
+
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId()==android.R.id.home){
+			finish();
+			return true;
+		}else
+			return false;
 	}
+
+
 
 	public class MyLocationListenner implements BDLocationListener {
 
