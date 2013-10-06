@@ -3,7 +3,6 @@ package com.telc.ui.main.viewModel;
 import com.telc.smartmemo.R;
 import com.telc.ui.main.SlidingActivity;
 import com.telc.ui.other.AboutFragment;
-import com.telc.ui.other.SettingFragment;
 import com.telc.ui.other.newSettingFragment;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 import com.telc.ui.systemManagement.PersonalInfoFragment;
