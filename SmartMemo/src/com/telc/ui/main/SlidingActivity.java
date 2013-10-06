@@ -102,7 +102,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		SlidingMenu sm= getSlidingMenu();
 		sm.setShadowWidth(15);
 		sm.setShadowDrawable(R.drawable.sliding_shadow);
-		sm.setBehindOffset(180);//侧边剩余距离
+		sm.setBehindOffset(130);//侧边剩余距离
 //		设置抽屉弹出模式
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		
