@@ -141,7 +141,17 @@
             android:layout_weight="1"
             android:background="@drawable/xml_layout_background"
             android:layout_marginTop="15sp"
-            android:text="数据同步"
+            android:text="上传到云端"
+            android:textColor="@color/white" />
+        
+        <Button
+            android:id="@+id/btn_syn_to_here"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/xml_layout_background"
+            android:layout_marginTop="15sp"
+            android:text="同步到本地"
             android:textColor="@color/white" />
 
         <Button
