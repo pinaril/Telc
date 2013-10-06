@@ -82,6 +82,7 @@ public class MenuFragment extends Fragment{
 
 				fm.beginTransaction().replace(R.id.unfinish, new PersonalInfoFragment())
 				.commit();
+				
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
 		});
@@ -206,11 +207,6 @@ public class MenuFragment extends Fragment{
 				index = 4;
 				FragmentManager fm = ((SlidingActivity) getActivity())
 						.getFragmentManager();
-				
-				//kjnlkjl
-//				fm.beginTransaction().replace(R.id.unfinish, new SettingFragment() )
-//				.commit();
-				
 				fm.beginTransaction().replace(R.id.unfinish, new newSettingFragment() )
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();	

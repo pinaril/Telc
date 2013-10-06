@@ -1,7 +1,6 @@
 package com.telc.domain.Service;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,19 +9,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
-import android.renderscript.Sampler.Value;
-import android.widget.Toast;
-
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.LocationData;
-import com.baidu.mapapi.utils.DistanceUtil;
-import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.RealTime;
-import com.telc.domain.time.Service.TimeService;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.resource.remind.connentNet;
 import com.telc.resource.remind.remindContent;

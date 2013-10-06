@@ -36,6 +36,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -51,6 +52,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 	SQLiteDatabase db;
 	TimeService timeService=new TimeService();
 	TimingService timing;
+	private boolean isToggle=false;
+	private boolean isClickBack=false;
 //	intent.setAction("com.telc.domain.Service.locationService");
 	
 	public SharedPreferences sp;
@@ -279,15 +282,23 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
-		
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			
-			showDialog(0x112233);
-			return true;
+			 if(!isClickBack){
+				 isClickBack = true;
+                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();   
+                 new Handler().postDelayed(new Runnable() {
+                        @Override  
+                        public void run() {
+                        	isClickBack = false;  
+                        }  
+                    }, 2000);  
+                 return true;
+             }else {  
+                 showDialog(0x112233);
+                 return false;
+             } 
+			 
 		}
-		
-		return super.onKeyDown(keyCode, event);
+		return false;
 	}
-
-    
 }
