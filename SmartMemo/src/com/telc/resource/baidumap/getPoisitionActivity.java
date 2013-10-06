@@ -247,7 +247,7 @@ public class getPoisitionActivity extends SherlockFragmentActivity {
 		intent.setClass(this, baiduMapActivity.class);
 		// startActivity(intent);
 		startActivityForResult(intent, 1);
-//		getPoisitionActivity.this.finish();
+		getPoisitionActivity.this.finish();
 	}
 
 	// 我的位置
@@ -318,7 +318,7 @@ public class getPoisitionActivity extends SherlockFragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		if(item.getItemId()==android.R.id.home){
-			finish();
+			getPoisitionActivity.this.finish();
 			return true;
 		}else
 			return false;
