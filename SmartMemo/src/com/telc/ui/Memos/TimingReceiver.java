@@ -30,8 +30,8 @@ public class TimingReceiver extends BroadcastReceiver{
 		String content=bundle.getString("content");
 		String index=bundle.getString("timingId");
 		String location=bundle.getString("location");
-		if(!location.isEmpty()){
-			content="去"+location;
+		if(location!=null&& !location.isEmpty()){
+			content="到"+location;
 		}
 		timing.updateIsfinish(index);
 		remindContent.Content=content;

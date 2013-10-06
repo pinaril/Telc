@@ -3,6 +3,9 @@ package com.telc.resource.baidumap;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -23,6 +26,7 @@ import com.baidu.mapapi.search.MKSuggestionResult;
 import com.baidu.mapapi.search.MKTransitRouteResult;
 import com.baidu.mapapi.search.MKWalkingRouteResult;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.telc.domain.Service.locationSettingService;
 import com.telc.smartmemo.R;
 
 import android.app.Activity;
@@ -47,7 +51,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class getPoisitionActivity extends Activity {
+public class getPoisitionActivity extends SherlockFragmentActivity {
 
 	// 定位相关
 	LocationClient mLocClient;
@@ -55,7 +59,8 @@ public class getPoisitionActivity extends Activity {
 
 	private MKSearch mSearch = null;
 
-	String city = "";
+	String CITY ;
+	String SET_CITY;
 	//城市定位次数
 	int cityFlag = 1;
 
@@ -92,10 +97,12 @@ public class getPoisitionActivity extends Activity {
 		mainLayout = (LinearLayout)getLayoutInflater().inflate(R.layout.activity_one, null);
 		setContentView(mainLayout);
 		
+		//设置为用户设定的城市 或默认城市
+		SET_CITY = locationSettingService.MY_CITY;
+		CITY ="";
 		
 		listItem = new ArrayList<HashMap<String,Object>>();
-		
-		
+
 		//生成适配器的Item 和动态数组对应的元素
 		listItemAdapter = new SimpleAdapter(this,listItem, R.layout.item_list_location,  new String[] {"ItemText"}, new int[]{R.id.tv_ltem_list_location});
 				
@@ -117,7 +124,13 @@ public class getPoisitionActivity extends Activity {
 	        });
 				
 		mBMapMan = new BMapManager(getApplication());
-		mBMapMan.init("A974f3064aefefc68e26feb3503c5fd1", null);
+		mBMapMan.init("343a6646c6074de1bb7eb38af921165b", null);
+		/*
+		 * A974f3064aefefc68e26feb3503c5fd1    s
+		 * 
+		 * 343a6646c6074de1bb7eb38af921165b   发布版的key
+		 * 
+		 **/
 
 		
 		// 定位初始化
@@ -175,15 +188,18 @@ public class getPoisitionActivity extends Activity {
 					
 				}
 				
-				//zhe  li hai shi ke yi gai gai de  o 
-				if (city.equals(""))
-					city = "福州市";
+				String strCity;
+				
+				if (CITY.equals(""))
+					strCity = SET_CITY;
+				else
+					strCity = CITY;
 //				{
 					/**
 					 * 使用建议搜索服务获取建议列表，结果在onSuggestionResult()中更新
 					 */
 					LocationInfoTran.selectFlag = 1;
-					mSearch.suggestionSearch(cs.toString(), city);
+					mSearch.suggestionSearch(cs.toString(), strCity);
 //				}else{
 ////					if(locData != null )
 ////						mSearch.reverseGeocode(new GeoPoint((int) (locData.latitude * 1e6),
@@ -194,6 +210,8 @@ public class getPoisitionActivity extends Activity {
 //				}
 			}
 		});
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	/**
@@ -202,11 +220,15 @@ public class getPoisitionActivity extends Activity {
 	 * @param v
 	 */
 	public void searchButtonProcess(View v) {
-		if(city.equals("")){
-			Toast.makeText(getApplicationContext(), "城市尚未定位成功，请稍后！", Toast.LENGTH_SHORT).show();
-			return;
-		}
-		mSearch.poiSearchInCity(city, keyWorldsView.getText().toString());
+		String strCity;
+		
+		if(CITY.equals("")){
+//			Toast.makeText(getApplicationContext(), "城市尚未定位成功，请稍后！", Toast.LENGTH_SHORT).show();
+//			return;
+			strCity = SET_CITY;
+		}else
+			strCity = CITY;
+		mSearch.poiSearchInCity(strCity, keyWorldsView.getText().toString());
 //		System.out.println(mSearch);
 	}
 
@@ -235,7 +257,6 @@ public class getPoisitionActivity extends Activity {
 		// LocationInfoTran.geoPoint = gPoint;
 		LocationInfoTran.locationData = locData;
 
-		
 		if(locData == null )
 		{
 			Toast.makeText(getApplicationContext(), "尚未定位成功，请重试~",Toast.LENGTH_SHORT).show();
@@ -291,12 +312,19 @@ public class getPoisitionActivity extends Activity {
 		super.onResume();
 	}
 
+	
+
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		if(item.getItemId()==android.R.id.home){
+			getPoisitionActivity.this.finish();
+			return true;
+		}else
+			return false;
 	}
+
+
 
 	public class MyLocationListenner implements BDLocationListener {
 
@@ -319,9 +347,9 @@ public class getPoisitionActivity extends Activity {
 						(int) (location.getLongitude() * 1e6)));
 				cityFlag --;
 			}
-				if(!city.equals("")){
-					mLocClient.stop();
-				}
+			if(!CITY.equals("") /*&& (CITY).equals(locationSettingService.MY_CITY)*/){
+				mLocClient.stop();
+			}
 		}
 
 		public void onReceivePoi(BDLocation poiLocation) {
@@ -336,9 +364,9 @@ public class getPoisitionActivity extends Activity {
 		public void onGetAddrResult(MKAddrInfo result, int iError) {
 			// 返回地址信息搜索结果
 			MKGeocoderAddressComponent kk = result.addressComponents;
-			city = kk.city;
+			CITY = kk.city;
 //			Toast.makeText(getApplicationContext(), "city"+ city, Toast.LENGTH_SHORT).show();
-			LocationInfoTran.positionNameString = kk.city + kk.district + kk.street + kk.streetNumber;
+			LocationInfoTran.positionNameString =/* kk.city +*/ kk.district + kk.street + kk.streetNumber;
 			Toast.makeText(getApplicationContext(), LocationInfoTran.positionNameString+"", Toast.LENGTH_SHORT).show();
 			
 			if(LocationInfoTran.selectFlag == 3  && progressDialogFlag){
@@ -347,8 +375,6 @@ public class getPoisitionActivity extends Activity {
 				setResult(0);
 				getPoisitionActivity.this.finish();
 			}
-			
-			
 		}
 
 		@Override

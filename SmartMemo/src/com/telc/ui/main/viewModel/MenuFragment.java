@@ -3,7 +3,7 @@ package com.telc.ui.main.viewModel;
 import com.telc.smartmemo.R;
 import com.telc.ui.main.SlidingActivity;
 import com.telc.ui.other.AboutFragment;
-import com.telc.ui.other.SettingFragment;
+import com.telc.ui.other.newSettingFragment;
 import com.telc.ui.systemManagement.LoginAndRegisterActivity;
 import com.telc.ui.systemManagement.PersonalInfoFragment;
 
@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment{
 	int index = 0;
 
 	TextView textUserInfo;
@@ -81,6 +81,7 @@ public class MenuFragment extends Fragment {
 
 				fm.beginTransaction().replace(R.id.unfinish, new PersonalInfoFragment())
 				.commit();
+				
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();
 			}
 		});
@@ -177,7 +178,12 @@ public class MenuFragment extends Fragment {
 				// TODO Auto-generated method stub
 				drawable = getResources().getDrawable(R.drawable.bg_press);
 				textExit.setBackgroundDrawable(drawable);
-				getActivity().finish();
+//				getActivity().finish();
+//				showDialog(0x112234);
+				
+				getActivity().showDialog(0x112233);
+				
+				
 			}
 		});
 
@@ -200,8 +206,7 @@ public class MenuFragment extends Fragment {
 				index = 4;
 				FragmentManager fm = ((SlidingActivity) getActivity())
 						.getFragmentManager();
-				
-				fm.beginTransaction().replace(R.id.unfinish, new SettingFragment() )
+				fm.beginTransaction().replace(R.id.unfinish, new newSettingFragment() )
 				.commit();
 				((SlidingActivity)getActivity()).getSlidingMenu().showContent();	
 			}
@@ -234,6 +239,7 @@ public class MenuFragment extends Fragment {
 		});
 		return view;
 	}
+	
 
 	@Override
 	public void onDestroy() {

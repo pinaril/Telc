@@ -20,18 +20,13 @@
             android:onClick="dituqudian"
             android:layout_weight="1" >
 
-            <Button
-
-                android:layout_marginLeft="20dp"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/route_selptfrom_map" 
-                />
+       
             <TextView 
                 android:layout_marginLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:gravity="center"
+                android:drawableTop="@drawable/z_selptfrom_map"
                 android:text="地图取点"
                 />
         </LinearLayout>
@@ -44,19 +39,13 @@
             android:clickable="true"
             android:onClick="wodeweizhi"
             android:layout_weight="1" >
-
-            <Button
-                android:layout_marginLeft="20dp"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/toolbox_fls" 
-                />
             <TextView 
                 android:layout_marginLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="我的位置"
+                android:drawableTop="@drawable/z_toolbox_fls"
                 />
         </LinearLayout>
     </LinearLayout>

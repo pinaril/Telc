@@ -12,6 +12,7 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.Timing;
 import com.telc.domain.Service.TimingService;
+import com.telc.domain.Service.locationSettingService;
 import com.telc.domain.time.Service.TimeService;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.smartmemo.R;
@@ -35,6 +36,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -50,9 +52,16 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 	SQLiteDatabase db;
 	TimeService timeService=new TimeService();
 	TimingService timing;
+	private boolean isToggle=false;
+	private boolean isClickBack=false;
 //	intent.setAction("com.telc.domain.Service.locationService");
 	
 	public SharedPreferences sp;
+	
+	//系统设置
+	SharedPreferences preferences;
+	SharedPreferences.Editor editor;
+	
 	//声明一个NotificationManager类
 	private NotificationManager notificationManager;
 //	//定位相关
@@ -93,7 +102,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		SlidingMenu sm= getSlidingMenu();
 		sm.setShadowWidth(15);
 		sm.setShadowDrawable(R.drawable.sliding_shadow);
-		sm.setBehindOffset(120);//侧边剩余距离
+		sm.setBehindOffset(130);//侧边剩余距离
 //		设置抽屉弹出模式
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		
@@ -101,13 +110,32 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		
 		//初始化NotificationManager对象
 		notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-		
-		
+
 		locationServiceInfoTran.canBeDestroy = false;
+		
+		preferences = getSharedPreferences("setInfo", MODE_PRIVATE);
+		editor = preferences.edit();
+		MyGetSettingInfo();
 
 		startService(intent);
 	}
-	
+
+	public void MyGetSettingInfo(){
+
+		int settingflag = preferences.getInt("flag", 0);
+		
+		if(settingflag == 1){
+			
+			locationSettingService.MY_PROVINCE = preferences.getString("mprovince", null);
+
+			locationSettingService.MY_CITY = preferences.getString("mCity", null);
+
+			locationSettingService.MY_REMINDDISTINCE = preferences.getInt("mRemindDistance", 0);
+
+			locationSettingService.MY_LOCATIONTIME = preferences.getInt("mLocationTime", 0);
+		}
+		
+	}
 	
 	@Override
 	protected void onResume() {
@@ -115,6 +143,8 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		
 		startService(intent);
 
+		MyGetSettingInfo();
+		
 		super.onResume();
 	}
 
@@ -184,7 +214,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
     }
     
     
-    private Dialog buildDialog(Context context){
+    public  Dialog buildDialog(Context context){
     	AlertDialog.Builder builder = new AlertDialog.Builder(context);
     
     	builder.setTitle("退出");
@@ -249,15 +279,23 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		// TODO Auto-generated method stub
-		
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			
-			showDialog(0x112233);
-			return true;
+			 if(!isClickBack){
+				 isClickBack = true;
+                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();   
+                 new Handler().postDelayed(new Runnable() {
+                        @Override  
+                        public void run() {
+                        	isClickBack = false;  
+                        }  
+                    }, 2000);  
+                 return true;
+             }else {  
+                 showDialog(0x112233);
+                 return false;
+             } 
+			 
 		}
-		
-		return super.onKeyDown(keyCode, event);
+		return false;
 	}
-
-    
 }

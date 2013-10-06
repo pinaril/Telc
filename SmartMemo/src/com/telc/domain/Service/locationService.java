@@ -1,7 +1,6 @@
 package com.telc.domain.Service;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -10,19 +9,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
-import android.renderscript.Sampler.Value;
-import android.widget.Toast;
-
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.LocationData;
-import com.baidu.mapapi.utils.DistanceUtil;
-import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.RealTime;
-import com.telc.domain.time.Service.TimeService;
 import com.telc.resource.baidumap.locationServiceInfoTran;
 import com.telc.resource.remind.connentNet;
 import com.telc.resource.remind.remindContent;
@@ -36,7 +29,8 @@ public class locationService extends Service {
 	private LocationData locData =  null;
 	
 	
-	private static int REMIND_DISTANCE = 100 ;
+	private int REMIND_DISTANCE ;
+	private int LOCATION_TIME;
 	
 	//数据库
 	private SQLiteDatabase db;
@@ -59,6 +53,18 @@ public class locationService extends Service {
 		// TODO Auto-generated method stub
 //		Toast.makeText(getApplicationContext(), "service 被创建", Toast.LENGTH_SHORT).show();
 		
+		//由用户自己设置提醒的距离
+		if(locationSettingService.MY_REMINDDISTINCE == 101)
+			REMIND_DISTANCE = 100;
+		else
+			REMIND_DISTANCE = locationSettingService.MY_REMINDDISTINCE;
+		
+		//由用户自己设置定位的时间间隔
+		if(locationSettingService.MY_LOCATIONTIME == 21)
+			LOCATION_TIME = 20000;//单位为毫秒
+		else
+			LOCATION_TIME = locationSettingService.MY_LOCATIONTIME *1000;
+		
 		//定位初始化
 		mLocClient = new LocationClient(getApplicationContext());
 		locData = new LocationData();
@@ -67,7 +73,7 @@ public class locationService extends Service {
 		LocationClientOption option = new LocationClientOption();
 		option.setOpenGps(true);// 打开gps
 		option.setCoorType("bd09ll"); // 设置坐标类型
-		option.setScanSpan(20000);//设置定位时间
+		option.setScanSpan(LOCATION_TIME);//设置定位时间
 		mLocClient.setLocOption(option);
 		mLocClient.start();
 
@@ -283,6 +289,7 @@ public class locationService extends Service {
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		
+		mLocClient.stop();
 		super.onDestroy();
 		
 //		locationServiceInfoTran.canBeDestroy = true;
@@ -301,7 +308,7 @@ public class locationService extends Service {
 		// TODO Auto-generated method stub
 
 		mLocClient.start();
-		flags =  START_STICKY;
+//		flags =  START_STICKY;
 //		Toast.makeText(getApplicationContext(), "start servet", Toast.LENGTH_SHORT).show();
 		
 		return super.onStartCommand(intent, flags, startId);
