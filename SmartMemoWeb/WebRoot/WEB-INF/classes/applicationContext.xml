@@ -66,7 +66,7 @@
 	<jaxws:server id="memo" serviceClass="domain.Service.Memo.IMemoService"
 		address="/Memo">
 		<jaxws:serviceBean>
-			<ref bean="memo" /> <!-- 要暴露的 bean 的引用 -->
+			<ref bean="Memo" /> <!-- 要暴露的 bean 的引用 -->
 		</jaxws:serviceBean>
 	</jaxws:server>
 	<bean id="RealtimeDAO" class="domain.Memo.RealtimeDAO">
