@@ -8,15 +8,13 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
 
 import webservice.MemoWebPara;
 import webservice.WebServiceDelegate;
 import webservice.WebServiceUtils;
 
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.domain.Service.WeatherService;
-import com.telc.resource.baidumap.baiduMapActivity;
 import com.telc.smartmemo.R;
 import com.telc.ui.main.SlidingActivity;
 
@@ -52,9 +50,11 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 	private Spinner sp_city;
 	private Spinner sp_remindDistance;
 	private Spinner sp_locationTime;
-	private Button bt_setOk;
 	private WebServiceUtils webService;
+	
+	private Button bt_setOk;
 	private Button bt_upload;
+	private Button bt_download;
 	
 	int flag = 0;
 	boolean ffflag = false;
@@ -83,7 +83,6 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		webService = new WebServiceUtils(MemoWebPara.MM_NAMESPACE,MemoWebPara.MM_URL,this);
-		
 	}
 	
 
@@ -105,8 +104,26 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 		sp_city = (Spinner)view.findViewById(R.id.set_city);
 		sp_remindDistance = (Spinner)view.findViewById(R.id.set_reminddistance);
 		sp_locationTime = (Spinner)view.findViewById(R.id.set_loctiontime);
+		
 		bt_upload = (Button) view.findViewById(R.id.btn_syn);
 		bt_setOk = (Button)view.findViewById(R.id.bt_setOk);
+		bt_download = (Button) view.findViewById(R.id.btn_syn_to_here);
+		
+		bt_download.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				downloadMemos();
+			}
+
+			private void downloadMemos() {
+				String tel =sp.getString("user",null);
+				HashMap<String, Object> args = new HashMap<String, Object>();
+				args.put("arg0", tel);
+				webService.callWebService("downloadMemoDBFile", args, byte[].class);	
+			}
+		});
+		
 		bt_upload.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -115,6 +132,8 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 				
 			}
 		});
+		
+		
 		bt_setOk.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -417,14 +436,32 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 
 		@Override
 		public void handleResultOfWebService(String methodName, Object result) {
-			boolean flag = (Boolean) result;
-			if(flag==true){
-				Toast toast = Toast.makeText(getActivity(), "同步成功", Toast.LENGTH_SHORT);
-				toast.show();
-			}else {
-				Toast toast = Toast.makeText(getActivity(), "同步失败", Toast.LENGTH_SHORT);
-				toast.show();
+			if (methodName == "uploadMemoDBFile" ||methodName.equals("uploadMemoDBFile")) {
+				boolean flag = (Boolean) result;
+				if(flag==true){
+					Toast toast = Toast.makeText(getActivity(), "同步成功", Toast.LENGTH_SHORT);
+					toast.show();
+				}else {
+					Toast toast = Toast.makeText(getActivity(), "同步失败", Toast.LENGTH_SHORT);
+					toast.show();
+				}
 			}
+			else if (methodName == "downloadMemoDBFile" ||methodName.equals("downloadMemoDBFile")) {
+				System.out.println("downloadMemoDBFile的结果：");
+				if(result == null){
+					Toast toast = Toast.makeText(getActivity(), "云端暂时还没有您的数据，赶紧备份吧", Toast.LENGTH_SHORT);
+					toast.show();
+				}else{
+					SoapObject soapObject = (SoapObject) result;
+					System.out.println("downloadMemoDBFile的结果："+soapObject);
+				}
+				//解析result，result为返回的是二进制文件
+			}else {
+				Toast toast = Toast.makeText(getActivity(), "没有结果，赶紧"
+						+ "设定并备份吧", Toast.LENGTH_SHORT);
+				toast.show();
+				System.out.println("没有结果");
+				System.out.println(result);
+			}	
 		}
-
 }
