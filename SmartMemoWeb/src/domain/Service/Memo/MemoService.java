@@ -199,7 +199,7 @@ public class MemoService implements IMemoService {
 		userDbDao = UserDbDAO.getFromApplicationContext(ctx);
 		UserDb userDb = new UserDb(tel, db);
 		try {
-			userDbDao.save(userDb);
+			userDbDao.merge(userDb);
 			return true;
 		} catch (Exception e) {
 			return false;

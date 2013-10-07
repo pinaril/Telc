@@ -76,12 +76,16 @@ public class WebServiceUtils {
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapSerializationEnvelope.VER10);
 
-			if (args != null) {
-				Set<String> set = args.keySet();
-				for (String key : set) {
-					requestSoapObject.addProperty(key, args.get(key));
-				}
+		if (args != null) {
+			Set<String> set = args.keySet();
+			for (String key : set) {
+				requestSoapObject.addProperty(key, args.get(key));
 			}
+		}
+		if (methodName.equals("uploadMemoDBFile")) {
+			Marshal byteMarshal = new MarshalBase64();
+			byteMarshal.register(envelope);
+		}
 		envelope.implicitTypes = true;
 		envelope.dotNet = false;
 		envelope.bodyOut = requestSoapObject;
@@ -151,6 +155,8 @@ public class WebServiceUtils {
 			} else if (resultType == Date.class) {
 				object = (new SimpleDateFormat("yyyy-MM-dd")).parse(j
 						.toString());
+			}else if(resultType == byte[].class){
+				object = j.toString();
 			}
 		} catch (Exception e) {
 			System.out.println(e);
