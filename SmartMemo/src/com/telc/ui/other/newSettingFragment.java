@@ -8,7 +8,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-
 import org.kobjects.base64.Base64;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -17,9 +16,7 @@ import webservice.MemoWebPara;
 import webservice.WebServiceDelegate;
 import webservice.WebServiceUtils;
 
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.telc.domain.Service.WeatherService;
-import com.telc.resource.baidumap.baiduMapActivity;
 import com.telc.smartmemo.R;
 import com.telc.ui.main.SlidingActivity;
 
@@ -55,8 +52,9 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 	private Spinner sp_city;
 	private Spinner sp_remindDistance;
 	private Spinner sp_locationTime;
-	private Button bt_setOk;
 	private WebServiceUtils webService;
+	
+	private Button bt_setOk;
 	private Button bt_upload;
 	private Button bt_download;
 	int flag = 0;
@@ -89,7 +87,6 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 		super.onCreate(savedInstanceState);
 		webService = new WebServiceUtils(MemoWebPara.MM_NAMESPACE,
 				MemoWebPara.MM_URL, this);
-
 	}
 
 	@Override
@@ -136,6 +133,8 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 
 			}
 		});
+		
+		
 		bt_setOk.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -439,7 +438,6 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 	@Override
 	public void handleResultOfWebService(String methodName, Object result) {
 		if (webflag == true) {
-
 			boolean flag = (Boolean) result;
 			if (flag == true) {
 				Toast toast = Toast.makeText(getActivity(), "同步成功",
@@ -475,5 +473,4 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 			e.printStackTrace();
 		}
 	}
-
 }

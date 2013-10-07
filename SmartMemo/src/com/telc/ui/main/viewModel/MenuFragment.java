@@ -178,12 +178,9 @@ public class MenuFragment extends Fragment{
 				// TODO Auto-generated method stub
 				drawable = getResources().getDrawable(R.drawable.bg_press);
 				textExit.setBackgroundDrawable(drawable);
-//				getActivity().finish();
-//				showDialog(0x112234);
-				
+
 				getActivity().showDialog(0x112233);
-				
-				
+
 			}
 		});
 
