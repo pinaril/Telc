@@ -102,7 +102,6 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 					//调用web服务
 					webService.callWebService("register", args, boolean.class);
 				}
-
 			}
 		});
 	}
@@ -141,6 +140,7 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 			editor.commit();
 			if((service.getUserByUserPhone(userphone))==null){
 				service.addUser(user);
+				Toast.makeText(getApplicationContext(), "注册成功！", Toast.LENGTH_SHORT).show();
 			}
 			if (loginOrRegistr == false) {
 				service.addUser(user);
@@ -162,7 +162,5 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 				}
 			}
 		}
-
 	}
-
 }
