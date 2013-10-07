@@ -40,5 +40,4 @@ public class MemoApplication extends Application implements DBConstant {
 			editor.commit();
 		}
 	}
-	
 }
