@@ -25,22 +25,29 @@ import com.telc.ui.Memos.TimingReceiver;
 import com.telc.ui.main.SlidingActivity;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UnfinishFragment extends Fragment {
 
@@ -87,6 +94,87 @@ public class UnfinishFragment extends Fragment {
 		initAdapert();
 		if (mAdapter != null)
 			uncompleteList.setAdapter(mAdapter);
+		
+		// listView中Item的监听
+		uncompleteList.setOnItemLongClickListener(new OnItemLongClickListener() {
+			@Override
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO Auto-generated method stub
+				String itemValue=parent.getItemAtPosition(position).toString();
+				String[] itemSplit=itemValue.split(",");
+				final String index=itemSplit[2].substring(11);
+				String categoryString=itemSplit[1].substring(18);
+				final CharSequence[] items={"标记为已完成"};
+				TextView textSign;
+				if(categoryString.compareTo("实时提醒")==0){
+					// TODO Auto-generated method stub
+					final Dialog mDialog = new Dialog(getActivity());
+					mDialog.setTitle("更多操作：");
+					LayoutInflater inflater = LayoutInflater.from(getActivity());
+					final View dialogView = inflater.inflate(R.layout.sign_finish_dialog,
+							null);
+					textSign=(TextView) dialogView.findViewById(R.id.textSignFinish);
+					textSign.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View arg0) {
+							// TODO Auto-generated method stub
+							realTimeService.updateIsfinish(index);
+							Toast.makeText(getActivity(), "标记成功！", Toast.LENGTH_SHORT).show();
+							initAdapert();
+							uncompleteList.setAdapter(mAdapter);
+							mDialog.dismiss();
+						}
+					});
+					mDialog.setContentView(dialogView);
+					mDialog.show();
+				}else if(categoryString.compareTo("定时提醒")==0){
+					// TODO Auto-generated method stub
+					final Dialog mDialog = new Dialog(getActivity());
+					mDialog.setTitle("更多操作：");
+					LayoutInflater inflater = LayoutInflater.from(getActivity());
+					final View dialogView = inflater.inflate(R.layout.sign_finish_dialog,
+							null);
+					textSign=(TextView) dialogView.findViewById(R.id.textSignFinish);
+					textSign.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View arg0) {
+							// TODO Auto-generated method stub
+							timingService.updateIsfinish(index);
+							Toast.makeText(getActivity(), "标记成功！", Toast.LENGTH_SHORT).show();
+							initAdapert();
+							uncompleteList.setAdapter(mAdapter);
+							mDialog.dismiss();
+						}
+					});
+					mDialog.setContentView(dialogView);
+					mDialog.show();
+				}
+//				else if(categoryString.compareTo("周期性提醒")==0){
+//					// TODO Auto-generated method stub
+//					final Dialog mDialog = new Dialog(getActivity());
+//					mDialog.setTitle("更多操作：");
+//					LayoutInflater inflater = LayoutInflater.from(getActivity());
+//					final View dialogView = inflater.inflate(R.layout.sign_finish_dialog,
+//							null);
+//					textSign=(TextView) dialogView.findViewById(R.id.textSignFinish);
+//					textSign.setOnClickListener(new OnClickListener() {
+//						@Override
+//						public void onClick(View arg0) {
+//							// TODO Auto-generated method stub
+//							periodicService.updateIsfinish(index);
+//							Toast.makeText(getActivity(), "标记成功！", Toast.LENGTH_SHORT).show();
+//							initAdapert();
+//							uncompleteList.setAdapter(mAdapter);
+//							mDialog.dismiss();
+//						}
+//					});
+//					mDialog.setContentView(dialogView);
+//					mDialog.show();
+//				}
+				return true;
+			}
+			});
 		
 		// listView中Item的监听
 		uncompleteList.setOnItemClickListener(new OnItemClickListener() {
@@ -369,6 +457,5 @@ public class UnfinishFragment extends Fragment {
 			}
 		}
 	}
-	
 	
 }
