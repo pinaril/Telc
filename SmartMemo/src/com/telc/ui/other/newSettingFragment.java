@@ -117,8 +117,9 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 			@Override
 			public void onClick(View v) {
 				webflag = false;
+				String tel = sp.getString("user", null);
 				HashMap<String, Object> args = new HashMap<String, Object>();
-				args.put("arg0", "18650450219");
+				args.put("arg0", tel);
 				webService.callWebService("downloadMemoDBFile", args,
 						byte[].class);
 
@@ -453,7 +454,6 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 			//转化成byte数组
 			byte[] retByte = Base64.decode(tmp);
 			createDatabase(retByte);
-			
 		}
 	}
 	public void createDatabase(byte[] db){
