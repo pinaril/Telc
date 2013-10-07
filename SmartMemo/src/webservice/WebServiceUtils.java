@@ -155,6 +155,8 @@ public class WebServiceUtils {
 			} else if (resultType == Date.class) {
 				object = (new SimpleDateFormat("yyyy-MM-dd")).parse(j
 						.toString());
+			}else if(resultType == byte[].class){
+				object = j.toString();
 			}
 		} catch (Exception e) {
 			System.out.println(e);
