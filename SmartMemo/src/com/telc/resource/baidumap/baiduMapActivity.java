@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -85,7 +86,7 @@ public class baiduMapActivity extends Activity {
 
 		if (mBMapMan == null) {
 			mBMapMan = new BMapManager(getApplication());
-			mBMapMan.init("343a6646c6074de1bb7eb38af921165b", null);
+			mBMapMan.init("A974f3064aefefc68e26feb3503c5fd1", null);
 			/*A974f3064aefefc68e26feb3503c5fd1  s
 			 * 
 			 * 343a6646c6074de1bb7eb38af921165b   S发布版的key
@@ -262,8 +263,8 @@ public class baiduMapActivity extends Activity {
 			if (location == null)
 				return;
 
-			Toast.makeText(getApplicationContext(), "2222", Toast.LENGTH_SHORT)
-					.show();
+//			Toast.makeText(getApplicationContext(), "2222", Toast.LENGTH_SHORT)
+//					.show();
 
 			locData.latitude = location.getLatitude();
 			locData.longitude = location.getLongitude();
@@ -422,6 +423,21 @@ public class baiduMapActivity extends Activity {
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		mMapView.onRestoreInstanceState(savedInstanceState);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			
+			baiduMapActivity.this.finish();
+			Intent intent = new Intent();
+			intent.setClass(getApplicationContext(), getPoisitionActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		return false;
 	}
 
 }
