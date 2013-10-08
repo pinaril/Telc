@@ -44,19 +44,19 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 
 	SharedPreferences preferences;
 	SharedPreferences.Editor editor;
-	private SharedPreferences sp;
+	private SharedPreferences sp;// 轻量级存储
 
 	private ProgressDialog progressDialog;
 
-	private Spinner sp_province;
-	private Spinner sp_city;
-	private Spinner sp_remindDistance;
-	private Spinner sp_locationTime;
-	private WebServiceUtils webService;
-	
-	private Button bt_setOk;
-	private Button bt_upload;
-	private Button bt_download;
+	private Spinner sp_province;// 获取省份下拉菜单
+	private Spinner sp_city;// 获取城市下拉菜单
+	private Spinner sp_remindDistance;// 获取距离设置下拉菜单
+	private Spinner sp_locationTime;// 获取定位时间设置下拉菜单
+	private WebServiceUtils webService;// 调用WebService的实例化对象
+
+	private Button bt_setOk;// 保存按钮
+	private Button bt_upload;// 同步到云端
+	private Button bt_download;// 同步到本地按钮
 	int flag = 0;
 	boolean ffflag = false;
 
@@ -112,30 +112,36 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 		bt_upload = (Button) view.findViewById(R.id.btn_syn);
 		bt_download = (Button) view.findViewById(R.id.btn_syn_to_here);
 		bt_setOk = (Button) view.findViewById(R.id.bt_setOk);
+
+		// 为同步到本地按钮添加事件
 		bt_download.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				webflag = false;
-				String tel = sp.getString("user", null);
+				String tel = sp.getString("user", null);// 获取电话号码
+
 				HashMap<String, Object> args = new HashMap<String, Object>();
-				args.put("arg0", tel);
+				args.put("arg0", tel);// 为调用云服务器数据设置参数
+
+				// 调用云服务器数据，调用后的结果在handleResultOfWebService函数中处理
 				webService.callWebService("downloadMemoDBFile", args,
 						byte[].class);
 
 			}
 		});
+
+		// 为同步到云端按钮添加事件
 		bt_upload.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				webflag = true;
-				uploadDbFile();
+				uploadDbFile();// 上传函数
 
 			}
 		});
-		
-		
+
 		bt_setOk.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -248,9 +254,6 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 			sp_locationTime.setSelection(preferences.getInt("mLocationTimeId",
 					0));
 			int m = preferences.getInt("mLocationTimeId", 0);
-
-			// sp_city.setSelection(preferences.getInt("mCityId", 0));
-			// int i = preferences.getInt("mCityId", 0);
 
 		}
 	}
@@ -436,8 +439,10 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 
 	}
 
+	// result为调用远程服务后得到的结果
 	@Override
 	public void handleResultOfWebService(String methodName, Object result) {
+		// 处理调用云服务器后返回的数据，（同步到云端）
 		if (webflag == true) {
 			boolean flag = (Boolean) result;
 			if (flag == true) {
@@ -449,27 +454,32 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 						Toast.LENGTH_SHORT);
 				toast.show();
 			}
-		}else if(webflag == false){
+		} else if (webflag == false) {// 处理调用云服务器后返回的数据，（同步到本地）
 			String tmp = result.toString();
-			//转化成byte数组
+			// 将返回的数据转化成byte数组
 			byte[] retByte = Base64.decode(tmp);
-			createDatabase(retByte);
+			createDatabase(retByte);// 解析retByte，并放在本地数据库
+			
+			Toast toast = Toast.makeText(getActivity(), "同步到本地成功",
+					Toast.LENGTH_SHORT);
+			toast.show();
 		}
 	}
-	public void createDatabase(byte[] db){
+
+	// 解析retByte，并放在本地数据库
+	public void createDatabase(byte[] db) {
 		String path = "/data/data/com.telc.smartmemo/databases/";
-		File file=new File(path);
-	    file.mkdir();
-	    path=path+"mydb.db3";
-	    file=new File(path);
-	    try {
+		File file = new File(path);
+		file.mkdir();
+		path = path + "mydb.db3";
+		file = new File(path);
+		try {
 			file.createNewFile();
-			 FileOutputStream os=new FileOutputStream(file);
-			 os.write(db);
-			 os.close();
-			 System.out.println("success");
+			FileOutputStream os = new FileOutputStream(file);
+			os.write(db);
+			os.close();
+			System.out.println("success");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
