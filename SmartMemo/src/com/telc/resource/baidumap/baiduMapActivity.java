@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -422,6 +423,21 @@ public class baiduMapActivity extends Activity {
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		mMapView.onRestoreInstanceState(savedInstanceState);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		
+		if(keyCode == KeyEvent.KEYCODE_BACK){
+			
+			baiduMapActivity.this.finish();
+			Intent intent = new Intent();
+			intent.setClass(getApplicationContext(), getPoisitionActivity.class);
+			startActivity(intent);
+			return true;
+		}
+		return false;
 	}
 
 }
