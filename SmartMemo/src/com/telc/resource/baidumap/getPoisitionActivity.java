@@ -124,7 +124,7 @@ public class getPoisitionActivity extends SherlockFragmentActivity {
 	        });
 				
 		mBMapMan = new BMapManager(getApplication());
-		mBMapMan.init("343a6646c6074de1bb7eb38af921165b", null);
+		mBMapMan.init("A974f3064aefefc68e26feb3503c5fd1", null);
 		/*
 		 * A974f3064aefefc68e26feb3503c5fd1    s
 		 * 
@@ -333,8 +333,8 @@ public class getPoisitionActivity extends SherlockFragmentActivity {
 			if (location == null)
 				return;
 
-			Toast.makeText(getApplicationContext(), "1111", Toast.LENGTH_SHORT)
-					.show();
+//			Toast.makeText(getApplicationContext(), "1111", Toast.LENGTH_SHORT)
+//					.show();
 			// if(location.getLatitude() == 0.0 || location.getLongitude() ==
 			// 0.0)
 			// return;
@@ -367,7 +367,7 @@ public class getPoisitionActivity extends SherlockFragmentActivity {
 			CITY = kk.city;
 //			Toast.makeText(getApplicationContext(), "city"+ city, Toast.LENGTH_SHORT).show();
 			LocationInfoTran.positionNameString =/* kk.city +*/ kk.district + kk.street + kk.streetNumber;
-			Toast.makeText(getApplicationContext(), LocationInfoTran.positionNameString+"", Toast.LENGTH_SHORT).show();
+//			Toast.makeText(getApplicationContext(), LocationInfoTran.positionNameString+"", Toast.LENGTH_SHORT).show();
 			
 			if(LocationInfoTran.selectFlag == 3  && progressDialogFlag){
 				progressDialog.dismiss();

@@ -9,9 +9,11 @@ import com.telc.domain.Emtity.Periodic;
 import com.telc.domain.Service.PeriodicService;
 import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
+
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -56,7 +58,6 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 		editPeriodicDetail=(EditText) findViewById(R.id.editTextPeriodicDetail);
 		editPeriodicContent=(EditText) findViewById(R.id.editPeriodicContent);
 
-		
 		 //将可选内容与ArrayAdapter连接起来
 		spinnerAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,spinnerPeriodicItem);
 		//设置下拉列表的风格

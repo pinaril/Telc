@@ -30,15 +30,20 @@ public class TestSystemManagement extends SystemManagement {
 		userHelper.setNickname("shumifans");
 		updateUser(userHelper);
 	}
-	@Test
+	@Ignore
 	public void testgetUserById(){
 		UserHelper userHelper = getUserById("112");
 		System.out.println();
 	}
-	@Test 
+	@Ignore
 	public void testgetUserByTel(){
 		UserHelper userHelper = getUserByTel("123");
 		System.out.println();
 	}
+	@Test
+	public void testLogin(){
+		System.out.println(login("123","123"));
+	}
+	
 
 }

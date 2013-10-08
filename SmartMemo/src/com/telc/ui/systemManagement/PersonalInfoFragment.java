@@ -92,7 +92,7 @@ public class PersonalInfoFragment extends Fragment implements DBConstant {
 		userphone = sp.getString("user", null);
 		System.out.println(userphone);
 		User user = userService.getUserByUserPhone(userphone.toString());
-		System.out.println(user.getPhoneNum());
+
 		et_phone.setText(user.getPhoneNum());
 
 		if(user.getUserName().equals("null"))
