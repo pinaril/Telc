@@ -75,7 +75,6 @@ public class LoginAndRegisterActivity extends Activity implements DBConstant,
 					args.put("tel", userphone);
 					args.put("pwd", password);
 					webService.callWebService("login", args, boolean.class);
-					Toast.makeText(getApplicationContext(), "登陆成功！", Toast.LENGTH_SHORT).show();
 				}
 
 			}
