@@ -79,7 +79,6 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 			"200米", "250米" };
 	private static final String[] sp_locationTimeSelect = { "10秒", "20秒",
 			"25秒", "50秒", "60秒" };
-	private static final String[] sp_provinceCity = { "" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -185,17 +184,15 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 		sp_locationTime
 				.setOnItemSelectedListener(new Spinner_locationTime_SelectedListener());
 
-		// 设置省份
-		List<String> list_province;
-
-		list_province = WeatherService.getProviceList();
 
 		ArrayAdapter<String> adapter_province;
+		
+		String [] list_sp_province = new String []{"黑龙江","吉林","辽宁","内蒙古","河北","河北","河南","山东","山西","江苏",
+				"安徽","陕西","宁夏","甘肃","青海","湖北","湖南","浙江","福建","贵州","四川","广东","广西","云南","海南"
+				,"新疆","西藏","台湾","北京","上海","天津","重庆","香港","澳门","钓鱼岛"};
+		
 
-		if (netFlag)
-			adapter_province = new ArrayAdapter<String>(getActivity(),
-					android.R.layout.simple_spinner_item, list_province);
-		else {
+		if (!netFlag){
 
 			new AlertDialog.Builder(getActivity())
 					.setTitle("网络错误")
@@ -212,11 +209,13 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 									System.exit(0);
 								}
 							}).show();
-
-			adapter_province = new ArrayAdapter<String>(getActivity(),
-					android.R.layout.simple_spinner_item, sp_provinceCity);
+			
 		}
 
+		adapter_province = new ArrayAdapter<String>(getActivity(),
+				android.R.layout.simple_spinner_item, list_sp_province);
+		
+		
 		adapter_province
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -224,7 +223,7 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 		sp_province.setOnItemSelectedListener(new spinner_provinceListen());
 		sp_province.setVisibility(View.VISIBLE);
 
-		sp_city.setEnabled(false);
+//		sp_city.setEnabled(false);
 
 		return view;
 	}
@@ -248,9 +247,6 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 			sp_locationTime.setSelection(preferences.getInt("mLocationTimeId",
 					0));
 			int m = preferences.getInt("mLocationTimeId", 0);
-
-			// sp_city.setSelection(preferences.getInt("mCityId", 0));
-			// int i = preferences.getInt("mCityId", 0);
 
 		}
 	}
@@ -330,23 +326,30 @@ public class newSettingFragment extends Fragment implements WebServiceDelegate {
 			mprovinceId = arg2;
 
 			sp_city.setEnabled(true);
-			List<String> list_city;
-			ArrayAdapter adapter_city;
-			list_city = WeatherService.getCityListByProvince(mprovince);
 
-			if (netFlag)
+			ArrayAdapter adapter_city;
+			
+			if (netFlag){
+				List<String> list_city;
+				
+				list_city = WeatherService.getCityListByProvince(mprovince);
+				
 				adapter_city = new ArrayAdapter<String>(getActivity(),
 						android.R.layout.simple_spinner_item, list_city);
-			else
+				}
+			else{
+				String [] list_sp_city = new String []{""};
+				
 				adapter_city = new ArrayAdapter<String>(getActivity(),
-						android.R.layout.simple_spinner_item, sp_provinceCity);
+						android.R.layout.simple_spinner_item, list_sp_city);
+			}
 
 			adapter_city
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 			sp_city.setAdapter(adapter_city);
 			sp_city.setOnItemSelectedListener(new spinner_cityListen());
 
-			if (preferences.getInt("flag", 0) == 1 && ffflag) {
+			if (preferences.getInt("flag", 0) == 1 && ffflag && netFlag) {
 				sp_city.setSelection(preferences.getInt("mCityId", 0));
 				ffflag = false;
 			}
