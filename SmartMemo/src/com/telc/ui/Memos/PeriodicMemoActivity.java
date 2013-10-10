@@ -11,6 +11,7 @@ import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
 
 import android.content.SharedPreferences;
+import android.database.MergeCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.InputType;
@@ -145,7 +146,18 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 		String startTime=mTime.longSwithToString(System.currentTimeMillis());
 		String idString=String.valueOf(mTime.getSecondsFromDate(startTime));
 		mPeriodic.setStart_time(startTime);
-		mPeriodic.setPeriodic_id(idString);
+		mPeriodic.setPeriodic_id(idString);	
+		switch (spinnerPeriodic.getSelectedItemPosition()){
+		case 0:
+			mPeriodic.setEnd_time(mTime.longSwithToString(System.currentTimeMillis()+86400000l));
+			break;
+		case 1:
+			mPeriodic.setEnd_time(mTime.longSwithToString(System.currentTimeMillis()+604800000l));
+			break;
+		case 2:
+			mPeriodic.setEnd_time(mTime.longSwithToString(System.currentTimeMillis()+2592000000l));
+			break;
+		}
 		
 		if(periodicHelper.addPeriodic(mPeriodic)){
 			Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT).show();

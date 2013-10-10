@@ -167,7 +167,7 @@ public class PeriodicService implements IPeriodicService {
 	@Override
 	public boolean updatePeriodic(Periodic periodic) {
 		// TODO Auto-generated method stub
-		String sql = "update PERIODIC set period='"+periodic.getPeriod()+"',period_detail='"+periodic.getPeriod_detail()+"',content='"+periodic.getContent()+"',priority='"+periodic.getPriority()+"','"+periodic.getEnd_time()+"' where periodic_id='"+periodic.getPeriodic_id()+"'";
+		String sql = "update PERIODIC set period='"+periodic.getPeriod()+"',period_detail='"+periodic.getPeriod_detail()+"',content='"+periodic.getContent()+"',priority='"+periodic.getPriority()+"',end_time='"+periodic.getEnd_time()+"' where periodic_id='"+periodic.getPeriodic_id()+"'";
 		db.execSQL(sql);
 		return true;
 	}
