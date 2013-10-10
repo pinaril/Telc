@@ -113,7 +113,7 @@ public class PeriodicService implements IPeriodicService {
 	}
 
 	@Override
-	public Periodic findPeriodicByStart(String id) {
+	public Periodic findPeriodicById(String id) {
 		// TODO Auto-generated method stub
 		String sql = "select a.[rowid] as _id,* from PERIODIC as a where periodic_id='"
 				+ id + "'";

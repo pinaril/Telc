@@ -10,6 +10,13 @@ public class Periodic  {
 	private int priority;
 	private int isfinish;
 	private String start_time;
+	private  String end_time;
+	public String getEnd_time() {
+		return end_time;
+	}
+	public void setEnd_time(String end_time) {
+		this.end_time = end_time;
+	}
 	public String getPeriodic_id() {
 		return periodic_id;
 	}
