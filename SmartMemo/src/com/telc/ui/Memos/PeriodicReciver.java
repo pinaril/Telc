@@ -20,7 +20,7 @@ public class PeriodicReciver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context ctx, Intent intent) {
 		// TODO Auto-generated method stub
-		SQLiteDatabase db=ctx.openOrCreateDatabase(DBConstant.DB_FILENAME,TimingMemoActivity.MODE_PRIVATE, null);
+		SQLiteDatabase db=ctx.openOrCreateDatabase(DBConstant.DB_FILENAME,PeriodicMemoDelActivity.MODE_PRIVATE, null);
 		PeriodicService periodic=new PeriodicService(db);
 		TimeService timeService=new TimeService();
 		Bundle bundle=new Bundle();

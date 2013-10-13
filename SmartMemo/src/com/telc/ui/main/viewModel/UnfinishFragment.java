@@ -424,7 +424,8 @@ public class UnfinishFragment extends Fragment {
 					return false;
 			}
 		});
-		timingRemind();
+//		timingRemind();
+		PeriodicRemind();
 	}
 
 	@Override
@@ -434,7 +435,8 @@ public class UnfinishFragment extends Fragment {
 		 mAdapter = null;
 		
 		 initAdapert();
-		 timingRemind();
+		 PeriodicRemind();
+//		 timingRemind();
 		 if (mAdapter != null) {
 		 uncompleteList.setAdapter(mAdapter);
 		 }
@@ -530,11 +532,6 @@ public class UnfinishFragment extends Fragment {
 					AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
 					timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
 					return;
-				}else{
-						Intent timingAlarm=new Intent(getActivity(),PeriodicReciver.class);
-						PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
-						AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
-						timingManager.cancel(pendingIntent);
 				}
 			}
 		}

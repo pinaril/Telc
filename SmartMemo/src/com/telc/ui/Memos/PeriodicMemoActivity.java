@@ -357,7 +357,7 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 	}
 
 	private String getSpinnerPeriodic(int position) {
-		return (String) spinnerPeriodic.getItemAtPosition(position);
+		return (String) spinnerPeriodic.getItemAtPosition(position-1);
 	}
 
 	private String getPeriodicDetail() {
@@ -385,16 +385,7 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 		mPeriodic.setPeriodic_id(idString);
 		switch (spinnerPeriodic.getSelectedItemPosition()) {
 		case 0:
-			mPeriodic.setEnd_time(mTime.longSwithToString(System
-					.currentTimeMillis() + 86400000l));
-			break;
-		case 1:
-			mPeriodic.setEnd_time(mTime.longSwithToString(System
-					.currentTimeMillis() + 604800000l));
-			break;
-		case 2:
-			mPeriodic.setEnd_time(mTime.longSwithToString(System
-					.currentTimeMillis() + 2592000000l));
+			mPeriodic.setEnd_time(mTime.longSwithToString(mTime.getSecondsFromDate(startTime.split("\b")[0]+" "+(editPeriodicDetail.getText().toString()))));
 			break;
 		}
 
