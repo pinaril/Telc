@@ -18,6 +18,7 @@ import com.telc.domain.Service.TimingService;
 import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicMemoDelActivity;
+import com.telc.ui.Memos.PeriodicReciver;
 import com.telc.ui.Memos.RealtimeMemoDelActivity;
 import com.telc.ui.Memos.TimingMemoActivity;
 import com.telc.ui.Memos.TimingMemoDelActivity;
@@ -497,5 +498,47 @@ public class UnfinishFragment extends Fragment {
 			}
 		}
 	}
+
+	
+	public void PeriodicRemind(){
+		List<Periodic> periodicList=periodicService.getPeriodicByUserID(sp.getString("user", null));
+		if (periodicList != null) {
+			Collections.sort(periodicList, new Comparator<Periodic>() {
+				@Override
+				public int compare(Periodic lhs, Periodic rhs) {
+					long periodicEndtime1 = timService.getSecondsFromDate(lhs.getEnd_time());
+					long periodicEndtime2 = timService.getSecondsFromDate(rhs.getEnd_time());
+					if (periodicEndtime1<=periodicEndtime2) {
+						return -1;
+					} else 
+						return 1;
+				}
+			});
+			for(int i=0;i<periodicList.size();i++){
+				if(periodicList.get(i).getIsfinish()==0){
+					String content=periodicList.get(i).getContent();
+					String userId=sp.getString("user", null);
+					long endTime= timService.getSecondsFromDate(periodicList.get(i).getEnd_time());
+					
+					Intent timingAlarm=new Intent(getActivity(),PeriodicReciver.class);
+					Bundle bund=new Bundle();
+					bund.putString("user", userId);
+					bund.putString("content", content);
+					bund.putString("periodicid", periodicList.get(i).getPeriodic_id());
+					timingAlarm.putExtras(bund);
+					PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
+					AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
+					timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
+					return;
+				}else{
+						Intent timingAlarm=new Intent(getActivity(),PeriodicReciver.class);
+						PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
+						AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
+						timingManager.cancel(pendingIntent);
+				}
+			}
+		}
+	}
+	
 
 }
