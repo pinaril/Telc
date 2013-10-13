@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/clock"
                 android:gravity="center"
-                android:text="选择时间"
+                android:text="选择详细时间"
                 android:textColor="@color/white"
                 android:textSize="25dp" />
         </LinearLayout>
@@ -40,29 +40,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20sp"
-                    android:layout_marginLeft="20sp"
-                    android:layout_marginRight="20sp" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="日期："
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                    <EditText
-                        android:id="@+id/dateEt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:cursorVisible="false"
-                        android:editable="false"
-                        android:ems="10" >
-
-                        <requestFocus />
-                    </EditText>
+                    android:layout_height="wrap_content" >
 
                 </LinearLayout>
 
@@ -70,19 +48,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
-                    <DatePicker
-                        android:id="@+id/datePicker"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
-
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" 
+                    android:layout_marginTop="20sp"
                     android:layout_marginLeft="20sp"
-                    android:layout_marginRight="20sp" >
+                    android:layout_marginRight="20sp">
 
                     <TextView
                         android:layout_width="wrap_content"

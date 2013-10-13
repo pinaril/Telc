@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/clock"
                 android:gravity="center"
-                android:text="选择时间"
+                android:text="选择详细时间"
                 android:textColor="@color/white"
                 android:textSize="25dp" />
         </LinearLayout>
@@ -40,41 +40,24 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" 
                     android:layout_marginTop="20sp"
                     android:layout_marginLeft="20sp"
-                    android:layout_marginRight="20sp" >
+                    android:layout_marginRight="20sp">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="日期："
+                        android:layout_height="match_parent"
+                        android:text="星期："
                         android:textColor="@color/black"
+                        android:gravity="center"
                         android:textSize="20sp" />
 
-                    <EditText
-                        android:id="@+id/dateEt"
+                    <Spinner
+                        android:id="@+id/periodic_week_select"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:cursorVisible="false"
-                        android:editable="false"
-                        android:ems="10" >
-
-                        <requestFocus />
-                    </EditText>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <DatePicker
-                        android:id="@+id/datePicker"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_weight="1" />
 
                 </LinearLayout>
 
@@ -99,7 +82,6 @@
                         android:cursorVisible="false"
                         android:editable="false"
                         android:ems="10" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,8 +92,8 @@
                         android:id="@+id/timePicker"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" 
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -123,20 +105,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="确定" 
-                        android:textColor="@color/white"
-                        android:background="@drawable/dialog_button_bg"/>
+                        android:background="@drawable/dialog_button_bg"
+                        android:text="确定"
+                        android:textColor="@color/white" />
 
                     <Button
                         android:id="@+id/btn_time_dialog_cancel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="@drawable/dialog_button_bg"
                         android:text="取消"
-                        android:textColor="@color/white"
-                        android:background="@drawable/dialog_button_bg" />
+                        android:textColor="@color/white" />
                 </LinearLayout>
-
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
