@@ -385,10 +385,9 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 		mPeriodic.setPeriodic_id(idString);
 		switch (spinnerPeriodic.getSelectedItemPosition()) {
 		case 0:
-			mPeriodic.setEnd_time(mTime.longSwithToString(mTime.getSecondsFromDate(startTime.split("\b")[0]+" "+(editPeriodicDetail.getText().toString()))));
+			mPeriodic.setEnd_time((mTime.longSwithToString(System.currentTimeMillis()).substring(0, 10))+" "+(editPeriodicDetail.getText().toString()));
 			break;
 		}
-
 		if (periodicHelper.addPeriodic(mPeriodic)) {
 			Toast.makeText(getApplicationContext(), "保存成功！", Toast.LENGTH_SHORT)
 					.show();
@@ -399,7 +398,5 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 					.show();
 			return false;
 		}
-
 	}
-
 }

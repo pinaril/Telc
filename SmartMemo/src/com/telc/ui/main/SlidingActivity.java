@@ -19,7 +19,6 @@ import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicMemoActivity;
 import com.telc.ui.Memos.RealtimeMemoActivity;
 import com.telc.ui.Memos.TimingMemoActivity;
-import com.telc.ui.Memos.TimingReceiver;
 import com.telc.ui.main.viewModel.MenuFragment;
 import com.telc.ui.main.viewModel.UnfinishFragment;
 
