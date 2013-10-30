@@ -19,7 +19,6 @@ import com.telc.domain.time.Service.TimeService;
 import com.telc.smartmemo.R;
 import com.telc.ui.Memos.PeriodicMemoDelActivity;
 import com.telc.ui.Memos.RealtimeMemoDelActivity;
-import com.telc.ui.Memos.Receiver;
 import com.telc.ui.Memos.TimingMemoActivity;
 import com.telc.ui.Memos.TimingMemoDelActivity;
 import com.telc.ui.main.SlidingActivity;
@@ -431,16 +430,15 @@ public class UnfinishFragment extends Fragment {
 		// TODO Auto-generated method stub
 		super.onResume();
 		 mAdapter = null;
-		
 		 initAdapert();
-		 memosRemind();
+//		 memosRemind();
 		 if (mAdapter != null) {
 		 uncompleteList.setAdapter(mAdapter);
 		 }
 	}
 
 	public void memosRemind() {
-		int size;
+		int tSize,pSize;
 		List<Timing> timingList = timingService.
 				getTimingByUserID(sp.getString("user", null));
 		List<Periodic> periodicList=periodicService.
@@ -474,20 +472,109 @@ public class UnfinishFragment extends Fragment {
 					}
 			});
 		}
-			if(timingList!=null){
-				size=timingList.size();
-			}else {
-				size=0;
+			if(timingList!=null&&periodicList!=null){
+				tSize=timingList.size();
+				pSize=periodicList.size();
+			}else if(timingList!=null&&periodicList==null){
+				tSize=timingList.size();
+				pSize=0;
+			}else if(timingList==null&&periodicList!=null){
+				tSize=0;
+				pSize=periodicList.size();
+			}else{
+				tSize=0;
+				pSize=0;
 			}
-				for (int i = 1; i <= size; i++) {
+			if(0!=tSize&&0!=pSize){
+				for (int i = 1; i <= tSize; i++) {
 					if(timingList.get(i-1).getIsfinish()==0){
 						if(timService.getSecondsFromDate(periodicList.get(0).getEnd_time())>
-						timService.getSecondsFromDate(timingList.get(i-1).getEnd_time())){
-						
-					String content = timingList.get(i-1).getContent();
+								timService.getSecondsFromDate(timingList.get(i-1).getEnd_time())){
+							String content = timingList.get(i - 1).getContent();
+							String userId = sp.getString("user", null);
+							long endTime = timService.getSecondsFromDate(timingList
+									.get(i - 1).getEnd_time());
+		
+							Intent timingAlarm = new Intent(getActivity(),
+									Receiver.class);
+							Bundle bund = new Bundle();
+							bund.putString("class", "timing");
+							bund.putString("user", userId);
+							bund.putString("content", content);
+							bund.putString("Id", timingList.get(i - 1)
+									.getTiming_id());
+							if (timingList.get(i - 1).getLocation().isEmpty()) {
+								bund.putString("location", null);
+							} else {
+								bund.putString("location", timingList.get(i - 1)
+										.getLocation());
+							}
+							timingAlarm.putExtras(bund);
+							PendingIntent pendingIntent = PendingIntent.getBroadcast(
+									getActivity(), 0, timingAlarm,
+									PendingIntent.FLAG_UPDATE_CURRENT);
+							AlarmManager timingManager = (AlarmManager) getActivity()
+									.getSystemService(getActivity().ALARM_SERVICE);
+							timingManager.set(AlarmManager.RTC_WAKEUP, endTime,
+									pendingIntent);
+							return;
+						}else if(periodicList!=null){
+							String content = periodicList.get(0).getContent();
+							String userId = sp.getString("user", null);
+							long endTime = timService.getSecondsFromDate(periodicList.get(0).getEnd_time());
+							
+							Intent timingAlarm = new Intent(getActivity(),
+									Receiver.class);
+							Bundle bund = new Bundle();
+							bund.putString("class", "periodic");
+							bund.putString("user", userId);
+							bund.putString("content", content);
+							bund.putString("Id", periodicList.get(0).getPeriodic_id());
+							bund.putString("location", null);
+							timingAlarm.putExtras(bund);
+							PendingIntent pendingIntent = PendingIntent.getBroadcast(
+									getActivity(), 0, timingAlarm,
+									PendingIntent.FLAG_UPDATE_CURRENT);
+							AlarmManager timingManager = (AlarmManager) getActivity()
+									.getSystemService(getActivity().ALARM_SERVICE);
+							timingManager.set(AlarmManager.RTC_WAKEUP, endTime,
+									pendingIntent);
+							return;
+						}
+					}else {
+						Intent timingAlarm = new Intent(getActivity(),
+								Receiver.class);
+						PendingIntent pendingIntent = PendingIntent.getBroadcast(
+								getActivity(), 0, timingAlarm,
+								PendingIntent.FLAG_UPDATE_CURRENT);
+						AlarmManager timingManager = (AlarmManager) getActivity()
+								.getSystemService(getActivity().ALARM_SERVICE);
+						timingManager.cancel(pendingIntent);
+						}
+				}
+			}else if(0!=pSize){
+				String content=periodicList.get(0).getContent();
+				String userId=sp.getString("user", null);
+				long endTime= timService.getSecondsFromDate(periodicList.get(0).getEnd_time());
+				
+				Intent timingAlarm=new Intent(getActivity(),Receiver.class);
+				Bundle bund=new Bundle();
+				bund.putString("user", userId);
+				bund.putString("class", "periodic");
+				bund.putString("content", content);
+				bund.putString("Id", periodicList.get(0).getPeriodic_id());
+				timingAlarm.putExtras(bund);
+				PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
+				AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
+				timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
+				return;
+			}else if(0!=tSize){
+				for(int i=0;i<tSize;i++){
+				if (timingList.get(i).getIsfinish() == 0) {
+					String content = timingList.get(i).getContent();
 					String userId = sp.getString("user", null);
 					long endTime = timService.getSecondsFromDate(timingList
-							.get(i-1).getEnd_time());
+							.get(i).getEnd_time());
 
 					Intent timingAlarm = new Intent(getActivity(),
 							Receiver.class);
@@ -495,11 +582,11 @@ public class UnfinishFragment extends Fragment {
 					bund.putString("class", "timing");
 					bund.putString("user", userId);
 					bund.putString("content", content);
-					bund.putString("timingId", timingList.get(i-1).getTiming_id());
-					if (timingList.get(i-1).getLocation().isEmpty()) {
+					bund.putString("Id", timingList.get(i).getTiming_id());
+					if (timingList.get(i).getLocation().isEmpty()) {
 						bund.putString("location", null);
 					} else {
-						bund.putString("location", timingList.get(i-1)
+						bund.putString("location", timingList.get(i)
 								.getLocation());
 					}
 					timingAlarm.putExtras(bund);
@@ -511,38 +598,7 @@ public class UnfinishFragment extends Fragment {
 					timingManager.set(AlarmManager.RTC_WAKEUP, endTime,
 							pendingIntent);
 					return;
-					}else if(periodicList!=null){
-					String content = periodicList.get(0).getContent();
-					String userId = sp.getString("user", null);
-					long endTime = timService.getSecondsFromDate(periodicList
-							.get(0).getEnd_time());
-					Intent timingAlarm = new Intent(getActivity(),
-							Receiver.class);
-					Bundle bund = new Bundle();
-					bund.putString("class", "periodic");
-					bund.putString("user", userId);
-					bund.putString("content", content);
-					bund.putString("Id", periodicList.get(0).getPeriodic_id());
-					bund.putString("location", "");
-					timingAlarm.putExtras(bund);
-					PendingIntent pendingIntent = PendingIntent.getBroadcast(
-							getActivity(), 0, timingAlarm,
-							PendingIntent.FLAG_UPDATE_CURRENT);
-					AlarmManager timingManager = (AlarmManager) getActivity()
-							.getSystemService(getActivity().ALARM_SERVICE);
-					timingManager.set(AlarmManager.RTC_WAKEUP, endTime,
-							pendingIntent);
-					return;
-					}
-				} else {
-					Intent timingAlarm = new Intent(getActivity(),
-							Receiver.class);
-					PendingIntent pendingIntent = PendingIntent.getBroadcast(
-							getActivity(), 0, timingAlarm,
-							PendingIntent.FLAG_UPDATE_CURRENT);
-					AlarmManager timingManager = (AlarmManager) getActivity()
-							.getSystemService(getActivity().ALARM_SERVICE);
-					timingManager.cancel(pendingIntent);
+				}
 				}
 			}
 		}

@@ -1,4 +1,4 @@
-package com.telc.ui.Memos;
+package com.telc.ui.main.viewModel;
 
 import com.telc.data.dbDriver.DBConstant;
 import com.telc.domain.Emtity.Periodic;
@@ -7,7 +7,7 @@ import com.telc.domain.Service.TimingService;
 import com.telc.domain.time.Service.TimeService;
 import com.telc.resource.remind.connentNet;
 import com.telc.resource.remind.remindContent;
-import com.telc.ui.main.viewModel.UnfinishFragment;
+import com.telc.ui.Memos.TimingMemoActivity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -52,9 +52,9 @@ public class Receiver extends BroadcastReceiver{
 				}
 			periodic.updatePeriodic(temp);
 		}
-//		remindContent.Content=content;
-//		remindContent.useId=user;
-//		new connentNet().start();
+		remindContent.Content=content;
+		remindContent.useId=user;
+		new connentNet().start();
 		Toast.makeText(ctx, "定时提醒已发出  To:  "+user+"   "+content, Toast.LENGTH_SHORT).show();
 //		Log.e("alarm", String.valueOf(System.currentTimeMillis()));
 	}

@@ -66,6 +66,10 @@ public class PeriodicService implements IPeriodicService {
 				int start_timeColumn = cursor.getColumnIndex("start_time");
 				String start_time = cursor.getString(start_timeColumn);
 				periodic.setStart_time(start_time);
+				
+				int end_timeColumn = cursor.getColumnIndex("end_time");
+				String end_time = cursor.getString(end_timeColumn);
+				periodic.setEnd_time(end_time);
 
 				periodic_list.add(periodic);
 			}
@@ -154,9 +158,13 @@ public class PeriodicService implements IPeriodicService {
 				int infinish = cursor.getInt(infinishColumn);
 				periodic.setIsfinish(infinish);
 				
-				int starttimeColumn = cursor.getColumnIndex("isfinish");
+				int starttimeColumn = cursor.getColumnIndex("start_time");
 				String starttime = cursor.getString(starttimeColumn);
 				periodic.setStart_time(starttime);
+				
+				int endtimeColunm = cursor.getColumnIndex("end_time");
+				String end_time = cursor.getString(starttimeColumn);
+				periodic.setEnd_time(end_time);
 
 			}
 			return periodic;
