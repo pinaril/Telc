@@ -21,7 +21,6 @@ import com.telc.ui.Memos.PeriodicMemoDelActivity;
 import com.telc.ui.Memos.RealtimeMemoDelActivity;
 import com.telc.ui.Memos.TimingMemoActivity;
 import com.telc.ui.Memos.TimingMemoDelActivity;
-import com.telc.ui.Memos.TimingReceiver;
 import com.telc.ui.main.SlidingActivity;
 
 import android.app.AlarmManager;
@@ -57,11 +56,11 @@ public class UnfinishFragment extends Fragment {
 	private RealTimeService realTimeService;
 	private PeriodicService periodicService;
 	private SharedPreferences sp;// 用来获取xml保存的useiId
+	View view = null;
 
 	private TextView textListCategory;
 	int color;
 	public TimeService timService;
-
 
 	ListView uncompleteList;
 	// 保存list中的item的列表
@@ -70,7 +69,7 @@ public class UnfinishFragment extends Fragment {
 	SimpleAdapter mAdapter = null;
 	// 适配器中的key
 	String[] from = { "textListCategory", "ratingBarListItem",
-			"textListContent","textIndex" };
+			"textListContent", "textIndex" };
 	// value
 	int[] to = { R.id.textListCategory, R.id.ratingBarListItem,
 			R.id.textListContent, R.id.textIndex };
@@ -79,14 +78,16 @@ public class UnfinishFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		timService=new TimeService();
+		timService = new TimeService();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View view = inflater.inflate(R.layout.activity_unfinish, null);
+
+		view = inflater.inflate(R.layout.activity_unfinish, null);
+
 		uncompleteList = (ListView) view.findViewById(R.id.listViewUnfinish);
 		sp = getActivity().getSharedPreferences("Login",
 				getActivity().MODE_PRIVATE);
@@ -94,88 +95,101 @@ public class UnfinishFragment extends Fragment {
 		initAdapert();
 		if (mAdapter != null)
 			uncompleteList.setAdapter(mAdapter);
-		
+
 		// listView中Item的监听
-		uncompleteList.setOnItemLongClickListener(new OnItemLongClickListener() {
-			@Override
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// TODO Auto-generated method stub
-				String itemValue=parent.getItemAtPosition(position).toString();
-				String[] itemSplit=itemValue.split(",");
-				final String index=itemSplit[2].substring(11);
-				String categoryString=itemSplit[1].substring(18);
-				final CharSequence[] items={"标记为已完成"};
-				TextView textSign;
-				if(categoryString.compareTo("实时提醒")==0){
-					// TODO Auto-generated method stub
-					final Dialog mDialog = new Dialog(getActivity());
-					mDialog.setTitle("更多操作：");
-					LayoutInflater inflater = LayoutInflater.from(getActivity());
-					final View dialogView = inflater.inflate(R.layout.sign_finish_dialog,
-							null);
-					textSign=(TextView) dialogView.findViewById(R.id.textSignFinish);
-					textSign.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View arg0) {
+		uncompleteList
+				.setOnItemLongClickListener(new OnItemLongClickListener() {
+					@Override
+					public boolean onItemLongClick(AdapterView<?> parent,
+							View view, int position, long id) {
+						// TODO Auto-generated method stub
+						String itemValue = parent.getItemAtPosition(position)
+								.toString();
+						String[] itemSplit = itemValue.split(",");
+						final String index = itemSplit[2].substring(11);
+						String categoryString = itemSplit[1].substring(18);
+						final CharSequence[] items = { "标记为已完成" };
+						TextView textSign;
+						if (categoryString.compareTo("实时提醒") == 0) {
 							// TODO Auto-generated method stub
-							realTimeService.updateIsfinish(index);
-							Toast.makeText(getActivity(), "标记成功！", Toast.LENGTH_SHORT).show();
-							initAdapert();
-							uncompleteList.setAdapter(mAdapter);
-							mDialog.dismiss();
-						}
-					});
-					mDialog.setContentView(dialogView);
-					mDialog.show();
-				}else if(categoryString.compareTo("定时提醒")==0){
-					// TODO Auto-generated method stub
-					final Dialog mDialog = new Dialog(getActivity());
-					mDialog.setTitle("更多操作：");
-					LayoutInflater inflater = LayoutInflater.from(getActivity());
-					final View dialogView = inflater.inflate(R.layout.sign_finish_dialog,
-							null);
-					textSign=(TextView) dialogView.findViewById(R.id.textSignFinish);
-					textSign.setOnClickListener(new OnClickListener() {
-						@Override
-						public void onClick(View arg0) {
+							final Dialog mDialog = new Dialog(getActivity());
+							mDialog.setTitle("更多操作：");
+							LayoutInflater inflater = LayoutInflater
+									.from(getActivity());
+							final View dialogView = inflater.inflate(
+									R.layout.sign_finish_dialog, null);
+							textSign = (TextView) dialogView
+									.findViewById(R.id.textSignFinish);
+							textSign.setOnClickListener(new OnClickListener() {
+								@Override
+								public void onClick(View arg0) {
+									// TODO Auto-generated method stub
+									realTimeService.updateIsfinish(index);
+									Toast.makeText(getActivity(), "标记成功！",
+											Toast.LENGTH_SHORT).show();
+									initAdapert();
+									uncompleteList.setAdapter(mAdapter);
+									mDialog.dismiss();
+								}
+							});
+							mDialog.setContentView(dialogView);
+							mDialog.show();
+						} else if (categoryString.compareTo("定时提醒") == 0) {
 							// TODO Auto-generated method stub
-							timingService.updateIsfinish(index);
-							Toast.makeText(getActivity(), "标记成功！", Toast.LENGTH_SHORT).show();
-							initAdapert();
-							uncompleteList.setAdapter(mAdapter);
-							mDialog.dismiss();
+							final Dialog mDialog = new Dialog(getActivity());
+							mDialog.setTitle("更多操作：");
+							LayoutInflater inflater = LayoutInflater
+									.from(getActivity());
+							final View dialogView = inflater.inflate(
+									R.layout.sign_finish_dialog, null);
+							textSign = (TextView) dialogView
+									.findViewById(R.id.textSignFinish);
+							textSign.setOnClickListener(new OnClickListener() {
+								@Override
+								public void onClick(View arg0) {
+									// TODO Auto-generated method stub
+									timingService.updateIsfinish(index);
+									Toast.makeText(getActivity(), "标记成功！",
+											Toast.LENGTH_SHORT).show();
+									initAdapert();
+									uncompleteList.setAdapter(mAdapter);
+									mDialog.dismiss();
+								}
+							});
+							mDialog.setContentView(dialogView);
+							mDialog.show();
 						}
-					});
-					mDialog.setContentView(dialogView);
-					mDialog.show();
-				}
-//				else if(categoryString.compareTo("周期性提醒")==0){
-//					// TODO Auto-generated method stub
-//					final Dialog mDialog = new Dialog(getActivity());
-//					mDialog.setTitle("更多操作：");
-//					LayoutInflater inflater = LayoutInflater.from(getActivity());
-//					final View dialogView = inflater.inflate(R.layout.sign_finish_dialog,
-//							null);
-//					textSign=(TextView) dialogView.findViewById(R.id.textSignFinish);
-//					textSign.setOnClickListener(new OnClickListener() {
-//						@Override
-//						public void onClick(View arg0) {
-//							// TODO Auto-generated method stub
-//							periodicService.updateIsfinish(index);
-//							Toast.makeText(getActivity(), "标记成功！", Toast.LENGTH_SHORT).show();
-//							initAdapert();
-//							uncompleteList.setAdapter(mAdapter);
-//							mDialog.dismiss();
-//						}
-//					});
-//					mDialog.setContentView(dialogView);
-//					mDialog.show();
-//				}
-				return true;
-			}
-			});
-		
+						// else if(categoryString.compareTo("周期性提醒")==0){
+						// // TODO Auto-generated method stub
+						// final Dialog mDialog = new Dialog(getActivity());
+						// mDialog.setTitle("更多操作：");
+						// LayoutInflater inflater =
+						// LayoutInflater.from(getActivity());
+						// final View dialogView =
+						// inflater.inflate(R.layout.sign_finish_dialog,
+						// null);
+						// textSign=(TextView)
+						// dialogView.findViewById(R.id.textSignFinish);
+						// textSign.setOnClickListener(new OnClickListener()
+						// {
+						// @Override
+						// public void onClick(View arg0) {
+						// // TODO Auto-generated method stub
+						// periodicService.updateIsfinish(index);
+						// Toast.makeText(getActivity(), "标记成功！",
+						// Toast.LENGTH_SHORT).show();
+						// initAdapert();
+						// uncompleteList.setAdapter(mAdapter);
+						// mDialog.dismiss();
+						// }
+						// });
+						// mDialog.setContentView(dialogView);
+						// mDialog.show();
+						// }
+						return true;
+					}
+				});
+
 		// listView中Item的监听
 		uncompleteList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -183,41 +197,44 @@ public class UnfinishFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				String itemValue=arg0.getItemAtPosition(position).toString();
-				String[] itemSplit=itemValue.split(",");
-				String index=itemSplit[2].substring(11);
-				String categoryString=itemSplit[1].substring(18);
-				
-				
-				if(categoryString.compareTo("实时提醒")==0){
+				String itemValue = arg0.getItemAtPosition(position).toString();
+				String[] itemSplit = itemValue.split(",");
+				String index = itemSplit[2].substring(11);
+				String categoryString = itemSplit[1].substring(18);
+
+				if (categoryString.compareTo("实时提醒") == 0) {
 					Bundle bundle = new Bundle(); // 创建Bundle对象
 					bundle.putString("index", index);
-					Intent intent=new Intent((SlidingActivity)getActivity(),RealtimeMemoDelActivity.class);
+					Intent intent = new Intent((SlidingActivity) getActivity(),
+							RealtimeMemoDelActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
-				}else if(categoryString.compareTo("定时提醒")==0){
+				} else if (categoryString.compareTo("定时提醒") == 0) {
 					Bundle bundle = new Bundle(); // 创建Bundle对象
 					bundle.putString("index", index);
-					Intent intent=new Intent((SlidingActivity)getActivity(),TimingMemoDelActivity.class);
+					Intent intent = new Intent((SlidingActivity) getActivity(),
+							TimingMemoDelActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
-				}else if(categoryString.compareTo("周期性提醒")==0){
+				} else if (categoryString.compareTo("周期性提醒") == 0) {
 					Bundle bundle = new Bundle(); // 创建Bundle对象
 					bundle.putString("index", index);
-					Intent intent=new Intent((SlidingActivity)getActivity(),PeriodicMemoDelActivity.class);
+					Intent intent = new Intent((SlidingActivity) getActivity(),
+							PeriodicMemoDelActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
-				}else {
+				} else {
 					return;
 				}
 			}
 		});
+
 		return view;
 	}
-	
+
 	private void initAdapert() {
 		// TODO Auto-generated method stub
-		// 打开数据库
+
 		db = getActivity().openOrCreateDatabase(DBConstant.DB_FILENAME,
 				getActivity().MODE_PRIVATE, null);
 		// 实例化数据库服务
@@ -227,6 +244,7 @@ public class UnfinishFragment extends Fragment {
 		// 获取userId
 		String userId = sp.getString("user", null);
 		// 数据库中获取的List<Timing>
+
 		List<Timing> timingList = timingService.getTimingByUserID(userId);
 		List<RealTime> realList = realTimeService.getRealTimeByUserID(userId);
 		List<Periodic> perioList = periodicService.getPeriodicByUserID(userId);
@@ -404,64 +422,222 @@ public class UnfinishFragment extends Fragment {
 					return false;
 			}
 		});
-		timingRemind();
+		memosRemind();
 	}
+
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		mAdapter=null;		
-		initAdapert();
-		timingRemind();
-		if (mAdapter != null)
-		{
-			uncompleteList.setAdapter(mAdapter);
-		}
+		 mAdapter = null;
+		 initAdapert();
+//		 memosRemind();
+		 if (mAdapter != null) {
+		 uncompleteList.setAdapter(mAdapter);
+		 }
 	}
-	
-	public void timingRemind(){
-		List<Timing> timingList=timingService.getTimingByUserID(sp.getString("user", null));
+
+	public void memosRemind() {
+		int tSize,pSize;
+		List<Timing> timingList = timingService.
+				getTimingByUserID(sp.getString("user", null));
+		List<Periodic> periodicList=periodicService.
+				getPeriodicByUserID(sp.getString("user", null));
 		if (timingList != null) {
 			Collections.sort(timingList, new Comparator<Timing>() {
 				@Override
 				public int compare(Timing lhs, Timing rhs) {
-					long timingEndtime1 = timService.getSecondsFromDate(lhs.getEnd_time());
-					long timingEndtime2 = timService.getSecondsFromDate(rhs.getEnd_time());
-					if (timingEndtime1<=timingEndtime2) {
+					long timingEndtime1 = timService.getSecondsFromDate(lhs
+							.getEnd_time());
+					long timingEndtime2 = timService.getSecondsFromDate(rhs
+							.getEnd_time());
+					if (timingEndtime1 <= timingEndtime2) {
 						return -1;
-					} else 
+					} else
 						return 1;
 				}
 			});
-			for(int i=0;i<timingList.size();i++){
-				if(timingList.get(i).getIsfinish()==0){
-					String content=timingList.get(i).getContent();
-					String userId=sp.getString("user", null);
-					long endTime= timService.getSecondsFromDate(timingList.get(i).getEnd_time());
-					
-					Intent timingAlarm=new Intent(getActivity(),TimingReceiver.class);
-					Bundle bund=new Bundle();
+		}
+			
+		if (periodicList != null) {
+			Collections.sort(periodicList, new Comparator<Periodic>() {
+				@Override
+				public int compare(Periodic lhs, Periodic rhs) {
+					long periodicEndtime1 = timService.getSecondsFromDate(lhs.getEnd_time());
+					long periodicEndtime2 = timService.getSecondsFromDate(rhs.getEnd_time());
+					if (periodicEndtime1<=periodicEndtime2) {
+						return -1;
+					} else 
+						return 1;
+					}
+			});
+		}
+			if(timingList!=null&&periodicList!=null){
+				tSize=timingList.size();
+				pSize=periodicList.size();
+			}else if(timingList!=null&&periodicList==null){
+				tSize=timingList.size();
+				pSize=0;
+			}else if(timingList==null&&periodicList!=null){
+				tSize=0;
+				pSize=periodicList.size();
+			}else{
+				tSize=0;
+				pSize=0;
+			}
+			if(0!=tSize&&0!=pSize){
+				for (int i = 1; i <= tSize; i++) {
+					if(timingList.get(i-1).getIsfinish()==0){
+						if(timService.getSecondsFromDate(periodicList.get(0).getEnd_time())>
+								timService.getSecondsFromDate(timingList.get(i-1).getEnd_time())){
+							String content = timingList.get(i - 1).getContent();
+							String userId = sp.getString("user", null);
+							long endTime = timService.getSecondsFromDate(timingList
+									.get(i - 1).getEnd_time());
+		
+							Intent timingAlarm = new Intent(getActivity(),
+									Receiver.class);
+							Bundle bund = new Bundle();
+							bund.putString("class", "timing");
+							bund.putString("user", userId);
+							bund.putString("content", content);
+							bund.putString("Id", timingList.get(i - 1)
+									.getTiming_id());
+							if (timingList.get(i - 1).getLocation().isEmpty()) {
+								bund.putString("location", null);
+							} else {
+								bund.putString("location", timingList.get(i - 1)
+										.getLocation());
+							}
+							timingAlarm.putExtras(bund);
+							PendingIntent pendingIntent = PendingIntent.getBroadcast(
+									getActivity(), 0, timingAlarm,
+									PendingIntent.FLAG_UPDATE_CURRENT);
+							AlarmManager timingManager = (AlarmManager) getActivity()
+									.getSystemService(getActivity().ALARM_SERVICE);
+							timingManager.set(AlarmManager.RTC_WAKEUP, endTime,
+									pendingIntent);
+							return;
+						}else if(periodicList!=null){
+							String content = periodicList.get(0).getContent();
+							String userId = sp.getString("user", null);
+							long endTime = timService.getSecondsFromDate(periodicList.get(0).getEnd_time());
+							
+							Intent timingAlarm = new Intent(getActivity(),
+									Receiver.class);
+							Bundle bund = new Bundle();
+							bund.putString("class", "periodic");
+							bund.putString("user", userId);
+							bund.putString("content", content);
+							bund.putString("Id", periodicList.get(0).getPeriodic_id());
+							bund.putString("location", null);
+							timingAlarm.putExtras(bund);
+							PendingIntent pendingIntent = PendingIntent.getBroadcast(
+									getActivity(), 0, timingAlarm,
+									PendingIntent.FLAG_UPDATE_CURRENT);
+							AlarmManager timingManager = (AlarmManager) getActivity()
+									.getSystemService(getActivity().ALARM_SERVICE);
+							timingManager.set(AlarmManager.RTC_WAKEUP, endTime,
+									pendingIntent);
+							return;
+						}
+					}else {
+						Intent timingAlarm = new Intent(getActivity(),
+								Receiver.class);
+						PendingIntent pendingIntent = PendingIntent.getBroadcast(
+								getActivity(), 0, timingAlarm,
+								PendingIntent.FLAG_UPDATE_CURRENT);
+						AlarmManager timingManager = (AlarmManager) getActivity()
+								.getSystemService(getActivity().ALARM_SERVICE);
+						timingManager.cancel(pendingIntent);
+						}
+				}
+			}else if(0!=pSize){
+				String content=periodicList.get(0).getContent();
+				String userId=sp.getString("user", null);
+				long endTime= timService.getSecondsFromDate(periodicList.get(0).getEnd_time());
+				
+				Intent timingAlarm=new Intent(getActivity(),Receiver.class);
+				Bundle bund=new Bundle();
+				bund.putString("user", userId);
+				bund.putString("class", "periodic");
+				bund.putString("content", content);
+				bund.putString("Id", periodicList.get(0).getPeriodic_id());
+				timingAlarm.putExtras(bund);
+				PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
+				AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
+				timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
+				return;
+			}else if(0!=tSize){
+				for(int i=0;i<tSize;i++){
+				if (timingList.get(i).getIsfinish() == 0) {
+					String content = timingList.get(i).getContent();
+					String userId = sp.getString("user", null);
+					long endTime = timService.getSecondsFromDate(timingList
+							.get(i).getEnd_time());
+
+					Intent timingAlarm = new Intent(getActivity(),
+							Receiver.class);
+					Bundle bund = new Bundle();
+					bund.putString("class", "timing");
 					bund.putString("user", userId);
 					bund.putString("content", content);
-					bund.putString("timingId", timingList.get(i).getTiming_id());
-					if(timingList.get(i).getLocation().isEmpty()){
+					bund.putString("Id", timingList.get(i).getTiming_id());
+					if (timingList.get(i).getLocation().isEmpty()) {
 						bund.putString("location", null);
-					}else{
-						bund.putString("location", timingList.get(i).getLocation());
+					} else {
+						bund.putString("location", timingList.get(i)
+								.getLocation());
 					}
 					timingAlarm.putExtras(bund);
-					PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
-					AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
-					timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
+					PendingIntent pendingIntent = PendingIntent.getBroadcast(
+							getActivity(), 0, timingAlarm,
+							PendingIntent.FLAG_UPDATE_CURRENT);
+					AlarmManager timingManager = (AlarmManager) getActivity()
+							.getSystemService(getActivity().ALARM_SERVICE);
+					timingManager.set(AlarmManager.RTC_WAKEUP, endTime,
+							pendingIntent);
 					return;
-				}else{
-						Intent timingAlarm=new Intent(getActivity(),TimingReceiver.class);
-						PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
-						AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
-						timingManager.cancel(pendingIntent);
+				}
 				}
 			}
 		}
-	}
+
 	
+//	public void PeriodicRemind(){
+//		List<Periodic> periodicList=periodicService.getPeriodicByUserID(sp.getString("user", null));
+//		if (periodicList != null) {
+//			Collections.sort(periodicList, new Comparator<Periodic>() {
+//				@Override
+//				public int compare(Periodic lhs, Periodic rhs) {
+//					long periodicEndtime1 = timService.getSecondsFromDate(lhs.getEnd_time());
+//					long periodicEndtime2 = timService.getSecondsFromDate(rhs.getEnd_time());
+//					if (periodicEndtime1<=periodicEndtime2) {
+//						return -1;
+//					} else 
+//						return 1;
+//				}
+//			});
+//			for(int i=0;i<periodicList.size();i++){
+//				if(periodicList.get(i).getIsfinish()==0){
+//					String content=periodicList.get(i).getContent();
+//					String userId=sp.getString("user", null);
+//					long endTime= timService.getSecondsFromDate(periodicList.get(i).getEnd_time());
+//					
+//					Intent timingAlarm=new Intent(getActivity(),Receiver.class);
+//					Bundle bund=new Bundle();
+//					bund.putString("user", userId);
+//					bund.putString("content", content);
+//					bund.putString("periodicid", periodicList.get(i).getPeriodic_id());
+//					timingAlarm.putExtras(bund);
+//					PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 0, timingAlarm, PendingIntent.FLAG_UPDATE_CURRENT);
+//					AlarmManager timingManager=(AlarmManager) getActivity().getSystemService(getActivity().ALARM_SERVICE);
+//					timingManager.set(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
+//					return;
+//				}
+//			}
+//		}
+//	}
+	
+
 }

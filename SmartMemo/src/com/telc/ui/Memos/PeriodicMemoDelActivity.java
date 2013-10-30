@@ -73,7 +73,7 @@ public class PeriodicMemoDelActivity extends SherlockFragmentActivity {
 		editPeriodicContent.setFocusable(false);
 
 		
-		mPeriodic=periodicHelper.findPeriodicByStart(mIndex);
+		mPeriodic=periodicHelper.findPeriodicById(mIndex);
 		
 		ratingBarPeriodicPriority.setRating((float)mPeriodic.getPriority());
 		editPeriodicDetail.setText(mPeriodic.getPeriod_detail());

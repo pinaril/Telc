@@ -66,6 +66,10 @@ public class PeriodicService implements IPeriodicService {
 				int start_timeColumn = cursor.getColumnIndex("start_time");
 				String start_time = cursor.getString(start_timeColumn);
 				periodic.setStart_time(start_time);
+				
+				int end_timeColumn = cursor.getColumnIndex("end_time");
+				String end_time = cursor.getString(end_timeColumn);
+				periodic.setEnd_time(end_time);
 
 				periodic_list.add(periodic);
 			}
@@ -84,7 +88,8 @@ public class PeriodicService implements IPeriodicService {
 		int priority = periodic.getPriority();
 		int isfinish = periodic.getIsfinish();
 		String start_time = periodic.getStart_time();
-		String sql = "insert into PERIODIC (periodic_id,period,period_detail,user_id,content,priority,isfinish,start_time) values ('"
+		String end_time = periodic.getEnd_time();
+		String sql = "insert into PERIODIC (periodic_id,period,period_detail,user_id,content,priority,isfinish,start_time,end_time) values ('"
 				+ periodic_id
 				+ "','"
 				+ period
@@ -97,7 +102,7 @@ public class PeriodicService implements IPeriodicService {
 				+ "','"
 				+ priority
 				+ "','"
-				+ isfinish + "','" + start_time + "')";
+				+ isfinish + "','" + start_time + "','"+end_time+"')";
 
 		db.execSQL(sql);
 		return true;
@@ -113,7 +118,7 @@ public class PeriodicService implements IPeriodicService {
 	}
 
 	@Override
-	public Periodic findPeriodicByStart(String id) {
+	public Periodic findPeriodicById(String id) {
 		// TODO Auto-generated method stub
 		String sql = "select a.[rowid] as _id,* from PERIODIC as a where periodic_id='"
 				+ id + "'";
@@ -153,9 +158,13 @@ public class PeriodicService implements IPeriodicService {
 				int infinish = cursor.getInt(infinishColumn);
 				periodic.setIsfinish(infinish);
 				
-				int starttimeColumn = cursor.getColumnIndex("isfinish");
+				int starttimeColumn = cursor.getColumnIndex("start_time");
 				String starttime = cursor.getString(starttimeColumn);
 				periodic.setStart_time(starttime);
+				
+				int endtimeColunm = cursor.getColumnIndex("end_time");
+				String end_time = cursor.getString(starttimeColumn);
+				periodic.setEnd_time(end_time);
 
 			}
 			return periodic;
@@ -167,7 +176,7 @@ public class PeriodicService implements IPeriodicService {
 	@Override
 	public boolean updatePeriodic(Periodic periodic) {
 		// TODO Auto-generated method stub
-		String sql = "update PERIODIC set period='"+periodic.getPeriod()+"',period_detail='"+periodic.getPeriod_detail()+"',content='"+periodic.getContent()+"',priority='"+periodic.getPriority()+"' where periodic_id='"+periodic.getPeriodic_id()+"'";
+		String sql = "update PERIODIC set period='"+periodic.getPeriod()+"',period_detail='"+periodic.getPeriod_detail()+"',content='"+periodic.getContent()+"',priority='"+periodic.getPriority()+"',end_time='"+periodic.getEnd_time()+"' where periodic_id='"+periodic.getPeriodic_id()+"'";
 		db.execSQL(sql);
 		return true;
 	}
