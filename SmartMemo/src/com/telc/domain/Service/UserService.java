@@ -25,7 +25,6 @@ public class UserService implements IUserService {
 	public UserService() {
 
 	}
-
 	@Override
 	public User getUserByUserPhone(String phoneNum) {
 		// TODO Auto-generated method stub

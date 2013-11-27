@@ -49,7 +49,7 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 	//创建启动  Service  的  Intent 
 	final Intent intent =  new Intent("com.telc.domain.Service.locationService");
 	SQLiteDatabase db;
-	TimeService timeService=new TimeService();
+	TimeService timeService=TimeService.getInstance();
 	TimingService timing;
 	private boolean isToggle=false;
 	private boolean isClickBack=false;

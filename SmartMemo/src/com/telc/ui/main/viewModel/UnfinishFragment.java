@@ -78,7 +78,7 @@ public class UnfinishFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		timService = new TimeService();
+		timService = TimeService.getInstance();
 	}
 
 	@Override

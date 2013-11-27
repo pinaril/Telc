@@ -6,7 +6,13 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TimeService {
-	
+	private static TimeService service;
+	private TimeService(){
+		service=new TimeService();
+	}
+	public static TimeService getInstance(){
+		return service;
+	}
 	/**
 	 * 
 	 * @return 获取系统的当前时间，时间的格式为yyyy-MM-dd HH:mm:ss
