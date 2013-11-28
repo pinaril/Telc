@@ -17,44 +17,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/textListContent"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.08"
-                android:gravity="top"
-                android:text="textListContent"
-                android:textSize="25sp" />
-        </LinearLayout>
+                android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-            <TextView
-                android:id="@+id/textListCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="textListCategory" />
+                    <TextView
+                        android:id="@+id/textListContent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.08"     
+                        android:text="textListContent"
+                        android:textSize="25sp" />
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/textIndex"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text=""
-                android:visibility="invisible" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
 
-            <RatingBar
-                android:id="@+id/ratingBarListItem"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:stepSize="1"
-          />
+                    <TextView
+                        android:id="@+id/textListCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                       android:layout_weight="1"
+                       android:gravity="center_vertical"
+                        android:drawableLeft="@drawable/alarm_icon_getup"
+                        android:text="textListCategory" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBarListItem"
+                        style="?android:attr/ratingBarStyleSmall"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:layout_gravity="center_vertical"
+                        android:stepSize="1" />
+
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 

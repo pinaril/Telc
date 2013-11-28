@@ -32,6 +32,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
@@ -61,7 +63,8 @@ public class UnfinishFragment extends Fragment {
 	private TextView textListCategory;
 	int color;
 	public TimeService timService;
-
+	String category;
+	Drawable drawable;
 	ListView uncompleteList;
 	// 保存list中的item的列表
 	List<Map<String, Object>> mList;
@@ -69,10 +72,10 @@ public class UnfinishFragment extends Fragment {
 	SimpleAdapter mAdapter = null;
 	// 适配器中的key
 	String[] from = { "textListCategory", "ratingBarListItem",
-			"textListContent", "textIndex" };
+			"textListContent"};
 	// value
 	int[] to = { R.id.textListCategory, R.id.ratingBarListItem,
-			R.id.textListContent, R.id.textIndex };
+			R.id.textListContent};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -397,20 +400,44 @@ public class UnfinishFragment extends Fragment {
 					String textRepresentation) {
 				// TODO Auto-generated method stub
 
+				
 				if (view.getId() == R.id.textListCategory) {
-					String category = (String) data;
+					category = (String) data;
 					if (category.equals("定时提醒")) {
-						color = getResources().getColor(R.color.breanpink);
-
+						color = getResources().getColor(R.color.red);
+						drawable = getResources().getDrawable(
+								R.drawable.alarm_icon_getup);
 					} else if (category.equals("实时提醒")) {
-						color = getResources().getColor(R.color.bluegreen);
-
+						color = getResources().getColor(R.color.red);
+						drawable = getResources().getDrawable(
+								R.drawable.alarm_icon_normal);
 					} else if (category.equals("周期性提醒")) {
-						color = getResources().getColor(R.color.oringeyello);
+						color = getResources().getColor(R.color.red);
+						drawable = getResources().getDrawable(
+						R.drawable.alarm_icon_monthly);
 					}
 					TextView textListCategory = (TextView) view;
 					textListCategory.setTextColor(color);
+					textListCategory.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+					
 				}
+
+//				if (view.getId() == R.id.imageView1_type) {
+//					if (category.equals("定时提醒")) {
+//						drawable = getResources().getDrawable(
+//								R.drawable.alarm_icon_getup);
+//					} else if (category.equals("实时提醒")) {
+//						drawable = getResources().getDrawable(
+//								R.drawable.alarm_icon_normal);
+//					} else if (category.equals("周期性提醒")) {
+//						drawable = getResources().getDrawable(
+//								R.drawable.alarm_icon_monthly);
+//					}
+//					ImageView imageView1_type = (ImageView) view;
+//					imageView1_type.setImageDrawable(drawable);
+//
+//				}
+
 				if (view.getId() == R.id.ratingBarListItem) {
 					Float value = (Float) data;
 					float ratingValue = value.floatValue();

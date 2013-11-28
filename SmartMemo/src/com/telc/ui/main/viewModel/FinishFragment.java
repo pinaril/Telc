@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -41,7 +42,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleAdapter.ViewBinder;
-
+import android.widget.Toast;
 
 public class FinishFragment extends Fragment {
 
@@ -51,12 +52,11 @@ public class FinishFragment extends Fragment {
 	private RealTimeService realTimeService;
 	private PeriodicService periodicService;
 	private SharedPreferences sp;// 用来获取xml保存的useiId
-
+	String category;
 	private TextView textListCategory;
 	int color;
-
+	Drawable drawable;
 	public TimeService timService;
-
 
 	ListView completeList;
 	// 保存list中的item的列表
@@ -65,16 +65,16 @@ public class FinishFragment extends Fragment {
 	SimpleAdapter mAdapter = null;
 	// 适配器中的key
 	String[] from = { "textListCategory", "ratingBarListItem",
-			"textListContent","textIndex" };
+			"textListContent" };
 	// value
 	int[] to = { R.id.textListCategory, R.id.ratingBarListItem,
-			R.id.textListContent, R.id.textIndex };
+			R.id.textListContent};
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		timService=new TimeService();
+		timService = new TimeService();
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class FinishFragment extends Fragment {
 				getActivity().MODE_PRIVATE);
 		// 实例化Adapter
 		initAdapert();
-		
+
 		if (mAdapter != null)
 			completeList.setAdapter(mAdapter);
 		// listView中Item的监听
@@ -97,31 +97,33 @@ public class FinishFragment extends Fragment {
 			public void onItemClick(AdapterView<?> arg0, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
-				String itemValue=arg0.getItemAtPosition(position).toString();
-				String[] itemSplit=itemValue.split(",");
-				String index=itemSplit[2].substring(11);
-				String categoryString=itemSplit[1].substring(18);
-				
-				
-				if(categoryString.compareTo("实时提醒")==0){
+				String itemValue = arg0.getItemAtPosition(position).toString();
+				String[] itemSplit = itemValue.split(",");
+				String index = itemSplit[2].substring(11);
+				String categoryString = itemSplit[1].substring(18);
+
+				if (categoryString.compareTo("实时提醒") == 0) {
 					Bundle bundle = new Bundle(); // 创建Bundle对象
 					bundle.putString("index", index);
-					Intent intent=new Intent((SlidingActivity)getActivity(),RealtimeMemoDelActivity.class);
+					Intent intent = new Intent((SlidingActivity) getActivity(),
+							RealtimeMemoDelActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
-				}else if(categoryString.compareTo("定时提醒")==0){
+				} else if (categoryString.compareTo("定时提醒") == 0) {
 					Bundle bundle = new Bundle(); // 创建Bundle对象
 					bundle.putString("index", index);
-					Intent intent=new Intent((SlidingActivity)getActivity(),TimingMemoDelActivity.class);
+					Intent intent = new Intent((SlidingActivity) getActivity(),
+							TimingMemoDelActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
-				}else if(categoryString.compareTo("周期性提醒")==0){
+				} else if (categoryString.compareTo("周期性提醒") == 0) {
 					Bundle bundle = new Bundle(); // 创建Bundle对象
 					bundle.putString("index", index);
-					Intent intent=new Intent((SlidingActivity)getActivity(),PeriodicMemoDelActivity.class);
+					Intent intent = new Intent((SlidingActivity) getActivity(),
+							PeriodicMemoDelActivity.class);
 					intent.putExtras(bundle);
 					startActivity(intent);
-				}else {
+				} else {
 					return;
 				}
 
@@ -129,7 +131,7 @@ public class FinishFragment extends Fragment {
 		});
 		return view;
 	}
-	
+
 	private void initAdapert() {
 		// TODO Auto-generated method stub
 		// 打开数据库
@@ -166,7 +168,6 @@ public class FinishFragment extends Fragment {
 				}
 			});
 		}
-
 
 		if (realList != null) {
 			Collections.sort(realList, new Comparator<RealTime>() {
@@ -249,21 +250,47 @@ public class FinishFragment extends Fragment {
 			public boolean setViewValue(View view, Object data,
 					String textRepresentation) {
 				// TODO Auto-generated method stub
-
+ 
+				
 				if (view.getId() == R.id.textListCategory) {
-					String category = (String) data;
+					category = (String) data;
 					if (category.equals("定时提醒")) {
-						color = getResources().getColor(R.color.breanpink);
-
+						color = getResources().getColor(R.color.red);
+						drawable = getResources().getDrawable(
+								R.drawable.alarm_icon_getup);
 					} else if (category.equals("实时提醒")) {
-						color = getResources().getColor(R.color.bluegreen);
-
+						color = getResources().getColor(R.color.red);
+						drawable = getResources().getDrawable(
+								R.drawable.alarm_icon_normal);
 					} else if (category.equals("周期性提醒")) {
-						color = getResources().getColor(R.color.oringeyello);
+						color = getResources().getColor(R.color.red);
+						drawable = getResources().getDrawable(
+						R.drawable.alarm_icon_monthly);
 					}
 					TextView textListCategory = (TextView) view;
 					textListCategory.setTextColor(color);
+					textListCategory.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null);
+					
 				}
+
+//				if (view.getId() == R.id.imageView1_type) {
+//				
+//					if (category.equals("定时提醒")) {
+//						drawable = getResources().getDrawable(
+//								R.drawable.alarm_icon_getup);
+//					} else if (category.equals("实时提醒")) {
+//						drawable = getResources().getDrawable(
+//								R.drawable.alarm_icon_normal);
+//					} else if (category.equals("周期性提醒")) {
+//						drawable = getResources().getDrawable(
+//								R.drawable.alarm_icon_monthly);
+//					}
+//					ImageView imageView1_type = (ImageView) view;
+//					//imageView1_type.setImageDrawable(drawable);
+//					imageView1_type.setBackgroundDrawable(drawable);
+//
+//				}
+
 				if (view.getId() == R.id.ratingBarListItem) {
 					Float value = (Float) data;
 					float ratingValue = value.floatValue();
@@ -276,14 +303,14 @@ public class FinishFragment extends Fragment {
 			}
 		});
 	}
+
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		mAdapter=null;		
+		mAdapter = null;
 		initAdapert();
-		if (mAdapter != null)
-		{
+		if (mAdapter != null) {
 			completeList.setAdapter(mAdapter);
 		}
 	}

@@ -81,10 +81,9 @@ public class SlidingActivity extends SlidingFragmentActivity implements DBConsta
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setTitle("智慧备忘录");//设置备忘录标题
+		
 		setContentView(R.layout.activity_unfinish);
 		sp=getSharedPreferences("Login",MODE_PRIVATE);
-		db=openOrCreateDatabase(DBConstant.DB_FILENAME,MODE_PRIVATE, null);
-		timing=new TimingService(db);
 		setBehindContentView(R.layout.activity_menu);//设置侧边的布局文件
         //Fragment事件开始
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
