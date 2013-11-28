@@ -24,7 +24,7 @@ public class Receiver extends BroadcastReceiver{
 	public void onReceive(Context ctx, Intent intent) {
 		// TODO Auto-generated method stub
 		SQLiteDatabase db=ctx.openOrCreateDatabase(DBConstant.DB_FILENAME,TimingMemoActivity.MODE_PRIVATE, null);
-		TimeService time=new TimeService();
+		TimeService time=TimeService.getInstance();
 		Bundle bundle=new Bundle();
 		bundle=intent.getExtras();
 		String user=bundle.getString("user");

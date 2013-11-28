@@ -81,7 +81,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 		sp = getSharedPreferences("Login", MODE_PRIVATE);
 		timingMemoActivity = this;
 		context = this;
-		mTimeService=new TimeService();
+		mTimeService=TimeService.getInstance();
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		init();
 
@@ -238,7 +238,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 
 	private Timing obtainTimingInfo() {
 		Timing timing = new Timing();
-		TimeService service = new TimeService();
+		TimeService service = TimeService.getInstance();
 
 		// 定时提醒中主要包括提醒时间，提醒内容，定时的星级大小，定時的起始時間，定時的結束時間
 
@@ -318,7 +318,7 @@ public class TimingMemoActivity extends SherlockFragmentActivity {
 
 				});
 
-		TimeService service=new TimeService();
+		TimeService service=TimeService.getInstance();
 		String currentTime=service.longSwithToString(System.currentTimeMillis());
 		String currentHour=currentTime.substring(11, 13);
 		timePicker.setCurrentHour(Integer.valueOf(currentHour));

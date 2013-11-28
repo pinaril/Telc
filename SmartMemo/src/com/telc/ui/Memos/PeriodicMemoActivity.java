@@ -44,7 +44,7 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 	EditText editPeriodicContent, editPeriodicDetail, timeEt;
 	TimePicker timePicker;
 	private ArrayAdapter<String> spinnerAdapter;
-	TimeService mTime = new TimeService();
+	TimeService mTime =TimeService.getInstance();
 	// 周期性提醒对象
 	private Periodic mPeriodic = new Periodic();
 
@@ -164,7 +164,7 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 		btn_time_dialog_cancel = (Button) view
 				.findViewById(R.id.btn_time_dialog_cancel);
 		timePicker.setIs24HourView(true);
-		TimeService service = new TimeService();
+		TimeService service = TimeService.getInstance();
 		String currentTime = service.longSwithToString(System
 				.currentTimeMillis());
 		String currentHour = currentTime.substring(11, 13);
@@ -241,7 +241,7 @@ public class PeriodicMemoActivity extends SherlockFragmentActivity {
 				.setOnItemSelectedListener(new SpinnerWeekSelectedListener());
 
 		timePicker.setIs24HourView(true);
-		TimeService service = new TimeService();
+		TimeService service = TimeService.getInstance();
 		String currentTime = service.longSwithToString(System
 				.currentTimeMillis());
 		String currentHour = currentTime.substring(11, 13);
