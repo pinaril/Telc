@@ -97,8 +97,12 @@ public class TimingMemoDelActivity extends SherlockFragmentActivity {
 		timingService = new TimingService(db);
 	
 		ed_timing_time = (EditText) findViewById(R.id.ed_timing_time);    
+		ed_timing_time.setEnabled(false);
 		ed_timing_loction = (EditText) findViewById(R.id.ed_timing_loction);
+		ed_timing_loction.setEnabled(false);
 		edit_Timing_Content = (EditText) findViewById(R.id.edit_Timing_Content);
+		edit_Timing_Content.setEnabled(false);
+		
 		ratingBarTimingPriority = (RatingBar) findViewById(R.id.ratingBarTimingPriority);
 		
 		tabl_location = (TableRow) findViewById(R.id.tabl_location);
