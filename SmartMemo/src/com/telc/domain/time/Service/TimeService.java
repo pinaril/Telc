@@ -6,9 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class TimeService {
-	private static TimeService service;
+	private static TimeService service=new TimeService();
 	private TimeService(){
-		service=new TimeService();
+	
 	}
 	public static TimeService getInstance(){
 		return service;
